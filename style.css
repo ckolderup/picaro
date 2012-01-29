@@ -116,6 +116,12 @@
         top: -10px;
         right: -12px;
       }
+        @media screen and (min-width: 620px) {
+          #header #header-move {
+            background-image: url(images/compass@2x.png);
+            background-size: 59px 60px;
+          }
+        }
 
   /* Game */ 
 
@@ -201,6 +207,12 @@
             padding-top: 29px;
             margin: 0;
           }
+            @media screen and (min-width: 620px) {
+              #footer ul li a {
+                background-image: url(images/footer@2x.png);
+                background-size: 320px 20px;
+              }
+            }
             #footer ul #footer-look a { background-position-x: 0; }
             #footer ul #footer-take a { background-position-x: -64px; }
             #footer ul #footer-use a { background-position-x: -128px; }
@@ -389,6 +401,12 @@
           left: 134px;
           bottom: -14px;
         }
+          @media screen and (min-width: 620px) {
+            .ui-modal .ui-modal-notch {
+              background-image: url(images/action_notch@2x.png);
+              background-size: 21px 15px;
+            }
+          }
   
   /* Action Sheet */
       
@@ -449,6 +467,22 @@
       .ui-scroller ul {
         position: static;
       }
+        .ui-scroller ul li:first-child {
+          margin-top: 55px;
+        }
+          @media screen and (min-width: 620px) {
+            .ui-scroller ul li:first-child {
+              margin-top: 0;
+            }
+          }
+        .ui-scroller ul li:last-child {
+          margin-bottom: 55px;
+        }
+          @media screen and (min-width: 620px) {
+            .ui-scroller ul li:last-child {
+              margin-bottom: 0;
+            }
+          }
         .ui-scroller ul li a {
           padding: 7.75px;
           display: block;
