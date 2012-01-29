@@ -375,7 +375,13 @@
         background-image: url(images/action_notch_left.png);
         left: -14px;
         bottom: 14px;
-      }
+      }      
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+          #action-talk #action-talk-character .ui-modal-notch {
+            background-image: url(images/action_notch_left@2x.png);
+            background-size: 15px 21px;
+          }
+        }
       #action-talk #action-talk-character #action-talk-character-message {
         height: 105px;
         overflow: auto;
@@ -395,7 +401,13 @@
         left: auto;
         right: -14px;
         bottom: 14px;
-      }
+      }      
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+          #action-talk #action-talk-player .ui-modal-notch {
+            background-image: url(images/action_notch_right@2x.png);
+            background-size: 15px 21px;
+          }
+        }
       #action-talk #action-talk-player .ui-scroller {
         height: 105px;
       }
