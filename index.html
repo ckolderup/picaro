@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <title>Horsemeat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="images/ios_icon.png" rel="apple-touch-icon-precomposed" /> 
+    <link href="images/ios_icon-72.png" rel="apple-touch-icon-precomposed" sizes="72x72" /> 
+    <link href="images/ios_icon@2x.png" rel="apple-touch-icon-precomposed" sizes="114x114" /> 
+    <link rel="apple-touch-startup-image" href="ios-startup-ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
+    <link rel="apple-touch-startup-image" href="ios-startup-ipad-portait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
+    <link rel="apple-touch-startup-image" href="ios-startup-iphone.png" media="screen and (max-device-width: 320px)" />
+    <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" href="ios-startup-iphone@2x.png">
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="picaro.js"></script>
+  </head>
+
+  <body>
+
+    <div id="container">
+      
+      <div id="header">
+        <h2></h2>
+        <a id="header-move" href="#">Move</a>
+      </div>
+      
+      <div id="game">
+      </div>
+      
+      <div id="footer">
+        <ul>
+          <li id="footer-look"><a href="#" class="action">Look</a></li><li id="footer-take"><a href="#" class="action">Take</a></li><li id="footer-use"><a href="#" class="action">Use</a></li><li id="footer-talk"><a href="#" class="action">Talk</a></li><li id="footer-attack"><a href="#" class="action">Attack</a></li>
+        </ul>
+      </div>
+      
+      <div id="move">
+        <div id="move-preview" class="ui-modal">
+          <div class="ui-modal-notch"></div>
+          <div class="ui-modal-inner">
+            ???
+          </div>
+        </div>
+        <div id="move-compass">
+          <ul>
+            <li id="move-compass-north"><a href="#" class="path"><span>N</span></a></li>
+            <li id="move-compass-east"><a href="#" class="path"><span>E</span></a></li>
+            <li id="move-compass-south"><a href="#" class="path"><span>S</span></a></li>
+            <li id="move-compass-west"><a href="#" class="disabled path"><span>W</span></a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div id="action-look" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-1"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Look at&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Look">
+                <li><a href="#">Dog</a></li>
+                <li><a href="#">Cat</a></li>
+                <li><a href="#">Mouse <small>(held)</small></a></li>
+                <li><a href="#">Elephant</a></li>
+                <li><a href="#">Crocodile</a></li>
+                <li><a href="#">Cow <small>(held)</small></a></li>
+                <li><a href="#">Horse</a></li>
+                <li><a href="#">Deer</a></li>
+                <li><a href="#">Lion</a></li>
+                <li><a href="#">Wolf</a></li>
+                <li><a href="#">Zebra</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="action-take" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-2"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Take&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Take">
+                <li><a href="#">Dog</a></li>
+                <li><a href="#">Cat</a></li>
+                <li><a href="#">Mouse <small>(held)</small></a></li>
+                <li><a href="#">Elephant</a></li>
+                <li><a href="#">Crocodile</a></li>
+                <li><a href="#">Cow <small>(held)</small></a></li>
+                <li><a href="#">Horse</a></li>
+                <li><a href="#">Deer</a></li>
+                <li><a href="#">Lion</a></li>
+                <li><a href="#">Wolf</a></li>
+                <li><a href="#">Zebra</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="action-use" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-3"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Use&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Use">
+                <li><a href="#">Dog</a></li>
+                <li><a href="#">Cat</a></li>
+                <li><a href="#">Mouse <small>(held)</small></a></li>
+                <li><a href="#">Elephant</a></li>
+                <li><a href="#">Crocodile</a></li>
+                <li><a href="#">Cow <small>(held)</small></a></li>
+                <li><a href="#">Horse</a></li>
+                <li><a href="#">Deer</a></li>
+                <li><a href="#">Lion</a></li>
+                <li><a href="#">Wolf</a></li>
+                <li><a href="#">Zebra</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="action-talk" class="ui-action">
+        <div id="action-talk-character" class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
+          <div class="ui-modal-inner">
+            <h3>Vampire:</h3>
+            <div id="action-talk-character-message">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua?</p>
+            </div>
+          </div>
+        </div>
+        <div id="action-talk-player" class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
+          <div class="ui-modal-inner">
+            <h3>You say&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Talk">
+                <li><a href="#">Dog</a></li>
+                <li><a href="#">Cat</a></li>
+                <li><a href="#">Mouse <small>(held)</small></a></li>
+                <li><a href="#">Elephant</a></li>
+                <li><a href="#">Crocodile</a></li>
+                <li><a href="#">Cow <small>(held)</small></a></li>
+                <li><a href="#">Horse</a></li>
+                <li><a href="#">Deer</a></li>
+                <li><a href="#">Lion</a></li>
+                <li><a href="#">Wolf</a></li>
+                <li><a href="#">Zebra</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="action-attack" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-5"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Attack&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Attack">
+                <li><a href="#">Dog</a></li>
+                <li><a href="#">Cat</a></li>
+                <li><a href="#">Mouse <small>(held)</small></a></li>
+                <li><a href="#">Elephant</a></li>
+                <li><a href="#">Crocodile</a></li>
+                <li><a href="#">Cow <small>(held)</small></a></li>
+                <li><a href="#">Horse</a></li>
+                <li><a href="#">Deer</a></li>
+                <li><a href="#">Lion</a></li>
+                <li><a href="#">Wolf</a></li>
+                <li><a href="#">Zebra</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+  <div class="ui-overlay"></div>
+  </body>
+
+</html>
