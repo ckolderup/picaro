@@ -25,9 +25,9 @@
 		],
       "items": [
 		{"Name": "Coffee Table", "Look": ["Dope coffee table.","Totally dope coffee table."], "Attack": ["You elbow drop that mess. Wood flies everywhere.", "You cut your elbow badly on a jagged piece of wood. Dummy."], "Counters" : {"Attack" : ["Elbow Drops", 1] }},
-		{"Name": "Couch", "Look": "Dope couch.",  "Attack": "Done. A good place for a practice elbow drop. Search elsewhere for the real deal."},    
-		{"Name": "Jackalope", "Look": "Dope jackalope", "Take": true, "Talk": "The jackalope can't talk. It's dead.", "Attack": "The jackalope sends you straight to hell."},
-		{"Name": "Sunglasses", "Look": "Dope sunglasses.",  "Take": true}
+		{"Name": "Couch", "Look": ["Dope couch."],  "Attack": ["Done. A good place for a practice elbow drop. Search elsewhere for the real deal.", "Test"], "Counters" : {"Talk" : ["Elbow Drops", 1]}},    
+		{"Name": "Jackalope", "Look": ["Dope jackalope"], "Take": true, "Talk": ["The jackalope can't talk. It's dead."], "Attack": ["The jackalope sends you straight to hell."]},
+		{"Name": "Sunglasses", "Look": ["Dope sunglasses."],  "Take": true}
        ]
   },
 

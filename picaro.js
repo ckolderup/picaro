@@ -70,16 +70,18 @@ $(document).ready(function() {
 
 
                   itemAction = function(action, item, roomID) {
+                           
                            for (var i in actions) {
                                     if(actions[i] === action) {
                                              var verb = action;
                                     }
                            }
-                           
-                           for (var i in data.Rooms[roomID].items) {                                  
 
-                                    if(data.Rooms[roomID].items[i].Name === item) {                   
+                           for (var i in data.Rooms[roomID].items) {
+                                    
                                              var nospaceItem = item.replace(/ /g,'');
+                                    if(data.Rooms[roomID].items[i].Name === nospaceItem) {
+                                             
                                              
                                              for(var x in itemStatuses) {
                                                       if(nospaceItem === itemStatuses[x].name) {
@@ -91,6 +93,8 @@ $(document).ready(function() {
                                                       }
                                              }
                                              var itemData = data.Rooms[roomID].items[i];
+                                             
+                                             
                                              if(verb === "Take") {
                                                       inventory.push(item);
                                                       updateStatus("You take the " + item + ".");
@@ -128,10 +132,11 @@ $(document).ready(function() {
                                              if(verb === "Attack") {
                                                       updateStatus(itemData.Attack[attackStatus]);
                                                       
-                                                      
+                                                      if(data.Rooms[roomID].items[i].Counters.Attack) {            // if a counter exists on the item
                                                       for(var q in counters) {
                                                                if(counters[q].name === data.Rooms[roomID].items[i].Counters.Attack[0] && counters[q].val < counters[q].max) {
                                                                }
+                                                      }
                                                       }
                                                       
                                                       for(var y in itemStatuses) {
@@ -223,7 +228,7 @@ $(document).ready(function() {
                      $(".ui-action ul li a").bind('click', function() {                          // re-bind click event to new links. is there a way around having this here?
                            var that = $(this);
                            var action = that.parent().parent().attr("id");
-                           var item = that.html();
+                           var item = that.clone().find("small").remove().end().text();
                            $(".ui-overlay, .ui-action").fadeOut();
                            $(".active").removeClass("active");
                            if(action === "Take") {
