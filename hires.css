@@ -1,0 +1,21 @@
+#header {}
+  #header #header-move {
+    background-image: url(images/compass@2x.png);
+    background-size: 59px 60px;
+  }
+  
+#footer {}
+  #footer ul {}
+    #footer ul li a {
+      background-image: url(images/footer@2x.png);
+      background-size: 320px 20px;
+    }
+  
+#move {}
+  
+.action {}
+  .action .action-sheet {}
+    .action .action-sheet .action-sheet-notch {
+      background-image: url(images/action_notch@2x.png);
+      background-size: 21px 15px;
+    }

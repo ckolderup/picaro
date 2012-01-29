@@ -1,0 +1,458 @@
+/*------
+ Global
+------*/
+
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, 
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+  	margin: 0;
+  	padding: 0;
+  	border: 0;
+  	font-size: 100%;
+  	font: inherit;
+  	vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section {
+  	display: block;
+  }
+  body {
+  	line-height: 1;
+  	background: #fdf7eb;
+  	font-family: Palatino, Georgia, Times, serif;
+  	color: #222;
+  }
+    @media screen and (min-width: 620px) {
+      body {
+        background: #444;
+      }
+    }
+  ol, ul {
+  	list-style: none;
+  }
+  blockquote, q {
+  	quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+  	content: '';
+  	content: none;
+  }
+  table {
+  	border-collapse: collapse;
+  	border-spacing: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #222;
+  }
+
+/*------
+ Layout
+------*/
+
+  #container {
+    margin: 0 auto;
+    background: #fdf7eb;
+  }
+    @media screen and (min-width: 620px) {
+      #container {
+        max-width: 520px;
+        margin-top: 80px;
+        position: relative;
+        border: 12px solid #000;
+        box-shadow: 4px 4px 0 rgba(0,0,0,.1);
+        border-radius: 10px;
+      }
+    }
+
+  /* Header */ 
+
+    #header {
+      background: #000;
+      position: fixed;
+      z-index: 10;
+      top: 5px;
+      left: 50%;
+      margin-left: -155px;
+      width: 306px;
+      height: 34px;
+      box-shadow: 2px 2px 0px rgba(0,0,0,.2);
+      color: #fdf7eb;
+      padding: 2px;
+    }
+      @media screen and (min-width: 620px) {
+        #header {
+          position: absolute;
+          top: -25px;
+        }
+      } 
+      #header h2 {
+        padding: 9px;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+        border: 1px solid #fdf7eb;
+      }
+      #header #header-move {
+        width: 59px;
+        height: 60px;
+        text-indent: -9999px;
+        background: url(images/compass.png) no-repeat top left;
+        position: absolute;
+        top: -10px;
+        right: -12px;
+      }
+
+  /* Game */ 
+
+    #game {
+      padding: 0 0 50px;
+      font-size: 16px;
+      line-height: 23px;
+      overflow: auto;
+    }
+      @media screen and (min-width: 620px) {
+        #game {
+          height: 600px;
+        }
+      }
+      #game p {
+        padding: 0 10px .5em;
+      }
+        @media screen and (min-width: 620px) {
+          #game p {
+            padding-left: 15px;
+            padding-right: 15px;
+          }
+        }
+      #game p:first-child {
+        padding-top: 50px;
+      }
+        @media screen and (min-width: 620px) {
+          #game p:first-child {
+            padding-top: 25px;
+          }
+        }
+      #game p.old {
+        opacity: .5;
+        background: #e0d9ca;
+      }
+        #game p.old+p.new {
+          padding-top: .5em;
+          border-top: 2px solid rgba(255,255,255,.5);
+        }
+      #game p.negative {
+        font-style: italic;
+        color: darkred;
+      }
+      #game p.positive {
+        font-style: italic;
+        color: darkgreen;
+      }
+  
+  /* Footer */ 
+
+    #footer {
+      background: #000;
+      position: fixed;
+      z-index: 20;
+      bottom: 0;
+      height: 45px;
+      overflow: hidden;
+      padding-top: 1px;
+      box-shadow: 0px -2px 0px rgba(0,0,0,.2);
+      text-align: center;
+      width: 100%;
+    }
+      @media screen and (min-width: 620px) {
+        #footer {
+          position: absolute;
+        }
+      }
+      #footer ul {
+        border-top: 1px solid rgba(255,255,255,.5);
+      }
+        #footer ul li {
+          display: inline;
+        }
+          #footer ul li a {
+            width: 64px;
+            height: 16px;
+            display: inline-block;
+            color: #fff;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: url(images/footer.png) no-repeat left 5px;
+            font-size: 10px;
+            text-align: center;
+            padding-top: 29px;
+            margin: 0;
+          }
+            #footer ul #footer-look a { background-position-x: 0; }
+            #footer ul #footer-take a { background-position-x: -64px; }
+            #footer ul #footer-use a { background-position-x: -128px; }
+            #footer ul #footer-talk a { background-position-x: -192px; }
+            #footer ul #footer-attack a { background-position-x: -256px; }
+            #footer ul li a:hover,
+            #footer.active ul li a {
+              opacity: .5;
+            }
+            #footer.active ul li.active a {
+              opacity: 1;
+            }
+          
+/*----------
+ Move Modal
+----------*/
+
+  #move {
+    z-index: 25;
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+    #move .ui-overlay {
+      z-index: 26;
+    }
+    #move #move-compass {
+      position: fixed;
+      z-index: 27;
+      top: 50%;
+      left: 50%;
+      width: 282px;
+      height: 285px;
+      margin-left: -141px;
+      margin-top: -142px;
+      background: url(images/move.png);
+    }
+      @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+        #move #move-compass {
+          background-image: url(images/move@2x.png);
+          background-size: 282px 285px;
+        }
+      }
+      #move #move-compass ul li {
+        position: absolute;
+      }
+        #move #move-compass ul #move-compass-north {
+          top: 65px;
+          left: 110px;
+        }
+          #move #move-compass ul #move-compass-north a span {
+            -webkit-transform: rotate(-45deg);
+            margin-left: -.5em;
+            margin-top: -.6em;
+          }
+        #move #move-compass ul #move-compass-east {
+          top: 112px;
+          left: 156px;
+          -webkit-transform: rotate(90deg);
+        }
+          #move #move-compass ul #move-compass-east a span {
+            -webkit-transform: rotate(-135deg);
+            margin-left: -.3em;
+            margin-top: -.6em;
+          }
+        #move #move-compass ul #move-compass-south {
+          top: 159px;
+          left: 109px;
+          -webkit-transform: rotate(180deg);
+        }
+          #move #move-compass ul #move-compass-south a span {
+            -webkit-transform: rotate(135deg);
+            margin-left: -.5em;
+            margin-top: -.6em;
+          }
+        #move #move-compass ul #move-compass-west {
+          top: 112px;
+          left: 63px;
+          -webkit-transform: rotate(270deg);
+        }
+          #move #move-compass ul #move-compass-west a span {
+            -webkit-transform: rotate(45deg);
+            margin-left: -.7em;
+            margin-top: -.6em;
+          }
+      #move #move-compass ul li a {
+        background: #fdf7eb;
+        display: block;
+        width: 59px;
+        height: 59px;
+        -webkit-transform: rotate(45deg);
+        position: relative;
+      }
+        #move #move-compass ul li a:after {
+          width: 0;
+          height: 0;
+          content: "";
+          border-left: 42px solid transparent;
+          border-right: 42px solid transparent;
+          border-bottom: 90px solid #fdf7eb;
+          position: absolute;
+          top: -47px;
+          left: -44px;
+          -webkit-transform: rotate(-45deg);
+          z-index: -1;
+        }
+        #move #move-compass ul li a span {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          font-size: 30px;
+          font-weight: bold;
+        }
+        #move #move-compass ul li a:active,
+        #move #move-compass ul li a:hover {
+          background: #f4cb8b;
+        }
+          #move #move-compass ul li a:active:after,
+          #move #move-compass ul li a:hover:after {
+            border-bottom-color: #f4cb8b;
+          }
+        #move #move-compass ul li.disabled a,
+        #move #move-compass ul li.disabled a:hover {
+          background: #94908a;
+          cursor: default;
+        }
+          #move #move-compass ul li.disabled a:after,
+          #move #move-compass ul li.disabled a:hover:after {
+            border-bottom-color: #94908a;
+            cursor: default;
+          }
+          #move #move-compass ul li.disabled a span {
+            color: #676560;
+          }
+    #move #move-preview {
+      position: fixed;
+      z-index: 27;
+      top: 50%;
+      margin-top: -220px;
+      text-align: center;
+      display: none;
+    }
+      
+/*-----------
+ UI Patterns
+-----------*/  
+      
+  /* Basics */
+  
+    .off { display: none !important; }
+    .on { display: block !important; }
+      
+  /* Modal Overlay */  
+
+    .ui-overlay {
+      position: fixed;
+      z-index: 16;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(50,50,50,.7);
+    }
+    
+  /* Modal Box */
+  
+    .ui-modal {
+        background: #000;
+        border: 2px solid #000;
+        left: 50%;
+        width: 290px;
+        margin-left: -147px;
+        color: #fdf7eb;
+      }
+        .ui-modal .ui-modal-inner {
+          border: 1px solid #fdf7eb;
+          padding: 10px;
+        }
+        .ui-modal .ui-modal-notch {
+          width: 21px;
+          height: 15px;
+          background: url(images/action_notch.png) no-repeat top left;
+          position: absolute;
+          left: 134px;
+          bottom: -14px;
+        }
+  
+  /* Action Sheet */
+      
+    .ui-action {
+      z-index: 15;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+      .ui-action .ui-action-sheet {
+        position: fixed;
+        z-index: 17;
+        bottom: 60px;
+      }
+        @media screen and (min-width: 620px) {
+          .ui-action .ui-action-sheet {
+            position: absolute;
+          }
+        }
+        .ui .ui-action-sheet-notch {}
+          .ui-action .ui-action-sheet .ui-action-sheet-notch-1 { left: 6px; }
+          .ui-action .ui-action-sheet .ui-action-sheet-notch-2 { left: 70px; }
+          .ui-action .ui-action-sheet .ui-action-sheet-notch-3 {}
+          .ui-action .ui-action-sheet .ui-action-sheet-notch-4 { left: 198px; }
+          .ui-action .ui-action-sheet .ui-action-sheet-notch-5 { left: 262px; }
+        .ui-action .ui-action-sheet .ui-action-sheet-back {
+          color: #fdf7eb;
+          position: absolute;
+          display: block;
+          width: 18px;
+          height: 18px;
+          padding: 10px;
+          top: 2px;
+          left: 2px;
+        }
+          .ui-action .ui-action-sheet .ui-action-sheet-back:hover {
+            opacity: .5;
+          }
+        .ui-action .ui-action-sheet h3 {
+          text-align: center;
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          margin-bottom: 10px;
+        }
+          .ui-action .ui-action-sheet h3 strong {
+            font-family: Palatino, Georgia, Times, serif;
+            color: #f2cc81;
+          }
+      
+  /* Scroller */
+
+    .ui-scroller {
+      background: #fdf7eb;
+      box-shadow: inset 0 3px 0 0 rgba(0,0,0,.4), inset 0 10px 0 0 rgba(0,0,0,.1), inset 0 -3px 0 0 rgba(0,0,0,.4), inset 0 -10px 0 0 rgba(0,0,0,.1);
+      height: 165px;
+      overflow: auto;
+      -webkit-overflow-scrolling:touch
+    }
+      .ui-scroller ul {
+        position: static;
+      }
+        .ui-scroller ul li a {
+          padding: 7.75px;
+          display: block;
+        }
+          .ui-scroller ul li a small {
+            color: rgba(0,0,0,.6);
+          }
