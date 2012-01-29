@@ -2,6 +2,8 @@ from random import choice, randint, shuffle
 from math import pow
 import json
 import string
+import os
+from flask import Flask
 
 class Orchard:
 	
@@ -44,6 +46,21 @@ class Orchard:
 		for y in range(self.squareFactor + 1):
 			for x in range(self.squareFactor + 1):
 				print str(x) + ", " + str(y) + ": " + self.branchAdjectives[self.adjectives.get(x, y)] + " branches, " + self.fruitConditions[self.conditions.get(x, y)] + " " + self.fruitColors[self.colors.get(x, y)] + " fruit."
+	
+	def showGrids(self):
+		print
+		print
+		print
+		self.colors.printme()
+		print
+		self.names.printme()
+		print
+		self.adjectives.printme()
+		print
+		self.conditions.printme()
+		print
+		print
+		print
 	
 	def getGoal(self):
 		return self.goalApple
@@ -210,6 +227,14 @@ class Grid:
 		self.displace(midX, midY, maxX, maxY, level + 1)
 	
 
+app = Flask(__name__)
+
+app.route('/')
+
+# Bind to PORT if defined, otherwise default to 5000.
+port = int(os.environ.get('PORT', 5000))
+app.run(host='0.0.0.0', port=port)
+
 foo = Orchard(2)
 
 titleWords = ["Quest", "Fight", "Search"]
@@ -232,7 +257,7 @@ futureOutput['Rooms'] = foo.getRooms()
 
 futureOutput['Description'] = ant + " has demanded a " + foo.chooseApple(futureOutput['Rooms']) + ". Can you find one?"
 
-
+#foo.showGrids()
 #print futureOutput
 
 print json.dumps(futureOutput, indent = 2)

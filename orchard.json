@@ -1,0 +1,1836 @@
+{
+  "Description": "Jacob has demanded a perfect yellow apple. Can you find one?", 
+  "noTake": "That isn't an apple.", 
+  "gameName": "The Orchard: Quest for Jacob's Apple", 
+  "noDo": "Not in this orchard.", 
+  "Rooms": [
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Kevlar Journeyman"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Rapacious Winemaker"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "mouldering emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Accomplished Schoolmarm", 
+      "Description": "It has waxy branches, and mostly green fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Esteemed Docent"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Accomplished Schoolmarm"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Druidic Yearling"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Kevlar Journeyman", 
+      "Description": "It has hoary branches, and mostly emerald fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Xenon Hammerhead"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Kevlar Journeyman"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Quiescent Lord"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "mouldering emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Esteemed Docent", 
+      "Description": "It has dendritic branches, and mostly emerald fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Yammering Knuckledragger"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Esteemed Docent"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Jocund Firefighter"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy emerald apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Xenon Hammerhead", 
+      "Description": "It has meandering branches, and mostly emerald fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Xenon Hammerhead"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Beatific Milliner"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "ripening yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Yammering Knuckledragger", 
+      "Description": "It has pruned branches, and mostly green fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Druidic Yearling"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Filthy Grandmother"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Accomplished Schoolmarm"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft yellow apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Rapacious Winemaker", 
+      "Description": "It has angular branches, and mostly yellow fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Quiescent Lord"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Rapacious Winemaker"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Geriatric Quizmaster"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Kevlar Journeyman"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "wormy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Druidic Yearling", 
+      "Description": "It has xylophone-ready branches, and mostly golden fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Jocund Firefighter"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Druidic Yearling"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Zaftig Vegetarian"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Esteemed Docent"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed yellow apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Quiescent Lord", 
+      "Description": "It has neat branches, and mostly green fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Beatific Milliner"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Quiescent Lord"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Shrunken Patriarch"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Xenon Hammerhead"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "lumpy emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Jocund Firefighter", 
+      "Description": "It has rustling branches, and mostly green fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Jocund Firefighter"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Insatiable Independent"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Yammering Knuckledragger"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy green apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Beatific Milliner", 
+      "Description": "It has kind branches, and mostly green fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Geriatric Quizmaster"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Nocturnal Actress"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Rapacious Winemaker"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "malformed golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy yellow apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Filthy Grandmother", 
+      "Description": "It has gnarled branches, and mostly golden fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Zaftig Vegetarian"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Filthy Grandmother"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Placid Truant"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Druidic Yearling"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect brown apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Geriatric Quizmaster", 
+      "Description": "It has curled branches, and mostly brown fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Shrunken Patriarch"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Geriatric Quizmaster"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Upright Rapunzel"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Quiescent Lord"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "ripening golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy yellow apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Zaftig Vegetarian", 
+      "Description": "It has spread-out branches, and mostly yellow fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Insatiable Independent"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Zaftig Vegetarian"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Hoary Corporal"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Jocund Firefighter"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering emerald apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening green apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Shrunken Patriarch", 
+      "Description": "It has loose branches, and mostly green fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Shrunken Patriarch"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Wizened Zookeeper"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Beatific Milliner"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp yellow apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Insatiable Independent", 
+      "Description": "It has young branches, and mostly yellow fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Placid Truant"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Careworn Xenops"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Filthy Grandmother"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled brown apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Nocturnal Actress", 
+      "Description": "It has independent branches, and mostly brown fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Upright Rapunzel"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Nocturnal Actress"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Voluptuous Elephant"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Geriatric Quizmaster"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "soft pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening golden apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Placid Truant", 
+      "Description": "It has quavering branches, and mostly brown fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Hoary Corporal"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Placid Truant"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Moribund Boilermaker"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Zaftig Vegetarian"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "mealy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed green apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Upright Rapunzel", 
+      "Description": "It has trembling branches, and mostly yellow fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Wizened Zookeeper"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Upright Rapunzel"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Loquacious Ululator"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Shrunken Patriarch"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "malformed golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy yellow apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Hoary Corporal", 
+      "Description": "It has zephyr-touched branches, and mostly golden fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Hoary Corporal"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Tumescent Neoconservative"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Insatiable Independent"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "perfect yellow apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect golden apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Wizened Zookeeper", 
+      "Description": "It has branchy branches, and mostly golden fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Voluptuous Elephant"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Nocturnal Actress"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "malformed brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering red apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp pink apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Careworn Xenops", 
+      "Description": "It has undulating branches, and mostly pink fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Moribund Boilermaker"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Careworn Xenops"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Placid Truant"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "crisp pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled red apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect red apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering pink apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Voluptuous Elephant", 
+      "Description": "It has flourishing branches, and mostly pink fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Loquacious Ululator"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Voluptuous Elephant"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Upright Rapunzel"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "soft brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy golden apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Moribund Boilermaker", 
+      "Description": "It has jostling branches, and mostly brown fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Tumescent Neoconservative"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Moribund Boilermaker"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Hoary Corporal"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mealy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "soft brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "perfect brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "crisp brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "lumpy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "ripening brown apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Loquacious Ululator", 
+      "Description": "It has elegant branches, and mostly brown fruit."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Loquacious Ululator"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Wizened Zookeeper"
+        }
+      ], 
+      "items": [
+        {
+          "Name": "perfect brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "mouldering brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy pink apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "stippled golden apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "malformed brown apple", 
+          "Take": "true"
+        }, 
+        {
+          "Name": "wormy pink apple", 
+          "Take": "true"
+        }
+      ], 
+      "Name": "The Tumescent Neoconservative", 
+      "Description": "It has verdant branches, and mostly brown fruit."
+    }
+  ]
+}

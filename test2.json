@@ -1,0 +1,477 @@
+{
+  "noTake": "That isn't an apple.", 
+  "gameName": "The Orchard: Quest for Paulo's Apple", 
+  "noDo": "Not in this orchard.", 
+  "Rooms": [
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Yammering Winemaker"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Xenon Ululator"
+        }
+      ], 
+      "Name": "The Careworn Truant", 
+      "Description": "It has dendritic branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Filthy Patriarch"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Careworn Truant"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Zaftig Xenops"
+        }
+      ], 
+      "Name": "The Yammering Winemaker", 
+      "Description": "It has young branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Esteemed Schoolmarm"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Yammering Winemaker"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Voluptuous Rapunzel"
+        }
+      ], 
+      "Name": "The Filthy Patriarch", 
+      "Description": "It has elegant branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Rapacious Milliner"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Filthy Patriarch"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Loquacious Yearling"
+        }
+      ], 
+      "Name": "The Esteemed Schoolmarm", 
+      "Description": "It has undulating branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Esteemed Schoolmarm"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Geriatric Grandmother"
+        }
+      ], 
+      "Name": "The Rapacious Milliner", 
+      "Description": "It has meandering branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Zaftig Xenops"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Accomplished Vegetarian"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Careworn Truant"
+        }
+      ], 
+      "Name": "The Xenon Ululator", 
+      "Description": "It has trembling branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Voluptuous Rapunzel"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Xenon Ululator"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Moribund Independent"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Yammering Winemaker"
+        }
+      ], 
+      "Name": "The Zaftig Xenops", 
+      "Description": "It has rustling branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Loquacious Yearling"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Zaftig Xenops"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Beatific Docent"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Filthy Patriarch"
+        }
+      ], 
+      "Name": "The Voluptuous Rapunzel", 
+      "Description": "It has spread-out branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Geriatric Grandmother"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Voluptuous Rapunzel"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Jocund Actress"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Esteemed Schoolmarm"
+        }
+      ], 
+      "Name": "The Loquacious Yearling", 
+      "Description": "It has gnarled branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Loquacious Yearling"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Nocturnal Quizmaster"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Rapacious Milliner"
+        }
+      ], 
+      "Name": "The Geriatric Grandmother", 
+      "Description": "It has quavering branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Moribund Independent"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Hoary Lord"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Xenon Ululator"
+        }
+      ], 
+      "Name": "The Accomplished Vegetarian", 
+      "Description": "It has independent branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Beatific Docent"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Accomplished Vegetarian"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Druidic Corporal"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Zaftig Xenops"
+        }
+      ], 
+      "Name": "The Moribund Independent", 
+      "Description": "It has jostling branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Jocund Actress"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Moribund Independent"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Placid Zookeeper"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Voluptuous Rapunzel"
+        }
+      ], 
+      "Name": "The Beatific Docent", 
+      "Description": "It has angular branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Nocturnal Quizmaster"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Beatific Docent"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Old Neoconservative"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Loquacious Yearling"
+        }
+      ], 
+      "Name": "The Jocund Actress", 
+      "Description": "It has pruned branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Jocund Actress"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Tumescent Firefighter"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Geriatric Grandmother"
+        }
+      ], 
+      "Name": "The Nocturnal Quizmaster", 
+      "Description": "It has loose branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Druidic Corporal"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Wizened Boilermaker"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Accomplished Vegetarian"
+        }
+      ], 
+      "Name": "The Hoary Lord", 
+      "Description": "It has neat branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Placid Zookeeper"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Hoary Lord"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Kevlar Overachiever"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Moribund Independent"
+        }
+      ], 
+      "Name": "The Druidic Corporal", 
+      "Description": "It has kind branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Old Neoconservative"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Druidic Corporal"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Insatiable Hammerhead"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Beatific Docent"
+        }
+      ], 
+      "Name": "The Placid Zookeeper", 
+      "Description": "It has hoary branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Tumescent Firefighter"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Placid Zookeeper"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Upright Journeyman"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Jocund Actress"
+        }
+      ], 
+      "Name": "The Old Neoconservative", 
+      "Description": "It has waxy branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Old Neoconservative"
+        }, 
+        {
+          "Direction": "South", 
+          "Name": "The Shrunken Knuckledragger"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Nocturnal Quizmaster"
+        }
+      ], 
+      "Name": "The Tumescent Firefighter", 
+      "Description": "It has zephyr-touched branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Kevlar Overachiever"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Hoary Lord"
+        }
+      ], 
+      "Name": "The Wizened Boilermaker", 
+      "Description": "It has verdant branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Insatiable Hammerhead"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Wizened Boilermaker"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Druidic Corporal"
+        }
+      ], 
+      "Name": "The Kevlar Overachiever", 
+      "Description": "It has xylophone-ready branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Upright Journeyman"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Kevlar Overachiever"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Placid Zookeeper"
+        }
+      ], 
+      "Name": "The Insatiable Hammerhead", 
+      "Description": "It has curled branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "East", 
+          "Name": "The Shrunken Knuckledragger"
+        }, 
+        {
+          "Direction": "West", 
+          "Name": "The Insatiable Hammerhead"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Old Neoconservative"
+        }
+      ], 
+      "Name": "The Upright Journeyman", 
+      "Description": "It has branchy branches."
+    }, 
+    {
+      "paths": [
+        {
+          "Direction": "West", 
+          "Name": "The Upright Journeyman"
+        }, 
+        {
+          "Direction": "North", 
+          "Name": "The Tumescent Firefighter"
+        }
+      ], 
+      "Name": "The Shrunken Knuckledragger", 
+      "Description": "It has open branches."
+    }
+  ]
+}
