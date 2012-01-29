@@ -8,7 +8,6 @@
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="hires.css" media="only screen and (-webkit-min-device-pixel-ratio: 2)"/>
     <link href="images/ios_icon.png" rel="apple-touch-icon" /> 
     <link href="images/ios_icon-72.png" rel="apple-touch-icon" sizes="72x72" /> 
     <link href="images/ios_icon@2x.png" rel="apple-touch-icon" sizes="114x114" /> 
@@ -132,11 +131,19 @@
       </div>
       
       <div id="action-talk" class="ui-action">
-        <div class="ui-action-sheet ui-modal">
+        <div id="action-talk-character" class="ui-action-sheet ui-modal">
           <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
           <div class="ui-modal-inner">
-            <a class="ui-action-sheet-back" href="#">&larr;</a>
-            <h3>Talk to&hellip;</h3>
+            <h3>Vampire:</h3>
+            <div id="action-talk-character-message">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua?</p>
+            </div>
+          </div>
+        </div>
+        <div id="action-talk-player" class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
+          <div class="ui-modal-inner">
+            <h3>You say&hellip;</h3>
             <div class="ui-scroller">
               <ul id="Talk">
                 <li><a href="#">Dog</a></li>

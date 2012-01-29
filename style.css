@@ -116,7 +116,7 @@
         top: -10px;
         right: -12px;
       }
-        @media screen and (min-width: 620px) {
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
           #header #header-move {
             background-image: url(images/compass@2x.png);
             background-size: 59px 60px;
@@ -207,7 +207,7 @@
             padding-top: 29px;
             margin: 0;
           }
-            @media screen and (min-width: 620px) {
+            @media only screen and (-webkit-min-device-pixel-ratio: 2) {
               #footer ul li a {
                 background-image: url(images/footer@2x.png);
                 background-size: 320px 20px;
@@ -356,6 +356,49 @@
       text-align: center;
       display: none;
     }
+
+/*----------
+ Talk Modal
+----------*/ 
+      
+  #action-talk .ui-action-sheet {}
+    #action-talk-character {
+      bottom: 240px;
+      width: 250px;
+    }
+      #action-talk #action-talk-character h3 {
+        text-align: left;
+      }
+      #action-talk #action-talk-character .ui-modal-notch {
+        width: 15px;
+        height: 21px;
+        background-image: url(images/action_notch_left.png);
+        left: -14px;
+        bottom: 14px;
+      }
+      #action-talk #action-talk-character #action-talk-character-message {
+        height: 105px;
+        overflow: auto;
+        line-height: 23px;
+      }
+    #action-talk-player {
+      width: 250px;
+      margin-left: -107px;
+    }
+      #action-talk #action-talk-player h3 {
+        text-align: right;
+      }
+      #action-talk #action-talk-player .ui-modal-notch {
+        width: 15px;
+        height: 21px;
+        background-image: url(images/action_notch_right.png);
+        left: auto;
+        right: -14px;
+        bottom: 14px;
+      }
+      #action-talk #action-talk-player .ui-scroller {
+        height: 105px;
+      }
       
 /*-----------
  UI Patterns
@@ -396,14 +439,14 @@
         .ui-modal .ui-modal-notch {
           width: 21px;
           height: 15px;
-          background: url(images/action_notch.png) no-repeat top left;
+          background: url(images/action_notch_down.png) no-repeat top left;
           position: absolute;
           left: 134px;
           bottom: -14px;
         }
-          @media screen and (min-width: 620px) {
+          @media only screen and (-webkit-min-device-pixel-ratio: 2) {
             .ui-modal .ui-modal-notch {
-              background-image: url(images/action_notch@2x.png);
+              background-image: url(images/action_notch_down@2x.png);
               background-size: 21px 15px;
             }
           }
@@ -462,27 +505,16 @@
       box-shadow: inset 0 3px 0 0 rgba(0,0,0,.4), inset 0 10px 0 0 rgba(0,0,0,.1), inset 0 -3px 0 0 rgba(0,0,0,.4), inset 0 -10px 0 0 rgba(0,0,0,.1);
       height: 165px;
       overflow: auto;
-      -webkit-overflow-scrolling:touch
+      -webkit-overflow-scrolling:touch;
     }
+      @media screen and (min-width: 620px) {
+        .ui-scroller {
+          box-shadow: inset 0 3px 0 0 rgba(0,0,0,.4);
+        }
+      }
       .ui-scroller ul {
         position: static;
       }
-        .ui-scroller ul li:first-child {
-          margin-top: 55px;
-        }
-          @media screen and (min-width: 620px) {
-            .ui-scroller ul li:first-child {
-              margin-top: 0;
-            }
-          }
-        .ui-scroller ul li:last-child {
-          margin-bottom: 55px;
-        }
-          @media screen and (min-width: 620px) {
-            .ui-scroller ul li:last-child {
-              margin-bottom: 0;
-            }
-          }
         .ui-scroller ul li a {
           padding: 7.75px;
           display: block;
