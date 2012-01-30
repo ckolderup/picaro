@@ -1,0 +1,15 @@
+%html
+  %head
+    %title Picaro
+  %body
+    #user
+      - if logged_in?
+        = "I love #{current_user.username}"
+      - else
+        %a{:href => "#{ENV['SECURE_SITE_ROOT']}/signup"} Signup
+        %a{:href => "#{ENV['SECURE_SITE_ROOT']}/login"} Login
+    #notices
+      =styled_flash
+
+    #content
+      = yield

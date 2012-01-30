@@ -1,0 +1,5 @@
+.rvmrc
+.sass-cache/*
+**.sass-cache/*
+*.db
+**tmp/*
