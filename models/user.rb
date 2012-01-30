@@ -26,5 +26,4 @@ class User
     return nil if user.nil?
     return user if BCrypt::Password.new(user.passhash) == pass
   end
-
 end

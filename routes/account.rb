@@ -22,6 +22,11 @@ get '/logout' do
 end
 
 get '/login' do
+  if logged_in?
+    flash[:error] = "Already logged in!"
+    redirect '/account'
+  end
+
   haml :login
 end
 
@@ -40,17 +45,21 @@ end
 get '/account' do
   force_login
 
-  @u = current_user
-  
-  haml :account
+  haml :account, :locals => { :user => current_user }
 end
 
 def create_update_user(user, params)
-  if params[:password] == params[:password2]
-    user.password = params[:password]
-  else
-    flash[:warning] = "Passwords did not match. Try again."
-    return
+  blank = (params[:password].nil? && params[:password2].nil) ||
+          (params[:password].empty? && params[:password2].empty?)
+  same = (params[:password] == params[:password2])
+
+  if !blank
+    if same
+      user.password = params[:password]
+    else
+      flash[:warning] = "Passwords did not match. Try again."
+      return nil
+    end
   end
   user.email = params[:email] unless params[:email].nil?
   user.username = params[:username] unless params[:username].nil?
@@ -58,13 +67,12 @@ def create_update_user(user, params)
 
   error 400 unless user.valid?
   error 422 unless user.save
+  return user
 end
-
 
 post '/account' do
   force_login
-  create_update_user(current_user, params)
-  flash[:notice] = "Account updated!"
+  flash[:notice] = "Account updated!" unless create_update(current_user, params).nil?
   redirect '/account', 303
 end
 
@@ -78,8 +86,8 @@ get '/signup' do
 end
 
 post '/signup' do
-  @u = User.new
-  create_update_user(@u, params)
-  session[:u_id] = @u.id
+  u = User.new
+  create_update(u, params)
+  session[:u_id] = u.id
   redirect '/account', 303
 end
