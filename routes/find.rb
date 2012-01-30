@@ -1,5 +1,5 @@
 get '/game/:slug' do
-  game = Url.get(slug).game
+  game = Url.get(slug).andand.game
   error 404 if game.nil?
 
   haml :game_detail, :game => game
@@ -17,10 +17,7 @@ get '/games/recent' do
 end
 
 get '/game/new' do
-  unless logged_in?
-    flash[:error] = "You must be logged in to do that."
-    redirect "/login?next=#{CGI.escape('/account')}"
-  end
+  force_login
 
   haml :upload_game
 end

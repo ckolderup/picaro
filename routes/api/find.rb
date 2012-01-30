@@ -1,8 +1,6 @@
 subdomain :api do |sub|
   get '/game/:slug' do
-    #check published or permissioned
-    game = Url.get(slug).game
-
+    game = Url.get(slug).andand.game
     error 404 if game.nil?
     
     game_info = { 
@@ -14,9 +12,7 @@ subdomain :api do |sub|
   end
 
   get '/game/:slug/versions' do
-    #check published or permissioned
-    game = Url.get(slug).game
-
+    game = Url.get(slug).andand.game
     error 404 if game.nil?
 
     version_index = game.versions.map {|version|
@@ -31,8 +27,7 @@ subdomain :api do |sub|
   end
 
   get '/game/:slug/:version_id' do
-    #check published or permissioned
-    game = Url.get(slug).game
+    game = Url.get(slug).andand.game
     error 404 if game.nil?
 
     version = game.versions.filter { |v| v.id == version_id }.first
@@ -64,7 +59,10 @@ subdomain :api do |sub|
 
   post '/game/:slug_text' do
     slug = Url.get(slug_text)
+    error 404 if slug.nil?
+
     game = slug.game
+    error 404 if game.nil?
 
     error 403 unless logged_in?
     error 403 if current_user != game.author
@@ -88,23 +86,24 @@ subdomain :api do |sub|
   end
 
   delete '/game/:slug' do
-    game = Url.get(slug).game
+    game = Url.get(slug).andand.game
 
     error 403 unless logged_in?
     error 403 if (current_user != game.author && !current_user.admin?)
     
-    #return status
     response = { :success => game.destroy }
     response.to_json
   end
 
   delete '/game/:slug/:version_id' do
-    game = Url.get(slug).game
+    game = Url.get(slug).andand.game
+    error 404 if game.nil?
 
     error 403 unless logged_in?
     error 403 if (current_user != game.author && !current_user.admin?)
 
     version = game.versions.filter {|v| v.id = version_id }
+    error 404 if version.nil?
 
     response = { :success => version.destroy }
     response.to_json

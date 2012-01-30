@@ -8,6 +8,13 @@ def current_user
   return User.first :id => session[:u_id]
 end
 
+def force_login
+  unless logged_in?
+    flash[:error] = "You must be logged in to do that."
+    redirect "/login?next=#{CGI.escape('/account')}", 303
+  end
+end
+
 get '/logout' do
   session[:u_id] = nil
   flash[:notice] = "You have been logged out."
@@ -31,38 +38,32 @@ post '/login' do
 end
 
 get '/account' do
-  unless logged_in?
-    flash[:error] = "You must be logged in to do that."
-    redirect "/login?next=#{CGI.escape('/account')}"
-  end
+  force_login
 
   @u = current_user
   
   haml :account
 end
 
+def create_update_user(user, params)
+  if params[:password] == params[:password2]
+    user.password = params[:password]
+  else
+    flash[:warning] = "Passwords did not match. Try again."
+    return
+  end
+  user.email = params[:email] unless params[:email].nil?
+  user.username = params[:username] unless params[:username].nil?
+  user.display_name = params[:display_name] unless params[:display_name].nil?
+
+  error 400 unless user.valid?
+  error 422 unless user.save
+end
+
+
 post '/account' do
-  unless logged_in?
-    flash[:error] = "You must be logged in to do that."
-    redirect "/login?next=#{CGI.escape('/account')}", 303
-  end
-
-  @u = current_user
-
-  begin
-    @u.email = params[:email] unless params[:email].nil?
-    unless params[:password] == params[:password2]
-      raise ArgumentError, "Passwords did not match. Try again"
-    end
-
-  rescue ArgumentError => e
-    flash[:warning] = e.message
-    redirect '/account', 303
-  end
-
-  error 400 unless @u.valid?
-  error 422 unless @u.save
-
+  force_login
+  create_update_user(current_user, params)
   flash[:notice] = "Account updated!"
   redirect '/account', 303
 end
@@ -70,7 +71,6 @@ end
 get '/signup' do
   if logged_in?
     flash[:error] = "Already logged in!"
-
     redirect '/account'
   end
 
@@ -79,24 +79,7 @@ end
 
 post '/signup' do
   @u = User.new
-
-  begin
-    @u.email = params[:email]
-    @u.username = params[:username]
-    @u.display_name = params[:display_name]
-    unless params[:password] == params[:password2]
-      raise ArgumentError, "Passwords did not match. Try again."
-    end
-    @u.password = params[:password]
-
-  rescue ArgumentError => e
-    flash[:warning] = e.message
-    redirect '/signup', 303
-  end
-
-  error 400 unless @u.valid?
-  error 422 unless @u.save
-
+  create_update_user(@u, params)
   session[:u_id] = @u.id
   redirect '/account', 303
 end
