@@ -25,7 +25,7 @@ $(document).ready(function() {
                   $("a").on("click", function(e) {
                            var that = $(this);
                            if(that.hasClass("path") && !$(this).hasClass("disabled")) {      // If the link has the class "path," and isn't disabled, then it's a room change.
-                            
+                           console.log("snax");
                            e.preventDefault();
                            var roomName = that.attr("href");
                            $("#move-preview .ul-modal-inner").html(roomName);
@@ -171,22 +171,22 @@ $(document).ready(function() {
                      $.each(room.paths, function() {
                          if(this.Direction === "North") {
                            $("#move-compass-north a").attr("href", this.Name);
-                           $("#move-compass-north").removeClass("disabled");
+                           $("#move-compass-north, #move-compass-north a").removeClass("disabled");
                          }
                          
                          if(this.Direction === "South") {
                            $("#move-compass-south a").attr("href", this.Name);
-                           $("#move-compass-south").removeClass("disabled");
+                           $("#move-compass-south, #move-compass-south a").removeClass("disabled");
                          }
                          
                          if(this.Direction === "East") {
                            $("#move-compass-east a").attr("href", this.Name);
-                           $("#move-compass-east").removeClass("disabled");
+                           $("#move-compass-east, #move-compass-east a").removeClass("disabled");
                          }
                          
                          if(this.Direction === "West") {
                            $("#move-compass-west a").attr("href", this.Name);
-                           $("#move-compass-west").removeClass("disabled");
+                           $("#move-compass-west, #move-compass-west a").removeClass("disabled");
                          }
                      });
                      
