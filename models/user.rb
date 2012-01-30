@@ -1,5 +1,3 @@
-require 'uuidtools'
-
 class User
   include DataMapper::Resource
   property :id, Serial
@@ -8,9 +6,6 @@ class User
   property :display_name, Text, :required => true
   property :passhash, BCryptHash, :required => true
   property :admin,  Boolean, :default => false
-  property :confirm_token, String, :default => 
-    lambda { |r, p| UUIDTools::UUID.random_create.to_s }
-  property :confirmed, Boolean, :default => false
 
   def admin?
     return admin

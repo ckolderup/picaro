@@ -83,23 +83,3 @@ post '/signup' do
   session[:u_id] = @u.id
   redirect '/account', 303
 end
-
-get '/confirm' do
-  haml :confirm_check, :email => params[:email], :token => params[:token]
-end
-
-post '/confirm' do
-  error 400 if params[:email].nil? or params[:token].nil?
-
-  @u = User.first(:email => params[:email])
-
-  error 422 if @u.nil? or @u.confirmed?
-
-  if @u.confirm_token == params[:token]
-    @u.confirm
-    flash[:notice] = "Confirmed!"
-  else
-    flash[:warning] = "Unable to confirm email address."
-  end
-  redirect '/', 303
-end

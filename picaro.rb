@@ -12,6 +12,5 @@ class Picaro < Sinatra::Application
   register Sinatra::Flash
 end
 
-require_relative 'email'
 require_relative 'models/init'
 require_relative 'routes/init'
