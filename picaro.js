@@ -61,7 +61,7 @@ $(document).ready(function() {
                                     var ingredients = data.ItemCombos[i].Ingredients;
                                     ingredients = ingredients.sort();
 
-                                    if(arrayEquality(items,ingredients)) {
+                                    if(util.arrayEquality(items,ingredients)) {
                                              console.log("You Created " + data.ItemCombos[i].Name);
                                              changeStatus(data.ItemCombos[i].Message);
                                     }
@@ -241,26 +241,6 @@ $(document).ready(function() {
                            itemAction(action, item, roomID);
                      })
               }                                                                                   // end room load function
-
-
-              arrayEquality = function(a,b)                                                      // testing array equality like a boss (currently unused, seems like we'll need this at some point?)
-              {
-                if(a.length == b.length)
-                {
-                  for(var i = 0; i < a.length;i++)
-                  {
-                    if(typeof a[i] == 'object') {
-                      if(!Equals(a[i],b[i]))
-                        return false;
-                    }
-                    else if(a[i] != b[i])
-                      return false;
-                  }
-                  return true;
-                }
-                else return false;
-              }
-
 
               var updateStatus = function(status) {
 

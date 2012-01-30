@@ -1,4 +1,4 @@
-var util = {};
+var util = {}
 
 util.toArrayToSentence = function(array, separator, lastSeparator) {
   separator || (separator = ', ');
@@ -21,4 +21,21 @@ util.toArrayToSentence = function(array, separator, lastSeparator) {
   }
 
   return string + ".";
+}
+
+util.arrayEquality = function(a,b)
+  if(a.length == b.length)
+  {
+    for(var i = 0; i < a.length;i++)
+    {
+      if(typeof a[i] == 'object') {
+        if(!Equals(a[i],b[i]))
+          return false;
+      }
+      else if(a[i] != b[i])
+        return false;
+    }
+    return true;
+  }
+  else return false;
 }
