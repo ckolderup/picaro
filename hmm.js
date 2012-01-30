@@ -1,4 +1,4 @@
-{
+var data = {
 "gameName": "Adventure at Joe's House",
 "gameDescription": "THIS IS WHERE THE MAGIC HAPPENS BABY",
 "Version": "311",
@@ -9,11 +9,11 @@
 ],
 
 "ItemCombos": [
-  {"Name": "Cool Jackalope", "Message": "You created a cool jackalope", "Ingredients": ["Jackalope", "Sunglasses"], "Location": "Room"},
+  {"Name": "Cool Jackalope", "Message": "You created a cool jackalope", "Ingredients": ["Jackalope", "a pair of Sunglasses"], "Location": "Room"},
   {"Name": "Jacko Couch", "Message": "You put Jacko on da couch", "Ingredients": ["Jackalope", "Couch"], "Desctructive": true},
   {"Name": "Jacko Table", "Message": "You put Jacko on da table", "Ingredients": ["Jackalope", "Table"]}
 ],
-  
+
 "Rooms" : [
   {
     "Starter" : true,
@@ -26,9 +26,9 @@
 		],
       "items": [
 		{"Name": "Coffee Table", "Look": ["Dope coffee table.","Totally dope coffee table."], "Attack": ["You elbow drop that mess. Wood flies everywhere.", "You cut your elbow badly on a jagged piece of wood. Dummy."], "Counters" : {"Attack" : ["Elbow Drops", 1] }},
-		{"Name": "Couch", "Look": ["Dope couch."],  "Attack": ["Done. A good place for a practice elbow drop. Search elsewhere for the real deal.", "Test"], "Counters" : {"Talk" : ["Elbow Drops", 1]}},    
+		{"Name": "Couch", "Look": ["Dope couch."],  "Attack": ["Done. A good place for a practice elbow drop. Search elsewhere for the real deal.", "Test"], "Counters" : {"Talk" : ["Elbow Drops", 1]}},
 		{"Name": "Jackalope", "Look": ["Dope jackalope"], "Take": true, "Talk": ["The jackalope can't talk. It's dead."], "Attack": ["The jackalope sends you straight to hell."]},
-		{"Name": "Sunglasses", "Look": ["Dope sunglasses."],  "Take": true}
+		{"Name": "a pair of Sunglasses", "Look": ["Dope sunglasses."],  "Take": true}
        ]
   },
 
@@ -42,7 +42,7 @@
 		{"Name": "Hendrix Poster", "Take": true}
        ]
   },
-  
+
     {
     "Name": "Bathroom",
     "Description": "You are in Joe's bathroom. There is a plentiful supply of floss.",
