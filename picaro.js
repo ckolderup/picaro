@@ -165,10 +165,10 @@ $(document).ready(function() {
                      $("#header h2").html(room.Name);
 
                      var roomDescription = room.Description;                                                //re-populate nav links
-                     updateStatus(roomDescription);
-
                      var itemNames = $.map(room.items, function(item) {return item.Name});
-                     updateStatus("You see " + util.toArrayToSentence(itemNames));
+                     updateStatus(roomDescription + "<br/ ><br/>You see " + util.toArrayToSentence(itemNames));
+
+
 
                      $("#move a").attr("href", "#");
                      $("#move li").addClass("disabled");

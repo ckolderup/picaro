@@ -23,7 +23,7 @@ util.toArrayToSentence = function(array, separator, lastSeparator) {
   return string + ".";
 }
 
-util.arrayEquality = function(a,b)
+util.arrayEquality = function(a,b){
   if(a.length == b.length)
   {
     for(var i = 0; i < a.length;i++)
