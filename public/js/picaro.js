@@ -1,3 +1,5 @@
+require(["jquery", "util"], function($) {
+
 $(document).ready(function() {
          var roomID;
          var inventory = [];
@@ -345,4 +347,5 @@ $(document).ready(function() {
           $("#move-preview").fadeOut("fast");
           return false;
         });
+});
 });
