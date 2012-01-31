@@ -1,5 +1,4 @@
-require(["jquery", "util"], function($) {
-
+require(["jquery", "util"], function($, util) {
 $(document).ready(function() {
          var roomID;
          var inventory = [];
