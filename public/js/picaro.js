@@ -1,10 +1,20 @@
-require(["jquery", "util"], function($, util) {
+require(["jquery", "util", "room"], function($, Util, Room) {
+
 $(document).ready(function() {
          var roomID;
          var inventory = [];
          var actions = ["Look", "Take", "Use", "Talk", "Attack"];
          var itemStatuses = [];
          var counters = [];
+
+         $(document).bind("updateStatus", function(event, status) {
+           $("p.new:first ").removeClass("new").addClass("old");
+            var n = $("p.old").length;
+            if(n > 5) {
+            $("p.old:first").remove();
+            }
+            $("#game").append("<p class='new'>" + status + "</p>");
+         })
 
          function itemObject (name) {
                   this.name = name;
@@ -26,13 +36,12 @@ $(document).ready(function() {
                   $("a").on("click", function(e) {
                            var that = $(this);
                            if(that.hasClass("path") && !$(this).hasClass("disabled")) {      // If the link has the class "path," and isn't disabled, then it's a room change.
-                           console.log("snax");
                            e.preventDefault();
                            var roomName = that.attr("href");
                            $("#move-preview .ul-modal-inner").html(roomName);
                            for (var i in data.Rooms) {
                                     if (roomName === data.Rooms[i].Name) {
-                                             getRoom(data.Rooms[i], i)
+                                             Room.get(data.Rooms[i], i)
                                     }
                            }
                   }
@@ -62,7 +71,7 @@ $(document).ready(function() {
                                     var ingredients = data.ItemCombos[i].Ingredients;
                                     ingredients = ingredients.sort();
 
-                                    if(util.arrayEquality(items,ingredients)) {
+                                    if(Util.arrayEquality(items,ingredients)) {
                                              console.log("You Created " + data.ItemCombos[i].Name);
                                              changeStatus(data.ItemCombos[i].Message);
                                     }
@@ -98,14 +107,14 @@ $(document).ready(function() {
 
                                              if(verb === "Take") {
                                                       inventory.push(item);
-                                                      updateStatus("You take the " + item + ".");
+                                                      $(document).trigger("updateStatus", "You take the " + item + ".");
                                                       $("#action-use ul").append("<li><a href='#' class='item'>" + item        + " <small>(held)</small></a></li>");
                                                       $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");
 
                                              }
 
                                              if(verb === "Look") {
-                                                      updateStatus(itemData.Look[lookStatus]);
+                                                      $(document).trigger("updateStatus", itemData.Look[lookStatus]);
                                                       for(var y in itemStatuses) {
                                                                if(nospaceItem === itemStatuses[y].name) {
                                                                         var lookCounter = itemStatuses[y].look + 1;
@@ -118,7 +127,7 @@ $(document).ready(function() {
                                              }
 
                                              if(verb === "Talk") {
-                                                      updateStatus(itemData.Talk[talkStatus]);
+                                                      $(document).trigger("updateStatus", itemData.Talk[talkStatus]);
                                                       for(var y in itemStatuses) {
                                                                if(nospaceItem === itemStatuses[y].name) {
                                                                         var talkCounter = itemStatuses[y].talk + 1;
@@ -131,7 +140,7 @@ $(document).ready(function() {
                                              }
 
                                              if(verb === "Attack") {
-                                                      updateStatus(itemData.Attack[attackStatus]);
+                                                      $(document).trigger("updateStatus", itemData.Attack[attackStatus]);
 
                                                       if(data.Rooms[roomID].items[i].Counters.Attack) {            // if a counter exists on the item
                                                       for(var q in counters) {
@@ -153,106 +162,6 @@ $(document).ready(function() {
                                     }
                            }
                   }                                                                                           // end item/action function
-
-
-
-              var getRoom = function(room, roomNum) {                                                     // begin room-switching/initializing function
-
-                     $("ul").not("#footer ul").not("#move-compass ul").each(function() {                  // reload all the room-specific lists
-                          $(this).empty();
-                     });
-
-                     roomID = roomNum;
-                     $("#header h2").html(room.Name);
-
-                     var roomDescription = room.Description;                                                //re-populate nav links
-                     var itemNames = $.map(room.items, function(item) {return item.Name});
-                     updateStatus(roomDescription + "<br/ ><br/>You see " + util.toArrayToSentence(itemNames));
-
-
-
-                     $("#move a").attr("href", "#");
-                     $("#move li").addClass("disabled");
-                     $.each(room.paths, function() {
-                         if(this.Direction === "North") {
-                           $("#move-compass-north a").attr("href", this.Name);
-                           $("#move-compass-north, #move-compass-north a").removeClass("disabled");
-                         }
-
-                         if(this.Direction === "South") {
-                           $("#move-compass-south a").attr("href", this.Name);
-                           $("#move-compass-south, #move-compass-south a").removeClass("disabled");
-                         }
-
-                         if(this.Direction === "East") {
-                           $("#move-compass-east a").attr("href", this.Name);
-                           $("#move-compass-east, #move-compass-east a").removeClass("disabled");
-                         }
-
-                         if(this.Direction === "West") {
-                           $("#move-compass-west a").attr("href", this.Name);
-                           $("#move-compass-west, #move-compass-west a").removeClass("disabled");
-                         }
-                     });
-
-
-                     for (var i in inventory) {                                                           //re-populate item lists
-                           $("#action-use ul, #action-look ul").append("<li><a href='#' class='item'>" + inventory[i] + " <small>(held)</small></a></li>"); //append if it's in the inventory
-                     }
-
-                     $.each(room.items, function() {
-
-                           if(this.Use) {
-                                    $("#action-use ul").append("<li><a href='#' class='item'>" + this.Name + "</a></li>");
-                           }
-
-                           if(this.Look){
-                                    var inInventory = jQuery.inArray(this.Name, inventory);                 // don't append it if it's in the inventory
-                                    if(inInventory === -1) {
-                                    $("#action-look ul").append("<li><a href='#' class='item'>" + this.Name + "</a></li>");
-                                    }
-                           }
-
-                           if(this.Take) {
-                                    var inInventory = jQuery.inArray(this.Name, inventory);
-                                    if(inInventory === -1) {
-                                    $("#action-take ul").append("<li><a href='#' class='item'>" + this.Name + "</a></li>");
-                                    }
-                           }
-
-                           if(this.Talk) {
-                                    $("#action-talk ul").append("<li><a href='#' class='item'>" + this.Name + "</a></li>");
-                           }
-
-                           if(this.Attack) {
-                                    $("#action-attack ul").append("<li><a href='#' class='item'>" + this.Name + "</a></li>");
-                           }
-
-                     });
-
-                     $(".ui-action ul li a").bind('click', function() {                          // re-bind click event to new links. is there a way around having this here?
-                           var that = $(this);
-                           var action = that.parent().parent().attr("id");
-                           var item = that.clone().find("small").remove().end().text();
-                           $(".ui-overlay, .ui-action").fadeOut();
-                           $(".active").removeClass("active");
-                           if(action === "Take") {
-                                    that.remove();
-                           }
-                           itemAction(action, item, roomID);
-                     })
-              }                                                                                   // end room load function
-
-              var updateStatus = function(status) {
-
-                    $("p.new:first ").removeClass("new").addClass("old");
-                     var n = $("p.old").length;
-                     if(n > 5) {
-                     $("p.old:first").remove();
-                     }
-                     $("#game").append("<p class='new'>" + status + "</p>");
-              }
-
 
                var gameCounters = data.Counters;
 
@@ -277,7 +186,7 @@ $(document).ready(function() {
 
                   if(data.Rooms[i].Starter) {
                            var firstRoom = data.Rooms[i];
-                           getRoom(firstRoom, i);
+                           Room.get(firstRoom, i);
                   }
               }
 
