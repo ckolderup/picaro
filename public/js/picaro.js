@@ -1,198 +1,197 @@
-require(["jquery", "util", "room"], function($, Util, Room) {
+require(["jquery", "util", "room", "inventory"], function($, Util, Room, Inventory) {
 
   $(document).ready(function() {
-    var roomID;
-    var inventory = [];
-    var actions = ["Look", "Take", "Use", "Talk", "Attack"];
-    var itemStatuses = [];
-    var counters = [];
+         var gameMeta;
+         var inventory = [];
+         var itemStatuses = [];
+         var counters = [];
+         var rooms = [];
 
-    $(document).bind("updateStatus", function(event, status) {
-      $("p.new:first ").removeClass("new").addClass("old");
-      var n = $("p.old").length;
-      if(n > 5) {
-        $("p.old:first").remove();
-      }
-      $("#game").append("<p class='new'>" + status + "</p>");
-    })
-
-    function itemObject (name) {
-            this.name = name;
-            this.look = 0;
-            this.talk = 0;
-            this.attack = 0;
-    }
-
-    function counter (name, min, max, val) {
-            this.name = name;
-            this.min = min;
-            this.max = max;
-            this.val = val;
-    }
-
-    $.getJSON('hmm.json', function(data) {
-        $("title").html(data.gameName);
-
-            $("a").on("click", function(e) {
-                     var that = $(this);
-                     if(that.hasClass("path") && !$(this).hasClass("disabled")) {      // If the link has the class "path," and isn't disabled, then it's a room change.
-                     e.preventDefault();
-                     var roomName = that.attr("href");
-                     $("#move-preview .ul-modal-inner").html(roomName);
-                     for (var i in data.Rooms) {
-                              if (roomName === data.Rooms[i].Name) {
-                                       Room.get(data.Rooms[i], i)
-                              }
-                     }
+          $(document).bind("updateStatus", function(event, status) {
+            $("p.new:first ").removeClass("new").addClass("old");
+            var n = $("p.old").length;
+            if(n > 5) {
+              $("p.old:first").remove();
             }
+            $("#game").append("<p class='new'>" + status + "</p>");
+          })
 
-                     else if(that.hasClass("action")){                                 // If it doesn't, it must be an action...
+         function gameInfoObject (name, version, description) {
+                  this.name = name;
+                  this.version = version;
+                  this.description = description;
+         }
 
-                              var action = that.html();
+         function itemObject (name, location, look, talk, attack, take, use) {
+                  this.name = name;
+                  this.location = location;
+                  this.look = look;
+                  this.lookNum = 0;
+                  this.talk = talk;
+                  this.talkNum = 0;
+                  this.attack = attack;
+                  this.attackNum = 0;
+                  if(take) {
+                           this.take = take;
+                  }
+                  else {
+                           this.take = null;
+                  }
+                  if(use) {
+                           this.use = use;
+                  }
+                  else {
+                           this.use = null;
+                  }
+         }
+         
+         function roomObject (name, description, paths, starter) {
+                  this.name = name;
+                  this.description = description;
+                  this.paths = paths;
+                  if(starter) {
+                           this.starter = true;
+                  }
 
-                              if(action === "Use") {                                       // ...which can be either an item being used on an item...
+         }
 
-                              }
+         function counterObject (name, min, max, val) {
+                  this.name = name;
+                  this.min = min;
+                  this.max = max;
+                  this.val = val;
+         }
 
-                              else {                                                       // ...or an action being performed on an item.
+         $.ajax({
+                  url: './hmm.json',
+                  dataType: 'json',
+                  async: false,
+                  success: function(data) {
+                  $("title").html(data.gameName);
+                  
+                  gameMeta = new gameInfoObject(data.gameName, data.Version, data.gameDescription);
+              
+                  //push all of the game data into arrays, making it as deliciously malleable as some once-hard ice cream that's been heated in the microwave for a few seconds
+              
+                  for(var i in data.Rooms) {
+                           var roomName = data.Rooms[i].Name;
+                           var roomDescription = data.Rooms[i].Description;
+                           var paths = data.Rooms[i].Paths;
+                           if(data.Rooms[i].Starter){
+                                    var starter = data.Rooms[i].Starter;
+                           }
+                           else {
+                                    var starter = false;
+                           }
+                           
+                           rooms.push(new roomObject(roomName, roomDescription, paths, starter));
+                           for(var k in data.Rooms[i].Items) {
+                                    var lookResults = data.Rooms[i].Items[k].Look;
+                                    var takeResult = data.Rooms[i].Items[k].Take;
+                                    var useResults = data.Rooms[i].Items[k].Use;
+                                    var talkResults = data.Rooms[i].Items[k].Talk;
+                                    var attackResults = data.Rooms[i].Items[k].Attack;
+                                    var itemName = data.Rooms[i].Items[k].Name;
+                                    var itemLocation = roomName;
+                                    itemStatuses.push(new itemObject(itemName, itemLocation, lookResults, talkResults, attackResults, takeResult, useResults));
+                           }
 
+                  }
 
+                  for(var j in data.Counters){
+                           var counterName = data.Counters[j].Name.replace(/ /g,'');
+                           var counterMin = data.Counters[j].Min;
+                           var counterMax = data.Counters[j].Max;
+                           var counterVal = data.Counters[j].Val;
+                           counters.push(new counterObject(counterName, counterMin, counterMax, counterVal));
+                  }
 
-                              }
-                     }
-
-            });
-
-
-            itemItem = function(items, roomID) {
-                     items = items.sort();
-
-                     for (var i in data.ItemCombos) {
-                              var ingredients = data.ItemCombos[i].Ingredients;
-                              ingredients = ingredients.sort();
-
-                              if(Util.arrayEquality(items,ingredients)) {
-                                       console.log("You Created " + data.ItemCombos[i].Name);
-                                       changeStatus(data.ItemCombos[i].Message);
-                              }
-                     }
-            }                                                                                 // end item/item function
-
-
-            itemAction = function(action, item, roomID) {
-
-                     for (var i in actions) {
-                              if(actions[i] === action) {
-                                       var verb = action;
-                              }
-                     }
-
-                     for (var i in data.Rooms[roomID].items) {
-
-                                       var nospaceItem = item.replace(/ /g,'');
-                              if(data.Rooms[roomID].items[i].Name === nospaceItem) {
-
-
-                                       for(var x in itemStatuses) {
-                                                if(nospaceItem === itemStatuses[x].name) {
-                                                         var itemStatus = itemStatuses[x];
-                                                         var attackStatus = itemStatuses[x].attack;
-                                                         var lookStatus = itemStatuses[x].look;
-                                                         var talkStatus = itemStatuses[x].talk;
-                                                         break;
-                                                }
-                                       }
-                                       var itemData = data.Rooms[roomID].items[i];
-
-
-                                       if(verb === "Take") {
-                                                inventory.push(item);
-                                                $(document).trigger("updateStatus", "You take the " + item + ".");
-                                                $("#action-use ul").append("<li><a href='#' class='item'>" + item        + " <small>(held)</small></a></li>");
-                                                $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");
-
-                                       }
-
-                                       if(verb === "Look") {
-                                                $(document).trigger("updateStatus", itemData.Look[lookStatus]);
-                                                for(var y in itemStatuses) {
-                                                         if(nospaceItem === itemStatuses[y].name) {
-                                                                  var lookCounter = itemStatuses[y].look + 1;
-                                                                  if(data.Rooms[roomID].items[i].Look[lookCounter]) {
-                                                                  itemStatuses[y].look += 1;
-                                                                  }
-                                                                  break;
-                                                         }
-                                                }
-                                       }
-
-                                       if(verb === "Talk") {
-                                                $(document).trigger("updateStatus", itemData.Talk[talkStatus]);
-                                                for(var y in itemStatuses) {
-                                                         if(nospaceItem === itemStatuses[y].name) {
-                                                                  var talkCounter = itemStatuses[y].talk + 1;
-                                                                  if(data.Rooms[roomID].items[i].Talk[talkCounter]) {
-                                                                  itemStatuses[y].talk += 1;
-                                                                  }
-                                                                  break;
-                                                         }
-                                                }
-                                       }
-
-                                       if(verb === "Attack") {
-                                                $(document).trigger("updateStatus", itemData.Attack[attackStatus]);
-
-                                                if(data.Rooms[roomID].items[i].Counters.Attack) {            // if a counter exists on the item
-                                                for(var q in counters) {
-                                                         if(counters[q].name === data.Rooms[roomID].items[i].Counters.Attack[0] && counters[q].val < counters[q].max) {
-                                                         }
-                                                }
-                                                }
-
-                                                for(var y in itemStatuses) {
-                                                         if(nospaceItem === itemStatuses[y].name) {
-                                                                  var attackCounter = itemStatuses[y].attack + 1;
-                                                                  if(data.Rooms[roomID].items[i].Attack[attackCounter]) {
-                                                                  itemStatuses[y].attack += 1;
-                                                                  }
-                                                                  break;
-                                                         }
-                                                }
-                                       }
-                              }
-                     }
-            }                                                                                           // end item/action function
-
-         var gameCounters = data.Counters;
-
-
-            for(var j in gameCounters){
-                     var counterName = gameCounters[j].Name;
-                     var counterMin = gameCounters[j].Min;
-                     var counterMax = gameCounters[j].Max;
-                     var counterVal = gameCounters[j].Val;
-                     counters.push(new counter(counterName, counterMin, counterMax, counterVal));
             }
+         });                                                                                            // end json get
+                  
+         //begin item/action function
+         
+         var itemAction = function(action, item) {
+                  
+                  for(var i in itemStatuses) {
+                           if(itemStatuses[i].name === item) {
+                           var itemData = itemStatuses[i];
+                           var key = i;
+                           break;
+                           }
+                  }
+                  
+                  var lookNum = itemData.lookNum;
+                  var talkNum = itemData.talkNum;
+                  var attackNum = itemData.attackNum;
+                  
+                  if(action === "Look") {
+                           $(document).trigger("updateStatus", itemData.look[lookNum]);
+                           if(itemStatuses[key].look.length > (itemStatuses[key].lookNum + 1)){
+                                    itemStatuses[key].lookNum += 1;
+                           }                  
+                  }
+                  
+                  if(action === "Take") {
+                           Inventory.push(item);
+                           $(document).trigger("updateStatus", "You take the " + item + ".");
+                           $("#action-use ul").append("<li><a href='#' class='item'>" + item        + " <small>(held)</small></a></li>");
+                           $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");
+                  }
+                  
+                  if(action === "Talk") {
+                           $(document).trigger("updateStatus", itemData.talk[talkNum]);
+                           if(itemStatuses[key].talk.length > (itemStatuses[key].talkNum + 1)){
+                                    itemStatuses[key].talkNum += 1;
+                           }
+                  }
+                  
+                  if(action === "Attack") {
+                           $(document).trigger("updateStatus", itemData.attack[attackNum]);
+                           if(itemStatuses[key].attack.length > (itemStatuses[key].attackNum + 1)){
+                                    itemStatuses[key].attackNum += 1;
+                           }
+                  }
+                  
+                  if(action === "Use") {
+                           console.log("\"Ability to use things tk.\" - THE MANAGEMENT");
+                  }
+                  
+         }
 
-        for(var i in data.Rooms) {
+         //begin helper/display functions
+         
+         $(".ui-action ul li a").live('click', function() {                                              //set off user-triggered item/action events
+                  var that = $(this);
+                  var action = that.parent().parent().attr("id");
+                  var item = that.clone().find("small").remove().end().text().replace(/ /g,'');
+                  $(".ui-overlay, .ui-action").fadeOut();
+                  $(".active").removeClass("active");
+                  if(action === "Take") {
+                           that.remove();
+                  }
+                  itemAction(action, item);                                           
+         })
+         
+         
+         $("a.path:not(.disabled)").click(function() {                                                     //compass-controlling     
+                  var roomName = $(this).attr("href");
+                  $("#move-preview .ul-modal-inner").html(roomName);
+                  for (var i in rooms) {
+                           if (roomName === rooms[i].name) {
+                                   Room.get(rooms[i], itemStatuses);
+                           }
+                  }                  
+         })
 
-            var items = data.Rooms[i].items;
+          
+        //END PREP CODE, INITIALIZE GAME
 
-            for(var k in items) {
-                     var itemName = items[k].Name;
-                     itemName = itemName.replace(/ /g,'');
-                     itemStatuses.push(new itemObject(itemName));
-            }
-
-            if(data.Rooms[i].Starter) {
-                     var firstRoom = data.Rooms[i];
-                     Room.get(firstRoom, i);
-            }
+        for(var i in rooms) {
+                 if(rooms[i].starter === true) {                                             //initialize room that's flagged as 'starter'
+                          Room.get(rooms[i], itemStatuses);
+                 }
         }
-
-
-      });                                                                                   // end json get
-
 
 
     $("#footer ul li a").click(function() {                                                  // bunch of UI dom manipulation stuff, should probably break this out into its own file for now
