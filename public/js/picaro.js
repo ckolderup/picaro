@@ -1,8 +1,7 @@
-require(["jquery", "util", "room", "inventory"], function($, Util, Room, Inventory) {
-
++require(["jquery", "util", "room", "inventory"], function($, Util, Room, Inventory) {
+  
   $(document).ready(function() {
          var gameMeta;
-         var inventory = [];
          var itemStatuses = [];
          var counters = [];
          var rooms = [];
@@ -133,7 +132,7 @@ require(["jquery", "util", "room", "inventory"], function($, Util, Room, Invento
                   }
                   
                   if(action === "Take") {
-                           Inventory.push(item);
+                           Inventory.add(item);
                            $(document).trigger("updateStatus", "You take the " + item + ".");
                            $("#action-use ul").append("<li><a href='#' class='item'>" + item        + " <small>(held)</small></a></li>");
                            $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");

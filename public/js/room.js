@@ -1,4 +1,4 @@
-define(['jquery', 'Inventory'], function($, Inventory) {
+define(['jquery', 'inventory'], function($, Inventory) {
   var Room = {};
   Room.get = function(room, itemStatuses) {
                      console.log(room);
@@ -44,23 +44,23 @@ define(['jquery', 'Inventory'], function($, Inventory) {
                                              }
                                     }
                                
-                               for (var i in Inventory) {                                                           //repopulate item lists
-                                    $("#action-use ul, #action-look ul").append("<li><a href='#' class='item'>" + Inventory[i] + " <small>(held)</small></a></li>");  //append if it's in the inventory
-                               }
+                                for (var i in Inventory.list()) {                                                           //re-populate item lists
+                                       $("#action-use ul, #action-look ul").append("<li><a href='#' class='item'>" + Inventory.list()[i] + " <small>(held)</small></a></li>"); //append if it's in the Inventory
+                                  }
                                
                                for (var i in roomItems) {
                                     
                                     var item = roomItems[i];
                                     
                                     if(item.take) {
-                                             var inInventory = jQuery.inArray(item.name, Inventory);
+                                             var inInventory = jQuery.inArray(item.name, Inventory.list());
                                              if(inInventory === -1) {
                                              $("#action-take ul").append("<li><a href='#' class='item'>" + item.name + "</a></li>");
                                              }
                                     }
                                     
                                     if(item.look) {
-                                             var inInventory = jQuery.inArray(item.name, Inventory);
+                                             var inInventory = jQuery.inArray(item.name, Inventory.list());
                                              if(inInventory === -1) {
                                              $("#action-look ul").append("<li><a href='#' class='item'>" + item.name + "</a></li>");
                                              }
