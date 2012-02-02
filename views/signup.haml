@@ -1,0 +1,17 @@
+%form{:action => "/signup", :method => "POST"}
+  %label{:for => "email"} Email Address
+  %input{:id => "email", :name => "email", :type => "text"}
+
+  %label{:for => "password"} Password
+  %input{:id => "password", :name => "password", :type => "password"}
+
+  %label{:for => "password2"} Confirm Password
+  %input{:id => "password2", :name => "password2", :type => "password"}
+
+  %label{:for => "username"} Username
+  %input{:id => "username", :name => "username", :type => "text"}
+
+  %label{:for => "display_name"} Full Name
+  %input{:id => "display_name", :name => "display_name", :type => "text"}
+
+  %input{:value => "Create Account", :type => "submit"}

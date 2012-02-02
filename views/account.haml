@@ -1,0 +1,19 @@
+%form{:action => "/account", :method => "POST"}
+  %label{:for => "email"} Email Address
+  %input{:id => "email", :name => "email", :type => "text", :value => user.email}
+
+  %label{:for => "password"} New password
+  %input{:id => "password", :name =>"password", :type => "password"}
+
+  %label{:for => "password2"} Confirm new password
+  %input{:id => "password2", :name =>"password2", :type => "password"}
+
+  %label{:for => "username"} Username
+  %input{:id => "username", :name => "username", :type => "text", 
+         :value => user.username}
+
+  %label{:for => "display_name"} Display Name
+  %input{:id => "display_name", :name => "display_name", :type => "text",
+         :value => user.display_name}
+
+  %input{:value => "Update Account Details", :type => "submit", :class => "button"}

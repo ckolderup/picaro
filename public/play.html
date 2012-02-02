@@ -8,36 +8,35 @@
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <link href="images/ios_icon.png" rel="apple-touch-icon-precomposed" /> 
-    <link href="images/ios_icon-72.png" rel="apple-touch-icon-precomposed" sizes="72x72" /> 
-    <link href="images/ios_icon@2x.png" rel="apple-touch-icon-precomposed" sizes="114x114" /> 
+    <link href="images/ios_icon.png" rel="apple-touch-icon-precomposed" />
+    <link href="images/ios_icon-72.png" rel="apple-touch-icon-precomposed" sizes="72x72" />
+    <link href="images/ios_icon@2x.png" rel="apple-touch-icon-precomposed" sizes="114x114" />
     <link rel="apple-touch-startup-image" href="ios-startup-ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
     <link rel="apple-touch-startup-image" href="ios-startup-ipad-portait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
     <link rel="apple-touch-startup-image" href="ios-startup-iphone.png" media="screen and (max-device-width: 320px)" />
     <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" href="ios-startup-iphone@2x.png">
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="picaro.js"></script>
+    <script data-main="js/picaro" src="js/vendor/require-jquery.js"></script>
   </head>
 
   <body>
 
     <div id="container">
-      
+
       <div id="header">
         <h2></h2>
         <a id="header-move" href="#">Move</a>
       </div>
-      
+
       <div id="game">
       </div>
-      
+
       <div id="footer">
         <ul>
           <li id="footer-look"><a href="#" class="action">Look</a></li><li id="footer-take"><a href="#" class="action">Take</a></li><li id="footer-use"><a href="#" class="action">Use</a></li><li id="footer-talk"><a href="#" class="action">Talk</a></li><li id="footer-attack"><a href="#" class="action">Attack</a></li>
         </ul>
       </div>
-      
+
       <div id="move">
         <div id="move-preview" class="ui-modal">
           <div class="ui-modal-notch"></div>
@@ -54,7 +53,7 @@
           </ul>
         </div>
       </div>
-      
+
       <div id="action-look" class="ui-action">
         <div class="ui-action-sheet ui-modal">
           <div class="ui-modal-notch ui-action-sheet-notch-1"></div>
@@ -79,7 +78,7 @@
           </div>
         </div>
       </div>
-      
+
       <div id="action-take" class="ui-action">
         <div class="ui-action-sheet ui-modal">
           <div class="ui-modal-notch ui-action-sheet-notch-2"></div>
@@ -104,7 +103,7 @@
           </div>
         </div>
       </div>
-      
+
       <div id="action-use" class="ui-action">
         <div class="ui-action-sheet ui-modal">
           <div class="ui-modal-notch ui-action-sheet-notch-3"></div>
@@ -129,7 +128,7 @@
           </div>
         </div>
       </div>
-      
+
       <div id="action-talk" class="ui-action">
         <div id="action-talk-character" class="ui-action-sheet ui-modal">
           <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
@@ -162,7 +161,7 @@
           </div>
         </div>
       </div>
-      
+
       <div id="action-attack" class="ui-action">
         <div class="ui-action-sheet ui-modal">
           <div class="ui-modal-notch ui-action-sheet-notch-5"></div>
@@ -187,7 +186,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
 
   <div class="ui-overlay"></div>
