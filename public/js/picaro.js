@@ -1,11 +1,10 @@
-+require(["jquery", "util", "room", "inventory"], function($, Util, Room, Inventory) {
+require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room, Inventory, Convo) {
 
   $(document).ready(function() {
     var gameMeta;
     var itemStatuses = [];
     var counters = [];
     var rooms = [];
-
     $(document).bind("updateStatus", function(event, status) {
       $("p.new:first ").removeClass("new").addClass("old");
       var n = $("p.old").length;
@@ -13,6 +12,29 @@
         $("p.old:first").remove();
       }
       $("#game").append("<p class='new'>" + status + "</p>");
+    })
+
+    $(document).bind("characterSpeaks", function(e, message) {
+    })
+
+    $(document).bind("beginConvo", function(e, character) {
+      console.log('beginConvo', character)
+      var conversation = character.talk;
+
+      $('#action-talk-character h3').html(character.name)
+      $('#action-talk-character').show()
+      $('#action-talk-player ul').empty();
+      Convo.askQuestions(conversation)
+    })
+
+    $(document).bind("askQuestion", function(e, question) {
+      console.log("askQuestion", question)
+
+      $('#action-talk-character-message').html(question.message)
+      _.each(question.responses, function(response, index) {
+        console.log("response", response, index)
+        $('#action-talk-player ul').append($('<li data-response-id="' + index + '"><a href="#">' + response.name + "</a></li>"))
+      })
     })
 
     function gameInfoObject (name, version, description) {
@@ -61,10 +83,11 @@
     }
 
     $.ajax({
-      url: './hmm.json',
+      url: './hohum.json',
       dataType: 'json',
       async: false,
       success: function(data) {
+        console.log("SUCCESS")
         $("title").html(data.gameName);
 
         gameMeta = new gameInfoObject(data.gameName, data.Version, data.gameDescription);
@@ -131,12 +154,13 @@
       if(action === "Take") {
         Inventory.add(item);
         $(document).trigger("updateStatus", "You take the " + item + ".");
-        $("#action-use ul").append("<li><a href='#' class='item'>" + item        + " <small>(held)</small></a></li>");
+        $("#action-use ul").append("<li><a href='#' class='item'>" + item + " <small>(held)</small></a></li>");
         $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");
       }
 
       if(action === "Talk") {
-        $(document).trigger("updateStatus", itemData.talk[talkNum]);
+        $(document).trigger('beginConvo', itemData)
+
         if(itemStatuses[key].talk.length > (itemStatuses[key].talkNum + 1)){
           itemStatuses[key].talkNum += 1;
         }

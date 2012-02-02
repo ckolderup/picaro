@@ -27,7 +27,36 @@
       "Items": [
 		{"Name": "Coffee Table", "Look": ["Dope coffee table.","Totally dope coffee table."], "Attack": ["You elbow drop that mess. Wood flies everywhere.", "You cut your elbow badly on a jagged piece of wood. Dummy."], "Counters" : {"Attack" : ["Elbow Drops", 1] }},
 		{"Name": "Couch", "Look": ["Dope couch."],  "Attack": ["Done. A good place for a practice elbow drop. Search elsewhere for the real deal.", "Test"], "Counters" : {"Talk" : ["Elbow Drops", 1]}},
-		{"Name": "Jackalope", "Look": ["Dope jackalope"], "Take": true, "Talk": ["The jackalope can't talk. It's dead."], "Attack": ["The jackalope sends you straight to hell."]},
+		{"Name": "Jackalope", "Look": ["Dope jackalope"], "Take": true, "Attack": ["The jackalope sends you straight to hell."], "Talk": {
+        "name": "Did you know Jackalope milk has large number of purported health benefits, and fetches high prices across the American southwest?",
+        "children": [
+            {
+                "name": "Yes",
+                "children": [
+                    {
+                        "name": "You are what's wrong with humanity."
+                    }
+                ]
+            },
+            {
+                "name": "Be silent.",
+                "children": [
+                    {
+                        "name": "Won't talk, eh? Into the brig with you!"
+                    }
+                ]
+            },
+            {
+                "name": "No",
+                "children": [
+                    {
+                        "name": "Well, it's bullshit."
+                    }
+                ]
+            }
+        ]
+    }
+		},
 		{"Name": "Sunglasses", "Look": ["Dope sunglasses."],  "Take": true}
        ]
   },
