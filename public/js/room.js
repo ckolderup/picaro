@@ -1,7 +1,6 @@
 define(['jquery', 'inventory'], function($, Inventory) {
   var Room = {};
   Room.get = function(room, itemStatuses) {
-    console.log(room);
     $("ul").not("#footer ul").not("#move-compass ul").each(function() {                  // clear out all the room-specific lists
       $(this).empty();
     });
@@ -67,7 +66,7 @@ define(['jquery', 'inventory'], function($, Inventory) {
       }
 
       if(item.talk) {
-               $("#action-talk ul").append("<li><a href='#' class='item'>" + item.name + "</a></li>");
+        $("#action-talk ul").append("<li><a href='#' data-item-type='talk' data-item-id='" + item.name + "' class='item'>" + item.name + "</a></li>");
       }
 
       if(item.attack) {

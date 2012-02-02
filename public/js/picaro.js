@@ -17,7 +17,7 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
     $(document).bind("characterSpeaks", function(e, message) {
     })
 
-    $(document).bind("beginConvo", function(e, character) {
+    $('#action-talk').bind("beginConvo", function(e, character) {
       console.log('beginConvo', character)
       var conversation = character.talk;
 
@@ -87,7 +87,6 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
       dataType: 'json',
       async: false,
       success: function(data) {
-        console.log("SUCCESS")
         $("title").html(data.gameName);
 
         gameMeta = new gameInfoObject(data.gameName, data.Version, data.gameDescription);
@@ -158,14 +157,6 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
         $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");
       }
 
-      if(action === "Talk") {
-        $(document).trigger('beginConvo', itemData)
-
-        if(itemStatuses[key].talk.length > (itemStatuses[key].talkNum + 1)){
-          itemStatuses[key].talkNum += 1;
-        }
-      }
-
       if(action === "Attack") {
         $(document).trigger("updateStatus", itemData.attack[attackNum]);
         if(itemStatuses[key].attack.length > (itemStatuses[key].attackNum + 1)){
@@ -182,13 +173,18 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
     //begin helper/display functions
 
     $(".ui-action ul li a").live('click', function() {                                              //set off user-triggered item/action events
-      var that = $(this);
-      var action = that.parent().parent().attr("id");
-      var item = that.clone().find("small").remove().end().text().replace(/ /g,'');
+      var $this = $(this);
+      var action = $this.parent().parent().attr("id");
+      var item = $this.clone().find("small").remove().end().text().replace(/ /g,'');
+      if(action === 'Talk') {
+        var item = _.find(itemStatuses, function(item) {return $this.data('item-id') === item.name})
+        $("#action-talk").trigger('beginConvo', item);
+        return;
+      }
       $(".ui-overlay, .ui-action").fadeOut();
       $(".active").removeClass("active");
       if(action === "Take") {
-        that.remove();
+        $this.remove();
       }
       itemAction(action, item);
     })
@@ -238,9 +234,9 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
     });
 
     $("#footer-talk a").click(function() {
-      $("#action-talk").fadeIn("fast");
-      return false;
-    });
+       $("#action-talk").fadeIn("fast");
+       return false;
+     });
 
     $("#footer-attack a").click(function() {
       $("#action-attack").fadeIn("fast");
@@ -248,6 +244,7 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
     });
 
     $(".ui-overlay, .ui-action-sheet-back").click(function() {
+      console.log("clicked on an overlay");
       $(".active").removeClass("active");
       $(this).fadeOut("fast");
       $(".ui-action, .ui-overlay, #move").fadeOut("fast");
