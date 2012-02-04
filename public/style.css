@@ -11,8 +11,8 @@
   dl, dt, dd, ol, ul, li,
   fieldset, form, label, legend,
   table, caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed, 
-  figure, figcaption, footer, header, hgroup, 
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
   	margin: 0;
@@ -23,7 +23,7 @@
   	vertical-align: baseline;
   }
   /* HTML5 display-role reset for older browsers */
-  article, aside, details, figcaption, figure, 
+  article, aside, details, figcaption, figure,
   footer, header, hgroup, menu, nav, section {
   	display: block;
   }
@@ -53,9 +53,13 @@
   	border-collapse: collapse;
   	border-spacing: 0;
   }
-  
+
   a {
     text-decoration: none;
+    color: #222;
+  }
+
+  span {
     color: #222;
   }
 
@@ -78,7 +82,7 @@
       }
     }
 
-  /* Header */ 
+  /* Header */
 
     #header {
       background: #000;
@@ -98,7 +102,7 @@
           position: absolute;
           top: -25px;
         }
-      } 
+      }
       #header h2 {
         padding: 9px;
         font-size: 14px;
@@ -123,7 +127,7 @@
           }
         }
 
-  /* Game */ 
+  /* Game */
 
     #game {
       padding: 0 0 50px;
@@ -169,8 +173,8 @@
         font-style: italic;
         color: darkgreen;
       }
-  
-  /* Footer */ 
+
+  /* Footer */
 
     #footer {
       background: #000;
@@ -195,7 +199,7 @@
         #footer ul li {
           display: inline;
         }
-          #footer ul li a {
+          #footer ul li a, #footer ul li span {
             width: 64px;
             height: 16px;
             display: inline-block;
@@ -225,7 +229,7 @@
             #footer.active ul li.active a {
               opacity: 1;
             }
-          
+
 /*----------
  Move Modal
 ----------*/
@@ -359,8 +363,8 @@
 
 /*----------
  Talk Modal
-----------*/ 
-      
+----------*/
+
   #action-talk .ui-action-sheet {}
     #action-talk-character {
       bottom: 240px;
@@ -375,7 +379,7 @@
         background-image: url(images/action_notch_left.png);
         left: -14px;
         bottom: 14px;
-      }      
+      }
         @media only screen and (-webkit-min-device-pixel-ratio: 2) {
           #action-talk #action-talk-character .ui-modal-notch {
             background-image: url(images/action_notch_left@2x.png);
@@ -402,7 +406,7 @@
         left: auto;
         right: -14px;
         bottom: 14px;
-      }      
+      }
         @media only screen and (-webkit-min-device-pixel-ratio: 2) {
           #action-talk #action-talk-player .ui-modal-notch {
             background-image: url(images/action_notch_right@2x.png);
@@ -412,17 +416,17 @@
       #action-talk #action-talk-player .ui-scroller {
         height: 105px;
       }
-      
+
 /*-----------
  UI Patterns
------------*/  
-      
+-----------*/
+
   /* Basics */
-  
+
     .off { display: none !important; }
     .on { display: block !important; }
-      
-  /* Modal Overlay */  
+
+  /* Modal Overlay */
 
     .ui-overlay {
       position: fixed;
@@ -434,9 +438,9 @@
       display: none;
       background: rgba(50,50,50,.7);
     }
-    
+
   /* Modal Box */
-  
+
     .ui-modal {
         background: #000;
         border: 2px solid #000;
@@ -463,9 +467,9 @@
               background-size: 21px 15px;
             }
           }
-  
+
   /* Action Sheet */
-      
+
     .ui-action {
       z-index: 15;
       width: 100%;
@@ -510,7 +514,7 @@
             font-family: Palatino, Georgia, Times, serif;
             color: #f2cc81;
           }
-      
+
   /* Scroller */
 
     .ui-scroller {
@@ -528,7 +532,7 @@
       .ui-scroller ul {
         position: static;
       }
-        .ui-scroller ul li a {
+        .ui-scroller ul li a, .ui-scroller ul li span  {
           padding: 7.75px;
           display: block;
         }

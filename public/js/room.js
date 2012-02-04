@@ -66,7 +66,7 @@ define(['jquery', 'inventory'], function($, Inventory) {
       }
 
       if(item.talk) {
-        $("#action-talk ul").append("<li><a href='#' data-item-type='talk' data-item-id='" + item.name + "' class='item'>" + item.name + "</a></li>");
+        $("#action-talk ul").append("<li><a href='#' class='action talkItem'  data-item-type='talk' data-item-id='" + item.name + "' class='item'>" + item.name + "</a></li>");
       }
 
       if(item.attack) {

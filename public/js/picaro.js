@@ -5,6 +5,8 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
     var itemStatuses = [];
     var counters = [];
     var rooms = [];
+    var UI = {}
+
     $(document).bind("updateStatus", function(event, status) {
       $("p.new:first ").removeClass("new").addClass("old");
       var n = $("p.old").length;
@@ -15,16 +17,17 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
     })
 
     $(document).bind("characterSpeaks", function(e, message) {
+      console.log("characterSpeaks")
     })
 
-    $('#action-talk').bind("beginConvo", function(e, character) {
+    $(document).bind("beginConvo", function(e, character) {
       console.log('beginConvo', character)
       var conversation = character.talk;
 
       $('#action-talk-character h3').html(character.name)
       $('#action-talk-character').show()
       $('#action-talk-player ul').empty();
-      Convo.askQuestions(conversation)
+      Convo.askQuestions(conversation);
     })
 
     $(document).bind("askQuestion", function(e, question) {
@@ -33,7 +36,7 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
       $('#action-talk-character-message').html(question.message)
       _.each(question.responses, function(response, index) {
         console.log("response", response, index)
-        $('#action-talk-player ul').append($('<li data-response-id="' + index + '"><a href="#">' + response.name + "</a></li>"))
+        $('#action-talk-player ul').append($('<li><span class="playerTalkResponse" data-response-id="' + index + '" >' + response.name + '</></li>'))
       })
     })
 
@@ -172,25 +175,41 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
 
     //begin helper/display functions
 
-    $(".ui-action ul li a").live('click', function() {                                              //set off user-triggered item/action events
+    UI.handleGenericActionClick = function(e) {  //set off user-triggered item/action events
+      console.log("handleGenericActionClick", arguments)
       var $this = $(this);
       var action = $this.parent().parent().attr("id");
       var item = $this.clone().find("small").remove().end().text().replace(/ /g,'');
-      if(action === 'Talk') {
-        var item = _.find(itemStatuses, function(item) {return $this.data('item-id') === item.name})
-        $("#action-talk").trigger('beginConvo', item);
-        return;
-      }
       $(".ui-overlay, .ui-action").fadeOut();
       $(".active").removeClass("active");
       if(action === "Take") {
         $this.remove();
       }
       itemAction(action, item);
-    })
+    }
+
+    UI.handleTalkActionClick = function() {
+      var itemId = $(this).data('item-id')
+      var item = _.find(itemStatuses, function(item) {return itemId === item.name})
+      $(this).trigger('beginConvo', item);
+    }
+
+    UI.handlePlayerResponseClick = function() {
+      var responseId = $(this).data('response-id')
+      console.log(responseId);
+      var item = _.find(itemStatuses, function(item) {return itemId === item.name})
+      $(this).trigger('beginConvo', item);
+    }
 
 
-    $("a.path:not(.disabled)").click(function() {                                                     //compass-controlling
+    $(".ui-action ul li#footer-look a").live('click', UI.handleGenericActionClick)
+    $(".ui-action ul li#footer-take a").live('click', UI.handleGenericActionClick)
+    $(".ui-action ul li#footer-use a").live('click', UI.handleGenericActionClick)
+    $(".talkItem").live('click', UI.handleTalkActionClick)
+    $(".ui-action ul li#footer-attack a").live('click', UI.handleGenericActionClick)
+    $(".playerTalkResponse").live('click', UI.handlePlayerResponseClick)
+
+    $("a.path:not(.disabled)").click(function() {  //compass-controlling
       var roomName = $(this).attr("href");
       $("#move-preview .ul-modal-inner").html(roomName);
       for (var i in rooms) {
@@ -208,7 +227,6 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
         Room.get(rooms[i], itemStatuses);
       }
     }
-
 
     $("#footer ul li a").click(function() {                                                  // bunch of UI dom manipulation stuff, should probably break this out into its own file for now
       $(".ui-overlay").fadeIn("fast");
@@ -234,6 +252,7 @@ require(["jquery", "util", "room", "inventory", "convo"], function($, Util, Room
     });
 
     $("#footer-talk a").click(function() {
+      console.log("fadeIn talk")
        $("#action-talk").fadeIn("fast");
        return false;
      });
