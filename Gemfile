@@ -10,3 +10,7 @@ gem "haml"
 gem "sinatra-subdomain"
 gem "tux"
 gem "andand"
+
+group :development do
+  gem 'ruby-debug19'
+end

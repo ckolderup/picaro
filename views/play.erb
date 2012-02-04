@@ -7,16 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <link href="images/ios_icon.png" rel="apple-touch-icon-precomposed" />
-    <link href="images/ios_icon-72.png" rel="apple-touch-icon-precomposed" sizes="72x72" />
-    <link href="images/ios_icon@2x.png" rel="apple-touch-icon-precomposed" sizes="114x114" />
-    <link rel="apple-touch-startup-image" href="ios-startup-ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
-    <link rel="apple-touch-startup-image" href="ios-startup-ipad-portait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
-    <link rel="apple-touch-startup-image" href="ios-startup-iphone.png" media="screen and (max-device-width: 320px)" />
-    <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" href="ios-startup-iphone@2x.png">
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link href="/images/ios_icon.png" rel="apple-touch-icon-precomposed" />
+    <link href="/images/ios_icon-72.png" rel="apple-touch-icon-precomposed" sizes="72x72" />
+    <link href="/images/ios_icon@2x.png" rel="apple-touch-icon-precomposed" sizes="114x114" />
+    <link rel="apple-touch-startup-image" href="/ios-startup-ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
+    <link rel="apple-touch-startup-image" href="/ios-startup-ipad-portait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
+    <link rel="apple-touch-startup-image" href="/ios-startup-iphone.png" media="screen and (max-device-width: 320px)" />
+    <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" href="/ios-startup-iphone@2x.png">
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <script data-main="js/picaro" src="js/vendor/require-jquery.js"></script>
+    <script type="text/javascript">
+      var require = {
+        baseUrl: "/js/",
+        waitSeconds: 15
+      };
+
+      window.gameId = "<%= @game_id %>" || "hmm";
+    </script>
+    <script data-main="picaro" src="/js/vendor/require-jquery.js"></script>
   </head>
 
   <body>

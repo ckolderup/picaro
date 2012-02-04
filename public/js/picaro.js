@@ -61,7 +61,7 @@
     }
 
     $.ajax({
-      url: './hmm.json',
+      url: '/../game_data/' + gameId + '.json',
       dataType: 'json',
       async: false,
       success: function(data) {
