@@ -3,6 +3,11 @@ disable :run
 
 require 'capybara'
 require 'capybara/dsl'
+
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
+
 require File.dirname(__FILE__) + '/../picaro'
 Capybara.app = Picaro
 
