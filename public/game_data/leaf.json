@@ -13,8 +13,8 @@
       "Name": "The Tree",
       "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
       "Items": [
-    		{"Name": "Leaf", "Look": ["It seems rather far away."]},
-    		{"Name": "Rake", "Look": ["The rake is a bit rusty, but looks sturdy"]}
+        {"Name": "Leaf", "Look": ["It seems rather far away."]},
+        {"Name": "Rake", "Look": ["The rake is a bit rusty, but looks sturdy"]}
     	]
     }
   ]

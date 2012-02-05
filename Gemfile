@@ -14,3 +14,8 @@ gem "andand"
 group :development do
   gem 'ruby-debug19'
 end
+
+group :test do
+  gem 'rspec'
+  gem 'capybara'
+end
