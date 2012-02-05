@@ -102,6 +102,9 @@
           var counterVal = data.Counters[j].Val;
           counters.push(new counterObject(counterName, counterMin, counterMax, counterVal));
         }
+      },
+      error: function() {
+        console.log("Error getting game JSON", arguments)
       }
     });                                                                                            // end json get
 

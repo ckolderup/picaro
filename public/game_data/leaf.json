@@ -1,12 +1,10 @@
 {
-  "gameName": "Adventure at Joe's House",
+  "gameName": "One Node Tree",
   "gameDescription": "A V1 Picaro Test-Game",
   "Version": "1",
 
   "ItemCombos": [
-    {"Name": "Cool Jackalope", "Message": "You created a cool jackalope", "Ingredients": ["Jackalope", "Sunglasses"], "Location": "Room"},
-    {"Name": "Jacko Couch", "Message": "You put Jacko on da couch", "Ingredients": ["Jackalope", "Couch"], "Desctructive": true},
-    {"Name": "Jacko Table", "Message": "You put Jacko on da table", "Ingredients": ["Jackalope", "Table"]}
+    {"Name": "Cool Jackalope", "Message": "You created a cool jackalope", "Ingredients": ["Rake", "Leaf"], "Location": "The Tree"}
   ],
 
   "Rooms" : [
@@ -15,9 +13,9 @@
       "Name": "The Tree",
       "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
       "Items": [
-    		{"Name": "Leaf", "Look": ["Dope coffee table.","Totally dope coffee table."], "Attack": ["You elbow drop that mess. Wood flies everywhere.", "You cut your elbow badly on a jagged piece of wood. Dummy."], "Counters" : {"Attack" : ["Elbow Drops", 1] }},
-    		{"Name": "Rake", "Look": ["Dope couch."],  "Attack": ["Done. A good place for a practice elbow drop. Search elsewhere for the real deal.", "Test"], "Counters" : {"Talk" : ["Elbow Drops", 1]}}
-      ]
+    		{"Name": "Leaf", "Look": ["It seems rather far away."]},
+    		{"Name": "Rake", "Look": ["The rake is a bit rusty, but looks sturdy"]}
+    	]
     }
   ]
 }
