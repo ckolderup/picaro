@@ -41,5 +41,11 @@ define(["jquery"], function($) {
     else return false;
   }
 
+  util.actionId = function(item, action) {
+    var itemId = item.name;
+
+    return action + itemId;
+  }
+
   return util;
 });

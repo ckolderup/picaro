@@ -55,23 +55,23 @@ define(['jquery', 'inventory'], function($, Inventory) {
       if(item.take) {
         var inInventory = jQuery.inArray(item.name, Inventory.list());
         if(inInventory === -1) {
-          $("#action-take ul").append("<li><a href='#' class='item'>" + item.name + "</a></li>");
+          $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
         }
       }
 
       if(item.look) {
         var inInventory = jQuery.inArray(item.name, Inventory.list());
         if(inInventory === -1) {
-          $("#action-look ul").append("<li><a href='#' class='item'>" + item.name + "</a></li>");
+          $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
         }
       }
 
       if(item.talk) {
-               $("#action-talk ul").append("<li><a href='#' class='item'>" + item.name + "</a></li>");
+        $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
       }
 
       if(item.attack) {
-        $("#action-attack ul").append("<li><a href='#' class='item'>" + item.name + "</a></li>");
+        $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
       }
 
     }
