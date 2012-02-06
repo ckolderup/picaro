@@ -1,10 +1,6 @@
 require File.dirname(__FILE__) + '/acceptance_helper'
 
 describe Picaro do
-  before do
-    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
-  end
-
   context 'the application root' do
     it "should help a man see about a horse" do
       visit '/'
@@ -12,16 +8,80 @@ describe Picaro do
     end
   end
 
-  context '/play', :js => true, :type => :request do
-    it "looking at the Leaf updates the game" do
+  context '/play' do
+    before do
       play '/leaf'
-      page.has_selector?("#footer-look").should be_true
+      find('#game p.new').should have_content 'You see a Leaf and a Rake.'
+    end
 
-      click_on 'Look'
-      find('#action-look.ui-action').should be_visible
-      click_on 'Leaf'
+    context "opening and closing menus" do
+      it "shows and hides the UI actions" do
+        page.should have_selector "#footer-look"
+        page.should have_selector "#footer-take"
+        page.should have_selector "#footer-use"
+        page.should have_selector "#footer-talk"
+        page.should have_selector "#footer-attack"
 
-      find('#game p.new').should have_content('It seems rather far away.')
+        find('#action-look').should be_invisible
+        find('#action-take').should be_invisible
+        find('#action-use').should be_invisible
+        find('#action-talk').should be_invisible
+        find('#action-attack').should be_invisible
+
+        click_on 'Look'
+        find('#action-look').should be_visible
+
+        click_on 'Talk'
+        find('#action-talk').should be_visible
+        find('#action-look').should be_invisible
+
+        click_on 'Take'
+        find('#action-take').should be_visible
+        find('#action-talk').should be_invisible
+      end
+    end
+
+    context "looking at things" do
+      let(:look)      { find('#footer-look a') }
+      let(:look_menu) { find('#action-look') }
+      let(:leaf_link) { find('a[data-action-id="lookLeaf"]') }
+      let(:rake_link) { find('a[data-action-id="lookRake"]') }
+      let(:game_text) { find('#game p.new') }
+
+      it "updates the game text and closes the menu" do
+        look_menu.should be_invisible
+        look.click
+        look_menu.should be_visible
+
+        leaf_link.click
+        game_text.should have_content 'It seems rather far away.'
+
+        look.click
+        rake_link.click
+        sleep 1 # need to find a better way for not failing because animations are still in play...
+        game_text.should have_content 'The rake is a bit rusty.'
+      end
+    end
+
+    context "taking the rake" do
+      let(:take)      { find('#footer-take a') }
+      let(:take_menu) { find('#action-take') }
+      let(:leaf_link) { find('a[data-action-id="takeLeaf"]') }
+      let(:rake_link) { find('a[data-action-id="takeRake"]') }
+      let(:game_text) { find('#game p.new') }
+
+      it "updates the game text and removes it from the take menu" do
+        take_menu.should be_invisible
+        take.click
+
+        take_menu.should be_visible
+        rake_link.click
+        sleep 1 # need to find a better way for not failing because animations are still in play...
+        game_text.should have_content('You take the Rake.')
+
+        take.click
+        page.should_not have_selector 'a[data-action-id="takeRake"]'
+      end
     end
   end
 end

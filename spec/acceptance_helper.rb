@@ -3,16 +3,24 @@ disable :run
 
 require 'capybara'
 require 'capybara/dsl'
+require File.dirname(__FILE__) + '/../picaro'
 
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, :browser => :chrome)
 end
 
-require File.dirname(__FILE__) + '/../picaro'
+Capybara.default_driver = :selenium
+Capybara.default_wait_time = 2
 Capybara.app = Picaro
 
 RSpec.configure do |config|
   config.include Capybara::DSL
+end
+
+class Capybara::Node::Element
+  def invisible?
+    wait_until { sleep 0.1; !base.visible? }
+  end
 end
 
 # Helpers
@@ -31,4 +39,8 @@ end
 
 def selector string
   find :css, string
+end
+
+def take_screenshot
+  page.driver.browser.save_screenshot("./selenium_snapshot.png")
 end
