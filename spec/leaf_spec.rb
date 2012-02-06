@@ -41,7 +41,7 @@ describe Picaro do
       end
     end
 
-    context "looking at things" do
+    describe "looking" do
       let(:look)      { find('#footer-look a') }
       let(:look_menu) { find('#action-look') }
       let(:leaf_link) { find('a[data-action-id="lookLeaf"]') }
@@ -58,30 +58,45 @@ describe Picaro do
 
         look.click
         rake_link.click
-        sleep 1 # need to find a better way for not failing because animations are still in play...
         game_text.should have_content 'The rake is a bit rusty.'
       end
     end
 
-    context "taking the rake" do
+    describe "taking" do
       let(:take)      { find('#footer-take a') }
       let(:take_menu) { find('#action-take') }
       let(:leaf_link) { find('a[data-action-id="takeLeaf"]') }
       let(:rake_link) { find('a[data-action-id="takeRake"]') }
       let(:game_text) { find('#game p.new') }
 
-      it "updates the game text and removes it from the take menu" do
-        take_menu.should be_invisible
-        take.click
+      context "the rake" do
+        it "updates the game text and removes it from the take menu" do
+          take_menu.should be_invisible
+          take.click
 
-        take_menu.should be_visible
-        rake_link.click
-        sleep 1 # need to find a better way for not failing because animations are still in play...
-        game_text.should have_content('You take the Rake.')
+          take_menu.should be_visible
+          rake_link.click
+          game_text.should have_content('You take the Rake.')
 
-        take.click
-        page.should_not have_selector 'a[data-action-id="takeRake"]'
+          take.click
+          page.should_not have_selector 'a[data-action-id="takeRake"]'
+        end
+      end
+
+      context "the leaf" do
+        it "tells the player why the leaf can't be taken, leaving it in the take menu" do
+          take.click
+          leaf_link.should be_visible
+          leaf_link.click
+          game_text.should have_content("You can't take the Leaf. You're not tall enough.")
+
+          page.should have_selector 'a[data-action-id="takeLeaf"]'
+
+        end
       end
     end
+
+
+
   end
 end
