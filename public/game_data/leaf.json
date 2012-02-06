@@ -13,7 +13,12 @@
       "Name": "The Tree",
       "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
       "Items": [
-        {"Name": "Leaf", "Look": ["It seems rather far away."]},
+        { "Name": "Leaf",
+          "Look": ["It seems rather far away."],
+          "Take": {
+            "condition" : {"itemInInventory" : "Rake"},
+            "cannotTakeMessage" : "You're not tall enough."}
+        },
         {"Name": "Rake", "Look": ["The rake is a bit rusty."], "Take": true}
     	]
     }

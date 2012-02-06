@@ -43,7 +43,6 @@ define(["jquery"], function($) {
 
   util.actionId = function(item, action) {
     var itemId = item.name;
-
     return action + itemId;
   }
 

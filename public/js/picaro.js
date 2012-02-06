@@ -1,4 +1,4 @@
-+require(["jquery", "util", "room", "inventory"], function($, Util, Room, Inventory) {
+require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room, Inventory, Item) {
 
   $(document).ready(function() {
     var gameMeta;
@@ -132,10 +132,11 @@
       }
 
       if(action === "Take") {
-        Inventory.add(item);
-        $(document).trigger("updateStatus", "You take the " + item + ".");
-        $("#action-use ul").append("<li><a href='#' class='item'>" + item        + " <small>(held)</small></a></li>");
-        $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");
+        if (Item.canTake(itemData)) {
+          Item.take(itemData)
+        } else {
+          Item.cannotTake(itemData)
+        };
       }
 
       if(action === "Talk") {
@@ -166,9 +167,6 @@
       var item = that.clone().find("small").remove().end().text().replace(/ /g,'');
       $(".ui-overlay, .ui-action").fadeOut();
       $(".active").removeClass("active");
-      if(action === "Take") {
-        that.remove();
-      }
       itemAction(action, item);
     })
 
