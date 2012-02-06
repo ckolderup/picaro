@@ -90,8 +90,19 @@ describe Picaro do
           leaf_link.click
           game_text.should have_content("You can't take the Leaf. You're not tall enough.")
 
-          page.should have_selector 'a[data-action-id="takeLeaf"]'
+          take.click
+          leaf_link.should be_visible
+        end
 
+        it "is possible after taking the rake" do
+          take.click
+          rake_link.click
+          game_text.should have_content('You take the Rake.')
+
+          take.click
+          leaf_link.click
+          game_text.should have_content('You take the Leaf.')
+          page.should_not have_selector 'a[data-action-id="takeLeaf"]'
         end
       end
     end

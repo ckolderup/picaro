@@ -2,7 +2,6 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
   var Item = {
     takeConditions: {
       itemInInventory: function(otherItem) {
-        console.log('itemInInventory', arguments, Inventory.list())
         return _.find(Inventory.list(), function(item) {return item.name == otherItem})
       }
     },
@@ -10,9 +9,7 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
     canTake: function(item) {
       if (typeof item.take == 'object') {
         var condition = item.take.condition && _.keys(item.take.condition)[0]
-        console.log("Condition", condition, _.keys(this.takeConditions))
         if (condition && _.include(_.keys(this.takeConditions), condition)) {
-          console.log('takeConditions', item.take.condition[condition])
           if (this.takeConditions[condition](item.take.condition[condition])) {
             return true
           } else {
@@ -28,7 +25,6 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
     },
 
     cannotTake: function(item) {
-      console.log("cannotTake", arguments)
       var message = "You can't take the " + item.name + ". ";
       if (item.take.cannotTakeMessage) {
         message += item.take.cannotTakeMessage
@@ -37,7 +33,6 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
     },
 
     take: function(item) {
-      console.log("TAKE", $("a[data-action-id='" + util.actionId(item, 'take') + "']" ))
       Inventory.add(item);
       $(document).trigger("updateStatus", "You take the " + item.name + ".");
       $("a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
