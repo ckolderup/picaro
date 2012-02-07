@@ -5,6 +5,7 @@ require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room,
     var itemStatuses = [];
     var counters = [];
     var rooms = [];
+    var gameEvents = {};
 
     $(document).bind("updateStatus", function(event, status) {
       $("p.new:first ").removeClass("new").addClass("old");
@@ -102,6 +103,11 @@ require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room,
           var counterVal = data.Counters[j].Val;
           counters.push(new counterObject(counterName, counterMin, counterMax, counterVal));
         }
+
+        for(var i in data.Events) {
+          var e = data.Events[i];
+          gameEvents[e.id] = e;
+        }
       },
       error: function() {
         console.log("Error getting game JSON", arguments)
@@ -132,6 +138,7 @@ require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room,
       }
 
       if(action === "Take") {
+        console.log('events!', gameEvents)
         if (Item.canTake(itemData)) {
           Item.take(itemData)
         } else {

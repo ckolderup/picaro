@@ -107,7 +107,5 @@ describe Picaro do
       end
     end
 
-
-
   end
 end

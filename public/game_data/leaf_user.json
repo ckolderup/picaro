@@ -1,0 +1,39 @@
+{
+  "gameName": "Leaf User",
+  "gameDescription": "A V1 Picaro Test-Game",
+  "Version": "1",
+
+  "Events" : [
+    { "id": "takeLeafWithRake",
+      "type": "takeObject",
+      "object" : "Leaf",
+      "message" : "You're able to catch the leaf on one of the rake's rusty tines and bring it on down."
+    },
+    { "id": "winGameViaLeafTakeage",
+      "type": "instantVictory",
+      "message": "Using the leaf, you cure scabies."}
+  ],
+
+  "Rooms" : [
+    {
+      "Starter" : true,
+      "Name": "The Tree",
+      "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
+      "Items": [
+        { "Name": "Rake", "Look": ["The rake is a bit rusty."], "Take": true},
+        { "Name": "Leaf",
+          "Look": ["It seems rather far away."],
+          "Take": {
+            "cannotTakeMessage" : "You're not tall enough.",
+            "after": "winGameViaLeafTakeage"
+          },
+          "Use": {
+            "Rake" : {
+              "after": "takeLeafWithRake"
+            }
+          }
+        }
+    	]
+    }
+  ]
+}

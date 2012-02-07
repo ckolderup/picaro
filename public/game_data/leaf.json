@@ -17,7 +17,8 @@
           "Look": ["It seems rather far away."],
           "Take": {
             "condition" : {"itemInInventory" : "Rake"},
-            "cannotTakeMessage" : "You're not tall enough."}
+            "cannotTakeMessage" : "You're not tall enough."
+          }
         },
         {"Name": "Rake", "Look": ["The rake is a bit rusty."], "Take": true}
     	]

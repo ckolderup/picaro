@@ -19,7 +19,7 @@ end
 
 class Capybara::Node::Element
   def invisible?
-    wait_until { sleep 0.1; !base.visible? }
+    wait_until { !base.visible? }
   end
 end
 
@@ -42,5 +42,6 @@ def selector string
 end
 
 def take_screenshot
-  page.driver.browser.save_screenshot("./selenium_snapshot.png")
+  # page.driver.browser.save_screenshot("./selenium_snapshot.png")
+  save_and_open_page
 end

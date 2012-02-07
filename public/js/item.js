@@ -16,12 +16,12 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
             return false
           }
         } else {
-          throw "No take conditions found for " + item.name + ", please pass a boolean or conditions object"
+          console.log("No take conditions found for " + item.name + ", please pass a boolean or conditions object");
+          return false
         }
       } else {
         return item.take;
       }
-
     },
 
     cannotTake: function(item) {
@@ -34,6 +34,11 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
 
     take: function(item) {
       Inventory.add(item);
+      if (item.after) {
+        console.log(item.after)
+        // console.log()
+      }
+
       $(document).trigger("updateStatus", "You take the " + item.name + ".");
       $("a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
       $("#action-use ul").append("<li><a href='#' class='item'>" + item.name + " <small>(held)</small></a></li>");
