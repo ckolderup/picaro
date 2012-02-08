@@ -1,4 +1,4 @@
-require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room, Inventory, Item) {
+require(["jquery", "util", "room", "inventory", "item", "vendor/underscore"], function($, Util, Room, Inventory, Item) {
 
   $(document).ready(function() {
     var gameMeta;
@@ -116,7 +116,7 @@ require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room,
 
     //begin item/action function
 
-    var itemAction = function(action, item) {
+    var itemAction = function(action, item, event) {
 
       for(var i in itemStatuses) {
         if(itemStatuses[i].name === item) {
@@ -161,22 +161,12 @@ require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room,
       }
 
       if(action === "Use") {
+        event.stopPropagation();
         console.log("\"Ability to use things tk.\" - THE MANAGEMENT");
+        return false
       }
 
     }
-
-    //begin helper/display functions
-
-    $(".ui-action ul li a").live('click', function() {                                              //set off user-triggered item/action events
-      var that = $(this);
-      var action = that.parent().parent().attr("id");
-      var item = that.clone().find("small").remove().end().text().replace(/ /g,'');
-      $(".ui-overlay, .ui-action").fadeOut();
-      $(".active").removeClass("active");
-      itemAction(action, item);
-    })
-
 
     $("a.path:not(.disabled)").click(function() {                                                     //compass-controlling
       var roomName = $(this).attr("href");
@@ -206,37 +196,30 @@ require(["jquery", "util", "room", "inventory", "item"], function($, Util, Room,
       $(this).parent().addClass("active");
     })
 
-    $("#footer-look a").click(function() {                                                   // this is mad f*** redundant, refactor this you cad
-      $("#action-look").fadeIn("fast");
-      return false;
-    });
+    var oldMenus = _(["look", "take", "use", "talk", "attack"])
 
-    $("#footer-take a").click(function() {
-      $("#action-take").fadeIn("fast");
-      return false;
-    });
+    oldMenus.each(function(action) {
+      var menuSelector = "#action-" + action
+      $("#footer-" + action + " a").click(function() {
+        $(menuSelector).fadeIn("fast");
+        return false;
+      });
 
-    $("#footer-use a").click(function() {
-      $("#action-use").fadeIn("fast");
-      return false;
-    });
+      $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
+        $(".active").removeClass("active");
+        $(this).fadeOut("fast");
+        $(".ui-action, .ui-overlay, #move").fadeOut("fast");
+      })
 
-    $("#footer-talk a").click(function() {
-      $("#action-talk").fadeIn("fast");
-      return false;
-    });
-
-    $("#footer-attack a").click(function() {
-      $("#action-attack").fadeIn("fast");
-      return false;
-    });
-
-    $(".ui-overlay, .ui-action-sheet-back").click(function() {
-      $(".active").removeClass("active");
-      $(this).fadeOut("fast");
-      $(".ui-action, .ui-overlay, #move").fadeOut("fast");
+      $(menuSelector + " ul li a").live('click', function(event) {                             //set off user-triggered item/action events
+        var that = $(this);
+        var action = that.parent().parent().attr("id");
+        var item = that.clone().find("small").remove().end().text().replace(/ /g,'');
+        $(".ui-overlay, .ui-action").fadeOut();
+        $(".active").removeClass("active");
+        itemAction(action, item, event);
+      })
     })
-
 
     $("#header-move, #move").click(function() {
       $("#move").fadeToggle("fast");

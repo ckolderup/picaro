@@ -35,14 +35,15 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
     take: function(item) {
       Inventory.add(item);
       if (item.after) {
-        console.log(item.after)
+        console.log("after taking " + item.name, item.after)
         // console.log()
       }
 
+      // TODO: remove DOM surgery from this object
       $(document).trigger("updateStatus", "You take the " + item.name + ".");
-      $("a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
-      $("#action-use ul").append("<li><a href='#' class='item'>" + item.name + " <small>(held)</small></a></li>");
-      $("#action-look ul li a:contains(" + item.name + ")").append(" <small>(held)</small>");
+      $("#action-take a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
+      $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
+      $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
     }
 
   };
