@@ -42,9 +42,9 @@ define(["jquery"], function($) {
   }
 
   util.actionId = function(item, action) {
-    var itemId = item.name;
-    console.log("actionId requested", action + itemId)
-    return action + itemId;
+    var itemId = item.id;
+    // console.log("actionId requested", action + itemId)
+    return action + '-' + itemId;
   }
 
   return util;

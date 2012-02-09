@@ -1,11 +1,11 @@
-require(["jquery", "util", "room", "inventory", "item", "ui"], function($, Util, Room, Inventory, Item, UI) {
+require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent) {
 
   $(document).ready(function() {
     var gameMeta;
     var itemStatuses = [];
     var counters = [];
     var rooms = [];
-    var gameEvents = {};
+    var gameItems = _({});
 
     $(document).bind("updateStatus", function(event, status) {
       $("p.new:first ").removeClass("new").addClass("old");
@@ -22,7 +22,8 @@ require(["jquery", "util", "room", "inventory", "item", "ui"], function($, Util,
       this.description = description;
     }
 
-    function itemObject (name, location, look, talk, attack, take, use) {
+    function itemObject (id, name, location, look, talk, attack, take, use) {
+      this.id = id || uuid++;
       this.name = name;
       this.location = location;
       this.look = look;
@@ -61,6 +62,7 @@ require(["jquery", "util", "room", "inventory", "item", "ui"], function($, Util,
       this.val = val;
     }
 
+    var uuid = 0;
     $.ajax({
       url: '/../game_data/' + gameId + '.json',
       dataType: 'json',
@@ -85,6 +87,7 @@ require(["jquery", "util", "room", "inventory", "item", "ui"], function($, Util,
 
           rooms.push(new roomObject(roomName, roomDescription, paths, starter));
           for(var k in data.Rooms[i].Items) {
+            var id = data.Rooms[i].Items[k].Id;
             var lookResults = data.Rooms[i].Items[k].Look;
             var takeResult = data.Rooms[i].Items[k].Take;
             var useResults = data.Rooms[i].Items[k].Use;
@@ -92,7 +95,10 @@ require(["jquery", "util", "room", "inventory", "item", "ui"], function($, Util,
             var attackResults = data.Rooms[i].Items[k].Attack;
             var itemName = data.Rooms[i].Items[k].Name;
             var itemLocation = roomName;
-            itemStatuses.push(new itemObject(itemName, itemLocation, lookResults, talkResults, attackResults, takeResult, useResults));
+
+            var item = new itemObject(id, itemName, itemLocation, lookResults, talkResults, attackResults, takeResult, useResults);
+            itemStatuses.push(item);
+            gameItems[item.id] = item;
           }
         }
 
@@ -104,10 +110,11 @@ require(["jquery", "util", "room", "inventory", "item", "ui"], function($, Util,
           counters.push(new counterObject(counterName, counterMin, counterMax, counterVal));
         }
 
-        for(var i in data.Events) {
-          var e = data.Events[i];
-          gameEvents[e.id] = e;
-        }
+        _.each(data.Events, function(gameEvent) {
+          console.log('ADD gameEvent', gameEvent.id)
+          GameEvent.allById[gameEvent.id] = gameEvent
+        });
+
       },
       error: function() {
         console.log("Error getting game JSON", arguments)
@@ -122,7 +129,9 @@ require(["jquery", "util", "room", "inventory", "item", "ui"], function($, Util,
       }
     }
 
-    UI.init(itemStatuses);
+    Item.all = itemStatuses;
+    Item.allById = gameItems;
+    UI.init();
 
   });
 });

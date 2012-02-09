@@ -1,5 +1,7 @@
 define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, Inventory) {
   var Item = {
+    allById: {},
+
     takeConditions: {
       itemInInventory: function(otherItem) {
         return _.find(Inventory.list(), function(item) {return item.name == otherItem})
@@ -36,7 +38,6 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
       Inventory.add(item);
       if (item.after) {
         console.log("after taking " + item.name, item.after)
-        // console.log()
       }
 
       // TODO: remove DOM surgery from this object
@@ -44,6 +45,20 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
       $("#action-take a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
       $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
       $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
+    },
+
+    // This is non-commutative right now- item1 is used ON item2, which is expecting item1 to be used on it.
+    use: function(itemId1, itemId2) {
+      item1 = this.allById[itemId1];
+      item2 = this.allById[itemId2];
+
+      if (item1 && item2 && item2.use[item1.id]) {
+        var using = item2.use[item1.id];
+        console.log("got a use!", using);
+        $(document).trigger('itemsUsed', using)
+      } else {
+        console.log("you can't use this on that.", item1, item2)
+      }
     }
 
   };

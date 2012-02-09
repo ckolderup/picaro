@@ -17,7 +17,6 @@ define(['jquery', 'inventory', 'vendor/underscore'], function($, Inventory) {
 
     var roomDescription = room.description;
 
-
     $("#header h2").html(room.name);
     $(document).trigger("updateStatus", roomDescription + "<br/ ><br/>You see " + util.toArrayToSentence(names));
 
@@ -52,7 +51,7 @@ define(['jquery', 'inventory', 'vendor/underscore'], function($, Inventory) {
     _.each(_.difference(roomItems, Inventory.list()), function(item) {
       console.log("ITEM", item)
       $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
-      $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + "</a></li>");
+      $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id +"' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + "</a></li>");
       $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
     });
 

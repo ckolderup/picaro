@@ -5,8 +5,8 @@
 
   "Events" : [
     { "id": "takeLeafWithRake",
-      "type": "takeObject",
-      "object" : "Leaf",
+      "type": "takeItem",
+      "item" : "leaf",
       "message" : "You're able to catch the leaf on one of the rake's rusty tines and bring it on down."
     },
     { "id": "winGameViaLeafTakeage",
@@ -20,15 +20,16 @@
       "Name": "The Tree",
       "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
       "Items": [
-        { "Name": "Rake", "Look": ["The rake is a bit rusty."], "Take": true},
+        { "Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true},
         { "Name": "Leaf",
+          "Id": "leaf",
           "Look": ["It seems rather far away."],
           "Take": {
             "cannotTakeMessage" : "You're not tall enough.",
             "after": "winGameViaLeafTakeage"
           },
           "Use": {
-            "Rake" : {
+            "rake" : {
               "after": "takeLeafWithRake"
             }
           }
