@@ -10,7 +10,6 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
 
     $('#action-use li a').live('click', function() {
       itemTriggers.push($(this).data('item-id'))
-      console.log('itemTriggers', itemTriggers)
       if(itemTriggers.length == 2) {
         Item.use(itemTriggers[0], itemTriggers[1])
         itemTriggers = [];
@@ -18,11 +17,29 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
       }
     })
 
-    $('#action-use').bind('openMenu', function(e, i) {
+    $('.ui-action').bind('openMenu', function(e, i) {
+      $(".ui-overlay").fadeIn("fast");
       $(this).fadeIn("fast").addClass('active');
+    })
+
+    $('.ui-action').bind('closeMenu', function(e, i) {
+      $(this).fadeOut("fast").removeClass('active');
+      $(".ui-overlay").fadeOut("fast");
     })
   }
   usable();
+
+  UI.itemTaken = function(e, item) {
+    $(document).trigger("updateStatus", "You take the " + item.name + ".");
+
+    $("#action-take a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
+    $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
+    $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
+    $('#action-use').trigger('closeMenu')
+
+  };
+
+  $(document).bind('itemTaken', UI.itemTaken)
 
   UI.init = function() {
     $("#footer ul li a").click(function() {                                                  // bunch of UI dom manipulation stuff, should probably break this out into its own file for now

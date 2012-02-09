@@ -36,15 +36,11 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
 
     take: function(item) {
       Inventory.add(item);
-      if (item.after) {
-        console.log("after taking " + item.name, item.after)
+      $(document).trigger('itemTaken', item)
+      $(document).trigger('closeMenu')
+      if (item.take.after) {
+        $(document).trigger('gameEvent', item.take)
       }
-
-      // TODO: remove DOM surgery from this object
-      $(document).trigger("updateStatus", "You take the " + item.name + ".");
-      $("#action-take a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
-      $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
-      $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
     },
 
     // This is non-commutative right now- item1 is used ON item2, which is expecting item1 to be used on it.
@@ -54,8 +50,7 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
 
       if (item1 && item2 && item2.use[item1.id]) {
         var using = item2.use[item1.id];
-        console.log("got a use!", using);
-        $(document).trigger('itemsUsed', using)
+        $(document).trigger('gameEvent', using)
       } else {
         console.log("you can't use this on that.", item1, item2)
       }

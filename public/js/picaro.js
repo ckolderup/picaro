@@ -84,8 +84,10 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
           else {
             var starter = false;
           }
+          var room = new roomObject(roomName, roomDescription, paths, starter);
+          rooms.push(room);
+          Room.all.push(room);
 
-          rooms.push(new roomObject(roomName, roomDescription, paths, starter));
           for(var k in data.Rooms[i].Items) {
             var id = data.Rooms[i].Items[k].Id;
             var lookResults = data.Rooms[i].Items[k].Look;
@@ -111,7 +113,6 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
         }
 
         _.each(data.Events, function(gameEvent) {
-          console.log('ADD gameEvent', gameEvent.id)
           GameEvent.allById[gameEvent.id] = gameEvent
         });
 

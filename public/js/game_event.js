@@ -6,19 +6,18 @@ define(["jquery", 'item', "vendor/underscore"], function($, Item) {
   GameEvent.types = {
     takeItem : function(gameEvent) {
       $(document).trigger("updateStatus", gameEvent.message);
-      Item.take(gameEvent.item)
-      console.log("111111111111111", arguments)
+      var item = Item.allById[gameEvent.item]
+      Item.take(item)
     },
 
-    instantVictory: function(event) {
-      console.log("instantVictory", arguments)
+    instantVictory: function(gameEvent) {
+      $(document).trigger("updateStatus", gameEvent.message);
     }
   }
 
-  $(document).bind('itemsUsed', function(e, using) {
+  $(document).bind('gameEvent', function(e, using) {
     var afterEvent = GameEvent.allById[using['after']];
     if (afterEvent) {
-      console.log('afterEvent', afterEvent)
       GameEvent.types[afterEvent.type](afterEvent)
     }
   });

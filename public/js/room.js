@@ -1,7 +1,8 @@
 define(['jquery', 'inventory', 'vendor/underscore'], function($, Inventory) {
   var Room = {};
+  Room.all = [];
+
   Room.get = function(room, itemStatuses) {
-    console.log(room);
     $("ul").not("#footer ul").not("#move-compass ul").each(function() {                  // clear out all the room-specific lists
       $(this).empty();
     });
@@ -19,7 +20,6 @@ define(['jquery', 'inventory', 'vendor/underscore'], function($, Inventory) {
 
     $("#header h2").html(room.name);
     $(document).trigger("updateStatus", roomDescription + "<br/ ><br/>You see " + util.toArrayToSentence(names));
-
 
     $("#move a").attr("href", "#");                                                //repopulate compass links
     $("#move li").addClass("disabled");
@@ -49,7 +49,6 @@ define(['jquery', 'inventory', 'vendor/underscore'], function($, Inventory) {
     });
 
     _.each(_.difference(roomItems, Inventory.list()), function(item) {
-      console.log("ITEM", item)
       $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
       $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id +"' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + "</a></li>");
       $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
