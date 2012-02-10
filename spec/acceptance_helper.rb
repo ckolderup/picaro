@@ -41,7 +41,23 @@ def selector string
   find :css, string
 end
 
+def older_updates
+  all('#game p.old')
+end
+
+def latest_update
+  find '#game p.new'
+end
+
+def action_link_selector actionId, itemId
+  "a[data-action-id='#{actionId}-#{itemId}']"
+end
+
+def action_link actionId, itemId
+  find action_link_selector(actionId, itemId)
+end
+
 def take_screenshot
-  # page.driver.browser.save_screenshot("./selenium_snapshot.png")
-  save_and_open_page
+  page.driver.browser.save_screenshot("./selenium_snapshot.png")
+  # save_and_open_page
 end
