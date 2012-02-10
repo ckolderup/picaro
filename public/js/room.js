@@ -4,13 +4,10 @@ define(['jquery', 'item', 'inventory', 'vendor/underscore'], function($, Item, I
 
   Room.changeToRoomName = function(roomName) {
     var room = _.find(this.all, function(room) { return room.name === roomName })
-
-    console.log('changeToRoomName', room, Item.all)
     this.get(room, Item.all)
   }
 
   Room.get = function(room, itemStatuses) {
-    console.log(room)
     $("ul").not("#footer ul").not("#move-compass ul").each(function() {                  // clear out all the room-specific lists
       $(this).empty();
     });

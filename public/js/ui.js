@@ -108,7 +108,6 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
     //begin item/action function
 
     var itemAction = function(action, item, event) {
-      console.log('itemAction', arguments)
       for(var i in Item.all) {
         if(Item.all[i].id === item) {
           var itemData = Item.all[i];
@@ -131,7 +130,6 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
         if (Item.canTake(itemData)) {
           Item.take(itemData)
         } else {
-          console.log('oby')
           Item.cannotTake(itemData)
         };
       }
@@ -152,7 +150,6 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
 
       if(action === "use") {
         event.stopPropagation();
-        console.log("\"Ability to use things tk.\" - THE MANAGEMENT");
         return false
       }
 

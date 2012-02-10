@@ -12,7 +12,6 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
     })
 
     $(document).bind("roomChanged", function(e, roomName) {
-      console.log('roomChanged')
       Room.changeToRoomName(roomName);
     });
 

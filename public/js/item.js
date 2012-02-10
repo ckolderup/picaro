@@ -22,7 +22,6 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
           return false
         }
       } else {
-        console.log("ultimate else")
         return item.take;
       }
     },
