@@ -29,6 +29,20 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
   }
   usable();
 
+  UI.appendNewGameText = function(message) {
+    console.log('apppppen', message)
+    $("p.new:first ").removeClass("new").addClass("old");
+    var n = $("p.old").length;
+    if (n > 5) {
+      $("p.old:first").remove();
+    }
+    $("#game").append("<p class='new'>" + status + "</p>");
+  };
+
+  UI.updateRoomTitle = function(roomName) {
+    $("#move-preview .ul-modal-inner").html(roomName);
+  };
+
   UI.itemTaken = function(e, item) {
     $(document).trigger("updateStatus", "You take the " + item.name + ".");
 
@@ -40,6 +54,7 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
   };
 
   $(document).bind('itemTaken', UI.itemTaken)
+  $(document).bind('roomChanged', UI.changeRoomName)
 
   UI.init = function() {
     $("#footer ul li a").click(function() {                                                  // bunch of UI dom manipulation stuff, should probably break this out into its own file for now
@@ -149,14 +164,9 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
 
     }
 
-    $("a.path:not(.disabled)").click(function() {                                                     //compass-controlling
-      var roomName = $(this).attr("href");
-      $("#move-preview .ul-modal-inner").html(roomName);
-      for (var i in rooms) {
-        if (roomName === rooms[i].name) {
-          Room.get(rooms[i], Item.all);
-        }
-      }
+    //compass-controlling
+    $("a.path:not(.disabled)").click(function() {
+      $(document).trigger("roomChanged", $(this).attr('href'))
     })
 
   }

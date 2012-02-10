@@ -7,6 +7,9 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
     var rooms = [];
     var gameItems = _({});
 
+    // $(document).trigger('roomChanged', _.find(rooms, function(room) {return room.starter}).name) //initialize room that's flagged as 'starter'
+
+
     $(document).bind("updateStatus", function(event, status) {
       $("p.new:first ").removeClass("new").addClass("old");
       var n = $("p.old").length;
@@ -15,6 +18,11 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
       }
       $("#game").append("<p class='new'>" + status + "</p>");
     })
+
+    $(document).bind("roomChanged", function(e, roomName) {
+      console.log('roomChanged')
+      Room.changeToRoomName(roomName);
+    });
 
     function gameInfoObject (name, version, description) {
       this.name = name;
