@@ -9,7 +9,7 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
     },
 
     canTake: function(item) {
-      if (typeof item.take == 'object') {
+      if (item.take && typeof item.take == 'object') {
         var condition = item.take.condition && _.keys(item.take.condition)[0]
         if (condition && _.include(_.keys(this.takeConditions), condition)) {
           if (this.takeConditions[condition](item.take.condition[condition])) {
@@ -22,13 +22,14 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
           return false
         }
       } else {
+        console.log("ultimate else")
         return item.take;
       }
     },
 
     cannotTake: function(item) {
       var message = "You can't take the " + item.name + ". ";
-      if (item.take.cannotTakeMessage) {
+      if (item.take && item.take.cannotTakeMessage) {
         message += item.take.cannotTakeMessage
       }
       $(document).trigger("updateStatus", message);

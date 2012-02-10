@@ -1,14 +1,7 @@
 require File.dirname(__FILE__) + '/acceptance_helper'
 
-describe Picaro do
-  context 'the application root' do
-    it "should help a man see about a horse" do
-      visit '/'
-      selector('body').text.should match /You have plenty of room for a horse/
-    end
-  end
-
-  context '/play' do
+describe "Playing Picaro" do
+  context '/leaf' do
     before do
       play '/leaf'
       find('#game p.new').should have_content 'You see a Leaf and a Rake.'
@@ -44,8 +37,8 @@ describe Picaro do
     describe "looking" do
       let(:look)      { find('#footer-look a') }
       let(:look_menu) { find('#action-look') }
-      let(:leaf_link) { find('a[data-action-id="lookLeaf"]') }
-      let(:rake_link) { find('a[data-action-id="lookRake"]') }
+      let(:leaf_link) { find('a[data-action-id="look-leaf"]') }
+      let(:rake_link) { find('a[data-action-id="look-rake"]') }
       let(:game_text) { find('#game p.new') }
 
       it "updates the game text and closes the menu" do
@@ -65,8 +58,8 @@ describe Picaro do
     describe "taking" do
       let(:take)      { find('#footer-take a') }
       let(:take_menu) { find('#action-take') }
-      let(:leaf_link) { find('a[data-action-id="takeLeaf"]') }
-      let(:rake_link) { find('a[data-action-id="takeRake"]') }
+      let(:leaf_link) { find('a[data-action-id="take-leaf"]') }
+      let(:rake_link) { find('a[data-action-id="take-rake"]') }
       let(:game_text) { find('#game p.new') }
 
       context "the rake" do
@@ -79,7 +72,7 @@ describe Picaro do
           game_text.should have_content('You take the Rake.')
 
           take.click
-          page.should_not have_selector 'a[data-action-id="takeRake"]'
+          page.should_not have_selector 'a[data-action-id="take-rake"]'
         end
       end
 
@@ -102,7 +95,7 @@ describe Picaro do
           take.click
           leaf_link.click
           game_text.should have_content('You take the Leaf.')
-          page.should_not have_selector 'a[data-action-id="takeLeaf"]'
+          page.should_not have_selector 'a[data-action-id="take-leaf"]'
         end
       end
     end

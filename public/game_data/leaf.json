@@ -1,11 +1,7 @@
 {
   "gameName": "One Node Tree",
-  "gameDescription": "A V1 Picaro Test-Game",
+  "gameDescription": "A V1 Picaro Test-Game, in which an item can only be taken when you have another item in your inventory",
   "Version": "1",
-
-  "ItemCombos": [
-    {"Name": "Cool Jackalope", "Message": "You created a cool jackalope", "Ingredients": ["Rake", "Leaf"], "Location": "The Tree"}
-  ],
 
   "Rooms" : [
     {
@@ -21,7 +17,8 @@
             "cannotTakeMessage" : "You're not tall enough."
           }
         },
-        {"Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true}
+        {"Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true},
+        {"Name": "The Autumn", "Id": "autumn", "Look": ["It's a lovely, crisp season"]}
     	]
     }
   ]

@@ -53,7 +53,7 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
   $(document).bind('roomChanged', UI.changeRoomName)
 
   UI.init = function() {
-    $("#footer ul li a").click(function() {                                                  // bunch of UI dom manipulation stuff, should probably break this out into its own file for now
+    $("#footer ul li a").click(function() {
       $(".ui-overlay").fadeIn("fast");
       $(".ui-action").fadeOut("fast");
       $(".active").removeClass("active");
@@ -77,12 +77,10 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
       })
 
       $(menuSelector + " ul li a").live('click', function(event) {                             //set off user-triggered item/action events
-        var that = $(this);
-        var action = that.parent().parent().attr("id");
-        var item = that.clone().find("small").remove().end().text().replace(/ /g,'');
+        var actionAndId = $(this) .data('action-id').split('-')
         $(".ui-overlay, .ui-action").fadeOut();
         $(".active").removeClass("active");
-        itemAction(action, item, event);
+        itemAction(actionAndId[0], actionAndId[1], event);
       })
     })
 
@@ -110,11 +108,10 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
     //begin item/action function
 
     var itemAction = function(action, item, event) {
-
+      console.log('itemAction', arguments)
       for(var i in Item.all) {
-        if(Item.all[i].name === item) {
+        if(Item.all[i].id === item) {
           var itemData = Item.all[i];
-          var key = i;
           break;
         }
       }
@@ -123,36 +120,37 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
       var talkNum = itemData.talkNum;
       var attackNum = itemData.attackNum;
 
-      if(action === "Look") {
+      if(action === "look") {
         $(document).trigger("updateStatus", itemData.look[lookNum]);
         if(Item.all[key].look.length > (Item.all[key].lookNum + 1)){
           Item.all[key].lookNum += 1;
         }
       }
 
-      if(action === "Take") {
+      if(action === "take") {
         if (Item.canTake(itemData)) {
           Item.take(itemData)
         } else {
+          console.log('oby')
           Item.cannotTake(itemData)
         };
       }
 
-      if(action === "Talk") {
+      if(action === "talk") {
         $(document).trigger("updateStatus", itemData.talk[talkNum]);
         if(Item.all[key].talk.length > (Item.all[key].talkNum + 1)){
           Item.all[key].talkNum += 1;
         }
       }
 
-      if(action === "Attack") {
+      if(action === "attack") {
         $(document).trigger("updateStatus", itemData.attack[attackNum]);
         if(Item.all[key].attack.length > (Item.all[key].attackNum + 1)){
           Itema.all[key].attackNum += 1;
         }
       }
 
-      if(action === "Use") {
+      if(action === "use") {
         event.stopPropagation();
         console.log("\"Ability to use things tk.\" - THE MANAGEMENT");
         return false
