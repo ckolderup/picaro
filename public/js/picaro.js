@@ -7,16 +7,8 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
     var rooms = [];
     var gameItems = _({});
 
-    // $(document).trigger('roomChanged', _.find(rooms, function(room) {return room.starter}).name) //initialize room that's flagged as 'starter'
-
-
-    $(document).bind("updateStatus", function(event, status) {
-      $("p.new:first ").removeClass("new").addClass("old");
-      var n = $("p.old").length;
-      if (n > 5) {
-        $("p.old:first").remove();
-      }
-      $("#game").append("<p class='new'>" + status + "</p>");
+    $(document).bind("updateStatus", function(event, message) {
+      UI.newStatusMessage(message);
     })
 
     $(document).bind("roomChanged", function(e, roomName) {
@@ -132,15 +124,10 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
 
     //END PREP CODE, INITIALIZE GAME
 
-    for(var i in rooms) {
-      if(rooms[i].starter === true) {                                             //initialize room that's flagged as 'starter'
-        Room.get(rooms[i], itemStatuses);
-      }
-    }
-
     Item.all = itemStatuses;
     Item.allById = gameItems;
     UI.init();
+    $(document).trigger('roomChanged', _.find(rooms, function(room) {return room.starter}).name) //initialize room that's flagged as 'starter'
 
   });
 });

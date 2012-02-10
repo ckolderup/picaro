@@ -1,42 +1,38 @@
 define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
   UI = {}
 
-  var usable = function() {
-    var itemTriggers = [];
+  var itemTriggers = [];
 
-    $('#footer-use').click(function() {
-      $('#action-use').trigger('openMenu')
-    });
+  $('#footer-use').click(function() {
+    $('#action-use').trigger('openMenu')
+  });
 
-    $('#action-use li a').live('click', function() {
-      itemTriggers.push($(this).data('item-id'))
-      if(itemTriggers.length == 2) {
-        Item.use(itemTriggers[0], itemTriggers[1])
-        itemTriggers = [];
-        $(this).addClass('active')
-      }
-    })
+  $('#action-use li a').live('click', function() {
+    itemTriggers.push($(this).data('item-id'))
+    if(itemTriggers.length == 2) {
+      Item.use(itemTriggers[0], itemTriggers[1])
+      itemTriggers = [];
+      $(this).addClass('active')
+    }
+  })
 
-    $('.ui-action').bind('openMenu', function(e, i) {
-      $(".ui-overlay").fadeIn("fast");
-      $(this).fadeIn("fast").addClass('active');
-    })
+  $('.ui-action').bind('openMenu', function(e, i) {
+    $(".ui-overlay").fadeIn("fast");
+    $(this).fadeIn("fast").addClass('active');
+  })
 
-    $('.ui-action').bind('closeMenu', function(e, i) {
-      $(this).fadeOut("fast").removeClass('active');
-      $(".ui-overlay").fadeOut("fast");
-    })
-  }
-  usable();
+  $('.ui-action').bind('closeMenu', function(e, i) {
+    $(this).fadeOut("fast").removeClass('active');
+    $(".ui-overlay").fadeOut("fast");
+  })
 
-  UI.appendNewGameText = function(message) {
-    console.log('apppppen', message)
+  UI.newStatusMessage = function(message) {
     $("p.new:first ").removeClass("new").addClass("old");
     var n = $("p.old").length;
     if (n > 5) {
       $("p.old:first").remove();
     }
-    $("#game").append("<p class='new'>" + status + "</p>");
+    $("#game").append("<p class='new'>" + message + "</p>");
   };
 
   UI.updateRoomTitle = function(roomName) {
