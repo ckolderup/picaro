@@ -57,6 +57,13 @@ def action_link actionId, itemId
   find action_link_selector(actionId, itemId)
 end
 
+def click_compass_direction direction
+  direction_element = find('#move-compass-' + direction.to_s + ' a')
+  direction_element.should be_visible
+  direction_element[:class].should_not match /disabled/
+  direction_element.click
+end
+
 def take_screenshot
   page.driver.browser.save_screenshot("./selenium_snapshot.png")
   # save_and_open_page
