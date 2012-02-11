@@ -4,11 +4,46 @@ describe "Playing Picaro/leaf" do
 
   before { play '/leaf' }
 
-  let(:use)      { find('#footer-use a') }
+  let(:look)      { find('#footer-look a') }
+  let(:use)       { find('#footer-use a') }
   let(:take)      { find('#footer-take a') }
 
+  let(:look_menu) { find('#action-look') }
   let(:take_menu) { find('#action-take') }
-  let(:use_menu) { find('#action-use') }
+  let(:use_menu)  { find('#action-use') }
+
+
+  describe "looking" do
+
+    it "updates the game text and closes the menu" do
+      look_menu.should be_invisible
+      look.click
+      look_menu.should be_visible
+
+      action_link('look', 'leaf').click
+      latest_update.should have_content 'It seems rather far away.'
+
+      look.click
+      action_link('look', 'rake').click
+      latest_update.should have_content 'The rake is a bit rusty.'
+    end
+  end
+
+  describe "taking" do
+    context "the rake" do
+      it "updates the game text and removes it from the take menu" do
+        take_menu.should be_invisible
+        take.click
+
+        take_menu.should be_visible
+        action_link('take', 'rake').click
+        latest_update.should have_content('You take the Rake.')
+
+        take.click
+        page.should_not have_selector action_link_selector('take', 'rake')
+      end
+    end
+  end
 
   describe "using" do
     context "the rake on the leaf" do
