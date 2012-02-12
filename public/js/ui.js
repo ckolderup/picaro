@@ -118,7 +118,6 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
       }
 
       if(action === "take") {
-        console.log("take okok", item)
         $(document).trigger("clickActionTake", item)
       }
 
@@ -140,12 +139,10 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
         event.stopPropagation();
         return false
       }
-
     }
 
     //compass-controlling
     $("a.path:not(.disabled)").click(function() {
-      console.log('compass console',  $(this).attr('href'))
       $(document).trigger("roomChanged", $(this).attr('href'))
     })
 

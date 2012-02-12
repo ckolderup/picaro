@@ -61,7 +61,6 @@ describe "Playing Picaro/leaf" do
         take_menu.should be_visible
         action_link('take', 'autumn').click
 
-        take_screenshot
         latest_update.should have_content("You can't take the The Autumn")
       end
 

@@ -51,8 +51,6 @@ describe "Navigating between rooms" do
     move_action.click
 
     click_compass_direction :west
-    take_screenshot
-
     room_header.text.should == "LIVING ROOM"
     move_action.click
 

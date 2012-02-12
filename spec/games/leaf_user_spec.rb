@@ -16,6 +16,10 @@ describe "Playing Picaro/leaf_user: " do
       action_link('take', 'rake').click
       latest_update.should have_content 'You take the Rake.'
 
+      take.click
+      action_link('take', 'leaf').click
+      latest_update.should have_content "You can't take the Leaf."
+
       use.click
       use_menu.should be_visible
       action_link('use', 'rake').click

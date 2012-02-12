@@ -24,13 +24,12 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
     },
 
     canTake: function(item) {
-      console.log("CANTAKE", arguments)
       if (item.take == true) {
         return true
       } else if (item.take && item.take.actionGuard) {
         return ActionGuard.test(item.take)
       } else {
-        return item.take;
+        return false
       }
     },
 
