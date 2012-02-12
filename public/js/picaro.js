@@ -1,4 +1,14 @@
-require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent) {
+require([
+  "jquery",
+  "util",
+  "room",
+  "inventory",
+  "item",
+  "ui",
+  'game_event',
+  'action_guard',
+  "vendor/underscore"
+], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
 
   $(document).ready(function() {
     var gameMeta;
@@ -113,6 +123,10 @@ require(["jquery", "util", "room", "inventory", "item", "ui", 'game_event', "ven
 
         _.each(data.Events, function(gameEvent) {
           GameEvent.allById[gameEvent.id] = gameEvent
+        });
+
+        _.each(data.ActionGuards, function(actionGuard) {
+          ActionGuard.allById[actionGuard.Id] = actionGuard
         });
 
       },

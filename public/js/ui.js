@@ -108,43 +108,31 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
     //begin item/action function
 
     var itemAction = function(action, item, event) {
-      for(var i in Item.all) {
-        if(Item.all[i].id === item) {
-          var itemData = Item.all[i];
-          break;
-        }
-      }
-
-      var lookNum = itemData.lookNum;
-      var talkNum = itemData.talkNum;
-      var attackNum = itemData.attackNum;
+      var item = Item.allById[item]
 
       if(action === "look") {
-        $(document).trigger("updateStatus", itemData.look[lookNum]);
-        if(Item.all[key].look.length > (Item.all[key].lookNum + 1)){
-          Item.all[key].lookNum += 1;
+        $(document).trigger("updateStatus", item.look[item.lookNum]);
+        if(item.look.length > (item.lookNum + 1)){
+          item.lookNum += 1;
         }
       }
 
       if(action === "take") {
-        if (Item.canTake(itemData)) {
-          Item.take(itemData)
-        } else {
-          Item.cannotTake(itemData)
-        };
+        console.log("take okok", item)
+        $(document).trigger("clickActionTake", item)
       }
 
       if(action === "talk") {
-        $(document).trigger("updateStatus", itemData.talk[talkNum]);
-        if(Item.all[key].talk.length > (Item.all[key].talkNum + 1)){
-          Item.all[key].talkNum += 1;
+        $(document).trigger("updateStatus", item.talk[item.talkNum]);
+        if(item.talk.length > (item.talkNum + 1)){
+          item.talkNum += 1;
         }
       }
 
       if(action === "attack") {
-        $(document).trigger("updateStatus", itemData.attack[attackNum]);
-        if(Item.all[key].attack.length > (Item.all[key].attackNum + 1)){
-          Itema.all[key].attackNum += 1;
+        $(document).trigger("updateStatus", item.attack[item.attackNum]);
+        if(item.attack.length > (item.attackNum + 1)){
+          item.attackNum += 1;
         }
       }
 
@@ -157,6 +145,7 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
 
     //compass-controlling
     $("a.path:not(.disabled)").click(function() {
+      console.log('compass console',  $(this).attr('href'))
       $(document).trigger("roomChanged", $(this).attr('href'))
     })
 

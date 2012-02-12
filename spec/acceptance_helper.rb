@@ -65,6 +65,6 @@ def click_compass_direction direction
 end
 
 def take_screenshot
-  page.driver.browser.save_screenshot("./selenium_snapshot.png")
+  page.driver.browser.save_screenshot("./screenie.png")
   # save_and_open_page
 end

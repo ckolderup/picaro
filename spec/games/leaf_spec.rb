@@ -14,7 +14,6 @@ describe "Playing Picaro/leaf" do
 
 
   describe "looking" do
-
     it "updates the game text and closes the menu" do
       look_menu.should be_invisible
       look.click
@@ -58,11 +57,11 @@ describe "Playing Picaro/leaf" do
         take.click
         action_link('take', 'leaf').should be_visible
         action_link('take', 'autumn').should be_visible
-        take_screenshot
 
         take_menu.should be_visible
         action_link('take', 'autumn').click
 
+        take_screenshot
         latest_update.should have_content("You can't take the The Autumn")
       end
 

@@ -1,26 +1,25 @@
-define(["jquery", 'item', "vendor/underscore"], function($, Item) {
-  var GameEvent = {};
+define(["jquery", "vendor/underscore"], function($) {
+  var GameEvent = {
+    allById: {},
 
-  GameEvent.allById =  _({});;
-
-  GameEvent.types = {
     takeItem : function(gameEvent) {
       $(document).trigger("updateStatus", gameEvent.message);
-      var item = Item.allById[gameEvent.item]
-      Item.take(item)
+      $(document).trigger("immediateTake", gameEvent)
     },
 
     instantVictory: function(gameEvent) {
       $(document).trigger("updateStatus", gameEvent.message);
     }
+
   }
 
+  // Event binding
   $(document).bind('gameEvent', function(e, using) {
     var afterEvent = GameEvent.allById[using['after']];
     if (afterEvent) {
-      GameEvent.types[afterEvent.type](afterEvent)
+      GameEvent[afterEvent.type](afterEvent)
     }
-  });
+  })
 
-  return GameEvent;
+  return GameEvent
 })

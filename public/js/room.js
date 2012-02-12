@@ -3,7 +3,10 @@ define(['jquery', 'item', 'inventory', 'vendor/underscore'], function($, Item, I
   Room.all = [];
 
   Room.changeToRoomName = function(roomName) {
+    console.log("changeToRoomName", roomName)
     var room = _.find(this.all, function(room) { return room.name === roomName })
+    console.log("changeToRoomName", room)
+
     this.get(room, Item.all)
   }
 

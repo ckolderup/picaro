@@ -1,6 +1,21 @@
-define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, Inventory) {
+define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], function($, Util, Inventory, ActionGuard) {
   var Item = {
     allById: {},
+
+    take: function(item) {
+      Inventory.add(item);
+      $(document).trigger('itemTaken', item)
+      $(document).trigger('closeMenu');
+      if (item.take.after) $(document).trigger('gameEvent', item.take)
+    },
+
+    tryToTake: function(item) {
+      if (this.canTake(item)) {
+        this.take(item)
+      } else {
+        this.willNotTake(item)
+      }
+    },
 
     takeConditions: {
       itemInInventory: function(otherItem) {
@@ -9,24 +24,17 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
     },
 
     canTake: function(item) {
-      if (item.take && typeof item.take == 'object') {
-        var condition = item.take.condition && _.keys(item.take.condition)[0]
-        if (condition && _.include(_.keys(this.takeConditions), condition)) {
-          if (this.takeConditions[condition](item.take.condition[condition])) {
-            return true
-          } else {
-            return false
-          }
-        } else {
-          console.log("No take conditions found for " + item.name + ", please pass a boolean or conditions object");
-          return false
-        }
+      console.log("CANTAKE", arguments)
+      if (item.take == true) {
+        return true
+      } else if (item.take && item.take.actionGuard) {
+        return ActionGuard.test(item.take)
       } else {
         return item.take;
       }
     },
 
-    cannotTake: function(item) {
+    willNotTake: function(item) {
       var message = "You can't take the " + item.name + ". ";
       if (item.take && item.take.cannotTakeMessage) {
         message += item.take.cannotTakeMessage
@@ -34,13 +42,9 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
       $(document).trigger("updateStatus", message);
     },
 
-    take: function(item) {
-      Inventory.add(item);
-      $(document).trigger('itemTaken', item)
-      $(document).trigger('closeMenu')
-      if (item.take.after) {
-        $(document).trigger('gameEvent', item.take)
-      }
+    immediateTake: function(gameEvent) {
+      var item = Item.allById[gameEvent.item]
+      Item.take(item)
     },
 
     // This is non-commutative right now- item1 is used ON item2, which is expecting item1 to be used on it.
@@ -57,6 +61,14 @@ define(["jquery", "util", "inventory", "vendor/underscore"], function($, Util, I
     }
 
   };
+
+  $(document).bind("clickActionTake", function(e, o) {
+    Item.tryToTake(o)
+  })
+
+  $(document).bind("immediateTake", function(e, o) {
+    Item.immediateTake(o)
+  })
 
   return Item;
 });
