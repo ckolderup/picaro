@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../acceptance_helper'
 
 describe "Playing Picaro/leaf" do
 
-  before { play '/leaf' }
+  before { play '/leaf'; sleep 0.2 }
 
   let(:look)      { find('#footer-look a') }
   let(:use)       { find('#footer-use a') }
@@ -34,6 +34,7 @@ describe "Playing Picaro/leaf" do
         take_menu.should be_invisible
         take.click
 
+        sleep 0.1
         take_menu.should be_visible
         action_link('take', 'rake').click
         latest_update.should have_content('You take the Rake.')
