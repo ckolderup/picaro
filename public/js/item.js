@@ -1,6 +1,12 @@
 define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], function($, Util, Inventory, ActionGuard) {
   var Item = {
-    allById: {},
+    init: function(items) {
+      this.allById = items;
+    },
+
+    findByRoom: function(room) {
+      return _.filter(this.allById, function(item, id) { return item.location === room.name })
+    },
 
     take: function(item) {
       Inventory.add(item);
@@ -14,12 +20,6 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
         this.take(item)
       } else {
         this.willNotTake(item)
-      }
-    },
-
-    takeConditions: {
-      itemInInventory: function(otherItem) {
-        return _.find(Inventory.list(), function(item) {return item.name == otherItem})
       }
     },
 

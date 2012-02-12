@@ -10,7 +10,6 @@ define(["jquery", "vendor/underscore"], function($) {
     instantVictory: function(gameEvent) {
       $(document).trigger("updateStatus", gameEvent.message);
     }
-
   }
 
   // Event binding

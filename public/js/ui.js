@@ -1,7 +1,13 @@
-define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
+define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) {
   var itemTriggers = [];
 
-  UI = {
+  var UI = {
+    resetForNewRoom: function(room, roomItems) {
+      $('.ui-action ul').empty()
+      var itemNames = _.pluck(roomItems, "name")
+      $(document).trigger("updateStatus", room.description + "<br/ ><br/>You see " + util.toArrayToSentence(itemNames));
+    },
+
     newStatusMessage: function(message) {
       $("p.new:first ").removeClass("new").addClass("old");
       var n = $("p.old").length;
@@ -11,56 +17,60 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
       $("#game").append("<p class='new'>" + message + "</p>");
     },
 
-    roomChanged: function(roomName) {
-      $("#move-preview .ul-modal-inner").html(roomName);
-      $('.ui-action ul').empty();
+    changeRoom: function(e, roomData) {
+      var room = roomData.room, items = roomData.items
+
+      UI.resetForNewRoom(room, items);
+      $("#header h2").html(room.name);
+      $("#move-preview .ul-modal-inner").html(room.name);
+      $(document).trigger('roomReady', room)
     },
 
     itemTaken: function(e, item) {
-     $(document).trigger("updateStatus", "You take the " + item.name + ".");
+      $(document).trigger("updateStatus", "You take the " + item.name + ".");
 
-     $("#action-take a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
-     $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
-     $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
-     $('#action-use').trigger('closeMenu')
+      $("#action-take a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
+      $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
+      $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
+      $('#action-use').trigger('closeMenu')
     },
 
     init: function() {
       $("#footer ul li a").click(function() {
-       $(".ui-overlay").fadeIn("fast");
-       $(".ui-action").fadeOut("fast");
-       $(".active").removeClass("active");
-       $("#footer").addClass("active");
-       $(this).parent().addClass("active");
+        $(".ui-overlay").fadeIn("fast");
+        $(".ui-action").fadeOut("fast");
+        $(".active").removeClass("active");
+        $("#footer").addClass("active");
+        $(this).parent().addClass("active");
       })
 
       var oldMenus = _(["look", "take", "talk", "attack"])
 
       oldMenus.each(function(action) {
-       var menuSelector = "#action-" + action
-       $("#footer-" + action + " a").click(function() {
-         $(menuSelector).fadeIn("fast");
-         return false;
-       });
+      var menuSelector = "#action-" + action
+      $("#footer-" + action + " a").click(function() {
+        $(menuSelector).fadeIn("fast");
+        return false;
+      });
 
-       $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
-         $(".active").removeClass("active");
-         $(this).fadeOut("fast");
-         $(".ui-action, .ui-overlay, #move").fadeOut("fast");
-       })
+      $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
+        $(".active").removeClass("active");
+        $(this).fadeOut("fast");
+        $(".ui-action, .ui-overlay, #move").fadeOut("fast");
+      })
 
-       $(menuSelector + " ul li a").live('click', function(event) {                             //set off user-triggered item/action events
-         var actionAndId = $(this) .data('action-id').split('-')
-         $(".ui-overlay, .ui-action").fadeOut();
-         $(".active").removeClass("active");
-         itemAction(actionAndId[0], actionAndId[1], event);
-       })
+      $(menuSelector + " ul li a").live('click', function(event) { //set off user-triggered item/action events
+        var actionAndId = $(this) .data('action-id').split('-')
+        $(".ui-overlay, .ui-action").fadeOut();
+        $(".active").removeClass("active");
+        itemAction(actionAndId[0], actionAndId[1], event);
+        })
       })
 
       $("#header-move, #move").click(function() {
-       $("#move").fadeToggle("fast");
-       $(".ui-overlay").fadeToggle("fast");
-       return false;
+        $("#move").fadeToggle("fast");
+        $(".ui-overlay").fadeToggle("fast");
+        return false;
       });
 
 
@@ -74,8 +84,8 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
       });
 
       $("#move-compass li:not(.disabled) a").mouseout(function() {
-       $("#move-preview").fadeOut("fast");
-       return false;
+        $("#move-preview").fadeOut("fast");
+        return false;
       });
 
       //begin item/action function
@@ -113,14 +123,20 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
          return false
        }
       }
-
-      //compass-controlling
-      $("a.path:not(.disabled)").click(function() {
-       $(document).trigger("roomChanged", $(this).attr('href'))
-      })
     }
   }
 
+
+  // compass-controlling
+  $("a.path:not(.disabled)").click(function() {
+    // FIXME: the UI should not be gathering this room data
+    var room = Room.findByName($(this).attr('href'))
+    var roomData = {
+      room: room,
+      items: Item.findByRoom(room)
+    }
+    $(document).trigger("changeRoom", roomData)
+  })
 
   $('#footer-use').click(function() {
     $('#action-use').trigger('openMenu')
@@ -147,7 +163,7 @@ define(["jquery", 'item', 'vendor/underscore'], function($, Item) {
 
 
   $(document).bind('itemTaken', UI.itemTaken)
-  $(document).bind('roomChanged', UI.roomChanged)
+  $(document).bind('changeRoom', UI.changeRoom)
 
   return UI;
 });

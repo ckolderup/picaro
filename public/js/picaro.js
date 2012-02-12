@@ -15,15 +15,11 @@ require([
     var itemStatuses = [];
     var counters = [];
     var rooms = [];
-    var gameItems = _({});
+    var gameItems = {};
 
     $(document).bind("updateStatus", function(event, message) {
       UI.newStatusMessage(message);
     })
-
-    $(document).bind("roomChanged", function(e, roomName) {
-      Room.changeToRoomName(roomName);
-    });
 
     function gameInfoObject (name, version, description) {
       this.name = name;
@@ -133,14 +129,16 @@ require([
       error: function() {
         console.log("Error getting game JSON", arguments)
       }
-    });                                                                                            // end json get
+    });
+    // end json get
 
     //END PREP CODE, INITIALIZE GAME
 
-    Item.all = itemStatuses;
-    Item.allById = gameItems;
-    UI.init();
-    $(document).trigger('roomChanged', _.find(rooms, function(room) {return room.starter}).name) //initialize room that's flagged as 'starter'
 
+    var startingRoom = _.find(rooms, function(room) { return room.starter })
+
+    Item.init(gameItems)
+    Room.init(startingRoom)
+    UI.init()
   });
 });
