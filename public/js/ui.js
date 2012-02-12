@@ -36,14 +36,6 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
     },
 
     init: function() {
-      $("#footer ul li a").click(function() {
-        $(".ui-overlay").fadeIn("fast");
-        $(".ui-action").fadeOut("fast");
-        $(".active").removeClass("active");
-        $("#footer").addClass("active");
-        $(this).parent().addClass("active");
-      })
-
       var oldMenus = _(["look", "take", "talk", "attack"])
 
       oldMenus.each(function(action) {
@@ -126,6 +118,15 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
     }
   }
 
+  // Click event binding
+
+  $("#footer ul li a").click(function() {
+    $(".ui-overlay").fadeIn("fast");
+    $(".ui-action").fadeOut("fast");
+    $(".active").removeClass("active");
+    $("#footer").addClass("active");
+    $(this).parent().addClass("active");
+  })
 
   // compass-controlling
   $("a.path:not(.disabled)").click(function() {

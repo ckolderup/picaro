@@ -12,7 +12,6 @@ require([
 
   $(document).ready(function() {
     var gameMeta;
-    var itemStatuses = [];
     var counters = [];
     var rooms = [];
     var gameItems = {};
@@ -104,7 +103,6 @@ require([
             var itemLocation = roomName;
 
             var item = new itemObject(id, itemName, itemLocation, lookResults, talkResults, attackResults, takeResult, useResults);
-            itemStatuses.push(item);
             gameItems[item.id] = item;
           }
         }
@@ -131,9 +129,6 @@ require([
       }
     });
     // end json get
-
-    //END PREP CODE, INITIALIZE GAME
-
 
     var startingRoom = _.find(rooms, function(room) { return room.starter })
 
