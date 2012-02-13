@@ -86,11 +86,11 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
         var item = Item.allById[item]
 
         if(action === "look") {
-          $(document).trigger("clickActionLook", item)
+          $(document).trigger("actionLook", item)
         }
 
         if(action === "take") {
-          $(document).trigger("clickActionTake", item)
+          $(document).trigger("actionTake", item)
         }
 
         if(action === "talk") {
@@ -108,7 +108,7 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
         }
 
         if(action === "use") {
-         event.stopPropagation();
+          event.stopPropagation();
           return false
         }
       }

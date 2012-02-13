@@ -70,11 +70,11 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
 
   };
 
-  $(document).bind("clickActionLook", function(e, o) {
+  $(document).bind("actionLook", function(e, o) {
     Item.look(o)
   })
 
-  $(document).bind("clickActionTake", function(e, o) {
+  $(document).bind("actionTake", function(e, o) {
     Item.tryToTake(o)
   })
 
