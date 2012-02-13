@@ -74,7 +74,7 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       item1 = this.allById[itemId1];
       item2 = this.allById[itemId2];
 
-      if (item1 && item2 && item2.use[item1.id]) {
+      if (item1 && item2 && item2.use && item2.use[item1.id]) {
         var using = item2.use[item1.id];
         $(document).trigger('gameEvent', using)
       } else {

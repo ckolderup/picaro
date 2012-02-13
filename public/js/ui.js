@@ -65,7 +65,6 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
         return false;
       });
 
-
       $("#move-compass li").mouseover(function() {
        if(!$(this).hasClass("disabled")) {
          var preview = $(this).children("a").attr("href");
@@ -136,10 +135,11 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
 
   $('#action-use li a').live('click', function() {
     itemTriggers.push($(this).data('item-id'))
-    if(itemTriggers.length == 2) {
+    if (itemTriggers.length == 1) {
+      $(this).addClass('active')
+    } else if (itemTriggers.length == 2) {
       Item.use(itemTriggers[0], itemTriggers[1])
       itemTriggers = [];
-      $(this).addClass('active')
     }
   })
 
