@@ -94,17 +94,11 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
         }
 
         if(action === "talk") {
-          $(document).trigger("updateStatus", item.talk[item.talkNum]);
-          if(item.talk.length > (item.talkNum + 1)){
-            item.talkNum += 1;
-          }
+          $(document).trigger("actionTalk", item)
         }
 
         if(action === "attack") {
-          $(document).trigger("updateStatus", item.attack[item.attackNum]);
-          if(item.attack.length > (item.attackNum + 1)){
-            item.attackNum += 1;
-          }
+          $(document).trigger("actionAttack", item)
         }
 
         if(action === "use") {

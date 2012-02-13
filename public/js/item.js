@@ -17,6 +17,20 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       }
     },
 
+    talk: function(item) {
+      $(document).trigger("updateStatus", item.talk[item.talkNum]);
+      if(item.talk.length > (item.talkNum + 1)){
+        item.talkNum += 1;
+      }
+    },
+
+    attack: function(item) {
+      $(document).trigger("updateStatus", item.attack[item.attackNum]);
+      if(item.attack.length > (item.attackNum + 1)){
+        item.attackNum += 1;
+      }
+    },
+
     take: function(item) {
       Inventory.add(item);
       $(document).trigger('itemTaken', item)
@@ -69,6 +83,14 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
     }
 
   };
+
+  $(document).bind("actionTalk", function(e, o) {
+    Item.talk(o)
+  })
+
+  $(document).bind("actionAttack", function(e, o) {
+    Item.attack(o)
+  })
 
   $(document).bind("actionLook", function(e, o) {
     Item.look(o)
