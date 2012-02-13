@@ -83,37 +83,34 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
       //begin item/action function
 
       var itemAction = function(action, item, event) {
-       var item = Item.allById[item]
+        var item = Item.allById[item]
 
-       if(action === "look") {
-         $(document).trigger("updateStatus", item.look[item.lookNum]);
-         if(item.look.length > (item.lookNum + 1)){
-           item.lookNum += 1;
-         }
-       }
+        if(action === "look") {
+          $(document).trigger("clickActionLook", item)
+        }
 
-       if(action === "take") {
-         $(document).trigger("clickActionTake", item)
-       }
+        if(action === "take") {
+          $(document).trigger("clickActionTake", item)
+        }
 
-       if(action === "talk") {
-         $(document).trigger("updateStatus", item.talk[item.talkNum]);
-         if(item.talk.length > (item.talkNum + 1)){
-           item.talkNum += 1;
-         }
-       }
+        if(action === "talk") {
+          $(document).trigger("updateStatus", item.talk[item.talkNum]);
+          if(item.talk.length > (item.talkNum + 1)){
+            item.talkNum += 1;
+          }
+        }
 
-       if(action === "attack") {
-         $(document).trigger("updateStatus", item.attack[item.attackNum]);
-         if(item.attack.length > (item.attackNum + 1)){
-           item.attackNum += 1;
-         }
-       }
+        if(action === "attack") {
+          $(document).trigger("updateStatus", item.attack[item.attackNum]);
+          if(item.attack.length > (item.attackNum + 1)){
+            item.attackNum += 1;
+          }
+        }
 
-       if(action === "use") {
+        if(action === "use") {
          event.stopPropagation();
-         return false
-       }
+          return false
+        }
       }
     }
   }

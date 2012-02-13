@@ -8,6 +8,15 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       return _.filter(this.allById, function(item, id) { return item.location === room.name })
     },
 
+    look: function(item) {
+      console.log('Item.js /look', arguments)
+
+      $(document).trigger("updateStatus", item.look[item.lookNum]);
+      if(item.look.length > (item.lookNum + 1)){
+        item.lookNum += 1;
+      }
+    },
+
     take: function(item) {
       Inventory.add(item);
       $(document).trigger('itemTaken', item)
@@ -60,6 +69,10 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
     }
 
   };
+
+  $(document).bind("clickActionLook", function(e, o) {
+    Item.look(o)
+  })
 
   $(document).bind("clickActionTake", function(e, o) {
     Item.tryToTake(o)
