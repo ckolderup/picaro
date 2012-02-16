@@ -41,5 +41,9 @@ define(["jquery"], function($) {
     else return false;
   }
 
+  util.actionId = function(item, action) {
+    return action + '-' + item.id;
+  }
+
   return util;
 });

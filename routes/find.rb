@@ -7,7 +7,7 @@ end
 
 get '/games/by/:username' do
   user = User.first(:username => username)
-  games = Game.all(:author => user) 
+  games = Game.all(:author => user)
   haml :game_list, :games => games
 end
 
