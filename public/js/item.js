@@ -77,6 +77,9 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       if (item1 && item2 && item2.use && item2.use[item1.id]) {
         var using = item2.use[item1.id];
         $(document).trigger('gameEvent', using)
+        if (using.after) {
+          $(document).trigger('gameEvent', using)
+        }
       } else {
         console.log("you can't use this on that.", item1, item2)
       }
