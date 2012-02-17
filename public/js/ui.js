@@ -9,10 +9,12 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
     resetForNewRoom: function(room, roomItems) {
       this.resetMenus();
       var itemNames = _.pluck(roomItems, "name")
+      var message = ""
       if (room.description) {
-        this.updateStatus(room.description)
+        message += room.description
+        message += "\n"
       }
-      this.updateStatus("You see " + util.toArrayToSentence(itemNames))
+      this.updateStatus(message + "You see " + util.toArrayToSentence(itemNames))
     },
 
     resetMenus: function() {
@@ -20,7 +22,7 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
       $('.ui-action ul').empty()
 
       _.each(Inventory.list(), function(item) {
-        $("#action-use ul").append("<li><a href='#' class='item data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + " <small> (held) </small></a></li>");
+        $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + " <small> (held) </small></a></li>");
         $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + " <small> (held) </small></a></li>");
       })
 
@@ -203,8 +205,7 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
     $(".ui-overlay").fadeOut("fast");
   })
 
-  $(document).bind('renderMenus', function(inventoryItems) {})
-
+  $(document).bind('resetMenus', UI.resetMenus)
   $(document).bind('itemTaken', UI.itemTaken)
   $(document).bind('changeRoom', UI.changeRoom)
 

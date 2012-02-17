@@ -9,8 +9,6 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
     },
 
     look: function(item) {
-      console.log('Item.js /look', arguments)
-
       $(document).trigger("updateStatus", item.look[item.lookNum]);
       if(item.look.length > (item.lookNum + 1)){
         item.lookNum += 1;
@@ -81,6 +79,7 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
           $(document).trigger('gameEvent', using)
         }
       } else {
+        $(document).trigger("updateStatus", "You can't use those things together.")
         console.log("you can't use this on that.", item1, item2)
       }
     }

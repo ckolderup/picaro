@@ -1,4 +1,4 @@
-define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, Inventory) {
+define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($, Item, Inventory, Room) {
   var GameEvent = {
     allById: {},
 
@@ -13,10 +13,11 @@ define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, I
 
     replaceItems: function(gameEvent) {
       var newItem = gameEvent.newItem
+      var oldItemsWereInInventory
 
       _(gameEvent.items).each(function(item, index) {
         if (Inventory.remove(item)) {
-          Inventory.add(newItem)
+          oldItemsWereInInventory = true
         }
 
         if (Item.allById[item]) {
@@ -24,8 +25,11 @@ define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, I
         }
       })
 
+      // ugh, this sucks. the event system shouldn't be managing items in rooms & inventory like this
+      newItem.location = Room.current.name
       Item.allById[newItem.id] = newItem
-      $(document).trigger('renderMenus', Inventory.list())
+      if (oldItemsWereInInventory) Inventory.add(newItem);
+      $(document).trigger('resetMenus')
     }
   }
 
