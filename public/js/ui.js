@@ -32,17 +32,15 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
         $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
       })
 
-      for (var i in roomItems) {
-        var item = roomItems[i];
-
-        if(item.talk) {
+      _.each(roomItems, function(item) {
+        if (item.talk) {
           $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
         }
 
-        if(item.attack) {
+        if (item.attack) {
           $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
         }
-      }
+      })
     },
 
     newStatusMessage: function(message) {
