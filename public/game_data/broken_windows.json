@@ -1,0 +1,40 @@
+{
+  "gameName": "Broken Windows",
+  "gameDescription": "A V1 Picaro Test-Game, in which an item is combined with a second item, adding a new item",
+  "Version": "1",
+
+  "Events" : [
+    { "id": "replaceWithCoolJackelope",
+      "type": "replaceItems",
+      "items" : ["sunglasses", "jackalope"],
+      "newItem" : {
+        "id": "coolJackalope",
+        "name" : "Cool Jackalope",
+        "take" : true
+      },
+      "message" : "You place the sunglasses on the jackalopes face.  Hey, cool Jackalope."
+    }
+  ],
+
+  "Rooms" : [
+    {
+      "Starter" : true,
+      "Name": "The Rumpus Room",
+      "Items": [
+        { "Name": "Sunglasses",
+          "Id": "sunglasses",
+          "Take": true
+        },
+        { "Name": "Jacques 'o Lope",
+          "Id": "jackalope",
+          "Take": true,
+          "Use": {
+            "sunglasses" : {
+              "after" : "replaceWithCoolJackelope"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

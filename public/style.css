@@ -230,6 +230,10 @@
               opacity: 1;
             }
 
+            .ui-action-sheet ul li a.active {
+              color: red;
+            }
+
 /*----------
  Move Modal
 ----------*/
