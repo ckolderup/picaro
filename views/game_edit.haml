@@ -1,0 +1,39 @@
+%h1 Make a game
+
+%form{:action => upload_to, :method => upload_method}
+  %label{:for => "title"} Title
+  %input{:id => "title", :name => "title", :type => "text"}
+    = version.andand.title
+  
+  %label{:for => "label"} Version Label (e.g. "v0.1" or "beta 4")
+  %input{:id => "label", :name => "label", :type => "text"}
+    = version.andand.label
+  
+  %label{:for => "description"} Description
+  %textarea{:id => "description", :name => "description"}
+    = version.andand.description
+    
+  %label{:for => "source"} Game Code
+  %textarea{:id => "source", :name => "source"}
+    = version.andand.source
+    
+  %label{:for => "changelog"} Version changelog
+  %textarea{:id => "changelog", :name => "changelog"}
+    = version.andand.changelog
+
+  %h2 Remotely Hosted Game (Advanced)
+  
+  %label{:for => "source_url"} Remote Game URL
+  %input{:id => "source_url", :name => "source_url", :type => "text"}
+    = version.andand.source_url
+
+  %h2 Game visibility
+
+  %input{:id => "published", :name => "published", 
+         :type => "checkbox", :value => game.andand.published? || "false"}
+    Make this game visible to anyone
+
+  %h2 This Should Not Be Its Own Section
+
+  %label But Then I Would Have To Write Some CSS
+  %input{:value => "Save", :type => "submit", :class => "button"}
