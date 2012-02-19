@@ -18,15 +18,11 @@ class Version
   end
 
   before :create do |version|
-    puts "creating version"
+    throw unless script_present
     if version[:source].nil? then
       source = JSON.parse(HTTParty.get(version[:source_url]))
       version[:title] = source[:title]
       version[:description] = source[:description]
     end
-  end
-
-  before :save do |version|
-    puts "saving version"
   end
 end

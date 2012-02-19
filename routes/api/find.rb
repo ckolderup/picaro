@@ -63,11 +63,9 @@ end
 post '/game/:slug_text' do
   slug = Url.first(:slug => params[:slug_text])
   error 404 if slug.nil?
-  puts "found slug"
 
   game = slug.game
   error 404 if game.nil?
-  puts "found game"
 
   error 403 unless logged_in?
   error 403 if current_user != game.author

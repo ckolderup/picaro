@@ -17,12 +17,4 @@ class Game
   def view_version_url(version_id)
     "#{ENV['SITE_ROOT']}/game/#{urls.last.slug}/#{version_id}/view"
   end
-
-  before :create do |game|
-    puts "creating game"
-  end
-
-  before :save do |game|
-    puts "saving game"
-  end
 end
