@@ -15,3 +15,11 @@
 
 #changelog
   = version.changelog
+
+#versions
+  %h3 Versions of this game
+  %ul
+    - for version in game.versions.reverse
+      %li
+        %a{:href => "#{ENV['SITE_ROOT']}/game/#{game.urls.last.slug}/#{version.id}/view"}
+          #{version.label} - #{version.title}

@@ -14,7 +14,7 @@ get '/game/:slug/:version_id/view' do
 end
 
 def show_game(game, version)
-  haml :game_detail, :locals => { :game => game, :version => game.versions.last }
+  haml :game_detail, :locals => { :game => game, :version => version }
 end
 
 get '/games/by/:username' do
