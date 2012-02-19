@@ -1,11 +1,48 @@
-define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) {
+define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($, Item, Room, Inventory) {
   var itemTriggers = [];
 
   var UI = {
+    updateStatus: function(message) {
+      $(document).trigger("updateStatus", message)
+    },
+
     resetForNewRoom: function(room, roomItems) {
-      $('.ui-action ul').empty()
+      this.resetMenus();
       var itemNames = _.pluck(roomItems, "name")
-      $(document).trigger("updateStatus", room.description + "<br/ ><br/>You see " + util.toArrayToSentence(itemNames));
+      var message = ""
+      if (room.description) {
+        message += room.description
+        message += "\n"
+      }
+      this.updateStatus(message + "You see " + util.toArrayToSentence(itemNames))
+    },
+
+    resetMenus: function() {
+      var roomItems = Item.findByRoom(Room.current)
+      $('.ui-action ul').empty()
+
+      _.each(Inventory.list(), function(item) {
+        $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + " <small> (held) </small></a></li>");
+        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + " <small> (held) </small></a></li>");
+      })
+
+      _.each(_.difference(roomItems, Inventory.list()), function(item) {
+        $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+        $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id +"' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + "</a></li>");
+        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
+      })
+
+      for (var i in roomItems) {
+        var item = roomItems[i];
+
+        if(item.talk) {
+          $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+        }
+
+        if(item.attack) {
+          $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+        }
+      }
     },
 
     newStatusMessage: function(message) {
@@ -33,6 +70,21 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
       $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
       $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
       $('#action-use').trigger('closeMenu')
+    },
+
+    renderUseMenu: function(inventoryItems, roomItems) {
+      $('.ui-action ul').empty()
+
+      _.each(inventoryItems, function(item) {
+        $("#action-use ul").append("<li><a href='#' class='item data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + " <small> (held) </small></a></li>");
+        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + " <small> (held) </small></a></li>");
+      })
+
+      _.each(_.difference(roomItems, inventoryItems), function(item) {
+        $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+        $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id +"' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + "</a></li>");
+        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
+      })
     },
 
     init: function() {
@@ -153,7 +205,7 @@ define(["jquery", 'item', 'room', 'vendor/underscore'], function($, Item, Room) 
     $(".ui-overlay").fadeOut("fast");
   })
 
-
+  $(document).bind('resetMenus', UI.resetMenus)
   $(document).bind('itemTaken', UI.itemTaken)
   $(document).bind('changeRoom', UI.changeRoom)
 

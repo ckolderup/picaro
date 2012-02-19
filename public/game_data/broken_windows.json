@@ -1,40 +1,40 @@
 {
-  "gameName": "LEAFRAKER",
-  "gameDescription": "A V1 Picaro Test-Game, in which an item is used to get another item, which wins the game",
+  "gameName": "Broken Windows",
+  "gameDescription": "A V1 Picaro Test-Game, in which an item is combined with a second item, adding a new item",
   "Version": "1",
 
   "Events" : [
-    { "id": "takeLeafWithRake",
-      "type": "takeItem",
-      "item" : "leaf",
-      "message" : "You're able to catch the leaf on one of the rake's rusty tines and bring it on down."
-    },
-    { "id": "winGameViaLeafTakeage",
-      "type": "instantVictory",
-      "message": "Using the leaf, you cure scabies."}
+    { "id": "replaceWithCoolJackelope",
+      "type": "replaceItems",
+      "items" : ["sunglasses", "jackalope"],
+      "newItem" : {
+        "id": "coolJackalope",
+        "name" : "Cool Jackalope",
+        "take" : true
+      },
+      "message" : "You place the sunglasses on the jackalopes face.  Hey, cool Jackalope."
+    }
   ],
 
   "Rooms" : [
     {
       "Starter" : true,
-      "Name": "The Tree",
-      "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
+      "Name": "The Rumpus Room",
       "Items": [
-        { "Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true},
-        { "Name": "Leaf",
-          "Id": "leaf",
-          "Look": ["It seems rather far away."],
-          "Take": {
-            "cannotTakeMessage" : "You're not tall enough.",
-            "after": "winGameViaLeafTakeage"
-          },
+        { "Name": "Sunglasses",
+          "Id": "sunglasses",
+          "Take": true
+        },
+        { "Name": "Jacques 'o Lope",
+          "Id": "jackalope",
+          "Take": true,
           "Use": {
-            "rake" : {
-              "after": "takeLeafWithRake"
+            "sunglasses" : {
+              "after" : "replaceWithCoolJackelope"
             }
           }
         }
-    	]
+      ]
     }
   ]
 }
