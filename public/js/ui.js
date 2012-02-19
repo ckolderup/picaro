@@ -1,4 +1,4 @@
-define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($, Item, Room, Inventory) {
+define(["jquery", 'util', 'item', 'room', 'inventory', 'vendor/underscore'], function($, util, Item, Room, Inventory) {
   var itemTriggers = [];
 
   var UI = {
@@ -19,6 +19,7 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
 
     resetMenus: function() {
       var roomItems = Item.findByRoom(Room.current)
+      console.log('resetMenus', Room.current, roomItems)
       $('.ui-action ul').empty()
 
       _.each(Inventory.list(), function(item) {
@@ -54,7 +55,7 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
 
     changeRoom: function(e, roomData) {
       var room = roomData.room, items = roomData.items
-
+      Room.current = room;
       UI.resetForNewRoom(room, items);
       $("#header h2").html(room.name);
       $("#move-preview .ul-modal-inner").html(room.name);
@@ -102,7 +103,7 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
       })
 
       $(menuSelector + " ul li a").live('click', function(event) { //set off user-triggered item/action events
-        var actionAndId = $(this) .data('action-id').split('-')
+        var actionAndId = util.splitActionId(this)
         $(".ui-overlay, .ui-action").fadeOut();
         $(".active").removeClass("active");
         itemAction(actionAndId[0], actionAndId[1], event);
@@ -184,11 +185,12 @@ define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($,
   });
 
   $('#action-use li a').live('click', function() {
-    itemTriggers.push($(this).data('item-id'))
+    itemTriggers.push(util.splitActionId(this)[1])
     if (itemTriggers.length == 1) {
       $(this).addClass('active')
     } else if (itemTriggers.length == 2) {
-      Item.use(itemTriggers[0], itemTriggers[1])
+      console.log("itemTriggers", itemTriggers)
+      $(document).trigger("actionUse", itemTriggers)
       itemTriggers = [];
     }
   })

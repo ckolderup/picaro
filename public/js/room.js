@@ -16,7 +16,6 @@ define(['jquery', 'item', 'inventory', 'vendor/underscore'], function($, Item, I
     },
 
     get: function(room, roomItems) {
-      this.current = room
       $("#move a").attr("href", "#");                                                //repopulate compass links
       $("#move li").addClass("disabled");
 
@@ -41,6 +40,11 @@ define(['jquery', 'item', 'inventory', 'vendor/underscore'], function($, Item, I
       }
     }
   }
+
+  $(document).bind("roomChanged", function(e, room) {
+    console.log("yes i know i changed")
+    // Room.current = room
+  })
 
   // Event Bindings
   $(document).bind("roomReady", function(e, room) {

@@ -69,8 +69,8 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
 
     // This is non-commutative right now- item1 is used ON item2, which is expecting item1 to be used on it.
     use: function(itemId1, itemId2) {
-      item1 = this.allById[itemId1];
-      item2 = this.allById[itemId2];
+      var item1 = this.allById[itemId1],
+          item2 = this.allById[itemId2];
 
       if (item1 && item2 && item2.use && item2.use[item1.id]) {
         var using = item2.use[item1.id];
@@ -96,6 +96,10 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
 
   $(document).bind("actionLook", function(e, o) {
     Item.look(o)
+  })
+
+  $(document).bind("actionUse", function(e, item1, item2) {
+    Item.use(item1, item2)
   })
 
   $(document).bind("actionTake", function(e, o) {
