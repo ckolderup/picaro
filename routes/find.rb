@@ -27,7 +27,7 @@ end
 get '/games/recent' do
   versions = Version.all(:limit => 15, :order => [ :uploaded_at.desc ])
   haml :game_list, :locals => { :title => "Recent Games", 
-                                :games => versions.map {|v| v.game } }
+                                :games => versions.map{|v| v.game }.uniq }
 end
 
 get '/game/new' do
