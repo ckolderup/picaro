@@ -39,10 +39,7 @@ get '/game/:slug/script/:version_id' do
   game_info.to_json
 end
 
-post '/game/new' do
-  error 403 unless logged_in?
-
-  game = Game.new(:author => current_user)
+def add_version(game, params)
   version = Version.new(:title => params[:title],
                         :description => params[:description],
                         :label => params[:label],
@@ -51,7 +48,14 @@ post '/game/new' do
                         :changelog => params[:changelog],
                         :game => game)
   game.versions.push(version)
+  version
+end
 
+post '/game/new' do
+  error 403 unless logged_in?
+
+  game = Game.new(:author => current_user)
+  version = add_version(game, params)
   url = Url.new(:title => version.title, :game => game)
 
   error 422 unless game.save && version.save && url.save
@@ -70,14 +74,7 @@ post '/game/:slug_text' do
   error 403 unless logged_in?
   error 403 if current_user != game.author
 
-  version = Version.new(:title => params[:title],
-                        :description => params[:description],
-                        :label => params[:label], 
-                        :source => params[:source],
-                        :source_url => params[:source_url],
-                        :changelog => params[:changelog], 
-                        :game => game)
-  game.versions.push(version)
+  version = add_version(game, params)
 
   error 422 unless game.save && version.save
 
