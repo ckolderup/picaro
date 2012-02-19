@@ -7,6 +7,10 @@ define(["jquery", "inventory", "vendor/underscore"], function($, Inventory) {
       return Inventory.include(guard.item)
     },
 
+    itemNotInInventory: function(guard, action) {
+      return !this.itemInInventory(guard, action)
+    },
+
     // Takes an ActionGuard id once attached to an object. Looks it up in all known guards and runs the function associated with that type, if found.
     test: function(action) {
       var guardId = action.actionGuard,
