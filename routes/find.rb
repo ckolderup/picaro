@@ -1,12 +1,12 @@
 get '/game/:slug/view' do
-  game = Url.get(params[:slug]).andand.game
+  game = Url.first(:slug => params[:slug]).andand.game
   error 404 if game.nil?
   version = game.versions.last
   show_game(game, version)
 end
 
 get '/game/:slug/:version_id/view' do
-  game = Url.get(params[:slug]).andand.game
+  game = Url.first(:slug => params[:slug]).andand.game
   version = Version.get(params[:version_id])
   error 404 if game.nil? or version.nil? or !game.versions.include?(version)
 
@@ -41,7 +41,8 @@ end
 get '/game/:slug/edit' do
   force_login :next => request.fullpath
 
-  game = Url.get(params[:slug]).andand.game
+  slug = params[:slug]
+  game = Url.first(:slug => slug).andand.game
   error 404 if game.nil?
   error 403 if game.author != current_user
 

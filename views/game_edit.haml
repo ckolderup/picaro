@@ -2,12 +2,12 @@
 
 %form{:action => upload_to, :method => upload_method}
   %label{:for => "title"} Title
-  %input{:id => "title", :name => "title", :type => "text"}
-    = version.andand.title
+  %input{:id => "title", :name => "title", 
+         :type => "text", :value => version.andand.title}
   
   %label{:for => "label"} Version Label (e.g. "v0.1" or "beta 4")
-  %input{:id => "label", :name => "label", :type => "text"}
-    = version.andand.label
+  %input{:id => "label", :name => "label", 
+         :type => "text"}
   
   %label{:for => "description"} Description
   %textarea{:id => "description", :name => "description"}
@@ -19,13 +19,12 @@
     
   %label{:for => "changelog"} Version changelog
   %textarea{:id => "changelog", :name => "changelog"}
-    = version.andand.changelog
 
   %h2 Remotely Hosted Game (Advanced)
   
   %label{:for => "source_url"} Remote Game URL
-  %input{:id => "source_url", :name => "source_url", :type => "text"}
-    = version.andand.source_url
+  %input{:id => "source_url", :name => "source_url", 
+         :type => "text", :value => version.andand.source_url}
 
   %h2 Game visibility
 

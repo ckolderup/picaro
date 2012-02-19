@@ -1,5 +1,5 @@
 get '/game/:slug/script' do
-  game = Url.get(params[:slug]).andand.game
+  game = Url.first(:slug => params[:slug]).andand.game
   error 404 if game.nil?
   
   game_info = { 
@@ -11,7 +11,7 @@ get '/game/:slug/script' do
 end
 
 get '/game/:slug/versions' do
-  game = Url.get(params[:slug]).andand.game
+  game = Url.first(:slug => params[:slug]).andand.game
   error 404 if game.nil?
 
   version_index = game.versions.map {|version|
@@ -26,7 +26,7 @@ get '/game/:slug/versions' do
 end
 
 get '/game/:slug/script/:version_id' do
-  game = Url.get(params[:slug]).andand.game
+  game = Url.first(:slug => params[:slug]).andand.game
   error 404 if game.nil?
 
   version = game.versions.filter { |v| v.id == version_id }.first
@@ -56,35 +56,36 @@ post '/game/new' do
 
   error 422 unless game.save && version.save && url.save
 
-  puts "clear of dm saving"
-
-
   response = { :version => "#{ENV['SITE_ROOT']}/game/#{url.slug}/#{version.id}" }
   response.to_json
 end
 
 post '/game/:slug_text' do
-  slug = Url.get(params[:slug_text])
+  slug = Url.first(:slug => params[:slug_text])
   error 404 if slug.nil?
+  puts "found slug"
 
   game = slug.game
   error 404 if game.nil?
+  puts "found game"
 
   error 403 unless logged_in?
   error 403 if current_user != game.author
 
-  version = Version.new(:label => params[:label], 
-                        :source => params[:source], 
+  version = Version.new(:title => params[:title],
+                        :description => params[:description],
+                        :label => params[:label], 
+                        :source => params[:source],
+                        :source_url => params[:source_url],
                         :changelog => params[:changelog], 
                         :game => game)
-  error 422 unless version.save
-
   game.versions.push(version)
-  error 422 unless game.save
+
+  error 422 unless game.save && version.save
 
   if (version.title != slug.title) then
     url = Url.new(:title => version.title, :game => game)
-    error 422 unless s.save
+    error 422 unless url.save
   end
 
   response = { :version => "#{ENV['SITE_ROOT']}/game/#{url.slug}/#{version.id}" }
@@ -92,7 +93,7 @@ post '/game/:slug_text' do
 end
 
 delete '/game/:slug' do
-  game = Url.get(params[:slug]).andand.game
+  game = Url.first(:slug => params[:slug]).andand.game
 
   error 403 unless logged_in?
   error 403 if (current_user != game.author && !current_user.admin?)
@@ -102,7 +103,7 @@ delete '/game/:slug' do
 end
 
 delete '/game/:slug/:version_id' do
-  game = Url.get(params[:slug]).andand.game
+  game = Url.first(:slug => params[:slug]).andand.game
   error 404 if game.nil?
 
   error 403 unless logged_in?

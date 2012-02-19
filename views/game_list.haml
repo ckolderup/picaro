@@ -4,7 +4,8 @@
 - for game in games
   .game
     #title
-      = game.versions.last.title
+      %a{:href => "#{ENV['SITE_ROOT']}/game/#{game.urls.last.slug}/view"}
+        = game.versions.last.title
     #author
       = game.author.display_name
     #description

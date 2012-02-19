@@ -4,7 +4,7 @@ class Game
   property :published, Boolean, :default => false
   belongs_to :author, 'User'
   has n, :versions
-  has n, :url
+  has n, :urls
 
   def published?
     return published
