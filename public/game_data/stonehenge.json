@@ -11,7 +11,7 @@
     },
     { "id": "winGameViaLeafBubbleage",
       "type": "instantVictory",
-      "message": "The cauldron bubbles violently.  The resulting potion cures scabies."
+      "message": "The cauldron bubbles violently. The resulting potion cures scabies."
     },
     { "id": "dropRakeOnTree",
       "type" : "dropItem",

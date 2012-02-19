@@ -69,8 +69,7 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
 
     // This is non-commutative right now- item 1 is used ON item 2, who must be expecting that
     use: function(itemId1, itemId2) {
-      var item1 = this.allById[itemId1],
-          item2 = this.allById[itemId2];
+      var item1 = this.allById[itemId1], item2 = this.allById[itemId2]
 
       if (item1 && item2 && item2.use && item2.use[item1.id]) {
         var using = item2.use[item1.id];

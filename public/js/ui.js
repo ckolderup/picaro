@@ -90,23 +90,22 @@ define(["jquery", 'util', 'item', 'room', 'inventory', 'vendor/underscore'], fun
       var oldMenus = _(["look", "take", "talk", "attack"])
 
       oldMenus.each(function(action) {
-      var menuSelector = "#action-" + action
-      $("#footer-" + action + " a").click(function() {
-        $(menuSelector).fadeIn("fast");
-        return false;
-      });
+        var menuSelector = "#action-" + action
+        $("#footer-" + action + " a").click(function() {
+          $(menuSelector).fadeIn("fast");
+          return false;
+        });
 
-      $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
-        $(".active").removeClass("active");
-        $(this).fadeOut("fast");
-        $(".ui-action, .ui-overlay, #move").fadeOut("fast");
-      })
+        $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
+          $(".active").removeClass("active");
+          $(this).fadeOut("fast");
+          $(".ui-action, .ui-overlay, #move").fadeOut("fast");
+        })
 
-      $(menuSelector + " ul li a").live('click', function(event) { //set off user-triggered item/action events
-        var actionAndId = util.splitActionId(this)
-        $(".ui-overlay, .ui-action").fadeOut();
-        $(".active").removeClass("active");
-        itemAction(actionAndId[0], actionAndId[1], event);
+        $(menuSelector + " ul li a").live('click', function(event) { //set off user-triggered item/action events
+          var actionAndId = util.splitActionId(this)
+          $(this).trigger('closeMenu')
+          itemAction(actionAndId[0], actionAndId[1], event);
         })
       })
 
@@ -114,16 +113,16 @@ define(["jquery", 'util', 'item', 'room', 'inventory', 'vendor/underscore'], fun
         $("#move").fadeToggle("fast");
         $(".ui-overlay").fadeToggle("fast");
         return false;
-      });
+      })
 
       $("#move-compass li").mouseover(function() {
-       if(!$(this).hasClass("disabled")) {
-         var preview = $(this).children("a").attr("href");
-         $("#move-preview .ui-modal-inner").html(preview);
-         $("#move-preview").fadeIn("fast");
-       }
-       return false;
-      });
+        if (!$(this).hasClass("disabled")) {
+          var preview = $(this).children("a").attr("href");
+          $("#move-preview .ui-modal-inner").html(preview);
+          $("#move-preview").fadeIn("fast");
+        }
+        return false;
+      })
 
       $("#move-compass li:not(.disabled) a").mouseout(function() {
         $("#move-preview").fadeOut("fast");
@@ -189,7 +188,7 @@ define(["jquery", 'util', 'item', 'room', 'inventory', 'vendor/underscore'], fun
     if (itemTriggers.length == 1) {
       $(this).addClass('active')
     } else if (itemTriggers.length == 2) {
-      console.log("itemTriggers", itemTriggers)
+      $(this).trigger('closeMenu')
       $(document).trigger("actionUse", itemTriggers)
       itemTriggers = [];
     }
@@ -200,7 +199,7 @@ define(["jquery", 'util', 'item', 'room', 'inventory', 'vendor/underscore'], fun
     $(this).fadeIn("fast").addClass('active');
   })
 
-  $('.ui-action').bind('closeMenu', function(e, i) {
+  $('.ui-action').bind('closeMenu', function() {
     $(this).fadeOut("fast").removeClass('active');
     $(".ui-overlay").fadeOut("fast");
   })
