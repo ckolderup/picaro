@@ -1,4 +1,4 @@
-define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], function($, Util, Inventory, ActionGuard) {
+define(["jquery", "util", "inventory", "action_guard", "convo", "vendor/underscore"], function($, Util, Inventory, ActionGuard, Convo) {
   var Item = {
     init: function(items) {
       this.allById = items;
@@ -16,10 +16,17 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
     },
 
     talk: function(item) {
-      $(document).trigger("updateStatus", item.talk[item.talkNum]);
-      if(item.talk.length > (item.talkNum + 1)){
-        item.talkNum += 1;
-      }
+      // $(document).trigger("updateStatus", item.talk[item.talkNum]);
+      // if(item.talk.length > (item.talkNum + 1)){
+      //   item.talkNum += 1;
+      // }
+      console.log('beginConvo', item)
+      var conversation = item.talk;
+
+      $('#action-talk-character h3').html(item.name)
+      $('#action-talk-character').show()
+      $('#action-talk-player ul').empty();
+      Convo.askQuestions(conversation);
     },
 
     attack: function(item) {

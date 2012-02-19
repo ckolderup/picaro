@@ -24,26 +24,6 @@ require([
       console.log("characterSpeaks")
     })
 
-    $(document).bind("beginConvo", function(e, character) {
-      console.log('beginConvo', character)
-      var conversation = character.talk;
-
-      $('#action-talk-character h3').html(character.name)
-      $('#action-talk-character').show()
-      $('#action-talk-player ul').empty();
-      Convo.askQuestions(conversation);
-    })
-
-    $(document).bind("askQuestion", function(e, question) {
-      console.log("askQuestion", question)
-
-      $('#action-talk-character-message').html(question.message)
-      _.each(question.responses, function(response, index) {
-        console.log("response", response, index)
-        $('#action-talk-player ul').append($('<li><span class="playerTalkResponse" data-response-id="' + index + '" >' + response.name + '</></li>'))
-      })
-    })
-
     function gameInfoObject (name, version, description) {
       this.name = name;
       this.version = version;

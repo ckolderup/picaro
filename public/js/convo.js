@@ -44,6 +44,16 @@ define(['jquery', 'vendor/underscore'], function($) {
     return 0
   }
 
+  $(document).bind("askQuestion", function(e, question) {
+    console.log("askQuestion", question)
+
+    $('#action-talk-character-message').html(question.message)
+    _.each(question.responses, function(response, index) {
+      console.log("response", response, index)
+      $('#action-talk-player ul').append($('<li><span class="playerTalkResponse" data-response-id="' + index + '" >' + response.name + '</></li>'))
+    })
+  })
+
 
   return Convo
 

@@ -35,11 +35,11 @@ define(["jquery", 'util', 'item', 'room', 'inventory', 'vendor/underscore'], fun
 
       _.each(roomItems, function(item) {
         if (item.talk) {
-          $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+          $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'talk') + "'>" + item.name + "</a></li>");
         }
 
         if (item.attack) {
-          $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+          $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'attack') + "'>" + item.name + "</a></li>");
         }
       })
     },
