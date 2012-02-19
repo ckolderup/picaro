@@ -13,6 +13,8 @@ gem "andand"
 
 group :development do
   gem 'ruby-debug19'
+  gem 'guard'
+  gem 'guard-coffeescript'
 end
 
 group :test do
