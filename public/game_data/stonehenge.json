@@ -1,0 +1,91 @@
+{
+  "gameName": "Stonehenge Rising",
+  "gameDescription": "A V1 Picaro Test-Game, in which an item is used to get another item, which, when used with a third item after the first item has been dropped, wins the game.",
+  "Version": "1",
+
+  "Events" : [
+    { "id": "takeLeafWithRake",
+      "type": "takeItem",
+      "item" : "leaf",
+      "message" : "You're able to catch the leaf on one of the rake's rusty tines and bring it on down."
+    },
+    { "id": "winGameViaLeafBubbleage",
+      "type": "instantVictory",
+      "message": "The cauldron bubbles violently. The resulting potion cures scabies."
+    },
+    { "id": "dropRakeOnTree",
+      "type" : "dropItem",
+      "item" : "rake",
+      "message" : "You lean the rake up against the tree."
+    }
+  ],
+
+  "ActionGuards" : [
+    { "Id": "notUnlessYouHoldTheRakeYouDont",
+      "type": "itemInInventory",
+      "item" : "rake",
+      "failMessage" : "You can't quite get it.  If only you were holding something that extended your reach...",
+      "successMessage" : "You reach the rake up and grab the leaf, almost without thinking."
+    },
+    { "Id": "stonehengeHatesRakes",
+      "type": "itemNotInInventory",
+      "item" : "rake",
+      "failMessage" : "Stonehenge bristles at your temerity, to wield a metal object in its presence.",
+      "successMessage" : "You place the leaf into the cauldron, and after a slow boil and some ritual mutterings."
+    }
+  ],
+
+  "Rooms" : [
+    { "Starter" : true,
+      "Name": "The Tree",
+  	  "Paths": [
+  		  {"Name": "Stonehenge", "Direction": "North"}
+  	  ],
+      "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
+      "Items": [
+        { "Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true},
+        { "Name": "Leaf",
+          "Id": "leaf",
+          "Look": ["It seems rather far away."],
+          "Take": {
+            "cannotTakeMessage" : "You're not tall enough."
+          },
+          "Use": {
+            "rake" : {
+              "after": "takeLeafWithRake"
+            }
+          }
+        },
+        { "Name": "Tree",
+          "Id": "tree",
+          "Look": ["Looks like one of those trees that might secretly be a forest spirit / grandmother figure."],
+          "Use": {
+            "rake" : {
+              "after": "dropRakeOnTree"
+            }
+          }
+        }
+
+    	]
+    },
+
+  	{
+  	  "Name" : "Stonehenge",
+  	  "Paths": [ {"Name": "The Tree", "Direction": "South"} ],
+  	  "Description" : "Ancient power fills the air. The stone formation encircles a bubbling cauldron.",
+  	  "Items" : [
+    		{ "Name" : "Cauldron",
+    		  "Id": "cauldron",
+    		  "Look": ["Druidic runes glimmer over its surface."],
+    		  "Take": false,
+    		  "Use": {
+            "leaf" : {
+              "actionGuard" : "stonehengeHatesRakes",
+              "after" : "winGameViaLeafBubbleage"
+            }
+    		  }
+    		}
+  	  ]
+	  }
+  ]
+}

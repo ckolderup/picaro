@@ -124,8 +124,8 @@ require([
         });
 
       },
-      error: function() {
-        console.log("Error getting game JSON", arguments)
+      error: function(e) {
+        window.alert("Yikes! Picaro couldn't find or parse the game JSON.", e)
       }
     });
     // end json get

@@ -2,13 +2,20 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
   var GameEvent = {
     allById: {},
 
-    takeItem : function(gameEvent) {
-      $(document).trigger("updateStatus", gameEvent.message);
+    takeItem: function(gameEvent) {
+      $(document).trigger("updateStatus", gameEvent.message)
       $(document).trigger("immediateTake", gameEvent)
     },
 
+    dropItem: function(gameEvent) {
+      $(document).trigger("updateStatus", gameEvent.message)
+      Inventory.remove(gameEvent.item)
+      gameEvent.item.location = Room.current.name
+      $(document).trigger('resetMenus')
+    },
+
     instantVictory: function(gameEvent) {
-      $(document).trigger("updateStatus", gameEvent.message);
+      $(document).trigger("updateStatus", gameEvent.message)
     },
 
     replaceItems: function(gameEvent) {

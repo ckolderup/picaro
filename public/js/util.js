@@ -45,5 +45,9 @@ define(["jquery"], function($) {
     return action + '-' + item.id;
   }
 
+  util.splitActionId = function(domNode) {
+    return $(domNode).data('action-id').split('-')
+  }
+
   return util;
 });
