@@ -2,3 +2,5 @@
 **.sass-cache/*
 *.db
 **tmp/*
+chromedriver.log
+screenie.png
