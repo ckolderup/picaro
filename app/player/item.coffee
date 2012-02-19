@@ -27,9 +27,9 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
 
     tryToTake: (item) ->
       if @canTake(item)
-        @take item
+        @take(item)
       else
-        @willNotTake item
+        @willNotTake(item)
 
     canTake: (item) ->
       if item.take is true

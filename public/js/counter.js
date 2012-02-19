@@ -1,13 +1,8 @@
-(function() {
 
-  define(["jquery", "vendor/underscore"], function($) {
-    var Counter;
-    Counter = {
-      init: function(counters) {
-        return this.all = counters;
-      }
-    };
-    return Counter;
-  });
-
-}).call(this);
+define(["jquery", "vendor/underscore"], function($) {
+  return {
+    init: function(counters) {
+      return this.all = counters;
+    }
+  };
+});
