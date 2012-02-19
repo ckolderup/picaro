@@ -33,6 +33,9 @@
     {
       "Starter" : true,
       "Name": "The Tree",
+	  "Paths": [
+		{"Name": "Stonehenge", "Direction": "North"}
+	  ],
       "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
       "Items": [
         { "Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true},
@@ -54,6 +57,9 @@
 	{
 	  "Starter" : false,
 	  "Name" : "Stonehenge",
+	  "Paths": [
+		{"Name": "The Tree", "Direction": "South"}
+	  ],
 	  "Description" : "Ancient power fills the air. The stone formation encircles a bubbling cauldron.",
 	  "Items" : [
 		{ "Name" : "Cauldron", 
