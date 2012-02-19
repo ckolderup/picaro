@@ -7,7 +7,7 @@
     { "Id": "notUnlessYouHoldTheRakeYouDont",
       "type": "itemInInventory",
       "item" : "rake",
-      "failMessages" : "You can't quite get it.  If only you were holding something that extended your reach...",
+      "failMessage" : "You can't quite get it.  If only you were holding something that extended your reach...",
       "successMessage" : "You reach the rake up and grab the leaf, almost without thinking."
     }
   ],
