@@ -1,29 +1,20 @@
+
 define({
-  _items : [],
-
+  _items: [],
   add: function(item) {
-    this._items.push(item)
+    return this._items.push(item);
   },
-
   remove: function(itemId) {
-    var removedItem
-    this._items = _.reject(this.list(), function(item) {
-      if (item.id === itemId) {
-        removedItem = item
-        return true
-      }
-    })
-    return removedItem
+    return this._items = _.reject(this.list(), function(item) {
+      return item.id === itemId;
+    });
   },
-
   list: function() {
-    return this._items
+    return this._items;
   },
-
   include: function(itemId) {
     return _.any(this.list(), function(item) {
-      return item.id == itemId
-    })
+      return item.id === itemId;
+    });
   }
-
-})
+});
