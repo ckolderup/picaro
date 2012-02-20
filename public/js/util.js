@@ -1,7 +1,7 @@
 define(["jquery"], function($) {
   util = {}
 
-  util.toArrayToSentence = function(array, separator, lastSeparator) {
+  util.arrayToSentence = function(array, separator, lastSeparator) {
     separator || (separator = ', ');
     lastSeparator || (lastSeparator = ' and ');
     var length = array.length, string = '';

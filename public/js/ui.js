@@ -14,7 +14,7 @@ define(["jquery", 'util', 'item', 'room', 'inventory', 'vendor/underscore'], fun
         message += room.description
         message += "\n"
       }
-      this.updateStatus(message + "You see " + util.toArrayToSentence(itemNames))
+      this.updateStatus(message + "You see " + util.arrayToSentence(itemNames))
     },
 
     resetMenus: function() {
