@@ -1,9 +1,7 @@
 require File.dirname(__FILE__) + '/acceptance_helper'
 
 describe "Jasmine JS specs" do
-  before do
-    visit "/js/test/runner.html"
-  end
+  before { visit "/js/spec/runner.html" }
 
   it "should *all* pass" do
     page.should have_selector ".alert-message"
