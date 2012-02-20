@@ -29,7 +29,10 @@
 
     window.gameId = "hmm";
 
-    require(['util_spec.js'], function() {
+    require([
+      'util_spec.js',
+      'inventory_spec.js'
+    ], function() {
       $(function() {
         jasmine.getEnv().addReporter(new jasmine.BootstrapReporter());
         jasmine.getEnv().execute();

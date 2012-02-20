@@ -1,5 +1,5 @@
 
-define({
+define(['vendor/underscore'], {
   _items: {},
   add: function(item) {
     return this._items[item.id] = item;
@@ -18,5 +18,8 @@ define({
   },
   include: function(itemId) {
     return this.get(itemId) != null;
+  },
+  size: function() {
+    return _.size(this._items);
   }
 });

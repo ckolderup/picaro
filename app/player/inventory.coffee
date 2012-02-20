@@ -1,4 +1,4 @@
-define
+define ['vendor/underscore'],
   _items: {}
 
   add: (item) ->
@@ -17,3 +17,6 @@ define
 
   include: (itemId) ->
     @get(itemId)?
+
+  size: ->
+    _.size(@_items)
