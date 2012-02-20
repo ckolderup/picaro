@@ -78,31 +78,29 @@ require([
 
         //push all of the game data into arrays, making it as deliciously malleable as some once-hard ice cream that's been heated in the microwave for a few seconds
 
-        for(var i in data.Rooms) {
-          var roomName = data.Rooms[i].Name;
-          var roomDescription = data.Rooms[i].Description;
-          var paths = data.Rooms[i].Paths;
-          if(data.Rooms[i].Starter){
-            var starter = data.Rooms[i].Starter;
-          }
-          else {
-            var starter = false;
-          }
-          var room = new roomObject(roomName, roomDescription, paths, starter);
-          rooms.push(room);
+        for(var i in data.rooms) {
+          var room = data.rooms[i];
           Room.all.push(room);
 
-          for(var k in data.Rooms[i].Items) {
-            var id = data.Rooms[i].Items[k].Id;
-            var lookResults = data.Rooms[i].Items[k].Look;
-            var takeResult = data.Rooms[i].Items[k].Take;
-            var useResults = data.Rooms[i].Items[k].Use;
-            var talkResults = data.Rooms[i].Items[k].Talk;
-            var attackResults = data.Rooms[i].Items[k].Attack;
-            var itemName = data.Rooms[i].Items[k].Name;
-            var itemLocation = roomName;
+          for(var k in room.items) {
+            var item = room.items[k]
 
-            var item = new itemObject(id, itemName, itemLocation, lookResults, talkResults, attackResults, takeResult, useResults);
+            // var id = data.Rooms[i].Items[k].Id;
+            // var lookResults = data.Rooms[i].Items[k].Look;
+            // var takeResult = data.Rooms[i].Items[k].Take;
+            // var useResults = data.Rooms[i].Items[k].Use;
+            // var talkResults = data.Rooms[i].Items[k].Talk;
+            // var attackResults = data.Rooms[i].Items[k].Attack;
+            // var itemName = data.Rooms[i].Items[k].Name;
+            // var itemLocation = roomName;
+
+            // var item = new itemObject(id, itemName, itemLocation, lookResults, talkResults, attackResults, takeResult, useResults);
+            if (!item.id) {
+              item.id = uuid++
+            }
+            item.location = room.name
+            console.log(item.id, item)
+
             gameItems[item.id] = item;
           }
         }

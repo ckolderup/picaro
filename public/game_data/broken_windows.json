@@ -1,9 +1,9 @@
 {
   "gameName": "Broken Windows",
   "gameDescription": "A V1 Picaro Test-Game, in which an item is combined with a second item, adding a new item",
-  "Version": "1",
+  "version": "1",
 
-  "Events" : [
+  "events" : [
     { "id": "replaceWithCoolJackelope",
       "type": "replaceItems",
       "items" : ["sunglasses", "jackalope"],
@@ -16,19 +16,19 @@
     }
   ],
 
-  "Rooms" : [
+  "rooms" : [
     {
-      "Starter" : true,
-      "Name": "The Rumpus Room",
-      "Items": [
-        { "Name": "Sunglasses",
-          "Id": "sunglasses",
-          "Take": true
+      "starter" : true,
+      "name": "The Rumpus Room",
+      "items": [
+        { "name": "Sunglasses",
+          "id": "sunglasses",
+          "take": true
         },
-        { "Name": "Jacques 'o Lope",
-          "Id": "jackalope",
-          "Take": true,
-          "Use": {
+        { "name": "Jacques 'o Lope",
+          "id": "jackalope",
+          "take": true,
+          "use": {
             "sunglasses" : {
               "after" : "replaceWithCoolJackelope"
             }

@@ -1,10 +1,10 @@
 {
   "gameName": "One Node Tree",
   "gameDescription": "A V1 Picaro Test-Game, in which the leaf can only be taken when you have the rake in your inventory",
-  "Version": "1",
+  "version": "1",
 
-  "ActionGuards" : [
-    { "Id": "notUnlessYouHoldTheRakeYouDont",
+  "actionGuards" : [
+    { "id": "notUnlessYouHoldTheRakeYouDont",
       "type": "itemInInventory",
       "item" : "rake",
       "failMessage" : "You can't quite get it.  If only you were holding something that extended your reach...",
@@ -12,22 +12,22 @@
     }
   ],
 
-  "Rooms" : [
+  "rooms" : [
     {
-      "Starter" : true,
-      "Name": "The Tree",
-      "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
-      "Items": [
-        { "Name": "Leaf",
-          "Id": "leaf",
-          "Look": ["It seems rather far away."],
-          "Take": {
+      "starter" : true,
+      "name": "The Tree",
+      "description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
+      "items": [
+        { "name": "Leaf",
+          "id": "leaf",
+          "look": ["It seems rather far away."],
+          "take": {
             "actionGuard" : "notUnlessYouHoldTheRakeYouDont",
             "cannotTakeMessage" : "You're not tall enough."
           }
         },
-        {"Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true},
-        {"Name": "The Autumn", "Id": "autumn", "Look": ["It's a lovely, crisp season"]}
+        {"name": "Rake", "id": "rake", "look": ["The rake is a bit rusty."], "take": true},
+        {"name": "The Autumn", "id": "autumn", "look": ["It's a lovely, crisp season"]}
     	]
     }
   ]

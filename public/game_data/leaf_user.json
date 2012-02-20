@@ -1,9 +1,9 @@
 {
   "gameName": "LEAFRAKER",
   "gameDescription": "A V1 Picaro Test-Game, in which an item is used to get another item, which wins the game",
-  "Version": "1",
+  "version": "1",
 
-  "Events" : [
+  "events" : [
     { "id": "takeLeafWithRake",
       "type": "takeItem",
       "item" : "leaf",
@@ -14,21 +14,21 @@
       "message": "Using the leaf, you cure scabies."}
   ],
 
-  "Rooms" : [
+  "rooms" : [
     {
-      "Starter" : true,
-      "Name": "The Tree",
-      "Description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
-      "Items": [
-        { "Name": "Rake", "Id": "rake", "Look": ["The rake is a bit rusty."], "Take": true},
-        { "Name": "Leaf",
-          "Id": "leaf",
-          "Look": ["It seems rather far away."],
-          "Take": {
+      "starter" : true,
+      "name": "The Tree",
+      "description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
+      "items": [
+        { "name": "Rake", "Id": "rake", "look": ["The rake is a bit rusty."], "take": true},
+        { "name": "Leaf",
+          "id": "leaf",
+          "look": ["It seems rather far away."],
+          "take": {
             "cannotTakeMessage" : "You're not tall enough.",
             "after": "winGameViaLeafTakeage"
           },
-          "Use": {
+          "use": {
             "rake" : {
               "after": "takeLeafWithRake"
             }
