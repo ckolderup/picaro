@@ -19,24 +19,22 @@
       waitSeconds: 15
     };
   </script>
+
   <script data-main="picaro" src="../vendor/require-jquery.js"></script>
 
   <script type="text/javascript">
-
-    // This is key!
     require.config({
       baseUrl: '../'
     });
 
-    require([
-      '../test/util_spec.js'
-    ],
-      function() {
-        $(function() {
-          jasmine.getEnv().addReporter(new jasmine.BootstrapReporter());
-          jasmine.getEnv().execute();
-        });
+    window.gameId = "hmm";
+
+    require(['../test/util_spec.js'], function() {
+      $(function() {
+        jasmine.getEnv().addReporter(new jasmine.BootstrapReporter());
+        jasmine.getEnv().execute();
       });
+    });
 
   </script>
 </head>

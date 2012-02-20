@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../acceptance_helper'
 
 describe "Playing Picaro/broken_windows: " do
-  before { play '/broken_windows' }
+  before { play 'broken_windows' }
 
   let(:use)       { find('#footer-use a') }
   let(:take)      { find('#footer-take a') }

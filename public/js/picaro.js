@@ -15,7 +15,6 @@ require([
     var counters = [];
     var rooms = [];
     var gameItems = {};
-    var gameId = gameId || 'hmm';
 
     $(document).bind("updateStatus", function(event, message) {
       UI.newStatusMessage(message);
