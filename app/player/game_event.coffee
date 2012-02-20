@@ -1,6 +1,7 @@
 define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item, Inventory, Room) ->
   GameEvent =
     allById: {}
+
     takeItem: (gameEvent) ->
       $(document).trigger "updateStatus", gameEvent.message
       $(document).trigger "immediateTake", gameEvent
@@ -15,12 +16,12 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
       $(document).trigger "updateStatus", gameEvent.message
 
     replaceItems: (gameEvent) ->
-      newItem = gameEvent.newItem
-      oldItemsWereInInventory = undefined
-      _(gameEvent.items).each (item, index) ->
-        oldItemsWereInInventory = true  if Inventory.remove(item)
-        delete Item.allById[item]  if Item.allById[item]
+      oldItemsWereInInventory = false
+      _(gameEvent.items).each (itemId, index) ->
+        oldItemsWereInInventory = true if Inventory.remove(itemId)
+        delete Item.allById[itemId] if Item.allById[itemId]
 
+      newItem = gameEvent.newItem
       newItem.location = Room.current.name
       Item.allById[newItem.id] = newItem
       Inventory.add newItem  if oldItemsWereInInventory

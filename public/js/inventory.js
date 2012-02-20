@@ -1,20 +1,22 @@
 
 define({
-  _items: [],
+  _items: {},
   add: function(item) {
-    return this._items.push(item);
+    return this._items[item.id] = item;
   },
   remove: function(itemId) {
-    return this._items = _.reject(this.list(), function(item) {
-      return item.id === itemId;
-    });
+    if (this.include(itemId)) {
+      delete this._items[itemId];
+      return true;
+    }
   },
   list: function() {
-    return this._items;
+    return _.values(this._items);
+  },
+  get: function(itemId) {
+    return this._items[itemId];
   },
   include: function(itemId) {
-    return _.any(this.list(), function(item) {
-      return item.id === itemId;
-    });
+    return this.get(itemId) != null;
   }
 });

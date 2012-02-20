@@ -18,12 +18,12 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
     },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;
-      newItem = gameEvent.newItem;
-      oldItemsWereInInventory = void 0;
-      _(gameEvent.items).each(function(item, index) {
-        if (Inventory.remove(item)) oldItemsWereInInventory = true;
-        if (Item.allById[item]) return delete Item.allById[item];
+      oldItemsWereInInventory = false;
+      _(gameEvent.items).each(function(itemId, index) {
+        if (Inventory.remove(itemId)) oldItemsWereInInventory = true;
+        if (Item.allById[itemId]) return delete Item.allById[itemId];
       });
+      newItem = gameEvent.newItem;
       newItem.location = Room.current.name;
       Item.allById[newItem.id] = newItem;
       if (oldItemsWereInInventory) Inventory.add(newItem);

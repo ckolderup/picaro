@@ -15,7 +15,6 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
 
     resetMenus: ->
       roomItems = Item.findByRoom(Room.current)
-      console.log "resetMenus", Room.current, roomItems
       $(".ui-action ul").empty()
       _.each Inventory.list(), (item) ->
         $("#action-use ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>"

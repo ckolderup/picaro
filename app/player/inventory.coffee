@@ -1,16 +1,19 @@
 define
-  _items: []
+  _items: {}
 
   add: (item) ->
-    @_items.push item
+    @_items[item.id] = item
 
   remove: (itemId) ->
-    @_items = _.reject @list(), (item) ->
-      item.id is itemId
+    if @include itemId
+      delete @_items[itemId]
+      true
 
   list: ->
-    @_items
+    _.values(@_items)
+
+  get: (itemId) ->
+    @_items[itemId]
 
   include: (itemId) ->
-    _.any @list(), (item) ->
-      item.id is itemId
+    @get(itemId)?
