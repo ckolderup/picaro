@@ -1,10 +1,12 @@
 require 'dm-types'
+require 'dm-is-slug'
 
 class Url
   include DataMapper::Resource
 
-  property :title, String
-  property :slug, Slug, :key => true
-  has 1, :game
+  property :id, Serial
+  property :title, Text
+  is :slug, :source => :title
+  belongs_to :game
 
 end

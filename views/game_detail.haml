@@ -1,0 +1,25 @@
+%h2
+  = version.title
+
+#author
+  = game.author.display_name
+
+#version
+  = version.label
+
+#timestamp
+  = version.uploaded_at
+
+#description
+  = version.description
+
+#changelog
+  = version.changelog
+
+#versions
+  %h3 Versions of this game
+  %ul
+    - for version in game.versions.reverse
+      %li
+        %a{:href => game.view_version_url(version.id)}
+          #{version.label} - #{version.title}
