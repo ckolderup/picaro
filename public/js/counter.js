@@ -1,10 +1,8 @@
+
 define(["jquery", "vendor/underscore"], function($) {
-
-  var Counter = {
+  return {
     init: function(counters) {
-      this.all = counters
+      return this.all = counters;
     }
-  }
-
-  return Counter;
-})
+  };
+});
