@@ -1,0 +1,13 @@
+{
+  "name": "Picaro",
+  "description": "Miniature adventures",
+  "version": "0.0.1",
+  "homepage": "http://picaro.cc",
+  "devDependencies": [
+    "requirejs"
+  ],
+  "engines": {
+    "node": "0.6 || 0.7 || 0.8",
+    "npm": "1"
+  }
+}

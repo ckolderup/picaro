@@ -30,9 +30,10 @@ end
 
 desc "Use Require.js optimizer to concat and minify JavaScript files in public/js"
 task :uglify do
-  system 'node r.js -o public/js/app.build.js'
+  system 'node node_modules/.bin/r.js -o public/js/app.build.js'
 end
 
+desc "Compile CS and build JS bundle. Could someday do CSS (and possible spriting?) too"
 task :bundle_static_assets => [:compile_coffee, :uglify]
 
 desc "Start up local Sinatra app with environment variables on localhost:9292"
