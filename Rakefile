@@ -18,10 +18,22 @@ RSpec::Core::RakeTask.new do |task|
   task.pattern    = 'spec/**/*_spec.rb'
 end
 
-desc "Start up Guard for coffeescript development"
+desc "Start up Guard for CoffeeScript compilation of app/player & spec/coffeescript files"
 task :guard do
   system('bundle exec guard')
 end
+
+desc "Compile CoffeeScript files in app/player into public/js"
+task :compile_coffee do
+  system 'coffee --bare --compile --output public/js app/player'
+end
+
+desc "Use Require.js optimizer to concat and minify JavaScript files in public/js"
+task :uglify do
+  system 'node r.js -o public/js/app.build.js'
+end
+
+task :bundle_static_assets => [:compile_coffee, :uglify]
 
 desc "Start up local Sinatra app with environment variables on localhost:9292"
 task :rackup do

@@ -1,9 +1,9 @@
 ({
   baseUrl: "./",
-  paths: { 
+  paths: {
     "jquery": "vendor/require-jquery",
     "underscore": "vendor/underscore"
   },
   name: "picaro",
-  out: "../../public/js/player.js"
+  out: "../../public/js/picaro-player-min.js"
 })
