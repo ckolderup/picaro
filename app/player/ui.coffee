@@ -141,9 +141,8 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
     $(this).fadeOut("fast").removeClass "active"
     $(".ui-overlay").fadeOut "fast"
 
-  $(document).bind("updateStatus", function(event, message) {
-    UI.newStatusMessage(message);
-  })
+  $(document).bind "updateStatus", (event, message) ->
+    UI.newStatusMessage message
 
   $(document).bind "resetMenus", UI.resetMenus
   $(document).bind "itemTaken", UI.itemTaken
