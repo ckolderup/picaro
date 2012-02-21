@@ -17,7 +17,7 @@ define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Invento
       $("#move a").attr "href", "#"
       $("#move li").addClass "disabled"
       for i of room.paths
-        direction = room.paths[i].Direction
+        direction = room.paths[i].direction
         if direction is "North"
           $("#move-compass-north a").attr "href", room.paths[i].name
           $("#move-compass-north, #move-compass-north a").removeClass "disabled"
@@ -32,7 +32,7 @@ define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Invento
           $("#move-compass-west, #move-compass-west a").removeClass "disabled"
 
   $(document).bind "roomChanged", (e, room) ->
-    console.log "yes i know i changed"
+    console.log "yes i know i changed", arguments
 
   $(document).bind "roomReady", (e, room) ->
     roomItems = _(Item.allById).filter((item, id) ->

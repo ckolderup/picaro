@@ -20,7 +20,7 @@
       "name": "The Tree",
       "description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
       "items": [
-        { "name": "Rake", "Id": "rake", "look": ["The rake is a bit rusty."], "take": true},
+        { "name": "Rake", "id": "rake", "look": ["The rake is a bit rusty."], "take": true},
         { "name": "Leaf",
           "id": "leaf",
           "look": ["It seems rather far away."],

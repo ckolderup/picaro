@@ -38,8 +38,4 @@ describe "Playing Picaro/leaf_user: " do
     end
   end
 
-  after :all do
-    page.execute_script("window.jsErrors.length").should == 0
-  end
-
 end

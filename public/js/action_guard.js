@@ -3,6 +3,11 @@ define(["jquery", "inventory", "vendor/underscore"], function($, Inventory) {
   var ActionGuard;
   ActionGuard = {
     allById: {},
+    init: function(guards) {
+      return _.each(guards, function(guard) {
+        return this.allById[guard.id] = guard;
+      });
+    },
     itemInInventory: function(guard, action) {
       return Inventory.include(guard.item);
     },
@@ -25,7 +30,7 @@ define(["jquery", "inventory", "vendor/underscore"], function($, Inventory) {
         }
         return testResult;
       } else {
-        console.log("Y U no pass a known guard function?", action, this.allById);
+        console.log("Y U no pass a known guard function?", action, this.allById());
         return false;
       }
     }

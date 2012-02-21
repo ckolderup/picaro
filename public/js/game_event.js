@@ -3,6 +3,11 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
   var GameEvent;
   GameEvent = {
     allById: {},
+    init: function(events) {
+      return _.each(events, function(event) {
+        return this.allById[gameEvent.id] = event;
+      });
+    },
     takeItem: function(gameEvent) {
       $(document).trigger("updateStatus", gameEvent.message);
       return $(document).trigger("immediateTake", gameEvent);

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/acceptance_helper'
 
 describe "Navigating between rooms" do
-  before { play '/hmm' }
+  before { play 'hmm' }
 
   let(:move_action)  { find "#header-move" }
   let(:compass_rose) { find('#move-compass') }

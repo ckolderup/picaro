@@ -1,6 +1,11 @@
 define [ "jquery", "inventory", "vendor/underscore" ], ($, Inventory) ->
   ActionGuard =
     allById: {}
+
+    init: (guards) ->
+      _.each guards, (guard) ->
+        @allById[guard.id] = guard
+
     itemInInventory: (guard, action) ->
       Inventory.include guard.item
 
@@ -18,7 +23,7 @@ define [ "jquery", "inventory", "vendor/underscore" ], ($, Inventory) ->
         else $(document).trigger "updateStatus", guard.successMessage  if testResult and guard.successMessage
         testResult
       else
-        console.log "Y U no pass a known guard function?", action, @allById
+        console.log "Y U no pass a known guard function?", action, @allById()
         false
 
   ActionGuard

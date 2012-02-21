@@ -16,7 +16,7 @@
 
 "rooms" : [
   {
-    "Starter" : true,
+    "starter" : true,
     "name": "Living Room",
     "description": "You are in the living room. There is a jackalope head mounted on the wall, an old coffee table that Joe's parents gave him on the floor, and you're sitting on a couch.",
       "paths": [

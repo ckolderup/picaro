@@ -8,6 +8,8 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
         item.location is room.name
 
     look: (item) ->
+      console.log arguments
+      item.lookNum or= 0
       $(document).trigger "updateStatus", item.look[item.lookNum]
       item.lookNum += 1  if item.look.length > (item.lookNum + 1)
 

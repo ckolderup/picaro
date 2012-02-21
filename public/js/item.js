@@ -11,6 +11,8 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       });
     },
     look: function(item) {
+      console.log(arguments);
+      item.lookNum || (item.lookNum = 0);
       $(document).trigger("updateStatus", item.look[item.lookNum]);
       if (item.look.length > (item.lookNum + 1)) return item.lookNum += 1;
     },

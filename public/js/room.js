@@ -23,7 +23,7 @@ define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, I
       $("#move li").addClass("disabled");
       _results = [];
       for (i in room.paths) {
-        direction = room.paths[i].Direction;
+        direction = room.paths[i].direction;
         if (direction === "North") {
           $("#move-compass-north a").attr("href", room.paths[i].name);
           _results.push($("#move-compass-north, #move-compass-north a").removeClass("disabled"));
@@ -44,7 +44,7 @@ define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, I
     }
   };
   $(document).bind("roomChanged", function(e, room) {
-    return console.log("yes i know i changed");
+    return console.log("yes i know i changed", arguments);
   });
   $(document).bind("roomReady", function(e, room) {
     var roomItems;

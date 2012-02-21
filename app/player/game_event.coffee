@@ -2,6 +2,10 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
   GameEvent =
     allById: {}
 
+    init: (events) ->
+      _.each events, (event) ->
+        @allById[gameEvent.id] = event
+
     takeItem: (gameEvent) ->
       $(document).trigger "updateStatus", gameEvent.message
       $(document).trigger "immediateTake", gameEvent

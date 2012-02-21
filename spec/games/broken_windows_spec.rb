@@ -12,7 +12,6 @@ describe "Playing Picaro/broken_windows: " do
   context "using an item on another item" do
     it "replaces the two items with a new one" do
       take.click
-      take_screenshot
       action_link('take', 'sunglasses').click
 
       # Sunglasses are taken
@@ -30,6 +29,8 @@ describe "Playing Picaro/broken_windows: " do
       action_link('use', 'jackalope').click
 
       use.click
+      take_screenshot
+
       # The jackalope in your inventory is now a cool jackalope
       action_link('use', 'coolJackalope').should be_visible
       action_link('use', 'coolJackalope').find('small').should have_content "(held)"
