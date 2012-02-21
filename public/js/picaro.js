@@ -80,6 +80,7 @@ require([
 
         for(var i in data.rooms) {
           var room = data.rooms[i];
+          rooms = data.rooms;
           Room.all.push(room);
 
           for(var k in room.items) {
@@ -129,7 +130,7 @@ require([
     // end json get
 
     var startingRoom = _.find(rooms, function(room) { return room.starter })
-
+debugger
     Item.init(gameItems)
     Room.init(startingRoom)
     UI.init()

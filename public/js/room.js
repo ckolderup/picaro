@@ -25,16 +25,16 @@ define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, I
       for (i in room.paths) {
         direction = room.paths[i].Direction;
         if (direction === "North") {
-          $("#move-compass-north a").attr("href", room.paths[i].Name);
+          $("#move-compass-north a").attr("href", room.paths[i].name);
           _results.push($("#move-compass-north, #move-compass-north a").removeClass("disabled"));
         } else if (direction === "South") {
-          $("#move-compass-south a").attr("href", room.paths[i].Name);
+          $("#move-compass-south a").attr("href", room.paths[i].name);
           _results.push($("#move-compass-south, #move-compass-south a").removeClass("disabled"));
         } else if (direction === "East") {
-          $("#move-compass-east a").attr("href", room.paths[i].Name);
+          $("#move-compass-east a").attr("href", room.paths[i].name);
           _results.push($("#move-compass-east, #move-compass-east a").removeClass("disabled"));
         } else if (direction === "West") {
-          $("#move-compass-west a").attr("href", room.paths[i].Name);
+          $("#move-compass-west a").attr("href", room.paths[i].name);
           _results.push($("#move-compass-west, #move-compass-west a").removeClass("disabled"));
         } else {
           _results.push(void 0);

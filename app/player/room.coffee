@@ -19,16 +19,16 @@ define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Invento
       for i of room.paths
         direction = room.paths[i].Direction
         if direction is "North"
-          $("#move-compass-north a").attr "href", room.paths[i].Name
+          $("#move-compass-north a").attr "href", room.paths[i].name
           $("#move-compass-north, #move-compass-north a").removeClass "disabled"
         else if direction is "South"
-          $("#move-compass-south a").attr "href", room.paths[i].Name
+          $("#move-compass-south a").attr "href", room.paths[i].name
           $("#move-compass-south, #move-compass-south a").removeClass "disabled"
         else if direction is "East"
-          $("#move-compass-east a").attr "href", room.paths[i].Name
+          $("#move-compass-east a").attr "href", room.paths[i].name
           $("#move-compass-east, #move-compass-east a").removeClass "disabled"
         else if direction is "West"
-          $("#move-compass-west a").attr "href", room.paths[i].Name
+          $("#move-compass-west a").attr "href", room.paths[i].name
           $("#move-compass-west, #move-compass-west a").removeClass "disabled"
 
   $(document).bind "roomChanged", (e, room) ->
