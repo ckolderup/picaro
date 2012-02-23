@@ -1,0 +1,152 @@
+%html{:lang=>"en"}
+  %head
+    %title Picaro
+    %meta{:name => "viewport", 
+          :content => "width=device-width, initial-scale=1.0, user-scalable=0"}
+    %meta{:name => "apple-mobile-web-app-capable", 
+          :content => "yes"}
+    %meta{:name => "apple-mobile-web-app-status-bar-style",
+          :content => "black"}
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/style.css"}
+    %link{:href => "/images/ios_icon.png", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "/images/ios_icon-72.png", 
+          :rel => "apple-touch-icon-precomposed", 
+          :sizes => "72x72"}
+    %link{:href =>"/images/ios_icon@2x.png",
+          :rel => "apple-touch-icon-precomposed",
+          :sizes => "114x114"}
+    %link{:rel => "apple-touch-startup-image",
+          :href => "/ios-startup-ipad-landscape.png", 
+          :media => "screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)"}
+    %link{:rel => "apple-touch-startup-image", 
+          :href =>"/ios-startup-ipad-portait.png",
+          :media =>"screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)"}
+    %link{:rel => "apple-touch-startup-image", 
+          :href=> "/ios-startup-iphone.png",
+          :media => "screen and (max-device-width: 320px)"}
+    %link{:rel => "apple-touch-startup-image", 
+          :media => "(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)", 
+          :href => "/ios-startup-iphone@2x.png"}
+
+    /[if lt IE 9]
+      %script{:src => "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
+
+    :javascript
+      var require = {
+        baseUrl: "/js/",
+        waitSeconds: 15
+      };
+      window.gameId = "#{@game_id}" || "hmm";
+
+    - if Picaro.environment == :production
+      %script{:src => "/js/picaro-player-min.js",
+              :type => "text/javascript"}
+    - else
+      %script{:src => "/js/vendor/require-jquery.js",
+              :data => { :main => "picaro"},
+              :type => "text/javascript"}
+
+    - if Picaro.environment == :test
+      :javascript
+        jQuery.fx.off = true;
+
+        window.jsErrors = [];
+        window.onerror = function(errorMessage) {
+          window.jsErrors.push(errorMessage);
+        }
+
+  %body
+
+    #container
+      #header
+        %h2
+        %a#header-move{:href => "#"} Move
+
+      #game
+
+      #footer
+        %ul
+          %li#footer-look
+            %a.action.look{:href => "#"} Look
+          %li#footer-take
+            %a.action.take{:href => "#"} Take
+          %li#footer-use
+            %a.action.use{:href => "#"} Use
+          %li#footer-talk
+            %a.action.talk{:href => "#"} Talk
+          %li#footer-attack
+            %a.action.attack{:href => "#"} Attack
+
+      #move
+        .ui-modal#move-preview
+          .ui-modal-notch
+          .ui-modal-inner
+            ???
+        #move-compass
+          %ul
+            %li#move-compass-north
+              %a.path{:href => "#"}
+                %span N
+            %li#move-compass-east
+              %a.path{:href => "#"}
+                %span E
+            %li#move-compass-south
+              %a.path{:href => "#"}
+                %span S
+            %li#move-compass-west
+              %a.path{:href => "#"}
+                %span W
+
+      .ui-action#action-look
+        .ui-action-sheet.ui-modal
+          .ui-modal-notch.ui-action-sheet-notch-1
+          .ui-modal-inner
+            %a.ui-action-sheet-back{:href => "#"} &larr;
+            %h3 Look at&hellip;
+            .ui-scroller
+              %ul#Look
+
+      .ui-action#action-take
+        .ui-action-sheet.ui-modal
+          .ui-modal-notch.ui-action-sheet-notch-2
+          .ui-modal-inner
+            %a.ui-action-sheet-back{:href => "#"} &larr;
+            %h3 Take&hellip;
+            .ui-scroller
+              %ul#Take
+                
+      .ui-action#action-use
+        .ui-action-sheet.ui-modal
+          .ui-modal-notch.ui-action-sheet-notch-3
+          .ui-modal-inner
+            %a.ui-action-sheet-back{:href => "#"} &larr;
+            %h3 Use&hellip;
+            .ui-scroller
+              %ul#Use
+                
+      .ui-action#action-talk
+        .ui-action-sheet.ui-modal#action-talk-character
+          .ui-modal-notch.ui-action-sheet-notch-4
+          .ui-modal-inner
+            %a.ui-action-sheet-back{:href => "#"} &larr;
+            %h3 Vampire:
+            #action-talk-character-message
+              %p 
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua?
+        .ui-action-sheet.ui-modal#action-talk-player
+          .ui-modal-notch.ui-action-sheet-notch-4
+          .ui-modal-inner
+            %h3 You say&hellip;
+            .ui-scroller
+              %ul#Talk
+
+      .ui-action#action-attack
+        .ui-action-sheet.ui-modal
+          .ui-modal-notch.ui-action-sheet-notch-5
+          .ui-modal-inner
+            %a.ui-action-sheet-back{:href => "#"} &larr;
+            %h3 Attack&hellip;
+            .ui-scroller
+              %ul#Attack
+
+  .ui-overlay
