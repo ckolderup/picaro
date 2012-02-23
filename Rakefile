@@ -36,6 +36,15 @@ end
 desc "Compile CS and build JS bundle. Could someday do CSS (and possible spriting?) too"
 task :bundle_static_assets => [:compile_coffee, :uglify]
 
+task :deploy do
+  system 'git checkout release'
+  system 'git merge master'
+  Rake::Task["bundle_static_assets"].execute
+  system 'git commit -m "automated deploy"'
+  system 'git push -f heroku release:master'
+  system 'git checkout master'
+end
+
 desc "Start up local Sinatra app with environment variables on localhost:9292"
 task :rackup do
   system("source ./env.sh && bundle exec rackup -D --pid #{pid_file}")
@@ -48,10 +57,6 @@ task :rackdown do
 end
 
 desc "Start up a development server"
-task :run do
-    Rake::Task["rackup"].execute
-    Rake::Task["guard"].execute
-    Rake::Task["rackdown"].execute
-end
+task :run => [:rackup, :guard, :rackdown]
 
 task :default => [:spec]
