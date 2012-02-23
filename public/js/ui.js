@@ -20,6 +20,7 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
     resetMenus: function() {
       var roomItems;
       roomItems = Item.findByRoom(Room.current);
+      if (Item.allById.self) roomItems.push(Item.allById.self);
       $(".ui-action ul").empty();
       _.each(Inventory.list(), function(item) {
         $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>");
@@ -63,20 +64,9 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
       $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']").append($("<small> (held) </small>"));
       return $("#action-use").trigger("closeMenu");
     },
-    renderUseMenu: function(inventoryItems, roomItems) {
-      $(".ui-action ul").empty();
-      _.each(inventoryItems, function(item) {
-        $("#action-use ul").append("<li><a href='#' class='item data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>");
-        return $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + " <small> (held) </small></a></li>");
-      });
-      return _.each(_.difference(roomItems, inventoryItems), function(item) {
-        $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + "</a></li>");
-        $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id + "' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + "</a></li>");
-        return $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "look") + "'>" + item.name + "</a></li>");
-      });
-    },
-    init: function() {
+    init: function(gameName) {
       var itemAction, oldMenus;
+      $("title").html(gameName);
       oldMenus = _(["look", "take", "talk", "attack"]);
       oldMenus.each(function(action) {
         var menuSelector;

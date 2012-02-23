@@ -1,0 +1,57 @@
+{
+  "gameName": "Leaf Thyself",
+  "gameDescription": "A V1 Picaro Test-Game, in which the leaf can be used on oneself",
+  "version": "1",
+
+  "specialItems": {
+    "self": {
+      "id": "self",
+      "name": "Yourself",
+      "use": {
+        "potion" : { "after" : "youCanSeeThroughTime" },
+        "leaf" : { "after" : "youHavePoisonIvy" }
+      }
+    } 
+  },
+
+  "events" : [
+    { "id": "youCanSeeThroughTime",
+      "type": "instantVictory",
+      "message" : "You quaff the potion. You now have the ability to SEE THROUGH TIME."
+    },
+    { "id": "youHavePoisonIvy",
+      "type": "updateStatus",
+      "message": "You rub the leaf all over your face, take a second look at it, then mutter to yourself, \"Leaves of three... let them be...\""
+    },
+    { "id": "dissolveLeaf", 
+      "type": "removeItem", 
+      "item": "leaf", 
+      "message": "The leaf dissolves in the flask."
+    }
+  ],
+
+  "rooms" : [
+    {
+      "starter" : true,
+      "name": "The Lab",
+      "description": "You stand facing a scientist's workspace, strewn with strange apparatus.",
+      "items": [
+        { "name": "Leaf",
+          "id": "leaf",
+          "look": ["It's readdish, with glints of gold when turned in the light"],
+          "take": true
+        },
+        { "name": "Potion", 
+          "id": "potion", 
+          "look": ["It's a teal liquid in an erelenmeyer flask."], 
+          "take": true,             
+          "use": {
+            "leaf": {
+              "after": "dissolveLeaf"
+            }
+          }
+        }
+    	]
+    }
+  ]
+}

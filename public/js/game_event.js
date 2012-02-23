@@ -8,6 +8,9 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
         return this.allById[gameEvent.id] = event;
       });
     },
+    updateStatus: function(gameEvent) {
+      return $(document).trigger("updateStatus", gameEvent.message);
+    },
     takeItem: function(gameEvent) {
       $(document).trigger("updateStatus", gameEvent.message);
       return $(document).trigger("immediateTake", gameEvent);
@@ -16,6 +19,12 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
       $(document).trigger("updateStatus", gameEvent.message);
       Inventory.remove(gameEvent.item);
       gameEvent.item.location = Room.current.name;
+      return $(document).trigger("resetMenus");
+    },
+    removeItem: function(gameEvent) {
+      $(document).trigger("updateStatus", gameEvent.message);
+      Inventory.remove(gameEvent.item);
+      Item.allById[gameEvent.item].location = void 0;
       return $(document).trigger("resetMenus");
     },
     instantVictory: function(gameEvent) {

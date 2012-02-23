@@ -15,6 +15,8 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
 
     resetMenus: ->
       roomItems = Item.findByRoom(Room.current)
+      roomItems.push Item.allById.self if Item.allById.self
+
       $(".ui-action ul").empty()
       _.each Inventory.list(), (item) ->
         $("#action-use ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>"
@@ -44,6 +46,7 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
       $("#move-preview .ul-modal-inner").html room.name
       $(document).trigger "roomReady", room
 
+    # should just be a reset menu / close menu most likely
     itemTaken: (e, item) ->
       $(document).trigger "updateStatus", "You take the " + item.name + "."
       $("#action-take a[data-action-id='" + util.actionId(item, "take") + "']").remove()
@@ -51,18 +54,8 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
       $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']").append $("<small> (held) </small>")
       $("#action-use").trigger "closeMenu"
 
-    renderUseMenu: (inventoryItems, roomItems) ->
-      $(".ui-action ul").empty()
-      _.each inventoryItems, (item) ->
-        $("#action-use ul").append "<li><a href='#' class='item data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>"
-        $("#action-look ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + " <small> (held) </small></a></li>"
-
-      _.each _.difference(roomItems, inventoryItems), (item) ->
-        $("#action-take ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + "</a></li>"
-        $("#action-use ul").append "<li><a href='#' class='item' data-item-id='" + item.id + "' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + "</a></li>"
-        $("#action-look ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "look") + "'>" + item.name + "</a></li>"
-
-    init: ->
+    init: (gameName) ->
+      $("title").html gameName
       oldMenus = _([ "look", "take", "talk", "attack" ])
       oldMenus.each (action) ->
         menuSelector = "#action-" + action
