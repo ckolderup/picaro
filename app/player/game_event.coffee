@@ -6,6 +6,9 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
       _.each events, (event) ->
         @allById[gameEvent.id] = event
 
+    updateStatus: (gameEvent) ->
+      $(document).trigger "updateStatus", gameEvent.message
+
     takeItem: (gameEvent) ->
       $(document).trigger "updateStatus", gameEvent.message
       $(document).trigger "immediateTake", gameEvent
@@ -14,6 +17,12 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
       $(document).trigger "updateStatus", gameEvent.message
       Inventory.remove gameEvent.item
       gameEvent.item.location = Room.current.name
+      $(document).trigger "resetMenus"
+
+    removeItem: (gameEvent) ->
+      $(document).trigger "updateStatus", gameEvent.message
+      Inventory.remove gameEvent.item
+      Item.allById[gameEvent.item].location = undefined 
       $(document).trigger "resetMenus"
 
     instantVictory: (gameEvent) ->

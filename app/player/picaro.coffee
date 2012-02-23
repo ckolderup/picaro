@@ -9,7 +9,6 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
       dataType: "json"
       async: false
       success: (data) ->
-        $("title").html data.gameName
         for i of data.rooms
           room = data.rooms[i]
           startingRoom = room if room.starter
@@ -20,15 +19,19 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
             item.location = room.name
             gameItems[item.id] = item
 
+        # shouldn't be a special case for this. starting to question if items really should be nested under rooms... hmm
+        if data.specialItems and data.specialItems.self
+          gameItems.self = data.specialItems.self
+
         _.each data.events, (gameEvent) ->
           GameEvent.allById[gameEvent.id] = gameEvent
 
         _.each data.actionGuards, (actionGuard) ->
           ActionGuard.allById[actionGuard.id] = actionGuard
 
+        Item.init gameItems
+        Room.init startingRoom
+        UI.init(data.gameName)
+
       error: (e) ->
         window.alert "Yikes! Picaro couldn't find or parse the game JSON.", e
-
-    Item.init gameItems
-    Room.init startingRoom
-    UI.init()

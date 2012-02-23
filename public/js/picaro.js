@@ -5,13 +5,12 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
     startingRoom = void 0;
     gameItems = {};
     uuid = 0;
-    $.ajax({
+    return $.ajax({
       url: "/../game_data/" + gameId + ".json",
       dataType: "json",
       async: false,
       success: function(data) {
         var i, item, k, room;
-        $("title").html(data.gameName);
         for (i in data.rooms) {
           room = data.rooms[i];
           if (room.starter) startingRoom = room;
@@ -23,19 +22,22 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
             gameItems[item.id] = item;
           }
         }
+        if (data.specialItems && data.specialItems.self) {
+          gameItems.self = data.specialItems.self;
+        }
         _.each(data.events, function(gameEvent) {
           return GameEvent.allById[gameEvent.id] = gameEvent;
         });
-        return _.each(data.actionGuards, function(actionGuard) {
+        _.each(data.actionGuards, function(actionGuard) {
           return ActionGuard.allById[actionGuard.id] = actionGuard;
         });
+        Item.init(gameItems);
+        Room.init(startingRoom);
+        return UI.init(data.gameName);
       },
       error: function(e) {
         return window.alert("Yikes! Picaro couldn't find or parse the game JSON.", e);
       }
     });
-    Item.init(gameItems);
-    Room.init(startingRoom);
-    return UI.init();
   });
 });
