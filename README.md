@@ -8,19 +8,18 @@ Setup
 
 Requirements:
 
-* [rvm](http://beginrescueend.com/rvm/install/)
+* [rbenv](https://github.com/sstephenson/rbenv)
 * [bundler](http://gembundler.com/)
 
 Run it:
 
 1. `bundle install`
-1. `bundle exec guard` -- to auto-compile the coffees
-1. `bundle exec rackup` -- to run the web server
-1. you are now rocking at @ <http://localhost:4567>
+1. `rake run` -- to run the web server and start Guard for coffeescript file auto-compilation
+1. you are now rocking at @ <http://localhost:9292>
 
 Notes:
 
-* I ran into weird issues installing *linecache19* via bundle install. Ctrl-c, running `gem install ruby-debug19`, then re-running bundle install fixed it #ymmv
+* Some people have run into weird issues installing *linecache19* via bundle install. Ctrl-c, run `gem install ruby-debug19`, then re-run bundle install and see if that does it.
 
 
 Contributing
@@ -34,8 +33,8 @@ Authors
 
 * [irondavy](https://github.com/irondavy)
 * [ckolderup](https://github.com/ckolderup)
-* joe
-* rob
+* [joe](https://github.com/JoeBernardi)
+* [rob](https://github.com/ardubs)
 * [hoverbird](https://github.com/hoverbird)
 * ???
 
