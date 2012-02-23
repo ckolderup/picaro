@@ -40,6 +40,7 @@ task :deploy do
   system 'git checkout release'
   system 'git merge master'
   Rake::Task["bundle_static_assets"].execute
+  system 'git add public/js'
   system 'git commit -m "automated deploy"'
   system 'git push -f heroku release:master'
   system 'git checkout master'
