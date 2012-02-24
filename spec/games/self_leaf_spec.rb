@@ -18,18 +18,41 @@ describe "Playing Picaro/leaf" do
       use.click
       action_link('use', 'leaf').click
       action_link('use', 'self').click
-	  latest_update.text.should match /You rub the leaf all over your face/
+      latest_update.text.should match /You rub the leaf all over your face/
 
-	  use.click
+	    use.click
       action_link('use', 'potion').click
       action_link('use', 'self').click
       latest_update.text.should match /You quaff the potion. You now have the ability to SEE THROUGH TIME./
     end
   end
 
+  describe "looking at the Compass repeatedly" do
+    let(:look) { find('#footer-look a') }
+
+    it "changes its Look property, and then name" do
+      look.click
+      action_link('look', 'compass').text.should match /Compass/
+
+      action_link('look', 'compass').click
+      latest_update.text.should match /cased in a tarnished silver/
+
+      look.click
+      action_link('look', 'compass').click
+      latest_update.text.should match /it appears the compass may be hollow/
+
+      look.click
+      action_link('look', 'compass').click
+      latest_update.text.should match /open the compass and discover a small quantity/
+
+      page.find_link 'Reddish Powder'
+    end
+  end
+
+
   describe "removing an object" do
   	it "displays a message and removes the object from Inventory and the room" do
-  	  take.click
+      take.click
       action_link('take', 'leaf').click
       latest_update.should have_content("You take the Leaf.")
 
@@ -38,18 +61,18 @@ describe "Playing Picaro/leaf" do
 
       action_link('use', 'leaf').click
       action_link('use', 'potion').click
-	  latest_update.text.should match /The leaf dissolves in the flask/
+      latest_update.text.should match /The leaf dissolves in the flask/
 
-	  # It's gone!
-	  use.click
+      # It's gone!
+      use.click
       page.should have_no_selector (action_link_selector('use', 'leaf') + ' small')
       page.should have_no_selector (action_link_selector('use', 'leaf'))
       page.should have_no_selector (action_link_selector('take', 'leaf'))
-	  page.should have_no_selector (action_link_selector('look', 'leaf'))
-	  page.should have_selector (action_link_selector('look', 'potion'))
+      page.should have_no_selector (action_link_selector('look', 'leaf'))
+      page.should have_selector (action_link_selector('look', 'potion'))
 
-	  # the game is still winnable
-	  use.click
+      # the game is still winnable
+      use.click
       action_link('use', 'potion').click
       action_link('use', 'self').click
       latest_update.text.should match /You quaff the potion. You now have the ability to SEE THROUGH TIME./
