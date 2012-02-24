@@ -7,26 +7,26 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
         @allById[gameEvent.id] = event
 
     updateStatus: (gameEvent) ->
-      $(document).trigger "updateStatus", gameEvent.message
 
     takeItem: (gameEvent) ->
-      $(document).trigger "updateStatus", gameEvent.message
       $(document).trigger "immediateTake", gameEvent
 
     dropItem: (gameEvent) ->
-      $(document).trigger "updateStatus", gameEvent.message
       Inventory.remove gameEvent.item
       gameEvent.item.location = Room.current.name
       $(document).trigger "resetMenus"
 
     removeItem: (gameEvent) ->
-      $(document).trigger "updateStatus", gameEvent.message
       Inventory.remove gameEvent.item
       Item.allById[gameEvent.item].location = undefined 
       $(document).trigger "resetMenus"
 
+    updateAttribute: (gameEvent) ->
+      Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue
+      $(document).trigger "resetMenus"
+
     instantVictory: (gameEvent) ->
-      $(document).trigger "updateStatus", gameEvent.message
+      console.log "THE GAME IS WON"
 
     replaceItems: (gameEvent) ->
       oldItemsWereInInventory = false
@@ -42,6 +42,8 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
 
   $(document).bind "gameEvent", (e, using) ->
     afterEvent = GameEvent.allById[using["after"]]
-    GameEvent[afterEvent.type] afterEvent  if afterEvent
+    if afterEvent
+      $(document).trigger "updateStatus", afterEvent.message if afterEvent.message
+      GameEvent[afterEvent.type] afterEvent
 
   GameEvent

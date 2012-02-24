@@ -8,27 +8,26 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
         return this.allById[gameEvent.id] = event;
       });
     },
-    updateStatus: function(gameEvent) {
-      return $(document).trigger("updateStatus", gameEvent.message);
-    },
+    updateStatus: function(gameEvent) {},
     takeItem: function(gameEvent) {
-      $(document).trigger("updateStatus", gameEvent.message);
       return $(document).trigger("immediateTake", gameEvent);
     },
     dropItem: function(gameEvent) {
-      $(document).trigger("updateStatus", gameEvent.message);
       Inventory.remove(gameEvent.item);
       gameEvent.item.location = Room.current.name;
       return $(document).trigger("resetMenus");
     },
     removeItem: function(gameEvent) {
-      $(document).trigger("updateStatus", gameEvent.message);
       Inventory.remove(gameEvent.item);
       Item.allById[gameEvent.item].location = void 0;
       return $(document).trigger("resetMenus");
     },
+    updateAttribute: function(gameEvent) {
+      Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue;
+      return $(document).trigger("resetMenus");
+    },
     instantVictory: function(gameEvent) {
-      return $(document).trigger("updateStatus", gameEvent.message);
+      return console.log("THE GAME IS WON");
     },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;
@@ -47,7 +46,12 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
   $(document).bind("gameEvent", function(e, using) {
     var afterEvent;
     afterEvent = GameEvent.allById[using["after"]];
-    if (afterEvent) return GameEvent[afterEvent.type](afterEvent);
+    if (afterEvent) {
+      if (afterEvent.message) {
+        $(document).trigger("updateStatus", afterEvent.message);
+      }
+      return GameEvent[afterEvent.type](afterEvent);
+    }
   });
   return GameEvent;
 });

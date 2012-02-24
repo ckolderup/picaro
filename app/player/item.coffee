@@ -8,10 +8,15 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
         item.location is room.name
 
     look: (item) ->
-      console.log arguments
-      item.lookNum or= 0
-      $(document).trigger "updateStatus", item.look[item.lookNum]
-      item.lookNum += 1  if item.look.length > (item.lookNum + 1)
+      if item.look instanceof Array
+        item.lookNum or= 0
+        $(document).trigger "updateStatus", item.look[item.lookNum]
+        item.lookNum += 1  if item.look.length > (item.lookNum + 1)
+      else if item.look instanceof String
+        $(document).trigger "updateStatus", item.look
+      else
+        $(document).trigger "updateStatus", item.look.message
+        $(document).trigger "gameEvent", item.look if item.look.after
 
     talk: (item) ->
       $(document).trigger "updateStatus", item.talk[item.talkNum]
@@ -25,7 +30,7 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
       Inventory.add item
       $(document).trigger "itemTaken", item
       $(document).trigger "closeMenu"
-      $(document).trigger "gameEvent", item.take  if item.take.after
+      $(document).trigger "gameEvent", item.take if item.take.after
 
     tryToTake: (item) ->
       if @canTake(item)

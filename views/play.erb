@@ -25,7 +25,7 @@
       window.gameId = "<%= @game_id %>" || "hmm";
     </script>
 
-    <% if Picaro.environment == :production || true %>
+    <% if Picaro.environment == :production %>
       <script src="/js/picaro-player-min.js" type="text/javascript"></script>
     <% else %>
       <script src="/js/vendor/require-jquery.js" data-main="picaro" type="text/javascript"></script>

@@ -11,10 +11,16 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       });
     },
     look: function(item) {
-      console.log(arguments);
-      item.lookNum || (item.lookNum = 0);
-      $(document).trigger("updateStatus", item.look[item.lookNum]);
-      if (item.look.length > (item.lookNum + 1)) return item.lookNum += 1;
+      if (item.look instanceof Array) {
+        item.lookNum || (item.lookNum = 0);
+        $(document).trigger("updateStatus", item.look[item.lookNum]);
+        if (item.look.length > (item.lookNum + 1)) return item.lookNum += 1;
+      } else if (item.look instanceof String) {
+        return $(document).trigger("updateStatus", item.look);
+      } else {
+        $(document).trigger("updateStatus", item.look.message);
+        if (item.look.after) return $(document).trigger("gameEvent", item.look);
+      }
     },
     talk: function(item) {
       $(document).trigger("updateStatus", item.talk[item.talkNum]);

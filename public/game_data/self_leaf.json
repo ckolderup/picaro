@@ -27,6 +27,30 @@
       "type": "removeItem", 
       "item": "leaf", 
       "message": "The leaf dissolves in the flask."
+    },
+    { "id": "updateCompassDescription0",
+      "type": "updateAttribute",
+      "attribute": "look",
+      "item": "compass",
+      "newValue" : {
+        "message": "Upon closer inspection, it appears the compass may be hollow.",
+        "after": "updateCompassDescription1"
+      }
+    },
+    { "id": "updateCompassDescription1",
+      "type": "updateAttribute",
+      "attribute": "look",
+      "item": "compass",
+      "newValue" : {
+        "message": "You open the compass and discover a small quantity of a reddish, metallic powder. You throw the fake compass away.",
+        "after": "updateCompassName"
+      }
+    },
+    { "id": "updateCompassName",
+      "type": "updateAttribute",
+      "item": "compass",
+      "attribute": "name",
+      "newValue" : "Reddish Powder"
     }
   ],
 
@@ -38,7 +62,7 @@
       "items": [
         { "name": "Leaf",
           "id": "leaf",
-          "look": ["It's readdish, with glints of gold when turned in the light"],
+          "look": ["It's reddish, with glints of gold when turned in the light"],
           "take": true
         },
         { "name": "Potion", 
@@ -50,6 +74,14 @@
               "after": "dissolveLeaf"
             }
           }
+        },
+        { "name": "Compass",
+          "id": "compass",
+          "look": {
+            "message": "It's cased in a tarnished silver with a faint seam running around the edge",
+            "after": "updateCompassDescription0"
+          },
+          "take": true
         }
     	]
     }
