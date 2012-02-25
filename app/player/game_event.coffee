@@ -1,6 +1,6 @@
-#### Game Events
-
-# Game Events are the main way of specifying changes to the gameworld as a result of some action.  Currently, an "after" event is all that's specified, but at some point we will likely add "before" events or events that occur after some period of time has elapsed. The idea is that an event ID can be attached to any action (a verb called on an item) as its "after" property.  When an action (generally, anything of the form "verb + noun") is performed, the event will be looked up and triggered here if it is one of the known types.
+# Game Events
+# ==============
+# The primary way in which the gameworld responds to player action is via events.  Currently, an "after" event is all that's specified, but at some point we will likely add "before" events or events that occur after some period of time has elapsed. The idea is that an event ID can be attached to any action (a verb called on an item) as its "after" property.  When an action (generally, anything of the form "verb + noun") is performed, the event will be looked up and triggered here if it is one of the known types.
 
 # First we declare our dependencies on Item, Inventory and Room, as well as the usual suspects, $ and _.
 define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item, Inventory, Room) ->
@@ -39,7 +39,7 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
 
     # A winner is you!  We need some sort of joy-enhancing user experience here, as there's nothing special going on here at the moment.
     instantVictory: (gameEvent) ->
-      console.log "THE GAME IS WON"
+      $(document).trigger "updateStatus", "THE GAME IS WON"
 
     # Entirely blows away the `items` specified in the gameEvent which is passed in, and replaces them with the `newItem`.  Should work with items in the Inventory, in the room, or a mix between the two.  If any of the old items were in the user's Inventory, the new item will appear there as well.
     replaceItems: (gameEvent) ->
@@ -47,7 +47,6 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
       _(gameEvent.items).each (itemId, index) ->
         oldItemsWereInInventory = true if Inventory.remove(itemId)
         delete Item.allById[itemId] if Item.allById[itemId]
-
       newItem = gameEvent.newItem
       newItem.location = Room.current.name
       Item.allById[newItem.id] = newItem

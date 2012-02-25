@@ -1,8 +1,7 @@
 #Picaro Player
 #==============
 
-# This files serves to declare the top-level dependencies of the Player interface, as well as the code which fetches game data and bootstraps the gameworld.
-
+# This file declares the top-level dependencies of the Player app, as well as the code which fetches game data and bootstraps the gameworld.
 require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore" ], ($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) ->
   $(document).ready ->
     startingRoom = undefined
@@ -27,10 +26,13 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
         if data.specialItems and data.specialItems.self
           gameItems.self = data.specialItems.self
 
+        # Initialize the main datatypes.
         GameEvent.init data.events
         ActionGuard.init data.actionGuards
         Item.init gameItems
         Room.init startingRoom
+
+        # Finally, initialize the user interface.
         UI.init(data.gameName)
 
       error: (e) ->

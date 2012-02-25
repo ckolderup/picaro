@@ -33,7 +33,7 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
       return $(document).trigger("resetMenus");
     },
     instantVictory: function(gameEvent) {
-      return console.log("THE GAME IS WON");
+      return $(document).trigger("updateStatus", "THE GAME IS WON");
     },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;

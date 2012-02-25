@@ -25,11 +25,11 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
 
     talk: (item) ->
       $(document).trigger "updateStatus", item.talk[item.talkNum]
-      item.talkNum += 1  if item.talk.length > (item.talkNum + 1)
+      item.talkNum += 1 if item.talk.length > (item.talkNum + 1)
 
     attack: (item) ->
       $(document).trigger "updateStatus", item.attack[item.attackNum]
-      item.attackNum += 1  if item.attack.length > (item.attackNum + 1)
+      item.attackNum += 1 if item.attack.length > (item.attackNum + 1)
 
     # Add the item to the Inventory.
     take: (item) ->
@@ -39,10 +39,7 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
       $(document).trigger "gameEvent", item.take if item.take.after
 
     tryToTake: (item) ->
-      if @canTake(item)
-        @take(item)
-      else
-        @willNotTake(item)
+      if @canTake item then @take item else @willNotTake item
 
     canTake: (item) ->
       if item.take is true
@@ -54,7 +51,7 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
 
     willNotTake: (item) ->
       message = "You can't take the " + item.name + ". "
-      message += item.take.cannotTakeMessage  if item.take and item.take.cannotTakeMessage
+      message += item.take.cannotTakeMessage if item.take and item.take.cannotTakeMessage
       $(document).trigger "updateStatus", message
 
     immediateTake: (gameEvent) ->
@@ -82,7 +79,7 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
   $(document).bind "actionLook", (e, o) ->
     Item.look o
 
-  # Notce that Use takes two items as arguments, while the others take only one.
+  # Notice that Use takes two items as arguments, while the others take only one.
   $(document).bind "actionUse", (e, item1, item2) ->
     Item.use item1, item2
 
