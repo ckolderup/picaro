@@ -10,16 +10,18 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
       _.filter @allById, (item, id) ->
         item.location is room.name
 
+    # Checks the item's look action. If it's an Array, it assumes there will be a `lookNum` as an index. If it's a String, simply display that message. Lastly, if it's an Object, it will display its message and optionally fire an after event.
     look: (item) ->
-      if item.look instanceof Array
+      action = item.look
+      if action instanceof Array
         item.lookNum or= 0
-        $(document).trigger "updateStatus", item.look[item.lookNum]
-        item.lookNum += 1  if item.look.length > (item.lookNum + 1)
-      else if item.look instanceof String
-        $(document).trigger "updateStatus", item.look
+        $(document).trigger "updateStatus", action[item.lookNum]
+        item.lookNum += 1  if action.length > (item.lookNum + 1)
+      else if action instanceof String
+        $(document).trigger "updateStatus", action
       else
-        $(document).trigger "updateStatus", item.look.message
-        $(document).trigger "gameEvent", item.look if item.look.after
+        $(document).trigger "updateStatus", action.message
+        $(document).trigger "gameEvent", action if action.after
 
     talk: (item) ->
       $(document).trigger "updateStatus", item.talk[item.talkNum]

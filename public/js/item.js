@@ -12,15 +12,17 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       });
     },
     look: function(item) {
-      if (item.look instanceof Array) {
+      var action;
+      action = item.look;
+      if (action instanceof Array) {
         item.lookNum || (item.lookNum = 0);
-        $(document).trigger("updateStatus", item.look[item.lookNum]);
-        if (item.look.length > (item.lookNum + 1)) return item.lookNum += 1;
-      } else if (item.look instanceof String) {
-        return $(document).trigger("updateStatus", item.look);
+        $(document).trigger("updateStatus", action[item.lookNum]);
+        if (action.length > (item.lookNum + 1)) return item.lookNum += 1;
+      } else if (action instanceof String) {
+        return $(document).trigger("updateStatus", action);
       } else {
-        $(document).trigger("updateStatus", item.look.message);
-        if (item.look.after) return $(document).trigger("gameEvent", item.look);
+        $(document).trigger("updateStatus", action.message);
+        if (action.after) return $(document).trigger("gameEvent", action);
       }
     },
     talk: function(item) {

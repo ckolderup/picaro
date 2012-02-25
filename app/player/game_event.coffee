@@ -32,6 +32,7 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
       Item.allById[gameEvent.item].location = undefined 
       $(document).trigger "resetMenus"
 
+    # Take the item specified and replace the named attribute with a new value; this might be just a string replacement, or swapping in a complex object.
     updateAttribute: (gameEvent) ->
       Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue
       $(document).trigger "resetMenus"
