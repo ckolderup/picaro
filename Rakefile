@@ -32,6 +32,7 @@ desc "Regenerate CoffeeScript documentation"
 task :docs do
   begin `pygmentize` rescue puts "Must have Pygment installed" end
   `./node_modules/docco/bin/docco app/player/*.coffee`
+  `mv ./docs ./public/docs`
 end
 
 desc "Use Require.js optimizer to concat and minify JavaScript files in public/js"
