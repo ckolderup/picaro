@@ -28,6 +28,14 @@ task :compile_coffee do
   system 'coffee --bare --compile --output public/js app/player'
 end
 
+desc "Regenerate CoffeeScript documentation"
+task :docs do
+  begin `pygmentize` rescue puts "Must have Pygment installed" end
+  `./node_modules/docco/bin/docco app/player/*.coffee`
+  `rm -rf ./public/docs`
+  `mv ./docs ./public/docs`
+end
+
 desc "Use Require.js optimizer to concat and minify JavaScript files in public/js"
 task :uglify do
   system 'node node_modules/.bin/r.js -o public/js/app.build.js'

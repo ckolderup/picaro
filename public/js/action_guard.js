@@ -1,39 +1,40 @@
 
 define(["jquery", "inventory", "vendor/underscore"], function($, Inventory) {
-  var ActionGuard;
-  ActionGuard = {
-    allById: {},
+  var Guard;
+  Guard = {
     init: function(guards) {
-      return _.each(guards, function(guard) {
-        return this.allById[guard.id] = guard;
-      });
+      var guard, _i, _len, _results;
+      this.allById = {};
+      if (guards) {
+        _results = [];
+        for (_i = 0, _len = guards.length; _i < _len; _i++) {
+          guard = guards[_i];
+          _results.push(this.allById[guard.id] = guard);
+        }
+        return _results;
+      }
     },
     itemInInventory: function(guard, action) {
       return Inventory.include(guard.item);
     },
     itemNotInInventory: function(guard, action) {
-      return !ActionGuard.itemInInventory(guard, action);
+      return !Guard.itemInInventory(guard, action);
     },
     test: function(action) {
       var guard, guardFunction, guardId, testResult;
       guardId = action.actionGuard;
       guard = this.allById[guardId];
-      if (guard && typeof this[guard.type] === "function") {
-        guardFunction = this[guard.type];
-        testResult = guardFunction(guard, action);
-        if (!testResult && guard.failMessage) {
-          $(document).trigger("updateStatus", guard.failMessage);
-        } else {
-          if (testResult && guard.successMessage) {
-            $(document).trigger("updateStatus", guard.successMessage);
-          }
-        }
-        return testResult;
-      } else {
-        console.log("Y U no pass a known guard function?", action, this.allById());
-        return false;
+      if (!(guard && (guardFunction = this[guard.type]))) {
+        throw "Invalid Action Guard: " + guardId;
       }
+      testResult = guardFunction(guard, action);
+      if (!testResult && guard.failMessage) {
+        $(document).trigger("updateStatus", guard.failMessage);
+      } else if (testResult && guard.successMessage) {
+        $(document).trigger("updateStatus", guard.successMessage);
+      }
+      return testResult;
     }
   };
-  return ActionGuard;
+  return Guard;
 });

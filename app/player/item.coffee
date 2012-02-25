@@ -1,8 +1,11 @@
 define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], ($, Util, Inventory, ActionGuard) ->
   Item =
+    allById: {}
+
     init: (items) ->
       @allById = items
 
+    # Takes a room object and returns all items whose `location` is the same as its name.
     findByRoom: (room) ->
       _.filter @allById, (item, id) ->
         item.location is room.name
@@ -26,6 +29,7 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
       $(document).trigger "updateStatus", item.attack[item.attackNum]
       item.attackNum += 1  if item.attack.length > (item.attackNum + 1)
 
+    # Add the item to the Inventory.
     take: (item) ->
       Inventory.add item
       $(document).trigger "itemTaken", item
@@ -55,16 +59,18 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
       item = Item.allById[gameEvent.item]
       Item.take item
 
+    # This method first looks up the two item IDs passed as arguments.  Then, if the second item has a Use property mentioning the first, it checks if this action is guarded and fires it if not.
     use: (itemId1, itemId2) ->
-      item1 = @allById[itemId1]
-      item2 = @allById[itemId2]
+      [item1, item2] = [@allById[itemId1], @allById[itemId2]]
       if item1 and item2 and item2.use and item2.use[item1.id]
         using = item2.use[item1.id]
-        $(document).trigger "gameEvent", using  if not using.actionGuard or ActionGuard.test(using)
+        $(document).trigger "gameEvent", using if not using.actionGuard or ActionGuard.test(using)
       else
         $(document).trigger "updateStatus", "You can't use those things together."
-        console.log "you can't use this on that.", item1, item2
 
+  #### DOM Event binding
+
+  # The current crop of 5 actions are bound here.
   $(document).bind "actionTalk", (e, o) ->
     Item.talk o
 
@@ -74,6 +80,7 @@ define [ "jquery", "util", "inventory", "action_guard", "vendor/underscore" ], (
   $(document).bind "actionLook", (e, o) ->
     Item.look o
 
+  # Notce that Use takes two items as arguments, while the others take only one.
   $(document).bind "actionUse", (e, item1, item2) ->
     Item.use item1, item2
 

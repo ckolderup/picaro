@@ -19,7 +19,11 @@ end
 
 class Capybara::Node::Element
   def invisible?
-    wait_until { !base.visible? }
+    wait_until { !base.visible? } || wait_until { !base.visible? }
+  end
+
+  def visible?
+    wait_until { base.visible? } || wait_until { base.visible? }
   end
 end
 

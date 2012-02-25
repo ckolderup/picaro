@@ -10,13 +10,15 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
       dataType: "json",
       async: false,
       success: function(data) {
-        var i, item, k, room;
-        for (i in data.rooms) {
-          room = data.rooms[i];
+        var item, room, _i, _j, _len, _len2, _ref, _ref2;
+        _ref = data.rooms;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          room = _ref[_i];
           if (room.starter) startingRoom = room;
           Room.all.push(room);
-          for (k in room.items) {
-            item = room.items[k];
+          _ref2 = room.items;
+          for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+            item = _ref2[_j];
             if (!item.id) item.id = uuid++;
             item.location = room.name;
             gameItems[item.id] = item;
@@ -25,12 +27,8 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
         if (data.specialItems && data.specialItems.self) {
           gameItems.self = data.specialItems.self;
         }
-        _.each(data.events, function(gameEvent) {
-          return GameEvent.allById[gameEvent.id] = gameEvent;
-        });
-        _.each(data.actionGuards, function(actionGuard) {
-          return ActionGuard.allById[actionGuard.id] = actionGuard;
-        });
+        GameEvent.init(data.events);
+        ActionGuard.init(data.actionGuards);
         Item.init(gameItems);
         Room.init(startingRoom);
         return UI.init(data.gameName);
