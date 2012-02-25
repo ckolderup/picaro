@@ -10,9 +10,8 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
       dataType: "json",
       async: false,
       success: function(data) {
-        var i, item, k, room;
-        for (i in data.rooms) {
-          room = data.rooms[i];
+        var item, k, room;
+        for (room in data.rooms) {
           if (room.starter) startingRoom = room;
           Room.all.push(room);
           for (k in room.items) {

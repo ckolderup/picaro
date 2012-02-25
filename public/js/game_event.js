@@ -2,11 +2,14 @@
 define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($, Item, Inventory, Room) {
   var GameEvent;
   GameEvent = {
-    allById: {},
     init: function(events) {
-      return _.each(events, function(event) {
-        return this.allById[gameEvent.id] = event;
-      });
+      var event, _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = events.length; _i < _len; _i++) {
+        event = events[_i];
+        _results.push(this.allById[gameEvent.id] = event);
+      }
+      return _results;
     },
     updateStatus: function(gameEvent) {
       return $(document).trigger("updateStatus", gameEvent.message);
@@ -27,9 +30,6 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
       Item.allById[gameEvent.item].location = void 0;
       return $(document).trigger("resetMenus");
     },
-    instantVictory: function(gameEvent) {
-      return $(document).trigger("updateStatus", gameEvent.message);
-    },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;
       oldItemsWereInInventory = false;
@@ -42,12 +42,16 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
       Item.allById[newItem.id] = newItem;
       if (oldItemsWereInInventory) Inventory.add(newItem);
       return $(document).trigger("resetMenus");
+    },
+    instantVictory: function(gameEvent) {
+      return $(document).trigger("updateStatus", gameEvent.message);
     }
   };
-  $(document).bind("gameEvent", function(e, using) {
+  $(document).bind("gameEvent", function(e, action) {
     var afterEvent;
-    afterEvent = GameEvent.allById[using["after"]];
-    if (afterEvent) return GameEvent[afterEvent.type](afterEvent);
+    if (afterEvent = GameEvent.allById[action["after"]]) {
+      return GameEvent[afterEvent.type](afterEvent);
+    }
   });
   return GameEvent;
 });

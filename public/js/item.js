@@ -11,7 +11,6 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       });
     },
     look: function(item) {
-      console.log(arguments);
       item.lookNum || (item.lookNum = 0);
       $(document).trigger("updateStatus", item.look[item.lookNum]);
       if (item.look.length > (item.lookNum + 1)) return item.lookNum += 1;
@@ -60,17 +59,15 @@ define(["jquery", "util", "inventory", "action_guard", "vendor/underscore"], fun
       return Item.take(item);
     },
     use: function(itemId1, itemId2) {
-      var item1, item2, using;
-      item1 = this.allById[itemId1];
-      item2 = this.allById[itemId2];
+      var item1, item2, using, _ref;
+      _ref = [this.allById[itemId1], this.allById[itemId2]], item1 = _ref[0], item2 = _ref[1];
       if (item1 && item2 && item2.use && item2.use[item1.id]) {
         using = item2.use[item1.id];
         if (!using.actionGuard || ActionGuard.test(using)) {
           return $(document).trigger("gameEvent", using);
         }
       } else {
-        $(document).trigger("updateStatus", "You can't use those things together.");
-        return console.log("you can't use this on that.", item1, item2);
+        return $(document).trigger("updateStatus", "You can't use those things together.");
       }
     }
   };

@@ -1,16 +1,21 @@
+#Picaro Player
+#==============
+
+# This files serves to declare the top-level dependencies of the Player interface, as well as the code which fetches game data and bootstraps the gameworld.
+
 require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore" ], ($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) ->
   $(document).ready ->
     startingRoom = undefined
     gameItems = {}
     uuid = 0
 
+# Here we look up a JSON file as specified by the slug embedded in the page.
     $.ajax
       url: "/../game_data/" + gameId + ".json"
       dataType: "json"
       async: false
       success: (data) ->
-        for i of data.rooms
-          room = data.rooms[i]
+        for room of data.rooms
           startingRoom = room if room.starter
           Room.all.push room
           for k of room.items
@@ -19,7 +24,7 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
             item.location = room.name
             gameItems[item.id] = item
 
-        # shouldn't be a special case for this. starting to question if items really should be nested under rooms... hmm
+        # We look for special items here (currently just the player's "Self" object) and add them to the list of game items; these are not attached to any room and probably should be handled in a less specialized way.
         if data.specialItems and data.specialItems.self
           gameItems.self = data.specialItems.self
 

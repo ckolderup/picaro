@@ -32,6 +32,7 @@ desc "Regenerate CoffeeScript documentation"
 task :docs do
   begin `pygmentize` rescue puts "Must have Pygment installed" end
   `./node_modules/docco/bin/docco app/player/*.coffee`
+  `rm -rf ./public/docs`
   `mv ./docs ./public/docs`
 end
 
