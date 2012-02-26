@@ -25,7 +25,6 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
         if (action.after) return $(document).trigger("gameEvent", action);
       }
     },
-    talk: function(item) {},
     talk: function(item) {
       var conversation;
       console.log('beginConvo', item);
