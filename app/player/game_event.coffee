@@ -39,7 +39,6 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
 
     # A winner is you!  We need some sort of joy-enhancing user experience here, as there's nothing special going on here at the moment.
     instantVictory: (gameEvent) ->
-      $(document).trigger "updateStatus", "THE GAME IS WON"
 
     # Entirely blows away the `items` specified in the gameEvent which is passed in, and replaces them with the `newItem`.  Should work with items in the Inventory, in the room, or a mix between the two.  If any of the old items were in the user's Inventory, the new item will appear there as well.
     replaceItems: (gameEvent) ->
@@ -50,7 +49,7 @@ define [ "jquery", "item", "inventory", "room", "vendor/underscore" ], ($, Item,
       newItem = gameEvent.newItem
       newItem.location = Room.current.name
       Item.allById[newItem.id] = newItem
-      Inventory.add newItem  if oldItemsWereInInventory
+      Inventory.add newItem if oldItemsWereInInventory
       $(document).trigger "resetMenus"
 
   #### DOM Event binding

@@ -32,9 +32,7 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
       Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue;
       return $(document).trigger("resetMenus");
     },
-    instantVictory: function(gameEvent) {
-      return $(document).trigger("updateStatus", "THE GAME IS WON");
-    },
+    instantVictory: function(gameEvent) {},
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;
       oldItemsWereInInventory = false;

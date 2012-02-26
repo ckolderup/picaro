@@ -54,6 +54,9 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
       $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']").append $("<small> (held) </small>")
       $("#action-use").trigger "closeMenu"
 
+    hideCompass: ->
+      $("#move").fadeOut 'fast'
+
     init: (gameName) ->
       $("title").html gameName
       oldMenus = _([ "look", "take", "talk", "attack" ])
@@ -99,12 +102,19 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
           event.stopPropagation()
           false
 
+  #### Event Binding
+
   $("#footer ul li a").click ->
     $(".ui-overlay").fadeIn "fast"
     $(".ui-action").fadeOut "fast"
     $(".active").removeClass "active"
     $("#footer").addClass "active"
     $(this).parent().addClass "active"
+
+  $(".ui-overlay").click ->
+    UI.hideCompass()
+    $(".ui-action").trigger "closeMenu"
+    $(this).fadeOut 'fast'
 
   $("a.path:not(.disabled)").click ->
     room = Room.findByName($(this).attr("href"))

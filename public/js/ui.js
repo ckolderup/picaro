@@ -64,6 +64,9 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
       $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']").append($("<small> (held) </small>"));
       return $("#action-use").trigger("closeMenu");
     },
+    hideCompass: function() {
+      return $("#move").fadeOut('fast');
+    },
     init: function(gameName) {
       var itemAction, oldMenus;
       $("title").html(gameName);
@@ -124,6 +127,11 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
     $(".active").removeClass("active");
     $("#footer").addClass("active");
     return $(this).parent().addClass("active");
+  });
+  $(".ui-overlay").click(function() {
+    UI.hideCompass();
+    $(".ui-action").trigger("closeMenu");
+    return $(this).fadeOut('fast');
   });
   $("a.path:not(.disabled)").click(function() {
     var room, roomData;
