@@ -112,9 +112,7 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
     $(this).parent().addClass "active"
 
   $(".ui-overlay").click ->
-    UI.hideCompass()
-    $(".ui-action").trigger "closeMenu"
-    $(this).fadeOut 'fast'
+    $(".ui-action, .ui-overlay, #move").fadeOut "fast"
 
   $("a.path:not(.disabled)").click ->
     room = Room.findByName($(this).attr("href"))

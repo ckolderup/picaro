@@ -129,9 +129,7 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
     return $(this).parent().addClass("active");
   });
   $(".ui-overlay").click(function() {
-    UI.hideCompass();
-    $(".ui-action").trigger("closeMenu");
-    return $(this).fadeOut('fast');
+    return $(".ui-action, .ui-overlay, #move").fadeOut("fast");
   });
   $("a.path:not(.disabled)").click(function() {
     var room, roomData;
