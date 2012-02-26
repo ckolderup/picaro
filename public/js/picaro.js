@@ -1,141 +1,41 @@
-require([
-  "jquery",
-  "util",
-  "room",
-  "inventory",
-  "item",
-  "ui",
-  'game_event',
-  'action_guard',
-  "vendor/underscore"
-], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
 
-  $(document).ready(function() {
-    var gameMeta;
-    var counters = [];
-    var rooms = [];
-    var gameItems = {};
-
-    $(document).bind("updateStatus", function(event, message) {
-      UI.newStatusMessage(message);
-    })
-
-    $(document).bind("characterSpeaks", function(e, message) {
-      console.log("characterSpeaks")
-    })
-
-    function gameInfoObject (name, version, description) {
-      this.name = name;
-      this.version = version;
-      this.description = description;
-    }
-
-    function itemObject (id, name, location, look, talk, attack, take, use) {
-      this.id = id || uuid++;
-      this.name = name;
-      this.location = location;
-      this.look = look;
-      this.lookNum = 0;
-      this.talk = talk;
-      this.talkNum = 0;
-      this.attack = attack;
-      this.attackNum = 0;
-      if(take) {
-        this.take = take;
-      }
-      else {
-        this.take = null;
-      }
-      if(use) {
-        this.use = use;
-      }
-      else {
-        this.use = null;
-      }
-    }
-
-    function roomObject (name, description, paths, starter) {
-      this.name = name;
-      this.description = description;
-      this.paths = paths;
-      if(starter) {
-        this.starter = true;
-      }
-    }
-
-    function counterObject (name, min, max, val) {
-      this.name = name;
-      this.min = min;
-      this.max = max;
-      this.val = val;
-    }
-
-    var uuid = 0;
-    $.ajax({
-      url: '/../game_data/' + gameId + '.json',
-      dataType: 'json',
+require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
+  return $(document).ready(function() {
+    var gameItems, startingRoom, uuid;
+    startingRoom = void 0;
+    gameItems = {};
+    uuid = 0;
+    return $.ajax({
+      url: "/../game_data/" + gameId + ".json",
+      dataType: "json",
       async: false,
       success: function(data) {
-        $("title").html(data.gameName);
-
-        gameMeta = new gameInfoObject(data.gameName, data.Version, data.gameDescription);
-
-        //push all of the game data into arrays, making it as deliciously malleable as some once-hard ice cream that's been heated in the microwave for a few seconds
-
-        for(var i in data.Rooms) {
-          var roomName = data.Rooms[i].Name;
-          var roomDescription = data.Rooms[i].Description;
-          var paths = data.Rooms[i].Paths;
-          if(data.Rooms[i].Starter){
-            var starter = data.Rooms[i].Starter;
-          }
-          else {
-            var starter = false;
-          }
-          var room = new roomObject(roomName, roomDescription, paths, starter);
-          rooms.push(room);
+        var item, room, _i, _j, _len, _len2, _ref, _ref2;
+        _ref = data.rooms;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          room = _ref[_i];
+          if (room.starter) startingRoom = room;
           Room.all.push(room);
-
-          for(var k in data.Rooms[i].Items) {
-            var id = data.Rooms[i].Items[k].Id;
-            var lookResults = data.Rooms[i].Items[k].Look;
-            var takeResult = data.Rooms[i].Items[k].Take;
-            var useResults = data.Rooms[i].Items[k].Use;
-            var talkResults = data.Rooms[i].Items[k].Talk;
-            var attackResults = data.Rooms[i].Items[k].Attack;
-            var itemName = data.Rooms[i].Items[k].Name;
-            var itemLocation = roomName;
-
-            var item = new itemObject(id, itemName, itemLocation, lookResults, talkResults, attackResults, takeResult, useResults);
+          _ref2 = room.items;
+          for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+            item = _ref2[_j];
+            if (!item.id) item.id = uuid++;
+            item.location = room.name;
             gameItems[item.id] = item;
           }
         }
-
-        for(var j in data.Counters){
-          var counterName = data.Counters[j].Name.replace(/ /g,'');
-          var counterMin = data.Counters[j].Min;
-          var counterMax = data.Counters[j].Max;
-          var counterVal = data.Counters[j].Val;
-          counters.push(new counterObject(counterName, counterMin, counterMax, counterVal));
+        if (data.specialItems && data.specialItems.self) {
+          gameItems.self = data.specialItems.self;
         }
-
-        _.each(data.Events, function(gameEvent) {
-          GameEvent.allById[gameEvent.id] = gameEvent
-        });
-
-        _.each(data.ActionGuards, function(actionGuard) {
-          ActionGuard.allById[actionGuard.Id] = actionGuard
-        });
+        GameEvent.init(data.events);
+        ActionGuard.init(data.actionGuards);
+        Item.init(gameItems);
+        Room.init(startingRoom);
+        return UI.init(data.gameName);
       },
       error: function(e) {
-        window.alert("Yikes! Picaro couldn't find or parse the game JSON.", e)
+        return window.alert("Yikes! Picaro couldn't find or parse the game JSON.", e);
       }
     });
-    // end json get
-
-    var startingRoom = _.find(rooms, function(room) { return room.starter })
-    Item.init(gameItems)
-    Room.init(startingRoom)
-    UI.init()
   });
 });

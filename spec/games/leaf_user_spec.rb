@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../acceptance_helper'
 
 describe "Playing Picaro/leaf_user: " do
-  before { play '/leaf_user' }
+  before { play 'leaf_user' }
 
   let(:use)       { find('#footer-use a') }
   let(:take)      { find('#footer-take a') }
@@ -21,6 +21,7 @@ describe "Playing Picaro/leaf_user: " do
       latest_update.should have_content "You can't take the Leaf."
 
       use.click
+      sleep 0.1
       use_menu.should be_visible
       action_link('use', 'rake').click
       use_menu.should be_visible

@@ -22,14 +22,25 @@
         baseUrl: "/js/",
         waitSeconds: 15
       };
-
       window.gameId = "<%= @game_id %>" || "hmm";
     </script>
-    <script data-main="picaro" src="/js/vendor/require-jquery.js"></script>
+
+    <% if Picaro.environment == :production %>
+      <script src="/js/picaro-player-min.js" type="text/javascript"></script>
+    <% else %>
+      <script src="/js/vendor/require-jquery.js" data-main="picaro" type="text/javascript"></script>
+    <% end %>
 
     <% if Picaro.environment == :test %>
       <script type="text/javascript">
         jQuery.fx.off = true;
+      </script>
+
+      <script type="text/javascript">
+        window.jsErrors = [];
+        window.onerror = function(errorMessage) {
+          window.jsErrors.push(errorMessage);
+        }
       </script>
     <% end %>
   </head>

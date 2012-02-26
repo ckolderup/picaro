@@ -2,8 +2,8 @@ require 'sinatra'
 require 'data_mapper'
 require 'rack'
 require 'sinatra/flash'
-require 'sinatra/subdomain'
 require 'andand'
+require 'httparty'
 
 use Rack::Session::Cookie
 

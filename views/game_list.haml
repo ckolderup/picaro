@@ -1,0 +1,12 @@
+%h2
+  = title
+
+- for game in games
+  .game
+    #title
+      %a{:href => game.view_url}
+        = game.versions.last.title
+    #author
+      = game.author.display_name
+    #description
+      = game.versions.last.description
