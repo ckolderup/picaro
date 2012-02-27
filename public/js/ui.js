@@ -1,5 +1,5 @@
 
-define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], function($, util, Item, Room, Inventory) {
+define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscore"], function($, util, Item, Room, Inventory, Talk) {
   var UI, itemTriggers;
   itemTriggers = [];
   UI = {
@@ -57,6 +57,10 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
       $("#move-preview .ul-modal-inner").html(room.name);
       return $(document).trigger("roomReady", room);
     },
+    beginTalk: function(event, item) {
+      $('#action-talk-character h3').html(item.name);
+      return $('#action-talk-character').show();
+    },
     itemTaken: function(e, item) {
       $(document).trigger("updateStatus", "You take the " + item.name + ".");
       $("#action-take a[data-action-id='" + util.actionId(item, "take") + "']").remove();
@@ -70,7 +74,7 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
     init: function(gameName) {
       var itemAction, oldMenus;
       $("title").html(gameName);
-      oldMenus = _(["look", "take", "talk", "attack"]);
+      oldMenus = _(["look", "take", "attack"]);
       oldMenus.each(function(action) {
         var menuSelector;
         menuSelector = "#action-" + action;
@@ -112,7 +116,6 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
         item = Item.allById[item];
         if (action === "look") $(document).trigger("actionLook", item);
         if (action === "take") $(document).trigger("actionTake", item);
-        if (action === "talk") $(document).trigger("actionTalk", item);
         if (action === "attack") $(document).trigger("actionAttack", item);
         if (action === "use") {
           event.stopPropagation();
@@ -140,9 +143,6 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
     };
     return $(document).trigger("changeRoom", roomData);
   });
-  $("#footer-use").click(function() {
-    return $("#action-use").trigger("openMenu");
-  });
   $("#action-use li a").live("click", function() {
     itemTriggers.push(util.splitActionId(this)[1]);
     if (itemTriggers.length === 1) {
@@ -152,6 +152,37 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
       $(document).trigger("actionUse", itemTriggers);
       return itemTriggers = [];
     }
+  });
+  $("#footer-use").click(function() {
+    return $("#action-use").trigger("openMenu");
+  });
+  $("#footer-talk").click(function() {
+    return $("#action-talk").trigger("openMenu");
+  });
+  $("#action-talk li a.item").live("click", function() {
+    var itemId;
+    itemId = util.splitActionId(this)[1];
+    return $(this).trigger("actionTalk", itemId);
+  });
+  $(document).bind("askQuestion", function(e, question) {
+    $("#action-talk-character-message").html(question.message);
+    $('#action-talk-player ul').empty();
+    return _.each(question.responses, function(response, index) {
+      return $("#action-talk-player ul").append($("<li><a class='talkResponse' data-response-id='" + index + "' href='#'>" + response.message + "</a></li>"));
+    });
+  });
+  $('#action-talk-player a.talkResponse').live('click', event, function() {
+    Talk.answerQuestion($(this).data("response-id"));
+    return event.stopPropagation();
+  });
+  $(document).bind("updateCharacterDialog", function(event, dialog) {
+    var message;
+    message = typeof dialog === "string" ? dialog : dialog.message;
+    return $("#action-talk-character-message").html(message);
+  });
+  $(document).bind("endTalk", function() {
+    $("#action-talk-player").hide();
+    return $(document).trigger("resetMenus");
   });
   $(".ui-action").bind("openMenu", function(e, i) {
     $(".ui-overlay").fadeIn("fast");
@@ -164,6 +195,7 @@ define(["jquery", "util", "item", "room", "inventory", "vendor/underscore"], fun
   $(document).bind("updateStatus", function(event, message) {
     return UI.newStatusMessage(message);
   });
+  $(document).bind("beginTalk", UI.beginTalk);
   $(document).bind("resetMenus", UI.resetMenus);
   $(document).bind("itemTaken", UI.itemTaken);
   $(document).bind("changeRoom", UI.changeRoom);

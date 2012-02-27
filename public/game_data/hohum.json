@@ -10,29 +10,33 @@
       "items": [
     {"name": "Beach-themed postcard", "look": ["It makes you long to go on vacation."]},
     {"name": "Jackalope", "look": ["dope jackalope"], "take": true, "attack": ["the jackalope sends you straight to hell."], "talk": {
-        "name": "did you know jackalope milk has large number of purported health benefits, and fetches high prices across the american southwest?",
+        "message": "did you know jackalope milk has large number of purported health benefits, and fetches high prices across the american southwest?",
         "children": [
             {
-                "name": "yes",
+                "message": "Yes.",
                 "children": [
                     {
-                        "name": "you are what's wrong with humanity."
+                        "message": "Lies! Have you any idea how many jackelop each year are poached, all for their milk?",
+                        "children":  [
+                            {"message": "Between none and a very few?", "children": [{"message": "You are what's wrong with humanity."}]},
+                            {"message": "However many, it's too much.", "children": [{"message": "Hmph. You're damn right about THAT."}]}
+                        ]
                     }
                 ]
             },
             {
-                "name": "be silent.",
+                "message": "No.",
                 "children": [
                     {
-                        "name": "won't talk, eh? into the brig with you!"
+                        "message": "Well, it's bullshit."
                     }
                 ]
             },
             {
-                "name": "no",
+                "message": "&#0171; be silent &#0187;",
                 "children": [
                     {
-                        "name": "well, it's bullshit."
+                        "message": "Won't talk, eh? into the brig with you!"
                     }
                 ]
             }

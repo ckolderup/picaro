@@ -1,4 +1,4 @@
-define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], ($, util, Item, Room, Inventory) ->
+define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscore"], ($, util, Item, Room, Inventory, Talk) ->
   itemTriggers = []
   UI =
     updateStatus: (message) ->
@@ -14,7 +14,7 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
       @updateStatus message + "You see " + util.arrayToSentence(itemNames)
 
     resetMenus: ->
-      roomItems = Item.findByRoom(Room.current)
+      roomItems = Item.findByRoom Room.current
       roomItems.push Item.allById.self if Item.allById.self
 
       $(".ui-action ul").empty()
@@ -46,9 +46,14 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
       $("#move-preview .ul-modal-inner").html room.name
       $(document).trigger "roomReady", room
 
+    # After triggering the actionTalk event, clear the list the Talk list and trigger `actionTalk`
+    beginTalk: (event, item) ->
+      $('#action-talk-character h3').html item.name
+      $('#action-talk-character').show()
+
     # should just be a reset menu / close menu most likely
     itemTaken: (e, item) ->
-      $(document).trigger "updateStatus", "You take the " + item.name + "."
+      $(document).trigger "updateStatus", "You take the #{item.name}."
       $("#action-take a[data-action-id='" + util.actionId(item, "take") + "']").remove()
       $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']").append $("<small> (held) </small>")
       $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']").append $("<small> (held) </small>")
@@ -59,7 +64,9 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
 
     init: (gameName) ->
       $("title").html gameName
-      oldMenus = _([ "look", "take", "talk", "attack" ])
+
+      # Common item actions, gradually being extracted into custom handlers i.e. Use and Talk
+      oldMenus = _([ "look", "take", "attack" ])
       oldMenus.each (action) ->
         menuSelector = "#action-" + action
         $("#footer-" + action + " a").click ->
@@ -96,13 +103,13 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
         item = Item.allById[item]
         $(document).trigger "actionLook", item  if action is "look"
         $(document).trigger "actionTake", item  if action is "take"
-        $(document).trigger "actionTalk", item  if action is "talk"
         $(document).trigger "actionAttack", item  if action is "attack"
         if action is "use"
           event.stopPropagation()
           false
 
-  #### Event Binding
+  # Event Binding
+  # ================
 
   $("#footer ul li a").click ->
     $(".ui-overlay").fadeIn "fast"
@@ -122,8 +129,8 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
 
     $(document).trigger "changeRoom", roomData
 
-  $("#footer-use").click ->
-    $("#action-use").trigger "openMenu"
+  # Use
+  # ----------------
 
   $("#action-use li a").live "click", ->
     itemTriggers.push util.splitActionId(this)[1]
@@ -134,6 +141,46 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
       $(document).trigger "actionUse", itemTriggers
       itemTriggers = []
 
+  $("#footer-use").click ->
+    $("#action-use").trigger "openMenu"
+
+  # Talk
+  # ----------------
+
+  # Open the talk menu, in order to select someone in the Room to talk to.
+  $("#footer-talk").click ->
+    $("#action-talk").trigger "openMenu"
+
+  # Talk menu click handlers - these are for starting converations
+  $("#action-talk li a.item").live "click", ->
+    itemId = util.splitActionId(this)[1]
+    $(this).trigger "actionTalk", itemId
+
+  # When a conversation is in progress, populate the talk list with responses
+  $(document).bind "askQuestion", (e, question) ->
+    $("#action-talk-character-message").html question.message
+    $('#action-talk-player ul').empty()
+    _.each question.responses, (response, index) ->
+      $("#action-talk-player ul").append $("<li><a class='talkResponse' data-response-id='#{index}' href='#'>#{response.message}</a></li>")
+
+  # Talk menu responses - triggerwed when a response is chosen
+  $('#action-talk-player a.talkResponse').live 'click', event, ->
+    Talk.answerQuestion $(this).data("response-id")
+    event.stopPropagation()
+
+  # This updates the NPC's dialog box.
+  $(document).bind "updateCharacterDialog", (event, dialog) ->
+    message = if typeof dialog is "string" then dialog else dialog.message
+    $("#action-talk-character-message").html message
+
+  # The conversation has run out of steam. The NPC always gets the last word- your menu vanishes.
+  $(document).bind "endTalk", ->
+    $("#action-talk-player").hide()
+    $(document).trigger "resetMenus"
+
+
+  # Menus
+  # ----------------
   $(".ui-action").bind "openMenu", (e, i) ->
     $(".ui-overlay").fadeIn "fast"
     $(this).fadeIn("fast").addClass "active"
@@ -145,6 +192,7 @@ define [ "jquery", "util", "item", "room", "inventory", "vendor/underscore" ], (
   $(document).bind "updateStatus", (event, message) ->
     UI.newStatusMessage message
 
+  $(document).bind "beginTalk", UI.beginTalk
   $(document).bind "resetMenus", UI.resetMenus
   $(document).bind "itemTaken", UI.itemTaken
   $(document).bind "changeRoom", UI.changeRoom

@@ -26,13 +26,6 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
     talk: (item) ->   
       # $(document).trigger "updateStatus", item.talk[item.talkNum]
       # item.talkNum += 1 if item.talk.length > (item.talkNum + 1)
-      console.log 'beginConvo', item
-      conversation = item.talk
-
-      $('#action-talk-character h3').html(item.name)
-      $('#action-talk-character').show()
-      $('#action-talk-player ul').empty();
-      Talk.askQuestions(conversation);
 
     attack: (item) ->
       $(document).trigger "updateStatus", item.attack[item.attackNum]
@@ -77,8 +70,8 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
   #### DOM Event binding
 
   # The current crop of 5 actions are bound here.
-  $(document).bind "actionTalk", (e, o) ->
-    Item.talk o
+  $(document).bind "actionTalk", (e, id) ->
+    $(document).trigger "beginTalk", Item.allById[id]
 
   $(document).bind "actionAttack", (e, o) ->
     Item.attack o

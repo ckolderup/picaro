@@ -371,6 +371,7 @@
 
   #action-talk .ui-action-sheet {}
     #action-talk-character {
+      display: none;
       bottom: 240px;
       width: 250px;
     }

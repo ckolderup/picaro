@@ -25,15 +25,7 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
         if (action.after) return $(document).trigger("gameEvent", action);
       }
     },
-    talk: function(item) {
-      var conversation;
-      console.log('beginConvo', item);
-      conversation = item.talk;
-      $('#action-talk-character h3').html(item.name);
-      $('#action-talk-character').show();
-      $('#action-talk-player ul').empty();
-      return Talk.askQuestions(conversation);
-    },
+    talk: function(item) {},
     attack: function(item) {
       $(document).trigger("updateStatus", item.attack[item.attackNum]);
       if (item.attack.length > (item.attackNum + 1)) return item.attackNum += 1;
@@ -86,8 +78,8 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
       }
     }
   };
-  $(document).bind("actionTalk", function(e, o) {
-    return Item.talk(o);
+  $(document).bind("actionTalk", function(e, id) {
+    return $(document).trigger("beginTalk", Item.allById[id]);
   });
   $(document).bind("actionAttack", function(e, o) {
     return Item.attack(o);
