@@ -1,0 +1,40 @@
+--- 
+gamename: Real talk.
+gamedescription: A Picaro demo game in which yaps are flapped
+rooms: 
+- starter: true
+  name: The Gift Shop at Jackalope National Park
+  description: You find yourself in a run-down gift shop, surrounded by rotating post-card racks and shelves crammed with tchochkes.
+  items: 
+  - name: Beach-themed postcard
+    look: 
+    - It makes you long to go on vacation.
+  - name: Jackalope
+    look: 
+    - dope jackalope
+    take: true
+    attack: 
+    - the jackalope sends you straight to hell.
+    talk: 
+      message: did you know jackalope milk has large number of purported health benefits, and fetches high prices across the american southwest?
+      children: 
+      - message: Yes.
+        children: 
+        - message: Lies! Have you any idea how many jackelop each year are poached, all for their milk?
+          children: 
+          - message: Between none and a very few?
+            children: 
+            - message: You are what's wrong with humanity.
+          - message: However many, it's too much.
+            children: 
+            - message: Hmph. You're damn right about THAT.
+      - message: No.
+        children: 
+        - message: Well, it's bullshit.
+      - message: "&#0171; be silent &#0187;"
+        children: 
+        - message: Won't talk, eh? into the brig with you!
+  - name: sunglasses
+    look: 
+    - dope sunglasses.
+    take: true

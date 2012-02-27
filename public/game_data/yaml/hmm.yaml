@@ -1,0 +1,100 @@
+--- 
+  gamename: Adventure at Joe's House
+  gamedescription: THIS IS WHERE THE MAGIC HAPPENS BABY
+  --- 
+gamename: Adventure at Joe's House
+gamedescription: THIS IS WHERE THE MAGIC HAPPENS BABY
+version: "311"
+noDo: You can't do that.
+counters: 
+- name: Elbow Drops
+  min: 0
+  max: 5
+  val: 0
+itemCombos: 
+- name: Cool Jackalope
+  Message: You created a cool jackalope
+  Ingredients: 
+  - Jackalope
+  - Sunglasses
+  Location: Room
+- name: Jacko Couch
+  Message: You put Jacko on da couch
+  Ingredients: 
+  - Jackalope
+  - Couch
+  Desctructive: true
+- name: Jacko Table
+  Message: You put Jacko on da table
+  Ingredients: 
+  - Jackalope
+  - Table
+rooms: 
+- starter: true
+  name: Living Room
+  description: You are in the living room. There is a jackalope head mounted on the wall, an old coffee table that Joe's parents gave him on the floor, and you're sitting on a couch.
+  paths: 
+  - name: Joe's Room
+    direction: South
+  - name: Kitchen
+    direction: North
+  - name: Bathroom
+    direction: East
+  items: 
+  - name: Coffee Table
+    look: 
+    - Dope coffee table.
+    - Totally dope coffee table.
+    attack: 
+    - You elbow drop that mess. Wood flies everywhere.
+    - You cut your elbow badly on a jagged piece of wood. Dummy.
+    counters: 
+      attack: 
+      - Elbow Drops
+      - 1
+  - name: Couch
+    look: 
+    - Dope couch.
+    attack: 
+    - Done. A good place for a practice elbow drop. Search elsewhere for the real deal.
+    - Test
+    counters: 
+      talk: 
+      - Elbow Drops
+      - 1
+  - name: Jackalope
+    look: 
+    - Dope jackalope
+    take: true
+    talk: 
+    - The jackalope can't talk. It's dead.
+    attack: 
+    - The jackalope sends you straight to hell.
+  - name: a Pair of Sunglasses
+    look: 
+    - Dope sunglasses.
+    take: true
+- name: Joe's Room
+  description: You are in Joe's room. There is a thirty square-foot black light poster of Jimi Hendrix on the wall. There is nothing else in the room.
+  paths: 
+  - name: Living Room
+    direction: North
+  items: 
+  - name: Hendrix Poster
+    take: true
+- name: Bathroom
+  description: You are in Joe's bathroom. There is a plentiful supply of floss.
+  paths: 
+  - name: Living Room
+    direction: West
+  items: 
+  - name: Toilet
+    take: true
+- name: Kitchen
+  description: You are in the kitchen. I GOT YA ALL IN CHEQUE
+  paths: 
+  - name: Living Room
+    direction: South
+  items: 
+  - name: Stove
+    take: trueversion: \"311\"\nnoDo: You can't do that.\ncounters: \n- name: Elbow Drops\n  min: 0\n  max: 5\n  val: 0\nitemCombos: \n- name: Cool Jackalope\n  Message: You created a cool jackalope\n  Ingredients: \n  - Jackalope\n  - Sunglasses\n  Location: Room\n- name: Jacko Couch\n  Message: You put Jacko on da couch\n  Ingredients: \n  - Jackalope\n  - Couch\n  Desctructive: true\n- name: Jacko Table\n  Message: You put Jacko on da table\n  Ingredients: \n  - Jackalope\n  - Table\nrooms: \n- starter: true\n  name: Living Room\n  description: You are in the living room. There is a jackalope head mounted on the wall, an old coffee table that Joe's parents gave him on the floor, and you're sitting on a couch.\n  paths: \n  - name: Joe's Room\n    direction: South\n  - name: Kitchen\n    direction: North\n  - name: Bathroom\n    direction: East\n  items: \n  - name: Coffee Table\n    look: \n    - Dope coffee table.\n    - Totally dope coffee table.\n    attack: \n    - You elbow drop that mess. Wood flies everywhere.\n    - You cut your elbow badly on a jagged piece of wood. Dummy.\n    counters: \n      attack: \n      - Elbow Drops\n      - 1\n  - name: Couch\n    look: \n    - Dope couch.\n    attack: \n    - Done. A good place for a practice elbow drop. Search elsewhere for the real deal.\n    - Test\n    counters: \n      talk: \n      - Elbow Drops\n      - 1\n  - name: Jackalope\n    look: \n    - Dope jackalope\n    take: true\n    talk: \n    - The jackalope can't talk. It's dead.\n    attack: \n    - The jackalope sends you straight to hell.\n  - name: a Pair of Sunglasses\n    look: \n    - Dope sunglasses.\n    take: true\n- name: Joe's Room\n  description: You are in Joe's room. There is a thirty square-foot black light poster of Jimi Hendrix on the wall. There is nothing else in the room.\n  paths: \n  - name: Living Room\n    direction: North\n  items: \n  - name: Hendrix Poster\n    take: true\n- name: Bathroom\n  description: You are in Joe's bathroom. There is a plentiful supply of floss.\n  paths: \n  - name: Living Room\n    direction: West\n  items: \n  - name: Toilet\n    take: true\n- name: Kitchen\n  description: You are in the kitchen. I GOT YA ALL IN CHEQUE\n  paths: \n  - name: Living Room\n    direction: South\n  items: \n  - name: Stove\n    take: true\n"
