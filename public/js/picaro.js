@@ -6,7 +6,7 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
     gameItems = {};
     uuid = 0;
     return $.ajax({
-      url: "/../game_data/" + gameId + ".json",
+      url: "/games/" + gameId,
       dataType: "json",
       async: false,
       success: function(data) {

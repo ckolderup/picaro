@@ -10,7 +10,7 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
 
     # Fetch the JSON file as specified by the slug embedded in the page.
     $.ajax
-      url: "/../game_data/" + gameId + ".json"
+      url: "/games/" + gameId
       dataType: "json"
       async: false
       success: (data) ->
