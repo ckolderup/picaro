@@ -9,4 +9,3 @@ class Picaro < Sinatra::Application
 
   require_relative 'errors'
 end
-
