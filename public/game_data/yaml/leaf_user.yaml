@@ -2,6 +2,7 @@
 gameName: LEAFRAKER
 gameDescription: A V1 Picaro Test-Game, in which an item is used to get another item, which wins the game
 version: "1"
+
 events: 
 - id: takeLeafWithRake
   type: takeItem
@@ -10,6 +11,7 @@ events:
 - id: winGameViaLeafTakeage
   type: instantVictory
   message: Using the leaf, you cure scabies.
+  
 rooms: 
 - starter: true
   name: The Tree

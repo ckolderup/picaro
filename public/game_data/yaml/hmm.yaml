@@ -1,16 +1,15 @@
 --- 
-  gamename: Adventure at Joe's House
-  gamedescription: THIS IS WHERE THE MAGIC HAPPENS BABY
-  --- 
 gamename: Adventure at Joe's House
 gamedescription: THIS IS WHERE THE MAGIC HAPPENS BABY
 version: "311"
 noDo: You can't do that.
+
 counters: 
 - name: Elbow Drops
   min: 0
   max: 5
   val: 0
+
 itemCombos: 
 - name: Cool Jackalope
   Message: You created a cool jackalope
@@ -29,6 +28,7 @@ itemCombos:
   Ingredients: 
   - Jackalope
   - Table
+  
 rooms: 
 - starter: true
   name: Living Room
