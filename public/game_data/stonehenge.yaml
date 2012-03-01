@@ -32,8 +32,7 @@ rooms:
 - starter: true
   name: The Tree
   paths: 
-  - name: Stonehenge
-    direction: North
+    North: Stonehenge
   description: You stand at the base of a tree. Its leaves are prized for their medicinal qualities.
   items: 
   - name: Rake
@@ -59,8 +58,7 @@ rooms:
         after: dropRakeOnTree
 - name: Stonehenge
   paths: 
-  - name: The Tree
-    direction: South
+    South: The Tree
   description: Ancient power fills the air. The stone formation encircles a bubbling cauldron.
   items: 
   - name: Cauldron

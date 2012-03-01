@@ -38,9 +38,7 @@
   "rooms" : [
     { "starter" : true,
       "name": "The Tree",
-  	  "paths": [
-  		  {"name": "Stonehenge", "direction": "North"}
-  	  ],
+  	  "paths": {"North": "Stonehenge"},
       "description": "You stand at the base of a tree. Its leaves are prized for their medicinal qualities.",
       "items": [
         { "name": "Rake", "id": "rake", "look": ["The rake is a bit rusty."], "take": true},
@@ -71,7 +69,7 @@
 
   	{
   	  "name" : "Stonehenge",
-  	  "paths": [ {"name": "The Tree", "direction": "South"} ],
+  	  "paths": {"South": "The Tree"},
   	  "description" : "Ancient power fills the air. The stone formation encircles a bubbling cauldron.",
   	  "items" : [
     		{ "name" : "Cauldron",
