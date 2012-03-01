@@ -30,7 +30,8 @@ $ ->
     onChange: (mirror, changes) ->
       mirror.save()
       jsGameObject = jsyaml.load(mirror.getTextArea().value)
-      if gameObject.rooms.length isnt jsGameObject.rooms.length
-        resetGameData(jsGameObject)
+      resetGameData(jsGameObject)
+      #if gameObject.rooms.length isnt jsGameObject.rooms.length
   )
+  # on first load, reset the gameworld representation
   resetGameData jsyaml.load($('#code').html())

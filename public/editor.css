@@ -1,5 +1,10 @@
+#code {
+  float: right;
+}
+
 .rooms {
   background: #000000;
+  float:left;
   height: 400px;
   padding: 10px;
   width: 400px;

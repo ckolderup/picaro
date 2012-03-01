@@ -53,9 +53,7 @@ $(function() {
       var jsGameObject;
       mirror.save();
       jsGameObject = jsyaml.load(mirror.getTextArea().value);
-      if (gameObject.rooms.length !== jsGameObject.rooms.length) {
-        return resetGameData(jsGameObject);
-      }
+      return resetGameData(jsGameObject);
     }
   });
   return resetGameData(jsyaml.load($('#code').html()));
