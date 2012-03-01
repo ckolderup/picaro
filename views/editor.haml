@@ -1,0 +1,26 @@
+%h2
+  = game['gameName']
+
+#author
+  = game['gameDescription']
+
+%span 
+  Number of rooms: 
+  #roomNum
+
+%span 
+  Player starts in: 
+  #starterName
+
+.rooms
+
+%textarea{:id => "code", :name => "code"}
+  = game.to_yaml
+
+/ #versions
+/   %h3 Versions of this game
+/   %ul
+/     - for version in game.versions.reverse
+/       %li
+/         %a{:href => game.view_version_url(version.id)}
+/           #{version.label} - #{version.title}

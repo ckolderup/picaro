@@ -1,0 +1,13 @@
+.rooms {
+  background: #000000;
+  height: 400px;
+  padding: 10px;
+  width: 400px;
+}
+.room {
+  margin: 6px;
+  padding: 3px;
+  height: 40px;
+  width: 40px;
+  background: #fff;
+}

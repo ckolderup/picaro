@@ -30,13 +30,10 @@ rooms:
 - starter: true
   name: Living Room
   description: You are in the living room. There is a jackalope head mounted on the wall, an old coffee table that Joe's parents gave him on the floor, and you're sitting on a couch.
-  paths: 
-  - name: Joe's Room
-    direction: South
-  - name: Kitchen
-    direction: North
-  - name: Bathroom
-    direction: East
+  paths:
+    S: Joe's Room
+    N: Kitchen
+    E: Bathroom
   items: 
   - name: Coffee Table
     look: 
@@ -74,24 +71,21 @@ rooms:
 - name: Joe's Room
   description: You are in Joe's room. There is a thirty square-foot black light poster of Jimi Hendrix on the wall. There is nothing else in the room.
   paths: 
-  - name: Living Room
-    direction: North
+    N: Living Room
   items: 
   - name: Hendrix Poster
     take: true
 - name: Bathroom
   description: You are in Joe's bathroom. There is a plentiful supply of floss.
   paths: 
-  - name: Living Room
-    direction: West
+    W: Living Room
   items: 
   - name: Toilet
     take: true
 - name: Kitchen
   description: You are in the kitchen. I GOT YA ALL IN CHEQUE
   paths: 
-  - name: Living Room
-    direction: South
+    S: Living Room
   items: 
   - name: Stove
     take: true
