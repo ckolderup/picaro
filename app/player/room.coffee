@@ -16,28 +16,24 @@ define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Invento
     get: (room, roomItems) ->
       $("#move a").attr "href", "#"
       $("#move li").addClass "disabled"
-      for i of room.paths
-        direction = room.paths[i].direction
-        if direction is "North"
-          $("#move-compass-north a").attr "href", room.paths[i].name
-          $("#move-compass-north, #move-compass-north a").removeClass "disabled"
-        else if direction is "South"
-          $("#move-compass-south a").attr "href", room.paths[i].name
-          $("#move-compass-south, #move-compass-south a").removeClass "disabled"
-        else if direction is "East"
-          $("#move-compass-east a").attr "href", room.paths[i].name
-          $("#move-compass-east, #move-compass-east a").removeClass "disabled"
-        else if direction is "West"
-          $("#move-compass-west a").attr "href", room.paths[i].name
-          $("#move-compass-west, #move-compass-west a").removeClass "disabled"
-
-  $(document).bind "roomChanged", (e, room) ->
-    console.log "yes i know i changed", arguments
+      for direction, name of room.paths
+        switch direction
+          when "North", "N"
+            $("#move-compass-north a").attr "href", name
+            $("#move-compass-north, #move-compass-north a").removeClass "disabled"
+          when "South", "S"
+            $("#move-compass-south a").attr "href", name
+            $("#move-compass-south, #move-compass-south a").removeClass "disabled"
+          when "East", "E"
+            $("#move-compass-east a").attr "href", name
+            $("#move-compass-east, #move-compass-east a").removeClass "disabled"
+          when "West", "W"
+            $("#move-compass-west a").attr "href", name
+            $("#move-compass-west, #move-compass-west a").removeClass "disabled"
 
   $(document).bind "roomReady", (e, room) ->
-    roomItems = _(Item.allById).filter((item, id) ->
+    roomItems = _(Item.allById).filter (item, id) ->
       item.location is room.name
-    )
     Room.get room, roomItems
 
   Room
