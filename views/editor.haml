@@ -1,26 +1,13 @@
-%h2
-  = game['gameName']
+%div{:class=> 'hero-unit'}
+  %img{:src => 'images/compass.png'}
 
-#author
-  = game['gameDescription']
+  %h2
 
-%span 
-  Number of rooms: 
-  #roomNum
+  %p
 
-%span 
-  Player starts in: 
-  #starterName
+%div{:id => 'editor-content', :class => 'row'}
+  %div{:id => 'code-container', :class => 'span6'}
+    %textarea{:id => "code", :name => "code"}= game_yaml
 
-%textarea{:id => "code", :name => "code"}
-  = game.to_yaml
-
-.rooms
-
-/ #versions
-/   %h3 Versions of this game
-/   %ul
-/     - for version in game.versions.reverse
-/       %li
-/         %a{:href => game.view_version_url(version.id)}
-/           #{version.label} - #{version.title}
+  %div{:id => 'game-visuals-container', :class => 'span6'}
+    %div{:class => 'rooms'}

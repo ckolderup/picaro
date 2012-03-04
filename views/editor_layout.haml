@@ -2,24 +2,38 @@
   %head
     %title Experimental Editor Brototype
     %link{"rel" => "stylesheet", "href" => "codemirror.css", "type" => "text/css"}
-    %link{"rel" => "stylesheet", "href" => "monokai.css", "type" => "text/css"}
-    %link{"rel" => "stylesheet", "href" => "editor.css", "type" => "text/css"}
+    %link{"rel" => "stylesheet", "href" => "bootstrap.css", "type" => "text/css"}
+    %link{"rel" => "stylesheet", "href" => "bootstrap-responsive.css", "type" => "text/css"}
 
-    %script{ :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' }
+    %link{"rel" => "stylesheet", "href" => "editor.css", "type" => "text/css"}
+    %link{"rel" => "stylesheet", "href" => "monokai.css", "type" => "text/css"}
+
+    / %script{ :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' }
+    %script{ :src => "/js/vendor/require-jquery.js", 'data-main' => "js/editor"}
+
+    %script{ :src => 'js/vendor/bootstrap-min.js' }
+    %script{ :src => 'js/vendor/bootstrap-tooltip.js' }
+    %script{ :src => 'js/vendor/bootstrap-popover.js' }
+
     %script{ :src => 'js/vendor/codemirror.js' }
     %script{ :src => 'js/vendor/codemirror-yaml-mode.js' }
     %script{ :src => 'js/vendor/js-yaml.min.js' }
-    %script{ :src => "/js/vendor/require-jquery.js", 'data-main' => "js/editor"}
 
   %body
-    #user
-      - if logged_in?
-        = "UR #{current_user.username}"
-      - else
-        %a{:href => "#{ENV['SECURE_SITE_ROOT']}/signup"} Signup
-        %a{:href => "#{ENV['SECURE_SITE_ROOT']}/login"} Login
-    #notices
+    #user{:class => 'navbar'}
+      %div{:class => "navbar-inner"}
+        %div{:class => 'container'}
+          %ul{:class => 'nav'}
+            %li
+              %a{:href => '#', :class=> "brand" }
+                Editor
+            %li
+              %a{:href => "#{ENV['SECURE_SITE_ROOT']}/signup"} Signup
+            %li
+              %a{:href => "#{ENV['SECURE_SITE_ROOT']}/login"} Login
+
+      #notices
       =styled_flash
 
-    #content
+    %div{:id => 'content', :class => 'container'}
       = yield
