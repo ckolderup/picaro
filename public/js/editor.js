@@ -4,22 +4,18 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
   Editor = {
     drawRoom: function(roomName, x, y) {
       var borderStyle, destination, direction, positionOffset, room, roomDiv, _ref, _results;
-      console.log('******************');
       room = Room.findByName(roomName);
-      console.log("" + room.name + " is drawn? " + room.drawn);
       if (room.drawn) return;
-      positionOffset = 75;
+      positionOffset = 140;
       borderStyle = '6px solid cyan';
-      roomDiv = $("<div data-room-id='" + room.name + "' class='room'>" + room.name + "</div>");
+      roomDiv = $("<div data-room-id='" + room.name + "' class='room'>" + room.name + "<small class='itemCount'>Items: " + room.items.length + "</small></div>");
       roomDiv.css("left", x).css('top', y);
-      console.log("drawRoom " + room.name, room, x, y);
       $(".rooms").append(roomDiv);
       room.drawn = true;
       _ref = room.paths;
       _results = [];
       for (direction in _ref) {
         destination = _ref[direction];
-        console.log("Down the path: " + direction);
         switch (direction) {
           case "North":
           case "N":
@@ -53,7 +49,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       Room.all = game.rooms;
       $("#roomNum").html(game.rooms.length);
       $(".rooms").empty();
-      return this.drawRoom(Room.all[0].name, 120, 120);
+      return this.drawRoom(Room.all[0].name, 220, 220);
     }
   };
   $(function() {

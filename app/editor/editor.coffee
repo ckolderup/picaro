@@ -1,23 +1,17 @@
 define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
   Editor = 
     drawRoom: (roomName, x, y) ->
-      # newX = x
-      # newY = y
-      console.log '******************'
       room = Room.findByName roomName
-      console.log "#{room.name} is drawn? #{room.drawn}"
       return if room.drawn
-      positionOffset = 75
-      borderStyle = '6px solid cyan'
-      roomDiv = $("<div data-room-id='#{room.name}' class='room'>#{room.name}</div>")
 
+      positionOffset = 140
+      borderStyle = '6px solid cyan'
+      roomDiv = $("<div data-room-id='#{room.name}' class='room'>#{room.name}<small class='itemCount'>Items: #{room.items.length}</small></div>")
       roomDiv.css("left", x).css('top', y)
-      console.log "drawRoom #{room.name}", room, x,y
-      $(".rooms").append(roomDiv)
+      $(".rooms").append roomDiv 
       room.drawn = true
 
       for direction, destination of room.paths
-        console.log("Down the path: #{direction}")
         switch direction
           when "North", "N"
             roomDiv.css 'border-top', borderStyle
@@ -32,13 +26,12 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
             roomDiv.css 'border-left', borderStyle
             @drawRoom(destination,  x - positionOffset, y)
 
-
     resetGameData: (game) ->
       gameObject = game
       Room.all = game.rooms
       $("#roomNum").html game.rooms.length
       $(".rooms").empty()
-      @drawRoom Room.all[0].name, 120, 120
+      @drawRoom Room.all[0].name, 220, 220
 
   $ ->
     myCodeMirror = CodeMirror.fromTextArea document.getElementById("code"),

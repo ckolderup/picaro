@@ -1,6 +1,6 @@
 --- 
-gamename: Adventure at Joe's House
-gamedescription: A Picaro Test Game
+gameName: Adventure at Joe's House
+gameDescription: A Picaro Test Game
 rooms: 
 - name: Living Room
   starter: true

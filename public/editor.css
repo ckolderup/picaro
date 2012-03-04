@@ -1,21 +1,34 @@
-#code {
-  float: right;
+.CodeMirror {
+  float: left;
+  width: 50%;
+}
+
+.CodeMirror-scroll {
+  height: auto; overflow: visible
 }
 
 .rooms {
-  background: #000000;
+  background: #28222d;
   float:left;
-  height: 400px;
+  height: 100%;
   padding: 10px;
-  width: 400px;
   position: relative;
+  float: right;
+  width: 48%;
 }
+
 .room {
-  display: inline;
   position: absolute;
-  margin: 6px;
-  padding: 3px;
-  height: 40px;
-  width: 40px;
+  margin: 12px;
+  padding: 6px;
+  height: 80px;
+  width: 80px;
   background: #fff;
+}
+
+.room small {
+  font-size: 10px;
+  display: block;
+  color: red;
+  clear:left;
 }
