@@ -6,12 +6,12 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       var borderStyle, destination, direction, positionOffset, room, roomDiv, _ref, _results;
       room = Room.findByName(roomName);
       if (room.drawn) return;
-      positionOffset = 140;
+      room.drawn = true;
+      positionOffset = 125;
       borderStyle = '6px solid cyan';
-      roomDiv = $("<div data-room-id='" + room.name + "' class='room'>" + room.name + "<small class='itemCount'>Items: " + room.items.length + "</small></div>");
+      roomDiv = $("<div data-room-id='" + room.name + "' class='room'> " + room.name + " <small class='itemCount'> Items: " + room.items.length + " </small></div>");
       roomDiv.css("left", x).css('top', y);
       $(".rooms").append(roomDiv);
-      room.drawn = true;
       _ref = room.paths;
       _results = [];
       for (direction in _ref) {
@@ -49,7 +49,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       Room.all = game.rooms;
       $("#roomNum").html(game.rooms.length);
       $(".rooms").empty();
-      return this.drawRoom(Room.all[0].name, 220, 220);
+      return this.drawRoom(Room.starter().name, 220, 220);
     }
   };
   $(function() {
@@ -61,7 +61,9 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         var jsGameObject;
         mirror.save();
         jsGameObject = jsyaml.load(mirror.getTextArea().value);
-        return Editor.resetGameData(jsGameObject);
+        if (typeof jsGameObject === 'object') {
+          return Editor.resetGameData(jsGameObject);
+        }
       }
     });
     return Editor.resetGameData(jsyaml.load($('#code').html()));

@@ -9,6 +9,9 @@ define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Invento
         room: startingRoom
         items: roomItems
 
+    starter: ->
+      _(@all).find (room) -> room.starter is true
+
     findByName: (name) ->
       _(@all).find (room) ->
         room.name is name

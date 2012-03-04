@@ -3,13 +3,13 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
     drawRoom: (roomName, x, y) ->
       room = Room.findByName roomName
       return if room.drawn
+      room.drawn = true
 
-      positionOffset = 140
+      positionOffset = 125
       borderStyle = '6px solid cyan'
-      roomDiv = $("<div data-room-id='#{room.name}' class='room'>#{room.name}<small class='itemCount'>Items: #{room.items.length}</small></div>")
+      roomDiv = $("<div data-room-id='#{room.name}' class='room'> #{room.name} <small class='itemCount'> Items: #{room.items.length} </small></div>")
       roomDiv.css("left", x).css('top', y)
       $(".rooms").append roomDiv 
-      room.drawn = true
 
       for direction, destination of room.paths
         switch direction
@@ -31,7 +31,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       Room.all = game.rooms
       $("#roomNum").html game.rooms.length
       $(".rooms").empty()
-      @drawRoom Room.all[0].name, 220, 220
+      @drawRoom Room.starter().name, 220, 220
 
   $ ->
     myCodeMirror = CodeMirror.fromTextArea document.getElementById("code"),
@@ -40,8 +40,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       onChange: (mirror, changes) ->
         mirror.save()
         jsGameObject = jsyaml.load(mirror.getTextArea().value)
-        Editor.resetGameData jsGameObject
-        #if gameObject.rooms.length isnt jsGameObject.rooms.length
+        Editor.resetGameData jsGameObject if typeof jsGameObject == 'object'
     
     # on first load, reset the gameworld representation
     Editor.resetGameData jsyaml.load($('#code').html())

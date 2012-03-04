@@ -12,6 +12,11 @@ define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, I
         items: roomItems
       });
     },
+    starter: function() {
+      return _(this.all).find(function(room) {
+        return room.starter === true;
+      });
+    },
     findByName: function(name) {
       return _(this.all).find(function(room) {
         return room.name === name;
