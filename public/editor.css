@@ -8,8 +8,11 @@
   height: 400px;
   padding: 10px;
   width: 400px;
+  position: relative;
 }
 .room {
+  display: inline;
+  position: absolute;
   margin: 6px;
   padding: 3px;
   height: 40px;

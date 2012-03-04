@@ -1,37 +1,56 @@
-gameObject = {rooms: []}
+define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
+  Editor = 
+    drawRoom: (roomName, x, y) ->
+      # newX = x
+      # newY = y
+      console.log '******************'
+      room = Room.findByName roomName
+      console.log "#{room.name} is drawn? #{room.drawn}"
+      return if room.drawn
+      positionOffset = 75
+      borderStyle = '6px solid cyan'
+      roomDiv = $("<div data-room-id='#{room.name}' class='room'>#{room.name}</div>")
 
-drawRoom = (room) ->
-  roomDiv = $("<div class='room'>#{room.name}</div>")
-  directionMap =
-    "N": 'top'
-    "E": 'right'
-    "S": 'bottom'
-    "W": 'left'
+      roomDiv.css("left", x).css('top', y)
+      console.log "drawRoom #{room.name}", room, x,y
+      $(".rooms").append(roomDiv)
+      room.drawn = true
 
-  $(".rooms").append(roomDiv)
-  if room.paths
-    for compass, border of directionMap
-      if room.paths[compass]
-        console.log room.name, 'border-#{border}', '6px solid cyan'
-        roomDiv.css("border-#{border}", '6px solid cyan') 
+      for direction, destination of room.paths
+        console.log("Down the path: #{direction}")
+        switch direction
+          when "North", "N"
+            roomDiv.css 'border-top', borderStyle
+            @drawRoom(destination, x, y - positionOffset)
+          when "South", "S"
+            roomDiv.css 'border-bottom', borderStyle
+            @drawRoom(destination, x, y + positionOffset)
+          when "East", "E"
+            roomDiv.css 'border-right', borderStyle
+            @drawRoom(destination, x + positionOffset, y)
+          when "West", "W"
+            roomDiv.css 'border-left', borderStyle
+            @drawRoom(destination,  x - positionOffset, y)
+
+
+    resetGameData: (game) ->
+      gameObject = game
+      Room.all = game.rooms
+      $("#roomNum").html game.rooms.length
+      $(".rooms").empty()
+      @drawRoom Room.all[0].name, 120, 120
+
+  $ ->
+    myCodeMirror = CodeMirror.fromTextArea document.getElementById("code"),
+      mode: "yaml"
+      theme: "monokai"
+      onChange: (mirror, changes) ->
+        mirror.save()
+        jsGameObject = jsyaml.load(mirror.getTextArea().value)
+        Editor.resetGameData jsGameObject
+        #if gameObject.rooms.length isnt jsGameObject.rooms.length
     
+    # on first load, reset the gameworld representation
+    Editor.resetGameData jsyaml.load($('#code').html())
 
-resetGameData = (game) ->
-  gameObject = game
-  console.log game
-  $("#roomNum").html game.rooms.length
-  $(".rooms").empty()
-  drawRoom room for room in game.rooms
-
-$ ->
-  myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"),
-    mode: "yaml"
-    theme: "monokai"
-    onChange: (mirror, changes) ->
-      mirror.save()
-      jsGameObject = jsyaml.load(mirror.getTextArea().value)
-      resetGameData(jsGameObject)
-      #if gameObject.rooms.length isnt jsGameObject.rooms.length
-  )
-  # on first load, reset the gameworld representation
-  resetGameData jsyaml.load($('#code').html())
+  Editor

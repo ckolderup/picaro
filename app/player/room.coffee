@@ -32,8 +32,7 @@ define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Invento
             $("#move-compass-west, #move-compass-west a").removeClass "disabled"
 
   $(document).bind "roomReady", (e, room) ->
-    roomItems = _(Item.allById).filter (item, id) ->
-      item.location is room.name
+    roomItems = _(Item.allById).filter (item, id) -> item.location is room.name
     Room.get room, roomItems
 
   Room

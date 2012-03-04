@@ -1,60 +1,74 @@
-var drawRoom, gameObject, resetGameData;
 
-gameObject = {
-  rooms: []
-};
-
-drawRoom = function(room) {
-  var border, compass, directionMap, roomDiv, _results;
-  roomDiv = $("<div class='room'>" + room.name + "</div>");
-  directionMap = {
-    "N": 'top',
-    "E": 'right',
-    "S": 'bottom',
-    "W": 'left'
-  };
-  $(".rooms").append(roomDiv);
-  if (room.paths) {
-    _results = [];
-    for (compass in directionMap) {
-      border = directionMap[compass];
-      if (room.paths[compass]) {
-        console.log(room.name, 'border-#{border}', '6px solid cyan');
-        _results.push(roomDiv.css("border-" + border, '6px solid cyan'));
-      } else {
-        _results.push(void 0);
+define(["jquery", "room", "vendor/underscore"], function($, Room) {
+  var Editor;
+  Editor = {
+    drawRoom: function(roomName, x, y) {
+      var borderStyle, destination, direction, positionOffset, room, roomDiv, _ref, _results;
+      console.log('******************');
+      room = Room.findByName(roomName);
+      console.log("" + room.name + " is drawn? " + room.drawn);
+      if (room.drawn) return;
+      positionOffset = 75;
+      borderStyle = '6px solid cyan';
+      roomDiv = $("<div data-room-id='" + room.name + "' class='room'>" + room.name + "</div>");
+      roomDiv.css("left", x).css('top', y);
+      console.log("drawRoom " + room.name, room, x, y);
+      $(".rooms").append(roomDiv);
+      room.drawn = true;
+      _ref = room.paths;
+      _results = [];
+      for (direction in _ref) {
+        destination = _ref[direction];
+        console.log("Down the path: " + direction);
+        switch (direction) {
+          case "North":
+          case "N":
+            roomDiv.css('border-top', borderStyle);
+            _results.push(this.drawRoom(destination, x, y - positionOffset));
+            break;
+          case "South":
+          case "S":
+            roomDiv.css('border-bottom', borderStyle);
+            _results.push(this.drawRoom(destination, x, y + positionOffset));
+            break;
+          case "East":
+          case "E":
+            roomDiv.css('border-right', borderStyle);
+            _results.push(this.drawRoom(destination, x + positionOffset, y));
+            break;
+          case "West":
+          case "W":
+            roomDiv.css('border-left', borderStyle);
+            _results.push(this.drawRoom(destination, x - positionOffset, y));
+            break;
+          default:
+            _results.push(void 0);
+        }
       }
+      return _results;
+    },
+    resetGameData: function(game) {
+      var gameObject;
+      gameObject = game;
+      Room.all = game.rooms;
+      $("#roomNum").html(game.rooms.length);
+      $(".rooms").empty();
+      return this.drawRoom(Room.all[0].name, 120, 120);
     }
-    return _results;
-  }
-};
-
-resetGameData = function(game) {
-  var room, _i, _len, _ref, _results;
-  gameObject = game;
-  console.log(game);
-  $("#roomNum").html(game.rooms.length);
-  $(".rooms").empty();
-  _ref = game.rooms;
-  _results = [];
-  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-    room = _ref[_i];
-    _results.push(drawRoom(room));
-  }
-  return _results;
-};
-
-$(function() {
-  var myCodeMirror;
-  myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
-    mode: "yaml",
-    theme: "monokai",
-    onChange: function(mirror, changes) {
-      var jsGameObject;
-      mirror.save();
-      jsGameObject = jsyaml.load(mirror.getTextArea().value);
-      return resetGameData(jsGameObject);
-    }
+  };
+  $(function() {
+    var myCodeMirror;
+    myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+      mode: "yaml",
+      theme: "monokai",
+      onChange: function(mirror, changes) {
+        var jsGameObject;
+        mirror.save();
+        jsGameObject = jsyaml.load(mirror.getTextArea().value);
+        return Editor.resetGameData(jsGameObject);
+      }
+    });
+    return Editor.resetGameData(jsyaml.load($('#code').html()));
   });
-  return resetGameData(jsyaml.load($('#code').html()));
+  return Editor;
 });
