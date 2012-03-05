@@ -1,0 +1,77 @@
+--- 
+gameName: Linky
+rooms: 
+- name: The Entryway
+  starter: true
+  description: Rows of iron statues greet you as you step down into the dank dungeon air.
+  items:
+    - locked door
+  paths:
+    E: The Bat Place
+    W: The Skeleton Lair
+    N: Hallway
+
+- name: The Bat Place
+  paths:
+    W: The Entryway
+  items:
+    - key
+
+- name: The Skeleton Lair
+  paths:
+    E: The Entryway
+  items:
+    - brass key
+
+- name: Hallway
+  description: Three fierce skeleton warriors pay no attention to you whatsoever.
+  paths:
+    N: Creepy Cave
+
+- name: Creepy Cave
+  paths:
+    E: Batcave
+    W: Compass Room
+    S: Hallway
+    N: Map Room
+
+- name: Batcave
+  paths:
+    W: Creepy Cave
+
+- name: Compass Room
+  paths:
+    E: Creepy Cave
+    N: Boomerang Zone
+  items:
+    - compass
+
+- name: Map Room
+  paths:
+    S: Hallway
+    N: Watery Walkway
+    W: Slime Room
+    E: Boomerang Zone
+  items:
+    - map
+
+- name: Watery Walkway
+  paths:
+    S: Map Room
+    N: Water Shrine
+
+- name: Water Shrine
+  paths:
+    W: Deadly Steps
+
+- name: Deadly Steps
+  paths:
+    E: Water Shrine
+
+- name: Deadly Steps
+  paths:
+    E: Water Shrine
+
+- name: Boomerang Zone
+  paths: 
+
