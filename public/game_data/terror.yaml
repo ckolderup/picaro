@@ -1,0 +1,31 @@
+---
+gameName: Terror at the Economics Conference
+gameDescription: Where networking... becomes netdying.
+version: "1"
+rooms:
+- starter: true
+  name: Auditorium
+  description: Panic fills the air instead of ideas. What's left of the Keynote Speaker rests in a shimmering puddle. 
+  items:
+  - name: slag heap
+    id: slag heap
+    look: Eyebeamed to death by a beholder. And right as he was about to crack the Keynesian foundations of 1970s Korean shipbuilding.
+    take:
+      cannotTakeMessage: Not with your bare hands! The man had tenure!
+  - name: ID card
+    id: id card
+    look: It belonged to the keynote speaker. He looks younger in the photo, and also more like a human than a smoldering colloidal goo.
+    take: true
+  paths:
+    East: Lounge
+- name: Lounge
+  paths:
+    West: Auditorium
+  description: This used to be a place for attendees to unwind. After today, will they ever unwind again?
+  items:
+    - name: Sno-cone salesman
+      id: salesman
+      description: He dispenses shaved ice into hard plastic cones with the cold efficiency of a hardened professional.
+      take:
+        cannotTakeMessage: His time is currently spoken for.
+      
