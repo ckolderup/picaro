@@ -1,0 +1,113 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	background: #f3efe7;
+	color: #333;
+	font-family: Palatino, Georgia, Times, sans-serif;
+	font-size: 14px;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+}
+    a:hover {
+        opacity: .7;
+    }
+
+#header {
+    background: #333;
+    padding: 15px 30px;
+    color: #fff;
+    overflow: hidden;
+}    
+    #header a {
+        color: #fff;
+    }
+    #header #header-logo {
+        border-bottom: 1px solid #484848;
+        margin: 0 -30px 15px;
+        padding: 0 30px;
+    }
+        #header #header-logo h1 {
+            font-size: 12px;
+            margin-bottom: -6px;
+        }
+            #header #header-logo a {
+                background: #333;
+                color: #808080;
+                padding: 0 5px;
+                margin-left: -5px;
+                text-transform: uppercase;
+                font-weight: bold;
+                letter-spacing: 2px;
+            }
+    #header #header-left {
+        float: left;
+    }
+        #header #header-left li {
+            display: inline;
+            font-size: 18px;
+            margin-right: .5em;
+        }
+    #header #header-right {
+        float: right;
+        color: #ccc;
+    }
+        #header #header-right li {
+            display: inline;
+            margin-left: .75em;
+            font-style: italic;
+        }
+
+#notices {
+    background: #f7f7f2;
+    padding: 15px 30px;
+    box-shadow: 0 4px 0 rgba(0,0,0,.1);
+}
+    #notices:empty {
+        padding: 0;
+        box-shadow: none;
+    }
+
+#content {
+    padding: 30px;
+}
