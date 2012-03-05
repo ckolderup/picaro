@@ -31,22 +31,18 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         switch (direction) {
           case "North":
           case "N":
-            roomDiv.addClass('path-north');
             _results.push(this.drawRoom(destination, x, y - positionOffset));
             break;
           case "South":
           case "S":
-            roomDiv.addClass('path-south');
             _results.push(this.drawRoom(destination, x, y + positionOffset));
             break;
           case "East":
           case "E":
-            roomDiv.addClass('path-east');
             _results.push(this.drawRoom(destination, x + positionOffset, y));
             break;
           case "West":
           case "W":
-            roomDiv.addClass('path-west');
             _results.push(this.drawRoom(destination, x - positionOffset, y));
             break;
           default:
@@ -80,7 +76,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
             return Editor.resetGameData(jsGameObject);
           }
         } catch (error) {
-          return console.log("Game Not so Good at this Point", error);
+          return console.log("Game not parsing so good at this point:", error);
         }
       }
     });
