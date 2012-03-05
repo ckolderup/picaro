@@ -3,8 +3,13 @@ get '/' do
 end
 
 get '/play/:game_id' do
-  if File.exist?(Picaro.public_folder + '/game_data/' + params[:game_id].to_s + '.json')
-    @game_id = params[:game_id]
-  end
+  @game_id = params[:game_id]
   erb :play
+end
+
+get '/games/:game_id' do
+  if data = game_data(params[:game_id])
+    yaml = YAML.load data
+    yaml.to_json
+  end
 end

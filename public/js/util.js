@@ -1,49 +1,56 @@
+
 define(["jquery"], function($) {
-  util = {}
-
-  util.toArrayToSentence = function(array, separator, lastSeparator) {
-    separator || (separator = ', ');
-    lastSeparator || (lastSeparator = ' and ');
-    var length = array.length, string = '';
-
-    for (var i = 0; i < length; i++) {
-      var firstLetter = array[i][0];
-      if (firstLetter.toUpperCase() === firstLetter) {
-        var vowels = ['A','E','I','O','U']
-        // if it starts with a vowel, prend "an", otherwise "a". TODO: handle plurals here (i.e. "some")
-        $.inArray(firstLetter, vowels) > 0 ? string += "an " : string += "a ";
-      }
-
-      string += array[i];
-      firstLetter = array[i][0]
-
-      if (i === (length - 2)) { string += lastSeparator; }
-      else if (i < (length - 1)) { string += separator; }
-    }
-
-    return string + ".";
-  }
-
-  util.arrayEquality = function(a,b){
-    if(a.length == b.length)
-    {
-      for(var i = 0; i < a.length;i++)
-      {
-        if(typeof a[i] == 'object') {
-          if(!Equals(a[i],b[i]))
-            return false;
+  return {
+    arrayToSentence: function(array, separator, lastSeparator) {
+      var firstLetter, i, length, string, vowels;
+      separator || (separator = ", ");
+      lastSeparator || (lastSeparator = " and ");
+      length = array.length;
+      string = "";
+      i = 0;
+      while (i < length) {
+        firstLetter = array[i][0];
+        if (firstLetter.toUpperCase() === firstLetter) {
+          vowels = ["A", "E", "I", "O", "U"];
+          if ($.inArray(firstLetter, vowels) > 0) {
+            string += "an ";
+          } else {
+            string += "a ";
+          }
         }
-        else if(a[i] != b[i])
-          return false;
+        string += array[i];
+        firstLetter = array[i][0];
+        if (i === (length - 2)) {
+          string += lastSeparator;
+        } else {
+          if (i < (length - 1)) string += separator;
+        }
+        i++;
       }
-      return true;
+      return string + ".";
+    },
+    arrayEquality: function(a, b) {
+      var i;
+      if (a.length === b.length) {
+        i = 0;
+        while (i < a.length) {
+          if (typeof a[i] === "object") {
+            if (!Equals(a[i], b[i])) return false;
+          } else {
+            if (a[i] !== b[i]) return false;
+          }
+          i++;
+        }
+        return true;
+      } else {
+        return false;
+      }
+    },
+    actionId: function(item, action) {
+      return action + "-" + item.id;
+    },
+    splitActionId: function(domNode) {
+      return $(domNode).data("action-id").split("-");
     }
-    else return false;
-  }
-
-  util.actionId = function(item, action) {
-    return action + '-' + item.id;
-  }
-
-  return util;
+  };
 });

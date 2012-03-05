@@ -1,213 +1,203 @@
-define(["jquery", 'item', 'room', 'inventory', 'vendor/underscore'], function($, Item, Room, Inventory) {
-  var itemTriggers = [];
 
-  var UI = {
+define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscore"], function($, util, Item, Room, Inventory, Talk) {
+  var UI, itemTriggers;
+  itemTriggers = [];
+  UI = {
     updateStatus: function(message) {
-      $(document).trigger("updateStatus", message)
+      return $(document).trigger("updateStatus", message);
     },
-
     resetForNewRoom: function(room, roomItems) {
+      var itemNames, message;
       this.resetMenus();
-      var itemNames = _.pluck(roomItems, "name")
-      var message = ""
+      itemNames = _.pluck(roomItems, "name");
+      message = "";
       if (room.description) {
-        message += room.description
-        message += "\n"
+        message += room.description;
+        message += "\n";
       }
-      this.updateStatus(message + "You see " + util.toArrayToSentence(itemNames))
+      return this.updateStatus(message + "You see " + util.arrayToSentence(itemNames));
     },
-
     resetMenus: function() {
-      var roomItems = Item.findByRoom(Room.current)
-      $('.ui-action ul').empty()
-
+      var roomItems;
+      roomItems = Item.findByRoom(Room.current);
+      if (Item.allById.self) roomItems.push(Item.allById.self);
+      $(".ui-action ul").empty();
       _.each(Inventory.list(), function(item) {
-        $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + " <small> (held) </small></a></li>");
-        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + " <small> (held) </small></a></li>");
-      })
-
+        $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>");
+        return $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + " <small> (held) </small></a></li>");
+      });
       _.each(_.difference(roomItems, Inventory.list()), function(item) {
-        $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
-        $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id +"' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + "</a></li>");
-        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
-      })
-
-      for (var i in roomItems) {
-        var item = roomItems[i];
-
-        if(item.talk) {
-          $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+        $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + "</a></li>");
+        $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id + "' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + "</a></li>");
+        return $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "look") + "'>" + item.name + "</a></li>");
+      });
+      return _.each(roomItems, function(item) {
+        if (item.talk) {
+          $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "talk") + "'>" + item.name + "</a></li>");
         }
-
-        if(item.attack) {
-          $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
+        if (item.attack) {
+          return $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "attack") + "'>" + item.name + "</a></li>");
         }
-      }
+      });
     },
-
     newStatusMessage: function(message) {
+      var n;
       $("p.new:first ").removeClass("new").addClass("old");
-      var n = $("p.old").length;
-      if (n > 5) {
-        $("p.old:first").remove();
-      }
-      $("#game").append("<p class='new'>" + message + "</p>");
+      n = $("p.old").length;
+      if (n > 5) $("p.old:first").remove();
+      return $("#game").append("<p class='new'>" + message + "</p>");
     },
-
     changeRoom: function(e, roomData) {
-      var room = roomData.room, items = roomData.items
-
+      var items, room;
+      room = roomData.room;
+      items = roomData.items;
+      Room.current = room;
       UI.resetForNewRoom(room, items);
       $("#header h2").html(room.name);
       $("#move-preview .ul-modal-inner").html(room.name);
-      $(document).trigger('roomReady', room)
+      return $(document).trigger("roomReady", room);
     },
-
+    beginTalk: function(event, item) {
+      $('#action-talk-character h3').html(item.name);
+      return $('#action-talk-character').show();
+    },
     itemTaken: function(e, item) {
       $(document).trigger("updateStatus", "You take the " + item.name + ".");
-
-      $("#action-take a[data-action-id='" + util.actionId(item, 'take') + "']" ).remove();
-      $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']" ).append($("<small> (held) </small>"));
-      $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']" ).append($("<small> (held) </small>"));
-      $('#action-use').trigger('closeMenu')
+      $("#action-take a[data-action-id='" + util.actionId(item, "take") + "']").remove();
+      $("#action-use  a[data-action-id='" + util.actionId(item, "use") + "']").append($("<small> (held) </small>"));
+      $("#action-look a[data-action-id='" + util.actionId(item, "look") + "']").append($("<small> (held) </small>"));
+      return $("#action-use").trigger("closeMenu");
     },
-
-    renderUseMenu: function(inventoryItems, roomItems) {
-      $('.ui-action ul').empty()
-
-      _.each(inventoryItems, function(item) {
-        $("#action-use ul").append("<li><a href='#' class='item data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + " <small> (held) </small></a></li>");
-        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + " <small> (held) </small></a></li>");
-      })
-
-      _.each(_.difference(roomItems, inventoryItems), function(item) {
-        $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'take') + "'>" + item.name + "</a></li>");
-        $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id +"' data-action-id='" + util.actionId(item, 'use') + "'>" + item.name + "</a></li>");
-        $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, 'look') + "'>" + item.name + "</a></li>");
-      })
+    hideCompass: function() {
+      return $("#move").fadeOut('fast');
     },
-
-    init: function() {
-      var oldMenus = _(["look", "take", "talk", "attack"])
-
+    init: function(gameName) {
+      var itemAction, oldMenus;
+      $("title").html(gameName);
+      oldMenus = _(["look", "take", "attack"]);
       oldMenus.each(function(action) {
-      var menuSelector = "#action-" + action
-      $("#footer-" + action + " a").click(function() {
-        $(menuSelector).fadeIn("fast");
-        return false;
+        var menuSelector;
+        menuSelector = "#action-" + action;
+        $("#footer-" + action + " a").click(function() {
+          $(menuSelector).fadeIn("fast");
+          return false;
+        });
+        $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
+          $(".active").removeClass("active");
+          $(this).fadeOut("fast");
+          return $(".ui-action, .ui-overlay, #move").fadeOut("fast");
+        });
+        return $(menuSelector + " ul li a").live("click", function(event) {
+          var actionAndId;
+          actionAndId = util.splitActionId(this);
+          $(this).trigger("closeMenu");
+          return itemAction(actionAndId[0], actionAndId[1], event);
+        });
       });
-
-      $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
-        $(".active").removeClass("active");
-        $(this).fadeOut("fast");
-        $(".ui-action, .ui-overlay, #move").fadeOut("fast");
-      })
-
-      $(menuSelector + " ul li a").live('click', function(event) { //set off user-triggered item/action events
-        var actionAndId = $(this) .data('action-id').split('-')
-        $(".ui-overlay, .ui-action").fadeOut();
-        $(".active").removeClass("active");
-        itemAction(actionAndId[0], actionAndId[1], event);
-        })
-      })
-
       $("#header-move, #move").click(function() {
         $("#move").fadeToggle("fast");
         $(".ui-overlay").fadeToggle("fast");
         return false;
       });
-
       $("#move-compass li").mouseover(function() {
-       if(!$(this).hasClass("disabled")) {
-         var preview = $(this).children("a").attr("href");
-         $("#move-preview .ui-modal-inner").html(preview);
-         $("#move-preview").fadeIn("fast");
-       }
-       return false;
+        var preview;
+        if (!$(this).hasClass("disabled")) {
+          preview = $(this).children("a").attr("href");
+          $("#move-preview .ui-modal-inner").html(preview);
+          $("#move-preview").fadeIn("fast");
+        }
+        return false;
       });
-
       $("#move-compass li:not(.disabled) a").mouseout(function() {
         $("#move-preview").fadeOut("fast");
         return false;
       });
-
-      //begin item/action function
-
-      var itemAction = function(action, item, event) {
-        var item = Item.allById[item]
-
-        if(action === "look") {
-          $(document).trigger("actionLook", item)
-        }
-
-        if(action === "take") {
-          $(document).trigger("actionTake", item)
-        }
-
-        if(action === "talk") {
-          $(document).trigger("actionTalk", item)
-        }
-
-        if(action === "attack") {
-          $(document).trigger("actionAttack", item)
-        }
-
-        if(action === "use") {
+      return itemAction = function(action, item, event) {
+        item = Item.allById[item];
+        if (action === "look") $(document).trigger("actionLook", item);
+        if (action === "take") $(document).trigger("actionTake", item);
+        if (action === "attack") $(document).trigger("actionAttack", item);
+        if (action === "use") {
           event.stopPropagation();
-          return false
+          return false;
         }
-      }
+      };
     }
-  }
-
-  // Click event binding
-
+  };
   $("#footer ul li a").click(function() {
     $(".ui-overlay").fadeIn("fast");
     $(".ui-action").fadeOut("fast");
     $(".active").removeClass("active");
     $("#footer").addClass("active");
-    $(this).parent().addClass("active");
-  })
-
-  // compass-controlling
+    return $(this).parent().addClass("active");
+  });
+  $(".ui-overlay").click(function() {
+    return $(".ui-action, .ui-overlay, #move").fadeOut("fast");
+  });
   $("a.path:not(.disabled)").click(function() {
-    // FIXME: the UI should not be gathering this room data
-    var room = Room.findByName($(this).attr('href'))
-    var roomData = {
+    var room, roomData;
+    room = Room.findByName($(this).attr("href"));
+    roomData = {
       room: room,
       items: Item.findByRoom(room)
-    }
-    $(document).trigger("changeRoom", roomData)
-  })
-
-  $('#footer-use').click(function() {
-    $('#action-use').trigger('openMenu')
+    };
+    return $(document).trigger("changeRoom", roomData);
   });
-
-  $('#action-use li a').live('click', function() {
-    itemTriggers.push($(this).data('item-id'))
-    if (itemTriggers.length == 1) {
-      $(this).addClass('active')
-    } else if (itemTriggers.length == 2) {
-      Item.use(itemTriggers[0], itemTriggers[1])
-      itemTriggers = [];
+  $("#action-use li a").live("click", function() {
+    itemTriggers.push(util.splitActionId(this)[1]);
+    if (itemTriggers.length === 1) {
+      return $(this).addClass("active");
+    } else if (itemTriggers.length === 2) {
+      $(this).trigger("closeMenu");
+      $(document).trigger("actionUse", itemTriggers);
+      return itemTriggers = [];
     }
-  })
-
-  $('.ui-action').bind('openMenu', function(e, i) {
+  });
+  $("#footer-use").click(function() {
+    return $("#action-use").trigger("openMenu");
+  });
+  $("#footer-talk").click(function() {
+    return $("#action-talk").trigger("openMenu");
+  });
+  $("#action-talk li a.item").live("click", function() {
+    var itemId;
+    itemId = util.splitActionId(this)[1];
+    return $(this).trigger("actionTalk", itemId);
+  });
+  $(document).bind("askQuestion", function(e, question) {
+    $("#action-talk-character-message").html(question.message);
+    $('#action-talk-player ul').empty();
+    return _.each(question.responses, function(response, index) {
+      return $("#action-talk-player ul").append($("<li><a class='talkResponse' data-response-id='" + index + "' href='#'>" + response.message + "</a></li>"));
+    });
+  });
+  $('#action-talk-player a.talkResponse').live('click', event, function() {
+    Talk.answerQuestion($(this).data("response-id"));
+    return event.stopPropagation();
+  });
+  $(document).bind("updateCharacterDialog", function(event, dialog) {
+    var message;
+    message = typeof dialog === "string" ? dialog : dialog.message;
+    return $("#action-talk-character-message").html(message);
+  });
+  $(document).bind("endTalk", function() {
+    $("#action-talk-player").hide();
+    return $(document).trigger("resetMenus");
+  });
+  $(".ui-action").bind("openMenu", function(e, i) {
     $(".ui-overlay").fadeIn("fast");
-    $(this).fadeIn("fast").addClass('active');
-  })
-
-  $('.ui-action').bind('closeMenu', function(e, i) {
-    $(this).fadeOut("fast").removeClass('active');
-    $(".ui-overlay").fadeOut("fast");
-  })
-
-  $(document).bind('resetMenus', UI.resetMenus)
-  $(document).bind('itemTaken', UI.itemTaken)
-  $(document).bind('changeRoom', UI.changeRoom)
-
+    return $(this).fadeIn("fast").addClass("active");
+  });
+  $(".ui-action").bind("closeMenu", function() {
+    $(this).fadeOut("fast").removeClass("active");
+    return $(".ui-overlay").fadeOut("fast");
+  });
+  $(document).bind("updateStatus", function(event, message) {
+    return UI.newStatusMessage(message);
+  });
+  $(document).bind("beginTalk", UI.beginTalk);
+  $(document).bind("resetMenus", UI.resetMenus);
+  $(document).bind("itemTaken", UI.itemTaken);
+  $(document).bind("changeRoom", UI.changeRoom);
   return UI;
 });

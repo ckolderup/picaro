@@ -59,6 +59,10 @@
     color: #222;
   }
 
+  span {
+    color: #222;
+  }
+
 /*------
  Layout
 ------*/
@@ -195,7 +199,7 @@
         #footer ul li {
           display: inline;
         }
-          #footer ul li a {
+          #footer ul li a, #footer ul li span {
             width: 64px;
             height: 16px;
             display: inline-block;
@@ -367,6 +371,7 @@
 
   #action-talk .ui-action-sheet {}
     #action-talk-character {
+      display: none;
       bottom: 240px;
       width: 250px;
     }
@@ -532,7 +537,7 @@
       .ui-scroller ul {
         position: static;
       }
-        .ui-scroller ul li a {
+        .ui-scroller ul li a, .ui-scroller ul li span  {
           padding: 7.75px;
           display: block;
         }

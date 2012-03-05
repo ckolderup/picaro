@@ -1,0 +1,35 @@
+<!DOCTYPE html>  <html> <head>   <title>talk.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="action_guard.html">                 action_guard.coffee               </a>                                           <a class="source" href="game_event.html">                 game_event.coffee               </a>                                           <a class="source" href="inventory.html">                 inventory.coffee               </a>                                           <a class="source" href="item.html">                 item.coffee               </a>                                           <a class="source" href="picaro.html">                 picaro.coffee               </a>                                           <a class="source" href="room.html">                 room.coffee               </a>                                           <a class="source" href="talk.html">                 talk.coffee               </a>                                           <a class="source" href="ui.html">                 ui.coffee               </a>                                           <a class="source" href="util.html">                 util.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               talk.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span> <span class="s2">&quot;jquery&quot;</span><span class="p">,</span> <span class="s2">&quot;vendor/underscore&quot;</span> <span class="p">],</span> <span class="nf">($) -&gt;</span>
+  <span class="nv">Talk = </span><span class="p">{}</span>
+
+  <span class="nv">Talk.currentConversation = </span><span class="p">{}</span>
+
+  <span class="nv">Talk.prompt = </span><span class="nf">(question) -&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;askQuestion&quot;</span><span class="p">,</span> <span class="nx">question</span>
+
+  <span class="nv">Talk.askQuestions = </span><span class="nf">(node) -&gt;</span>
+    <span class="nv">Talk.currentConversation = </span><span class="nx">node</span><span class="p">.</span><span class="nx">children</span>
+    <span class="nx">Talk</span><span class="p">.</span><span class="nx">prompt</span> <span class="nv">message: </span><span class="nx">node</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="nv">responses: </span><span class="nx">node</span><span class="p">.</span><span class="nx">children</span>
+
+  <span class="nv">Talk.answerQuestion = </span><span class="nf">(answerIndex) -&gt;</span>
+    <span class="nv">choice = </span><span class="nx">Talk</span><span class="p">.</span><span class="nx">currentConversation</span><span class="p">[</span><span class="nx">answerIndex</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">choice</span><span class="p">)</span>
+      <span class="nv">whatsNext = </span><span class="nx">choice</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nx">whatsNext</span> <span class="o">and</span> <span class="nx">whatsNext</span><span class="p">.</span><span class="nx">children</span> <span class="o">and</span> <span class="nx">whatsNext</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span>
+        <span class="nx">Talk</span><span class="p">.</span><span class="nx">askQuestions</span> <span class="nx">whatsNext</span>
+      <span class="k">else</span>
+        <span class="nx">Talk</span><span class="p">.</span><span class="nx">over</span> <span class="nx">whatsNext</span>
+    <span class="k">else</span>
+      <span class="nx">Talk</span><span class="p">.</span><span class="nx">over</span> <span class="nv">message: </span><span class="s2">&quot;... that was not an option&quot;</span>
+
+  <span class="nv">Talk.over = </span><span class="nf">(lastNode) -&gt;</span>
+    <span class="nv">message = </span><span class="k">if</span> <span class="nx">lastNode</span> <span class="k">then</span> <span class="nx">lastNode</span><span class="p">.</span><span class="nx">message</span> <span class="k">else</span> <span class="s2">&quot;&lt;i&gt;The Converstation drifts into silence.&lt;/i&gt;&quot;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;updateCharacterDialog&quot;</span><span class="p">,</span> <span class="nx">message</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;endTalk&quot;</span>
+    <span class="nv">Talk.currentConversation = </span><span class="p">{}</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">bind</span> <span class="s1">&#39;beginTalk&#39;</span><span class="p">,</span> <span class="nf">(event, item) -&gt;</span>
+    <span class="nx">Talk</span><span class="p">.</span><span class="nx">askQuestions</span> <span class="nx">item</span><span class="p">.</span><span class="nx">talk</span>
+
+  <span class="nx">Talk</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

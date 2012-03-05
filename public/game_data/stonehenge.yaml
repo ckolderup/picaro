@@ -1,0 +1,72 @@
+--- 
+gameName: Stonehenge Rising
+gameDescription: A V1 Picaro Test-Game, in which an item is used to get another item, which, when used with a third item after the first item has been dropped, wins the game.
+version: "1"
+
+events: 
+- id: takeLeafWithRake
+  type: takeItem
+  item: leaf
+  message: You're able to catch the leaf on one of the rake's rusty tines and bring it on down.
+- id: winGameViaLeafBubbleage
+  type: instantVictory
+  message: The cauldron bubbles violently. The resulting potion cures scabies.
+- id: dropRakeOnTree
+  type: dropItem
+  item: rake
+  message: You lean the rake up against the tree.
+
+actionGuards: 
+- id: notUnlessYouHoldTheRakeYouDont
+  type: itemInInventory
+  item: rake
+  failMessage: You can't quite get it.  If only you were holding something that extended your reach...
+  successMessage: You reach the rake up and grab the leaf, almost without thinking.
+- id: stonehengeHatesRakes
+  type: itemNotInInventory
+  item: rake
+  failMessage: Stonehenge bristles at your temerity, to wield a metal object in its presence.
+  successMessage: You place the leaf into the cauldron, and after a slow boil and some ritual mutterings.
+  
+rooms: 
+- starter: true
+  name: The Tree
+  paths: 
+    North: Stonehenge
+  description: You stand at the base of a tree. Its leaves are prized for their medicinal qualities.
+  items: 
+  - name: Rake
+    id: rake
+    look: 
+    - The rake is a bit rusty.
+    take: true
+  - name: Leaf
+    id: leaf
+    look: 
+    - It seems rather far away.
+    take: 
+      cannotTakeMessage: You're not tall enough.
+    use: 
+      rake: 
+        after: takeLeafWithRake
+  - name: Tree
+    id: tree
+    look: 
+    - Looks like one of those trees that might secretly be a forest spirit / grandmother figure.
+    use: 
+      rake: 
+        after: dropRakeOnTree
+- name: Stonehenge
+  paths: 
+    South: The Tree
+  description: Ancient power fills the air. The stone formation encircles a bubbling cauldron.
+  items: 
+  - name: Cauldron
+    id: cauldron
+    look: 
+    - Druidic runes glimmer over its surface.
+    take: false
+    use: 
+      leaf: 
+        actionGuard: stonehengeHatesRakes
+        after: winGameViaLeafBubbleage

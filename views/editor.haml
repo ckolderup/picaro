@@ -1,0 +1,13 @@
+%div{:class=> 'hero-unit'}
+  %img{:src => 'images/compass.png'}
+
+  %h2
+
+  %p
+
+%div{:id => 'editor-content', :class => 'row'}
+  %div{:id => 'code-container', :class => 'span6'}
+    %textarea{:id => "code", :name => "code"}= game_yaml
+
+  %div{:id => 'game-visuals-container', :class => 'span6'}
+    %div{:class => 'rooms'}

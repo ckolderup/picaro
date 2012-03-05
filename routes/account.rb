@@ -8,10 +8,11 @@ def current_user
   return User.first :id => session[:u_id]
 end
 
-def force_login
+def force_login(option={})
+  nextpage = CGI.escape(option[:next] || '/account')
   unless logged_in?
     flash[:error] = "You must be logged in to do that."
-    redirect "/login?next=#{CGI.escape('/account')}", 303
+    redirect "/login?next=#{nextpage}", 303
   end
 end
 
@@ -72,7 +73,7 @@ end
 
 post '/account' do
   force_login
-  flash[:notice] = "Account updated!" unless create_update(current_user, params).nil?
+  flash[:notice] = "Account updated!" unless create_update_user(current_user, params).nil?
   redirect '/account', 303
 end
 
@@ -87,7 +88,7 @@ end
 
 post '/signup' do
   u = User.new
-  create_update(u, params)
+  create_update_user(u, params)
   session[:u_id] = u.id
   redirect '/account', 303
 end

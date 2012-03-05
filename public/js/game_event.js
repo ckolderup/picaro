@@ -1,45 +1,60 @@
+
 define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($, Item, Inventory, Room) {
-  var GameEvent = {
+  var GameEvent;
+  GameEvent = {
+    init: function(events) {
+      var event, _i, _len, _results;
+      if (events) {
+        _results = [];
+        for (_i = 0, _len = events.length; _i < _len; _i++) {
+          event = events[_i];
+          _results.push(this.allById[event.id] = event);
+        }
+        return _results;
+      }
+    },
     allById: {},
-
-    takeItem : function(gameEvent) {
-      $(document).trigger("updateStatus", gameEvent.message);
-      $(document).trigger("immediateTake", gameEvent)
+    updateStatus: function(gameEvent) {},
+    takeItem: function(gameEvent) {
+      return $(document).trigger("immediateTake", gameEvent);
     },
-
-    instantVictory: function(gameEvent) {
-      $(document).trigger("updateStatus", gameEvent.message);
+    dropItem: function(gameEvent) {
+      Inventory.remove(gameEvent.item);
+      gameEvent.item.location = Room.current.name;
+      return $(document).trigger("resetMenus");
     },
-
+    removeItem: function(gameEvent) {
+      Inventory.remove(gameEvent.item);
+      Item.allById[gameEvent.item].location = void 0;
+      return $(document).trigger("resetMenus");
+    },
+    updateAttribute: function(gameEvent) {
+      Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue;
+      return $(document).trigger("resetMenus");
+    },
+    instantVictory: function(gameEvent) {},
     replaceItems: function(gameEvent) {
-      var newItem = gameEvent.newItem
-      var oldItemsWereInInventory
-
-      _(gameEvent.items).each(function(item, index) {
-        if (Inventory.remove(item)) {
-          oldItemsWereInInventory = true
-        }
-
-        if (Item.allById[item]) {
-          delete Item.allById[item]
-        }
-      })
-
-      // ugh, this sucks. the event system shouldn't be managing items in rooms & inventory like this
-      newItem.location = Room.current.name
-      Item.allById[newItem.id] = newItem
+      var newItem, oldItemsWereInInventory;
+      oldItemsWereInInventory = false;
+      _(gameEvent.items).each(function(itemId, index) {
+        if (Inventory.remove(itemId)) oldItemsWereInInventory = true;
+        if (Item.allById[itemId]) return delete Item.allById[itemId];
+      });
+      newItem = gameEvent.newItem;
+      newItem.location = Room.current.name;
+      Item.allById[newItem.id] = newItem;
       if (oldItemsWereInInventory) Inventory.add(newItem);
-      $(document).trigger('resetMenus')
+      return $(document).trigger("resetMenus");
     }
-  }
-
-  // Event binding
-  $(document).bind('gameEvent', function(e, using) {
-    var afterEvent = GameEvent.allById[using['after']];
-    if (afterEvent) {
-      GameEvent[afterEvent.type](afterEvent)
+  };
+  $(document).bind("gameEvent", function(e, action) {
+    var afterEvent;
+    if (afterEvent = GameEvent.allById[action["after"]]) {
+      if (afterEvent.message) {
+        $(document).trigger("updateStatus", afterEvent.message);
+      }
+      return GameEvent[afterEvent.type](afterEvent);
     }
-  })
-
-  return GameEvent
-})
+  });
+  return GameEvent;
+});

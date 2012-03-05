@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../acceptance_helper'
 
 describe "Playing Picaro/leaf" do
 
-  before { play '/leaf'}
+  before { play 'leaf'}
 
   let(:look)      { find('#footer-look a') }
   let(:use)       { find('#footer-use a') }
