@@ -1,0 +1,10 @@
+---
+gameName: Terror at the Economics Conference
+gameDescription: Where networking... becomes netdying.
+version: "1"
+rooms:
+    - starter: true
+      name: Auditorium
+      items:
+          - name: slag heap
+            id: slag heap
