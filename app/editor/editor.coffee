@@ -9,9 +9,10 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       roomDiv = $("<div data-room-id='#{room.name}' data-content='#{_.escape(room.description)}' class='room'><h4>#{room.name} </h3></div>")
       roomDiv.append '&#9823;' if room.starter
       roomDiv.popover placement: 'left', title: roomName, animation: false
-      itemDots = ''
-      itemDots += "&#9817;" for item in room.items
-      roomDiv.append itemDots
+      if room.items
+        itemDots = ''
+        itemDots += "&#9817;" for item in room.items
+        roomDiv.append itemDots
 
       roomDiv.css("left", x).css('top', y)
       $(".rooms").append roomDiv 
@@ -35,7 +36,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
 
       $("#roomNum").html game.rooms.length
       $(".rooms").empty()
-      @drawRoom Room.starter().name, 120, 180
+      @drawRoom Room.starter().name, 300, 550
 
   $ ->
     myCodeMirror = CodeMirror.fromTextArea document.getElementById("code"),

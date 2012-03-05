@@ -15,13 +15,15 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         title: roomName,
         animation: false
       });
-      itemDots = '';
-      _ref = room.items;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        item = _ref[_i];
-        itemDots += "&#9817;";
+      if (room.items) {
+        itemDots = '';
+        _ref = room.items;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          item = _ref[_i];
+          itemDots += "&#9817;";
+        }
+        roomDiv.append(itemDots);
       }
-      roomDiv.append(itemDots);
       roomDiv.css("left", x).css('top', y);
       $(".rooms").append(roomDiv);
       _ref2 = room.paths;
@@ -59,7 +61,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       $('.hero-unit p').html(game.gameDescription);
       $("#roomNum").html(game.rooms.length);
       $(".rooms").empty();
-      return this.drawRoom(Room.starter().name, 120, 180);
+      return this.drawRoom(Room.starter().name, 300, 550);
     }
   };
   $(function() {
