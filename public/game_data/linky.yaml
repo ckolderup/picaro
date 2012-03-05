@@ -16,7 +16,6 @@ rooms:
     W: The Entryway
   items:
     - key
-
 - name: The Skeleton Lair
   paths:
     E: The Entryway
@@ -74,4 +73,5 @@ rooms:
 
 - name: Boomerang Zone
   paths: 
-
+    S: Compass Room
+    W: Map Room
