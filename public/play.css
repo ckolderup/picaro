@@ -137,7 +137,7 @@
     }
       @media screen and (min-width: 620px) {
         #game {
-          height: 600px;
+          height: 500px;
         }
       }
       #game p {
@@ -165,14 +165,15 @@
           padding-top: .5em;
           border-top: 2px solid rgba(255,255,255,.5);
         }
-      #game p.negative {
-        font-style: italic;
-        color: darkred;
+      #game p.end {  
+          padding-top: .5em;
+          border-bottom: 2px dotted rgba(0, 0, 0, .1);
+          font-style: italic;
       }
-      #game p.positive {
-        font-style: italic;
-        color: darkgreen;
-      }
+        #game p.end a {
+            font-weight: bold;
+            border-bottom: 1px solid #aaa;
+        }
 
   /* Footer */
 
