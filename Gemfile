@@ -17,6 +17,7 @@ group :development do
   gem 'guard'
   gem 'guard-coffeescript'
   gem "tux"
+  gem "heroku"
 end
 
 group :test do
