@@ -14,12 +14,12 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
     look: function(item) {
       var action;
       action = item.look;
-      if (action instanceof Array) {
+      if (typeof action === "string") {
+        return $(document).trigger("updateStatus", action);
+      } else if (action instanceof Array) {
         item.lookNum || (item.lookNum = 0);
         $(document).trigger("updateStatus", action[item.lookNum]);
         if (action.length > (item.lookNum + 1)) return item.lookNum += 1;
-      } else if (action instanceof String) {
-        return $(document).trigger("updateStatus", action);
       } else {
         $(document).trigger("updateStatus", action.message);
         if (action.after) return $(document).trigger("gameEvent", action);

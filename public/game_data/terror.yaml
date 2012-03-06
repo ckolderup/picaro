@@ -49,7 +49,8 @@ rooms:
   items:
     - name: Sno-cone salesman
       id: salesman
-      description: He dispenses shaved ice into hard plastic cones with the cold efficiency of a hardened professional.
+      look: 
+        - He dispenses shaved ice into hard plastic cones with the cold efficiency of a hardened professional.
       take:
         cannotTakeMessage: His time is currently spoken for.
 # Experimental talk section
