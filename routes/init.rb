@@ -1,6 +1,8 @@
 class Picaro < Sinatra::Application
   enable :sessions
 
+  require 'yaml'
+
   require_relative 'main'
   require_relative 'account'
   require_relative 'find'
