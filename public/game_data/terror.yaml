@@ -26,66 +26,67 @@ events:
   attribute: look
   item: slagHeap
   newValue: He looks cozy in there.
+
 rooms:
-- starter: true
-  name: Auditorium
-  description: Panic fills the air instead of ideas. What's left of the Keynote Speaker rests in a shimmering puddle. 
-  items:
-  - name: slag heap
-    id: slagHeap
-    look: Eyebeamed to death by a beholder. And right as he was about to crack the Keynesian foundations of 1970s Korean shipbuilding.
-    take:
-      cannotTakeMessage: Not with your bare hands! The man had tenure!
-#  - name: ID card
-#    id: id card
-#    look: It belonged to the keynote speaker. He looks younger in the photo, and also more like a human than a smoldering colloidal goo.
-#    take: true
-  paths:
-    East: Lounge
-- name: Lounge
-  paths:
-    West: Auditorium
-  description: This used to be a place for attendees to unwind. After today, will they ever unwind again?
-  items:
-    - name: Sno-cone salesman
-      id: salesman
-      look: 
-        - He dispenses shaved ice into hard plastic cones with the cold efficiency of a hardened professional.
+  Auditorium:
+    starter: true
+    description: Panic fills the air instead of ideas. What's left of the Keynote Speaker rests in a shimmering puddle.
+    items:
+    - name: slag heap
+      id: slagHeap
+      look: Eyebeamed to death by a beholder. And right as he was about to crack the Keynesian foundations of 1970s Korean shipbuilding.
       take:
-        cannotTakeMessage: His time is currently spoken for.
-# Experimental talk section
-      talk:
-      - starter: true
-        id: node0
-        prompt: What do you want?
-        responses:
-        - text: "I'd like a snocone."
-          destination: node1
-        - text: "How about the phone number for a beholder hunter?"
-          destination: node2
-      - id: node1
-        prompt: Here you go, friend.
-        after: giveSnocone
-      - id: node2
-        prompt: Last beholder hunter left town years ago.
-- name: Closet
-  virtual: true
-  items:
-  - name: snocone
-    id: snocone
-    look: It's the expected combination of deep blue color and curbside-quality slush.
-    use:
-      self:
-        after:
-        - eatSnocone
-        - destroySnocone
-  - name: plasticCone
-    id: plasticCone
-    look: As sturdy as the constitution of the sweatshop worker who extruded it.
-    use:
-      slagHeap:
-        after: 
-        - scoopSpeaker
-        - updateSpeakerCone
-        - destroyPlasticCone
-         
+        cannotTakeMessage: Not with your bare hands! The man had tenure!
+  #  - name: ID card
+  #    id: id card
+  #    look: It belonged to the keynote speaker. He looks younger in the photo, and also more like a human than a smoldering colloidal goo.
+  #    take: true
+    paths:
+      East: Lounge
+  Lounge:
+    paths:
+      West: Auditorium
+    description: This used to be a place for attendees to unwind. After today, will they ever unwind again?
+    items:
+      - name: Sno-cone salesman
+        id: salesman
+        look:
+          - He dispenses shaved ice into hard plastic cones with the cold efficiency of a hardened professional.
+        take:
+          cannotTakeMessage: His time is currently spoken for.
+  # Experimental talk section
+        talk:
+        - starter: true
+          id: node0
+          prompt: What do you want?
+          responses:
+          - text: "I'd like a snocone."
+            destination: node1
+          - text: "How about the phone number for a beholder hunter?"
+            destination: node2
+        - id: node1
+          prompt: Here you go, friend.
+          after: giveSnocone
+        - id: node2
+          prompt: Last beholder hunter left town years ago.
+  Closet:
+    virtual: true
+    items:
+    - name: snocone
+      id: snocone
+      look: It's the expected combination of deep blue color and curbside-quality slush.
+      use:
+        self:
+          after:
+          - eatSnocone
+          - destroySnocone
+    - name: plasticCone
+      id: plasticCone
+      look: As sturdy as the constitution of the sweatshop worker who extruded it.
+      use:
+        slagHeap:
+          after:
+          - scoopSpeaker
+          - updateSpeakerCone
+          - destroyPlasticCone
+

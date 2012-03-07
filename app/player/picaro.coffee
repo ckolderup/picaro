@@ -14,9 +14,11 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
       dataType: "json"
       async: false
       success: (data) ->
-        for room in data.rooms
+        for name, room of data.rooms
           startingRoom = room if room.starter
-          Room.all[room.name] = room
+          room.name = name
+          Room.all[name] = room
+
           for item in room.items
             item.id = uuid++ unless item.id
             item.location = room.name

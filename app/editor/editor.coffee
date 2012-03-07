@@ -1,5 +1,5 @@
 define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
-  Editor = 
+  Editor =
     drawRoom: (roomName, x, y) ->
       room = Room.findByName roomName
       return if room.drawn
@@ -15,7 +15,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
         roomDiv.append itemDots
 
       roomDiv.css("left", x).css('top', y)
-      $(".rooms").append roomDiv 
+      $(".rooms").append roomDiv
 
       for direction, destination of room.paths
         switch direction

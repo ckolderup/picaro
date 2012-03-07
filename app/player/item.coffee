@@ -23,7 +23,7 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
         $(document).trigger "updateStatus", action.message
         $(document).trigger "gameEvent", action if action.after
 
-    talk: (item) ->   
+    talk: (item) ->
       # $(document).trigger "updateStatus", item.talk[item.talkNum]
       # item.talkNum += 1 if item.talk.length > (item.talkNum + 1)
 

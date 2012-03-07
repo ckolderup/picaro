@@ -1,28 +1,28 @@
---- 
+---
 gameName: Broken Windows
 gameDescription: A V1 Picaro Test-Game, in which an item is combined with a second item, adding a new item
 version: "1"
-events: 
+events:
 - id: replaceWithCoolJackelope
   type: replaceItems
-  items: 
+  items:
   - sunglasses
   - jackalope
-  newItem: 
+  newItem:
     id: coolJackalope
     name: Cool Jackalope
     take: true
   message: You place the sunglasses on the jackalopes face.  Hey, cool Jackalope.
-rooms: 
-- starter: true
-  name: The Rumpus Room
-  items: 
-  - name: Sunglasses
-    id: sunglasses
-    take: true
-  - name: Jacques 'o Lope
-    id: jackalope
-    take: true
-    use: 
-      sunglasses: 
-        after: replaceWithCoolJackelope
+rooms:
+  The Rumpus Room:
+    starter: true
+    items:
+    - name: Sunglasses
+      id: sunglasses
+      take: true
+    - name: Jacques 'o Lope
+      id: jackalope
+      take: true
+      use:
+        sunglasses:
+          after: replaceWithCoolJackelope
