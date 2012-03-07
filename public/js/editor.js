@@ -54,9 +54,13 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       return _results;
     },
     resetGameData: function(game) {
-      var gameObject;
+      var gameObject, room, _i, _len, _ref;
       gameObject = game;
-      Room.all = game.rooms;
+      _ref = game.rooms;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        room = _ref[_i];
+        Room.all[room.name] = room;
+      }
       $('.hero-unit h2').html(game.gameName);
       $('.hero-unit p').html(game.gameDescription);
       $("#roomNum").html(game.rooms.length);

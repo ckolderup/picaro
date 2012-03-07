@@ -1,6 +1,6 @@
 define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Inventory) ->
   Room =
-    all: []
+    all: {}
 
     init: (startingRoom) ->
       @current = startingRoom
@@ -13,8 +13,7 @@ define [ "jquery", "item", "inventory", "vendor/underscore" ], ($, Item, Invento
       _(@all).find (room) -> room.starter is true
 
     findByName: (name) ->
-      _(@all).find (room) ->
-        room.name is name
+      @all[name]
 
     get: (room, roomItems) ->
       $("#move a").attr "href", "#"

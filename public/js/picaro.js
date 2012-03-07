@@ -15,7 +15,7 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           room = _ref[_i];
           if (room.starter) startingRoom = room;
-          Room.all.push(room);
+          Room.all[room.name] = room;
           _ref2 = room.items;
           for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
             item = _ref2[_j];

@@ -16,7 +16,7 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
       success: (data) ->
         for room in data.rooms
           startingRoom = room if room.starter
-          Room.all.push room
+          Room.all[room.name] = room
           for item in room.items
             item.id = uuid++ unless item.id
             item.location = room.name

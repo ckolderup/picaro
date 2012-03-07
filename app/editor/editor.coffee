@@ -30,7 +30,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
 
     resetGameData: (game) ->
       gameObject = game
-      Room.all = game.rooms
+      Room.all[room.name] = room for room in game.rooms
       $('.hero-unit h2').html game.gameName
       $('.hero-unit p').html game.gameDescription
 

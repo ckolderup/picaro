@@ -2,7 +2,7 @@
 define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, Inventory) {
   var Room;
   Room = {
-    all: [],
+    all: {},
     init: function(startingRoom) {
       var roomItems;
       this.current = startingRoom;
@@ -18,9 +18,7 @@ define(["jquery", "item", "inventory", "vendor/underscore"], function($, Item, I
       });
     },
     findByName: function(name) {
-      return _(this.all).find(function(room) {
-        return room.name === name;
-      });
+      return this.all[name];
     },
     get: function(room, roomItems) {
       var direction, name, _ref, _results;
