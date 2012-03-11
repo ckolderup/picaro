@@ -157,6 +157,7 @@
             padding-top: 25px;
           }
         }
+      /* Testing no grayed-out look
       #game p.old {
         opacity: .5;
         background: #e0d9ca;
@@ -165,7 +166,8 @@
           padding-top: .5em;
           border-top: 2px solid rgba(255,255,255,.5);
         }
-      #game p.end {  
+      */
+      #game p.end {
           padding-top: .5em;
           border-bottom: 2px dotted rgba(0, 0, 0, .1);
           font-style: italic;
