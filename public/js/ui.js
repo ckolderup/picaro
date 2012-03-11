@@ -18,9 +18,9 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       return this.updateStatus(message + "You see " + util.arrayToSentence(itemNames));
     },
     resetMenus: function() {
-      var roomItems;
+      var roomItems, self;
       roomItems = Item.findByRoom(Room.current);
-      if (Item.allById.self) roomItems.push(Item.allById.self);
+      if (self = Item.find('self')) roomItems.push(self);
       $(".ui-action ul").empty();
       _.each(Inventory.list(), function(item) {
         $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>");
@@ -113,7 +113,7 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         return false;
       });
       return itemAction = function(action, item, event) {
-        item = Item.allById[item];
+        item = Item.find(item);
         if (action === "look") $(document).trigger("actionLook", item);
         if (action === "take") $(document).trigger("actionTake", item);
         if (action === "attack") $(document).trigger("actionAttack", item);

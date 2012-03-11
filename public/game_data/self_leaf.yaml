@@ -2,9 +2,8 @@
 gameName: Leaf Thyself
 gameDescription: A V1 Picaro Test-Game, in which the leaf can be used on oneself
 version: "1"
-specialItems:
+unattachedItems:
   self:
-    id: self
     name: Yourself
     use:
       potion:

@@ -20,18 +20,15 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
           Room.allById[room.id] = room
 
           _(room.items).map (item, id) ->
-            item = new Item item, id
-            item.location = room.id
-            gameItems[item.id] = item
+            Item.create(item, id: id, location: room.id)
 
-        # We look for special items here (currently just the player's "Self" object) and add them to the list of game items; these are not attached to any room and probably should be handled in a less specialized way.
-        if data.specialItems and data.specialItems.self
-          gameItems.self = data.specialItems.self
+        # These are items not attached to a specific room- most notably the "self" item which represents the player.
+        for id, item of data.unattachedItems
+          Item.create item, id: id
 
         # Initialize the main datatypes.
         GameEvent.init data.events
         ActionGuard.init data.actionGuards
-        Item.init gameItems
         Room.init startingRoom
 
         # Finally, initialize the user interface.

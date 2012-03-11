@@ -25,11 +25,11 @@ define(["jquery", "item", "inventory", "room", "util", "vendor/underscore"], fun
     },
     removeItem: function(gameEvent) {
       Inventory.remove(gameEvent.item);
-      Item.allById[gameEvent.item].location = void 0;
+      Item.find(gameEvent.item).location = void 0;
       return $(document).trigger("resetMenus");
     },
     updateAttribute: function(gameEvent) {
-      Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue;
+      Item.find(gameEvent.item)[gameEvent.attribute] = gameEvent.newValue;
       return $(document).trigger("resetMenus");
     },
     instantVictory: function(gameEvent) {
@@ -42,11 +42,11 @@ define(["jquery", "item", "inventory", "room", "util", "vendor/underscore"], fun
         var id;
         id = Util.toIdString(itemId);
         if (Inventory.remove(id)) oldItemsWereInInventory = true;
-        if (Item.allById[id]) return delete Item.allById[id];
+        return Item.remove(id);
       });
-      newItem = new Item(gameEvent.newItem);
-      newItem.location = Room.current.id;
-      Item.allById[newItem.id] = newItem;
+      newItem = Item.create(gameEvent.newItem, {
+        location: Room.current.id
+      });
       if (oldItemsWereInInventory) Inventory.add(newItem);
       return $(document).trigger("resetMenus");
     }

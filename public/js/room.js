@@ -64,7 +64,7 @@ define(["jquery", "item", "inventory", "util", "vendor/underscore"], function($,
   };
   $(document).bind("roomReady", function(e, room) {
     var roomItems;
-    roomItems = _(Item.allById).filter(function(item, id) {
+    roomItems = _(Item.find).filter(function(item, id) {
       return item.location === room.id;
     });
     return Room.get(room, roomItems);

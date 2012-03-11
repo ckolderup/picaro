@@ -23,15 +23,23 @@
   <span class="nv">arrayEquality: </span><span class="nf">(a, b) -&gt;</span>
     <span class="k">if</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="nx">b</span><span class="p">.</span><span class="nx">length</span>
       <span class="nv">i = </span><span class="mi">0</span>
-
       <span class="k">while</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span>
         <span class="k">if</span> <span class="k">typeof</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">is</span> <span class="s2">&quot;object&quot;</span>
-          <span class="k">return</span> <span class="kc">false</span>  <span class="nx">unless</span> <span class="nx">Equals</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
-        <span class="k">else</span> <span class="k">return</span> <span class="kc">false</span>  <span class="nx">unless</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">is</span> <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+          <span class="k">return</span> <span class="kc">false</span> <span class="nx">unless</span> <span class="nx">Equals</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="kc">false</span> <span class="nx">unless</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">is</span> <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
         <span class="nx">i</span><span class="o">++</span>
       <span class="kc">true</span>
     <span class="k">else</span>
       <span class="kc">false</span>
+
+  <span class="nv">toIdString: </span><span class="nf">(string) -&gt;</span>
+    <span class="nx">escape</span> <span class="nx">string</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/[-\s](.)?/g</span><span class="p">,</span> <span class="nf">(match, chr) -&gt;</span>
+      <span class="k">if</span> <span class="nx">chr</span> <span class="k">then</span> <span class="nx">chr</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="p">.</span><span class="nx">replace</span> <span class="sr">/^[A-Z]/</span><span class="p">,</span> <span class="nf">(chr) -&gt;</span>
+      <span class="k">if</span> <span class="nx">chr</span> <span class="k">then</span> <span class="nx">chr</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="k">else</span> <span class="nx">chr</span>
+
+  <span class="nv">createId: </span><span class="nf">(object) -&gt;</span>
+    <span class="nx">object</span><span class="p">.</span><span class="nx">id</span> <span class="o">||</span> <span class="nx">object</span><span class="p">.</span><span class="nx">name</span>
 
   <span class="nv">actionId: </span><span class="nf">(item, action) -&gt;</span>
     <span class="nx">action</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span>

@@ -29,12 +29,12 @@ define [ "jquery", "item", "inventory", "room", "util", "vendor/underscore"], ($
     # Remove the item from the game and set its location to nil, effectively removing it from the gameworld. It's still available in the Item list if it needs to pop back into existence later.
     removeItem: (gameEvent) ->
       Inventory.remove gameEvent.item
-      Item.allById[gameEvent.item].location = undefined
+      Item.find(gameEvent.item).location = undefined
       $(document).trigger "resetMenus"
 
     # Take the item specified and replace the named attribute with a new value; this might be just a string replacement, or swapping in a complex object.
     updateAttribute: (gameEvent) ->
-      Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue
+      Item.find(gameEvent.item)[gameEvent.attribute] = gameEvent.newValue
       $(document).trigger "resetMenus"
 
     # A winner is you!  We need some sort of joy-enhancing user experience here, as there's nothing special going on here at the moment.
@@ -47,12 +47,11 @@ define [ "jquery", "item", "inventory", "room", "util", "vendor/underscore"], ($
       _(gameEvent.items).each (itemId, index) ->
         id = Util.toIdString itemId
         oldItemsWereInInventory = true if Inventory.remove id
-        delete Item.allById[id] if Item.allById[id]
+        Item.remove id
 
-      newItem = new Item gameEvent.newItem
-      newItem.location = Room.current.id
-      Item.allById[newItem.id] = newItem
-      Inventory.add newItem if oldItemsWereInInventory
+      newItem = Item.create(gameEvent.newItem, location: Room.current.id)
+      if oldItemsWereInInventory
+        Inventory.add newItem
       $(document).trigger "resetMenus"
 
   #### DOM Event binding

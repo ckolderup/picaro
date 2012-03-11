@@ -1,7 +1,7 @@
 
 define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscore"], function($, Util, Inventory, ActionGuard, Talk) {
-  var Item, klass;
-  klass = Item = (function() {
+  var Item;
+  Item = (function() {
 
     function Item(itemObject, id) {
       var action, actionType, key, value, _i, _j, _len, _len2, _ref, _ref2, _ref3;
@@ -29,14 +29,30 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
 
     Item.allById = {};
 
-    Item.init = function(items) {
-      return this.allById = items;
-    };
-
     Item.findByRoom = function(room) {
       return _.filter(this.allById, function(item, id) {
         return item.location === room.id;
       });
+    };
+
+    Item.find = function(id) {
+      return this.allById[id];
+    };
+
+    Item.remove = function(id) {
+      return delete this.allById[id];
+    };
+
+    Item.create = function(itemData, extraData) {
+      var id, item, location;
+      if (extraData) {
+        id = extraData.id;
+        location = extraData.location;
+      }
+      item = new Item(itemData, id);
+      item.location || (item.location = location);
+      if (this.allById[item.id] != null) throw "Duplicate item!";
+      return this.allById[item.id] = item;
     };
 
     Item.look = function(item) {
@@ -97,7 +113,7 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
 
     Item.immediateTake = function(gameEvent) {
       var item;
-      item = Item.allById[gameEvent.item];
+      item = Item.find(gameEvent.item);
       return Item.take(item);
     };
 
@@ -118,7 +134,7 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
 
   })();
   $(document).bind("actionTalk", function(e, id) {
-    return $(document).trigger("beginTalk", Item.allById[id]);
+    return $(document).trigger("beginTalk", Item.find(id));
   });
   $(document).bind("actionAttack", function(e, o) {
     return Item.attack(o);

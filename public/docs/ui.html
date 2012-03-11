@@ -15,7 +15,7 @@
 
     <span class="nv">resetMenus: </span><span class="o">-&gt;</span>
       <span class="nv">roomItems = </span><span class="nx">Item</span><span class="p">.</span><span class="nx">findByRoom</span> <span class="nx">Room</span><span class="p">.</span><span class="nx">current</span>
-      <span class="nx">roomItems</span><span class="p">.</span><span class="nx">push</span> <span class="nx">Item</span><span class="p">.</span><span class="nx">allById</span><span class="p">.</span><span class="nx">self</span> <span class="k">if</span> <span class="nx">Item</span><span class="p">.</span><span class="nx">allById</span><span class="p">.</span><span class="nx">self</span>
+      <span class="nx">roomItems</span><span class="p">.</span><span class="nx">push</span> <span class="nx">self</span> <span class="k">if</span> <span class="nv">self = </span><span class="nx">Item</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;self&#39;</span><span class="p">)</span>
 
       <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.ui-action ul&quot;</span><span class="p">).</span><span class="nx">empty</span><span class="p">()</span>
       <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">Inventory</span><span class="p">.</span><span class="nx">list</span><span class="p">(),</span> <span class="nf">(item) -&gt;</span>
@@ -91,10 +91,10 @@
         <span class="kc">false</span>
 
       <span class="nv">itemAction = </span><span class="nf">(action, item, event) -&gt;</span>
-        <span class="nv">item = </span><span class="nx">Item</span><span class="p">.</span><span class="nx">allById</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionLook&quot;</span><span class="p">,</span> <span class="nx">item</span>  <span class="k">if</span> <span class="nx">action</span> <span class="o">is</span> <span class="s2">&quot;look&quot;</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionTake&quot;</span><span class="p">,</span> <span class="nx">item</span>  <span class="k">if</span> <span class="nx">action</span> <span class="o">is</span> <span class="s2">&quot;take&quot;</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionAttack&quot;</span><span class="p">,</span> <span class="nx">item</span>  <span class="k">if</span> <span class="nx">action</span> <span class="o">is</span> <span class="s2">&quot;attack&quot;</span>
+        <span class="nv">item = </span><span class="nx">Item</span><span class="p">.</span><span class="nx">find</span> <span class="nx">item</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionLook&quot;</span><span class="p">,</span> <span class="nx">item</span> <span class="k">if</span> <span class="nx">action</span> <span class="o">is</span> <span class="s2">&quot;look&quot;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionTake&quot;</span><span class="p">,</span> <span class="nx">item</span> <span class="k">if</span> <span class="nx">action</span> <span class="o">is</span> <span class="s2">&quot;take&quot;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionAttack&quot;</span><span class="p">,</span> <span class="nx">item</span> <span class="k">if</span> <span class="nx">action</span> <span class="o">is</span> <span class="s2">&quot;attack&quot;</span>
         <span class="k">if</span> <span class="nx">action</span> <span class="o">is</span> <span class="s2">&quot;use&quot;</span>
           <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">()</span>
           <span class="kc">false</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h1>Event Binding</h1>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#footer ul li a&quot;</span><span class="p">).</span><span class="nx">click</span> <span class="o">-&gt;</span>
@@ -108,7 +108,7 @@
     <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.ui-action, .ui-overlay, #move&quot;</span><span class="p">).</span><span class="nx">fadeOut</span> <span class="s2">&quot;fast&quot;</span>
 
   <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;a.path:not(.disabled)&quot;</span><span class="p">).</span><span class="nx">click</span> <span class="o">-&gt;</span>
-    <span class="nv">room = </span><span class="nx">Room</span><span class="p">.</span><span class="nx">findByName</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">))</span>
+    <span class="nv">room = </span><span class="nx">Room</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">))</span>
     <span class="nv">roomData =</span>
       <span class="nv">room: </span><span class="nx">room</span>
       <span class="nv">items: </span><span class="nx">Item</span><span class="p">.</span><span class="nx">findByRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">)</span>

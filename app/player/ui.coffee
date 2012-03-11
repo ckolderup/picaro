@@ -15,7 +15,7 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
 
     resetMenus: ->
       roomItems = Item.findByRoom Room.current
-      roomItems.push Item.allById.self if Item.allById.self
+      roomItems.push self if self = Item.find('self')
 
       $(".ui-action ul").empty()
       _.each Inventory.list(), (item) ->
@@ -100,10 +100,10 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         false
 
       itemAction = (action, item, event) ->
-        item = Item.allById[item]
-        $(document).trigger "actionLook", item  if action is "look"
-        $(document).trigger "actionTake", item  if action is "take"
-        $(document).trigger "actionAttack", item  if action is "attack"
+        item = Item.find item
+        $(document).trigger "actionLook", item if action is "look"
+        $(document).trigger "actionTake", item if action is "take"
+        $(document).trigger "actionAttack", item if action is "attack"
         if action is "use"
           event.stopPropagation()
           false

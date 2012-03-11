@@ -9,7 +9,7 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
       dataType: "json",
       async: false,
       success: function(data) {
-        var id, room, _ref;
+        var id, item, room, _ref, _ref2;
         _ref = data.rooms;
         for (id in _ref) {
           room = _ref[id];
@@ -18,17 +18,21 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
           if (room.starter) startingRoom = room;
           Room.allById[room.id] = room;
           _(room.items).map(function(item, id) {
-            item = new Item(item, id);
-            item.location = room.id;
-            return gameItems[item.id] = item;
+            return Item.create(item, {
+              id: id,
+              location: room.id
+            });
           });
         }
-        if (data.specialItems && data.specialItems.self) {
-          gameItems.self = data.specialItems.self;
+        _ref2 = data.unattachedItems;
+        for (id in _ref2) {
+          item = _ref2[id];
+          Item.create(item, {
+            id: id
+          });
         }
         GameEvent.init(data.events);
         ActionGuard.init(data.actionGuards);
-        Item.init(gameItems);
         Room.init(startingRoom);
         return UI.init(data.gameName);
       },
