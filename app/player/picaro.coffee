@@ -2,11 +2,10 @@
 #==============
 
 # This file declares the top-level dependencies of the Player app, as well as the code which fetches game data and bootstraps the gameworld.
-require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore" ], ($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) ->
+require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "itemish", "vendor/underscore" ], ($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard, Itemish) ->
   $(document).ready ->
     startingRoom = undefined
     gameItems = {}
-    uuid = 0
 
     # Fetch the JSON file as specified by the slug embedded in the page.
     $.ajax
@@ -14,14 +13,15 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
       dataType: "json"
       async: false
       success: (data) ->
-        for name, room of data.rooms
+        for id, room of data.rooms
+          room.id = Util.toIdString id
+          room.name ||= id
           startingRoom = room if room.starter
-          room.name = name
-          Room.all[name] = room
+          Room.allById[room.id] = room
 
-          for item in room.items
-            item.id = uuid++ unless item.id
-            item.location = room.name
+          _(room.items).map (item, id) ->
+            item = new Itemish item, id
+            item.location = room.id
             gameItems[item.id] = item
 
         # We look for special items here (currently just the player's "Self" object) and add them to the list of game items; these are not attached to any room and probably should be handled in a less specialized way.

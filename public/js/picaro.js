@@ -1,29 +1,27 @@
 
-require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
+require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "itemish", "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard, Itemish) {
   return $(document).ready(function() {
-    var gameItems, startingRoom, uuid;
+    var gameItems, startingRoom;
     startingRoom = void 0;
     gameItems = {};
-    uuid = 0;
     return $.ajax({
       url: "/games/" + gameId,
       dataType: "json",
       async: false,
       success: function(data) {
-        var item, name, room, _i, _len, _ref, _ref2;
+        var id, room, _ref;
         _ref = data.rooms;
-        for (name in _ref) {
-          room = _ref[name];
+        for (id in _ref) {
+          room = _ref[id];
+          room.id = Util.toIdString(id);
+          room.name || (room.name = id);
           if (room.starter) startingRoom = room;
-          room.name = name;
-          Room.all[name] = room;
-          _ref2 = room.items;
-          for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-            item = _ref2[_i];
-            if (!item.id) item.id = uuid++;
-            item.location = room.name;
-            gameItems[item.id] = item;
-          }
+          Room.allById[room.id] = room;
+          _(room.items).map(function(item, id) {
+            item = new Itemish(item, id);
+            item.location = room.id;
+            return gameItems[item.id] = item;
+          });
         }
         if (data.specialItems && data.specialItems.self) {
           gameItems.self = data.specialItems.self;

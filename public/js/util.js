@@ -46,6 +46,24 @@ define(["jquery"], function($) {
         return false;
       }
     },
+    toIdString: function(string) {
+      return escape(string.replace(/[-\s](.)?/g, function(match, chr) {
+        if (chr) {
+          return chr.toUpperCase();
+        } else {
+          return '';
+        }
+      })).replace(/^[A-Z]/, function(chr) {
+        if (chr) {
+          return chr.toLowerCase();
+        } else {
+          return chr;
+        }
+      });
+    },
+    createId: function(object) {
+      return object.id || object.name;
+    },
     actionId: function(item, action) {
       return action + "-" + item.id;
     },

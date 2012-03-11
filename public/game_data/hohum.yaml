@@ -17,15 +17,13 @@ rooms:
   The Rumpus Room:
     starter: true
     items:
-    - name: Sunglasses
-      id: sunglasses
-      take: true
-    - name: Jacques 'o Lope
-      id: jackalope
-      take: true
-      use:
-        sunglasses:
-          after: replaceWithCoolJackelope
+      Sunglasses:
+        take: true
+      Jacques 'o Lope:
+        take: true
+        use:
+          Sunglasses:
+            after: replaceWithCoolJackelope
   Palo Alto:
     items:
       - name: Hank Azaria

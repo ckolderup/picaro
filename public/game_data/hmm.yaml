@@ -10,49 +10,49 @@ rooms:
       North: Kitchen
       East: Bathroom
     items:
-    - name: Coffee Table
-      look:
-      - Dope coffee table.
-      - Totally dope coffee table.
-      attack:
-      - You elbow drop that mess. Wood flies everywhere.
-      - You cut your elbow badly on a jagged piece of wood. Dummy.
-    - name: Couch
-      look:
-      - Dope couch.
-      attack:
-      - Done. A good place for a practice elbow drop. Search elsewhere for the real deal.
-      - Test
-    - name: Jackalope
-      look:
-      - Dope jackalope
-      take: true
-      talk:
-      - The jackalope can't talk. It's dead.
-      attack:
-      - The jackalope sends you straight to hell.
-    - name: a Pair of Sunglasses
-      look:
-      - Dope sunglasses.
-      take: true
+      Coffee Table:
+        look:
+        - Dope coffee table.
+        - Totally dope coffee table.
+        attack:
+        - You elbow drop that mess. Wood flies everywhere.
+        - You cut your elbow badly on a jagged piece of wood. Dummy.
+      Couch:
+        look:
+        - Dope couch.
+        attack:
+        - Done. A good place for a practice elbow drop. Search elsewhere for the real deal.
+        - Test
+      Jackalope:
+        look:
+        - Dope jackalope
+        take: true
+        talk:
+        - The jackalope can't talk. It's dead.
+        attack:
+        - The jackalope sends you straight to hell.
+      sunglasses:
+        name: a Pair of Sunglasses
+        look: Dope sunglasses.
+        take: true
   Joe's Room:
     description: You are in Joe's room. There is a thirty square-foot black light poster of Jimi Hendrix on the wall. There is nothing else in the room.
     paths:
       North: Living Room
     items:
-    - name: Hendrix Poster
-      take: true
+      Hendrix Poster:
+        take: true
   Bathroom:
     description: You are in Joe's bathroom. There is a plentiful supply of floss.
     paths:
       West: Living Room
     items:
-    - name: Toilet
-      take: true
+      Toilet:
+        take: true
   Kitchen:
     description: You are in the kitchen. I GOT YA ALL IN CHEQUE
     paths:
       South: Living Room
     items:
-    - name: Stove
-      take: true
+      Stove:
+        take: true

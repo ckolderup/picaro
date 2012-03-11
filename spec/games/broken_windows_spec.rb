@@ -8,7 +8,6 @@ describe "Playing Picaro/broken_windows: " do
   let(:take_menu) { find('#action-take') }
   let(:use_menu)  { find('#action-use') }
 
-
   context "using an item on another item" do
     it "replaces the two items with a new one" do
       take.click

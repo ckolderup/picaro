@@ -1,5 +1,5 @@
 
-define(["jquery", "inventory", "vendor/underscore"], function($, Inventory) {
+define(["jquery", "inventory", "util", "vendor/underscore"], function($, Inventory, Util) {
   var Guard;
   Guard = {
     init: function(guards) {
@@ -15,7 +15,7 @@ define(["jquery", "inventory", "vendor/underscore"], function($, Inventory) {
       }
     },
     itemInInventory: function(guard, action) {
-      return Inventory.include(guard.item);
+      return Inventory.include(Util.toIdString(guard.item));
     },
     itemNotInInventory: function(guard, action) {
       return !Guard.itemInInventory(guard, action);

@@ -46,22 +46,17 @@ rooms:
     starter: true
     description: You stand facing a scientist's workspace, strewn with strange apparatus.
     items:
-    - name: Leaf
-      id: leaf
-      look:
-      - It's reddish, with glints of gold when turned in the light
-      take: true
-    - name: Potion
-      id: potion
-      look:
-      - It's a teal liquid in an erelenmeyer flask.
-      take: true
-      use:
-        leaf:
-          after: dissolveLeaf
-    - name: Compass
-      id: compass
-      look:
-        message: It's cased in a tarnished silver with a faint seam running around the edge
-        after: updateCompassDescription0
-      take: true
+      Leaf:
+        look: It's reddish, with glints of gold when turned in the light
+        take: true
+      Potion:
+        look: It's a teal liquid in an erelenmeyer flask.
+        take: true
+        use:
+          Leaf:
+            after: dissolveLeaf
+      Compass:
+        look:
+          message: It's cased in a tarnished silver with a faint seam running around the edge
+          after: updateCompassDescription0
+        take: true

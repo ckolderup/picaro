@@ -136,7 +136,7 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
   });
   $("a.path:not(.disabled)").click(function() {
     var room, roomData;
-    room = Room.findByName($(this).attr("href"));
+    room = Room.find($(this).attr("href"));
     roomData = {
       room: room,
       items: Item.findByRoom(room)

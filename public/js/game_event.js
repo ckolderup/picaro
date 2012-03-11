@@ -1,5 +1,5 @@
 
-define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($, Item, Inventory, Room) {
+define(["jquery", "item", "inventory", "room", "itemish", "util", "vendor/underscore"], function($, Item, Inventory, Room, Itemish, Util) {
   var GameEvent;
   GameEvent = {
     init: function(events) {
@@ -32,16 +32,20 @@ define(["jquery", "item", "inventory", "room", "vendor/underscore"], function($,
       Item.allById[gameEvent.item][gameEvent.attribute] = gameEvent.newValue;
       return $(document).trigger("resetMenus");
     },
-    instantVictory: function(gameEvent) {},
+    instantVictory: function(gameEvent) {
+      return $(document).trigger("A winner is you!");
+    },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;
       oldItemsWereInInventory = false;
       _(gameEvent.items).each(function(itemId, index) {
-        if (Inventory.remove(itemId)) oldItemsWereInInventory = true;
-        if (Item.allById[itemId]) return delete Item.allById[itemId];
+        var id;
+        id = Util.toIdString(itemId);
+        if (Inventory.remove(id)) oldItemsWereInInventory = true;
+        if (Item.allById[id]) return delete Item.allById[id];
       });
-      newItem = gameEvent.newItem;
-      newItem.location = Room.current.name;
+      newItem = new Itemish(gameEvent.newItem);
+      newItem.location = Room.current.id;
       Item.allById[newItem.id] = newItem;
       if (oldItemsWereInInventory) Inventory.add(newItem);
       return $(document).trigger("resetMenus");

@@ -35,38 +35,33 @@ rooms:
       North: Stonehenge
     description: You stand at the base of a tree. Its leaves are prized for their medicinal qualities.
     items:
-    - name: Rake
-      id: rake
-      look:
-      - The rake is a bit rusty.
-      take: true
-    - name: Leaf
-      id: leaf
-      look:
-      - It seems rather far away.
-      take:
-        cannotTakeMessage: You're not tall enough.
-      use:
-        rake:
-          after: takeLeafWithRake
-    - name: Tree
-      id: tree
-      look:
-      - Looks like one of those trees that might secretly be a forest spirit / grandmother figure.
-      use:
-        rake:
-          after: dropRakeOnTree
+      rake:
+        name: Rake
+        look: The rake is a bit rusty.
+        take: true
+      leaf:
+        look: It seems rather far away.
+        take:
+          cannotTakeMessage: You're not tall enough.
+        use:
+          rake:
+            after: takeLeafWithRake
+      tree:
+        name: Tree
+        look: Looks like one of those trees that might secretly be a forest spirit / grandmother figure.
+        use:
+          rake:
+            after: dropRakeOnTree
   Stonehenge:
     paths:
       South: The Tree
     description: Ancient power fills the air. The stone formation encircles a bubbling cauldron.
     items:
-    - name: Cauldron
-      id: cauldron
-      look:
-      - Druidic runes glimmer over its surface.
-      take: false
-      use:
-        leaf:
-          actionGuard: stonehengeHatesRakes
-          after: winGameViaLeafBubbleage
+      cauldron:
+        name: Cauldron
+        look: Druidic runes glimmer across its surface.
+        take: false
+        use:
+          leaf:
+            actionGuard: stonehengeHatesRakes
+            after: winGameViaLeafBubbleage

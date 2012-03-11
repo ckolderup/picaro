@@ -122,7 +122,7 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     $(".ui-action, .ui-overlay, #move").fadeOut "fast"
 
   $("a.path:not(.disabled)").click ->
-    room = Room.findByName($(this).attr("href"))
+    room = Room.find($(this).attr("href"))
     roomData =
       room: room
       items: Item.findByRoom(room)

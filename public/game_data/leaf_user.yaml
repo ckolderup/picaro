@@ -10,23 +10,20 @@ events:
 - id: winGameViaLeafTakeage
   type: instantVictory
   message: Using the leaf, you cure scabies.
+
 rooms:
   The Tree:
     starter: true
     description: You stand at the base of a tree. Its leaves are prized for their medicinal qualities.
     items:
-    - name: Rake
-      id: rake
-      look:
-      - The rake is a bit rusty.
-      take: true
-    - name: Leaf
-      id: leaf
-      look:
-      - It seems rather far away.
-      take:
-        cannotTakeMessage: You're not tall enough.
-        after: winGameViaLeafTakeage
-      use:
-        rake:
-          after: takeLeafWithRake
+      Rake:
+        look: The rake is a bit rusty.
+        take: true
+      Leaf:
+        look: It seems rather far away.
+        take:
+          cannotTakeMessage: You're not tall enough.
+          after: winGameViaLeafTakeage
+        use:
+          Rake:
+            after: takeLeafWithRake

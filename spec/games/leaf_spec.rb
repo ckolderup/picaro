@@ -49,7 +49,7 @@ describe "Playing Picaro/leaf" do
     context "the rake on the leaf" do
 
       it "tells the player why the leaf can't be taken, leaving it in the take menu" do
-        latest_update.should have_content 'You see a Leaf, a Rake and a The Autumn.'
+        latest_update.should have_content 'You see a Leaf, a Rake and the Autumn.'
 
         take.click
         action_link('take', 'leaf').click
@@ -57,16 +57,17 @@ describe "Playing Picaro/leaf" do
 
         take.click
         action_link('take', 'leaf').should be_visible
-        action_link('take', 'autumn').should be_visible
+        action_link('take', 'theAutumn').should be_visible
 
         take_menu.should be_visible
-        action_link('take', 'autumn').click
+        action_link('take', 'theAutumn').click
 
-        latest_update.should have_content("You can't take the The Autumn")
+        # FIXME: clearly the message below is hilariously broken. The test case exists to show how our naive message names work (or don't)
+        latest_update.should have_content("You can't take the the Autumn")
       end
 
       it "is possible after taking the rake" do
-        latest_update.should have_content 'You see a Leaf, a Rake and a The Autumn.'
+        latest_update.should have_content 'You see a Leaf, a Rake and the Autumn.'
 
         take.click
         action_link("take", "rake").click

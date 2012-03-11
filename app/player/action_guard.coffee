@@ -1,4 +1,4 @@
-define [ "jquery", "inventory", "vendor/underscore" ], ($, Inventory) ->
+define [ "jquery", "inventory", "util", "vendor/underscore" ], ($, Inventory, Util) ->
   Guard =
     # We take the array of guards from the game JSON and store them, hashed by ID.
     init: (guards) ->
@@ -9,7 +9,7 @@ define [ "jquery", "inventory", "vendor/underscore" ], ($, Inventory) ->
 
     # Is item ID passed with the guard is not found in the Player's inventory?
     itemInInventory: (guard, action) ->
-      Inventory.include guard.item
+      Inventory.include Util.toIdString(guard.item)
 
     # ...or not?
     itemNotInInventory: (guard, action) ->
@@ -24,7 +24,7 @@ define [ "jquery", "inventory", "vendor/underscore" ], ($, Inventory) ->
     test: (action) ->
       guardId = action.actionGuard
       guard = @allById[guardId]
-      throw "Invalid Action Guard: #{guardId}" unless guard and guardFunction = this[guard.type]       
+      throw "Invalid Action Guard: #{guardId}" unless guard and guardFunction = this[guard.type]
 
       testResult = guardFunction(guard, action)
       if not testResult and guard.failMessage

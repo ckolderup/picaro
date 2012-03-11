@@ -8,7 +8,7 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
     },
     findByRoom: function(room) {
       return _.filter(this.allById, function(item, id) {
-        return item.location === room.name;
+        return item.location === room.id;
       });
     },
     look: function(item) {

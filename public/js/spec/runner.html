@@ -20,18 +20,14 @@
     };
   </script>
 
-  <script data-main="picaro" src="../vendor/require-jquery.js"></script>
+  <script src="../vendor/require-jquery.js"></script>
 
   <script type="text/javascript">
-    require.config({
-      baseUrl: '../'
-    });
-
-    window.gameId = "hmm";
 
     require([
       'util_spec.js',
-      'inventory_spec.js'
+      'inventory_spec.js',
+      'item_spec.js'
     ], function() {
       $(function() {
         jasmine.getEnv().addReporter(new jasmine.BootstrapReporter());

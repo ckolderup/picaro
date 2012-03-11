@@ -23,15 +23,23 @@ define [ "jquery" ], ($) ->
   arrayEquality: (a, b) ->
     if a.length is b.length
       i = 0
-
       while i < a.length
         if typeof a[i] is "object"
-          return false  unless Equals(a[i], b[i])
-        else return false  unless a[i] is b[i]
+          return false unless Equals(a[i], b[i])
+        else return false unless a[i] is b[i]
         i++
       true
     else
       false
+
+  toIdString: (string) ->
+    escape string.replace /[-\s](.)?/g, (match, chr) ->
+      if chr then chr.toUpperCase() else ''
+    .replace /^[A-Z]/, (chr) ->
+      if chr then chr.toLowerCase() else chr
+
+  createId: (object) ->
+    object.id || object.name
 
   actionId: (item, action) ->
     action + "-" + item.id

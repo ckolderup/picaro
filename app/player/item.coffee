@@ -8,7 +8,7 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
     # Takes a room object and returns all items whose `location` is the same as its name.
     findByRoom: (room) ->
       _.filter @allById, (item, id) ->
-        item.location is room.name
+        item.location is room.id
 
     # Checks the item's look action. If it's an Array, it assumes there will be a `lookNum` as an index. If it's a String, simply display that message. Lastly, if it's an Object, it will display its message and optionally fire an after event.
     look: (item) ->
@@ -16,7 +16,7 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
       if typeof action is "string"
         $(document).trigger "updateStatus", action
       else if action instanceof Array
-        item.lookNum or= 0
+        item.lookNum ||= 0
         $(document).trigger "updateStatus", action[item.lookNum]
         item.lookNum += 1  if action.length > (item.lookNum + 1)
       else
