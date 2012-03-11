@@ -1,4 +1,4 @@
-define ["item", "itemish"], (Item, Itemish) ->
+define ["item"], (Item) ->
   testItems = [
     { "name": "Rake", "look": "The rake is a bit rusty."},
     { "name": "Leaf", "id": "abc123", "look": "It seems rather far away."}
@@ -12,14 +12,14 @@ define ["item", "itemish"], (Item, Itemish) ->
     it "has the ID you pass into its constructor", ->
       # expect(itemObjs[0].id).toEqual "abc123"
 
-  describe "Itemish", ->
+  describe "Items", ->
     it "can be initialized with a data object", ->
       data =
         "My Cool Thing":
           "look": "Wow, cool",
           "name": "Pretty ok"
 
-      item = new Itemish data
+      item = new Item data
 
       expect(item.id).toEqual "myCoolThing"
       expect(item.name).toEqual "Pretty ok"
@@ -31,7 +31,7 @@ define ["item", "itemish"], (Item, Itemish) ->
           "look": "Wow, cool",
           "name": "Pretty ok"
 
-      item = new Itemish data["My Cool Thing"], "My Cool Thing"
+      item = new Item data["My Cool Thing"], "My Cool Thing"
       expect(item.id).toEqual "myCoolThing"
       expect(item.name).toEqual "Pretty ok"
       expect(item.look).toEqual "Wow, cool"

@@ -1,17 +1,30 @@
 define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/underscore" ], ($, Util, Inventory, ActionGuard, Talk) ->
-  Item =
-    allById: {}
+  klass = class Item
+    constructor: (itemObject, id) ->
+      id ||= _(itemObject).keys()[0]
+      this[key] = value for key, value of itemObject[id] || itemObject
+      @name ||= id
+      @id = Util.toIdString id
 
-    init: (items) ->
+      for actionType in ["use"]
+        if typeof this[actionType] is "object"
+          action = this[actionType]
+          for key in _(action).keys()
+            action[Util.toIdString key] = action[key]
+            # delete action[key]
+
+    @allById: {}
+
+    @init: (items) ->
       @allById = items
 
     # Takes a room object and returns all items whose `location` is the same as its name.
-    findByRoom: (room) ->
+    @findByRoom: (room) ->
       _.filter @allById, (item, id) ->
         item.location is room.id
 
     # Checks the item's look action. If it's an Array, it assumes there will be a `lookNum` as an index. If it's a String, simply display that message. Lastly, if it's an Object, it will display its message and optionally fire an after event.
-    look: (item) ->
+    @look: (item) ->
       action = item.look
       if typeof action is "string"
         $(document).trigger "updateStatus", action
@@ -23,25 +36,25 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
         $(document).trigger "updateStatus", action.message
         $(document).trigger "gameEvent", action if action.after
 
-    talk: (item) ->
+    @talk: (item) ->
       # $(document).trigger "updateStatus", item.talk[item.talkNum]
       # item.talkNum += 1 if item.talk.length > (item.talkNum + 1)
 
-    attack: (item) ->
+    @attack: (item) ->
       $(document).trigger "updateStatus", item.attack[item.attackNum]
       item.attackNum += 1 if item.attack.length > (item.attackNum + 1)
 
     # Add the item to the Inventory.
-    take: (item) ->
+    @take: (item) ->
       Inventory.add item
       $(document).trigger "itemTaken", item
       $(document).trigger "closeMenu"
       $(document).trigger "gameEvent", item.take if item.take.after
 
-    tryToTake: (item) ->
+    @tryToTake: (item) ->
       if @canTake item then @take item else @willNotTake item
 
-    canTake: (item) ->
+    @canTake: (item) ->
       if item.take is true
         true
       else if item.take and item.take.actionGuard
@@ -49,17 +62,17 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
       else
         false
 
-    willNotTake: (item) ->
+    @willNotTake: (item) ->
       message = "You can't take the " + item.name + ". "
       message += item.take.cannotTakeMessage if item.take and item.take.cannotTakeMessage
       $(document).trigger "updateStatus", message
 
-    immediateTake: (gameEvent) ->
+    @immediateTake: (gameEvent) ->
       item = Item.allById[gameEvent.item]
       Item.take item
 
     # This method first looks up the two item IDs passed as arguments.  Then, if the second item has a Use property mentioning the first, it checks if this action is guarded and fires it if not.
-    use: (itemId1, itemId2) ->
+    @use: (itemId1, itemId2) ->
       [item1, item2] = [@allById[itemId1], @allById[itemId2]]
       if item1 and item2 and item2.use and item2.use[item1.id]
         using = item2.use[item1.id]

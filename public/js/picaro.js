@@ -1,5 +1,5 @@
 
-require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "itemish", "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard, Itemish) {
+require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
   return $(document).ready(function() {
     var gameItems, startingRoom;
     startingRoom = void 0;
@@ -18,7 +18,7 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
           if (room.starter) startingRoom = room;
           Room.allById[room.id] = room;
           _(room.items).map(function(item, id) {
-            item = new Itemish(item, id);
+            item = new Item(item, id);
             item.location = room.id;
             return gameItems[item.id] = item;
           });

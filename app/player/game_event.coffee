@@ -3,7 +3,7 @@
 # The primary way in which the gameworld responds to player action is via events.  Currently, an "after" event is all that's specified, but at some point we will likely add "before" events or events that occur after some period of time has elapsed. The idea is that an event ID can be attached to any action (a verb called on an item) as its "after" property.  When an action (generally, anything of the form "verb + noun") is performed, the event will be looked up and triggered here if it is one of the known types.
 
 # First we declare our dependencies on Item, Inventory and Room, as well as the usual suspects, $ and _.
-define [ "jquery", "item", "inventory", "room", "itemish", "util", "vendor/underscore"], ($, Item, Inventory, Room, Itemish, Util) ->
+define [ "jquery", "item", "inventory", "room", "util", "vendor/underscore"], ($, Item, Inventory, Room, Util) ->
   GameEvent =
     # We take the array of events from the game JSON and store them, hashed by ID.
     init: (events) ->
@@ -49,7 +49,7 @@ define [ "jquery", "item", "inventory", "room", "itemish", "util", "vendor/under
         oldItemsWereInInventory = true if Inventory.remove id
         delete Item.allById[id] if Item.allById[id]
 
-      newItem = new Itemish gameEvent.newItem
+      newItem = new Item gameEvent.newItem
       newItem.location = Room.current.id
       Item.allById[newItem.id] = newItem
       Inventory.add newItem if oldItemsWereInInventory

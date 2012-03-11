@@ -1,5 +1,5 @@
 
-define(["jquery", "item", "inventory", "room", "itemish", "util", "vendor/underscore"], function($, Item, Inventory, Room, Itemish, Util) {
+define(["jquery", "item", "inventory", "room", "util", "vendor/underscore"], function($, Item, Inventory, Room, Util) {
   var GameEvent;
   GameEvent = {
     init: function(events) {
@@ -44,7 +44,7 @@ define(["jquery", "item", "inventory", "room", "itemish", "util", "vendor/unders
         if (Inventory.remove(id)) oldItemsWereInInventory = true;
         if (Item.allById[id]) return delete Item.allById[id];
       });
-      newItem = new Itemish(gameEvent.newItem);
+      newItem = new Item(gameEvent.newItem);
       newItem.location = Room.current.id;
       Item.allById[newItem.id] = newItem;
       if (oldItemsWereInInventory) Inventory.add(newItem);

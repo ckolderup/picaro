@@ -1,5 +1,5 @@
 
-define(["item", "itemish"], function(Item, Itemish) {
+define(["item"], function(Item) {
   var testItems;
   testItems = [
     {
@@ -15,7 +15,7 @@ define(["item", "itemish"], function(Item, Itemish) {
     beforeEach(function() {});
     return it("has the ID you pass into its constructor", function() {});
   });
-  return describe("Itemish", function() {
+  return describe("Items", function() {
     it("can be initialized with a data object", function() {
       var data, item;
       data = {
@@ -24,7 +24,7 @@ define(["item", "itemish"], function(Item, Itemish) {
           "name": "Pretty ok"
         }
       };
-      item = new Itemish(data);
+      item = new Item(data);
       expect(item.id).toEqual("myCoolThing");
       expect(item.name).toEqual("Pretty ok");
       return expect(item.look).toEqual("Wow, cool");
@@ -37,7 +37,7 @@ define(["item", "itemish"], function(Item, Itemish) {
           "name": "Pretty ok"
         }
       };
-      item = new Itemish(data["My Cool Thing"], "My Cool Thing");
+      item = new Item(data["My Cool Thing"], "My Cool Thing");
       expect(item.id).toEqual("myCoolThing");
       expect(item.name).toEqual("Pretty ok");
       return expect(item.look).toEqual("Wow, cool");

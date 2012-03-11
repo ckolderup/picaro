@@ -1,17 +1,45 @@
 
 define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscore"], function($, Util, Inventory, ActionGuard, Talk) {
-  var Item;
-  Item = {
-    allById: {},
-    init: function(items) {
+  var Item, klass;
+  klass = Item = (function() {
+
+    function Item(itemObject, id) {
+      var action, actionType, key, value, _i, _j, _len, _len2, _ref, _ref2, _ref3;
+      id || (id = _(itemObject).keys()[0]);
+      _ref = itemObject[id] || itemObject;
+      for (key in _ref) {
+        value = _ref[key];
+        this[key] = value;
+      }
+      this.name || (this.name = id);
+      this.id = Util.toIdString(id);
+      _ref2 = ["use"];
+      for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+        actionType = _ref2[_i];
+        if (typeof this[actionType] === "object") {
+          action = this[actionType];
+          _ref3 = _(action).keys();
+          for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+            key = _ref3[_j];
+            action[Util.toIdString(key)] = action[key];
+          }
+        }
+      }
+    }
+
+    Item.allById = {};
+
+    Item.init = function(items) {
       return this.allById = items;
-    },
-    findByRoom: function(room) {
+    };
+
+    Item.findByRoom = function(room) {
       return _.filter(this.allById, function(item, id) {
         return item.location === room.id;
       });
-    },
-    look: function(item) {
+    };
+
+    Item.look = function(item) {
       var action;
       action = item.look;
       if (typeof action === "string") {
@@ -24,26 +52,31 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
         $(document).trigger("updateStatus", action.message);
         if (action.after) return $(document).trigger("gameEvent", action);
       }
-    },
-    talk: function(item) {},
-    attack: function(item) {
+    };
+
+    Item.talk = function(item) {};
+
+    Item.attack = function(item) {
       $(document).trigger("updateStatus", item.attack[item.attackNum]);
       if (item.attack.length > (item.attackNum + 1)) return item.attackNum += 1;
-    },
-    take: function(item) {
+    };
+
+    Item.take = function(item) {
       Inventory.add(item);
       $(document).trigger("itemTaken", item);
       $(document).trigger("closeMenu");
       if (item.take.after) return $(document).trigger("gameEvent", item.take);
-    },
-    tryToTake: function(item) {
+    };
+
+    Item.tryToTake = function(item) {
       if (this.canTake(item)) {
         return this.take(item);
       } else {
         return this.willNotTake(item);
       }
-    },
-    canTake: function(item) {
+    };
+
+    Item.canTake = function(item) {
       if (item.take === true) {
         return true;
       } else if (item.take && item.take.actionGuard) {
@@ -51,21 +84,24 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
       } else {
         return false;
       }
-    },
-    willNotTake: function(item) {
+    };
+
+    Item.willNotTake = function(item) {
       var message;
       message = "You can't take the " + item.name + ". ";
       if (item.take && item.take.cannotTakeMessage) {
         message += item.take.cannotTakeMessage;
       }
       return $(document).trigger("updateStatus", message);
-    },
-    immediateTake: function(gameEvent) {
+    };
+
+    Item.immediateTake = function(gameEvent) {
       var item;
       item = Item.allById[gameEvent.item];
       return Item.take(item);
-    },
-    use: function(itemId1, itemId2) {
+    };
+
+    Item.use = function(itemId1, itemId2) {
       var item1, item2, using, _ref;
       _ref = [this.allById[itemId1], this.allById[itemId2]], item1 = _ref[0], item2 = _ref[1];
       if (item1 && item2 && item2.use && item2.use[item1.id]) {
@@ -76,8 +112,11 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
       } else {
         return $(document).trigger("updateStatus", "You can't use those things together.");
       }
-    }
-  };
+    };
+
+    return Item;
+
+  })();
   $(document).bind("actionTalk", function(e, id) {
     return $(document).trigger("beginTalk", Item.allById[id]);
   });

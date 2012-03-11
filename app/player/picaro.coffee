@@ -2,7 +2,7 @@
 #==============
 
 # This file declares the top-level dependencies of the Player app, as well as the code which fetches game data and bootstraps the gameworld.
-require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "itemish", "vendor/underscore" ], ($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard, Itemish) ->
+require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore" ], ($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) ->
   $(document).ready ->
     startingRoom = undefined
     gameItems = {}
@@ -20,7 +20,7 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
           Room.allById[room.id] = room
 
           _(room.items).map (item, id) ->
-            item = new Itemish item, id
+            item = new Item item, id
             item.location = room.id
             gameItems[item.id] = item
 
