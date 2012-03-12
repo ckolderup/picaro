@@ -43,58 +43,52 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
       @allById[item.id] = item
 
     # Checks the item's look action. If it's an Array, it assumes there will be a `lookNum` as an index. If it's a String, simply display that message. Lastly, if it's an Object, it will display its message and optionally fire an after event.
-    @look: (item) ->
-      action = item.look
+    actionLook: ->
+      action = this.look
       if typeof action is "string"
         $(document).trigger "updateStatus", action
       else if action instanceof Array
-        item.lookNum ||= 0
-        $(document).trigger "updateStatus", action[item.lookNum]
-        item.lookNum += 1  if action.length > (item.lookNum + 1)
+        @lookNum ||= 0
+        $(document).trigger "updateStatus", action[@lookNum]
+        @lookNum += 1  if action.length > (@lookNum + 1)
       else
         $(document).trigger "updateStatus", action.message
         $(document).trigger "gameEvent", action if action.after
 
-    @talk: (item) ->
-      # $(document).trigger "updateStatus", item.talk[item.talkNum]
-      # item.talkNum += 1 if item.talk.length > (item.talkNum + 1)
+    actionTalk: (item) ->
+      $(document).trigger "beginTalk", this
 
-    @attack: (item) ->
-      $(document).trigger "updateStatus", item.attack[item.attackNum]
-      item.attackNum += 1 if item.attack.length > (item.attackNum + 1)
+    actionAttack: ->
+      @attackNum ||= 0
+      $(document).trigger "updateStatus", @attack[@attackNum]
+      @attackNum += 1 if @attack.length > (@attackNum + 1)
 
-    # Add the item to the Inventory.
-    @take: (item) ->
-      Inventory.add item
-      $(document).trigger "itemTaken", item
+    # Add the item to the Inventory- skips any guards that might be in place.
+    immediateTake: ->
+      Inventory.add this
+      $(document).trigger "itemTaken", this
       $(document).trigger "closeMenu"
-      $(document).trigger "gameEvent", item.take if item.take.after
+      $(document).trigger "gameEvent", @take if @take.after
 
-    @tryToTake: (item) ->
-      if @canTake item then @take item else @willNotTake item
+    actionTake: ->
+      if @canTake() then @immediateTake() else @willNotTake()
 
-    @canTake: (item) ->
-      if item.take is true
+    canTake: ->
+      if @take is true
         true
-      else if item.take and item.take.actionGuard
-        ActionGuard.test item.take
+      else if @take and @take.actionGuard
+        ActionGuard.test @take
       else
         false
 
-    @willNotTake: (item) ->
-      message = "You can't take the " + item.name + ". "
-      message += item.take.cannotTakeMessage if item.take and item.take.cannotTakeMessage
+    willNotTake: ->
+      message = "You can't take the " + @name + ". "
+      message += @take.cannotTakeMessage if @take and @take.cannotTakeMessage
       $(document).trigger "updateStatus", message
 
-    @immediateTake: (gameEvent) ->
-      item = Item.find gameEvent.item
-      Item.take item
-
     # This method first looks up the two item IDs passed as arguments.  Then, if the second item has a Use property mentioning the first, it checks if this action is guarded and fires it if not.
-    @use: (itemId1, itemId2) ->
-      [item1, item2] = [@allById[itemId1], @allById[itemId2]]
-      if item1 and item2 and item2.use and item2.use[item1.id]
-        using = item2.use[item1.id]
+    actionUse: (otherItem) ->
+      if otherItem and otherItem.use and using = otherItem.use[this.id]
         $(document).trigger "gameEvent", using if not using.actionGuard or ActionGuard.test(using)
       else
         $(document).trigger "updateStatus", "You can't use those things together."
@@ -102,23 +96,13 @@ define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/undersco
   #### DOM Event binding
 
   # The current crop of 5 actions are bound here.
-  $(document).bind "actionTalk", (e, id) ->
-    $(document).trigger "beginTalk", Item.find(id)
+  $(document).bind "actionTalk", (e, item) -> item.actionTalk()
+  $(document).bind "actionAttack", (e, item) -> item.actionAttack()
+  $(document).bind "actionLook", (e, item) -> item.actionLook()
+  $(document).bind "actionUse", (e, item, otherItem) -> item.actionUse(otherItem)
+  $(document).bind "actionTake", (e, item) -> item.actionTake()
 
-  $(document).bind "actionAttack", (e, o) ->
-    Item.attack o
-
-  $(document).bind "actionLook", (e, o) ->
-    Item.look o
-
-  # Notice that Use takes two items as arguments, while the others take only one.
-  $(document).bind "actionUse", (e, item1, item2) ->
-    Item.use item1, item2
-
-  $(document).bind "actionTake", (e, o) ->
-    Item.tryToTake o
-
-  $(document).bind "immediateTake", (e, o) ->
-    Item.immediateTake o
+  # Other item actions not directly resulting from user action.
+  $(document).bind "immediateTake", (e, item) -> item.immediateTake()
 
   Item

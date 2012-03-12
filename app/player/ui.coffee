@@ -138,7 +138,8 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       $(this).addClass "active"
     else if itemTriggers.length is 2
       $(this).trigger "closeMenu"
-      $(document).trigger "actionUse", itemTriggers
+      items = _.map itemTriggers, (id) -> Item.find id
+      $(document).trigger "actionUse", items
       itemTriggers = []
 
   $("#footer-use").click ->

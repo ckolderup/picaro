@@ -144,12 +144,16 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     return $(document).trigger("changeRoom", roomData);
   });
   $("#action-use li a").live("click", function() {
+    var items;
     itemTriggers.push(util.splitActionId(this)[1]);
     if (itemTriggers.length === 1) {
       return $(this).addClass("active");
     } else if (itemTriggers.length === 2) {
       $(this).trigger("closeMenu");
-      $(document).trigger("actionUse", itemTriggers);
+      items = _.map(itemTriggers, function(id) {
+        return Item.find(id);
+      });
+      $(document).trigger("actionUse", items);
       return itemTriggers = [];
     }
   });

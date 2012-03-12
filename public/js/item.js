@@ -55,73 +55,68 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
       return this.allById[item.id] = item;
     };
 
-    Item.look = function(item) {
+    Item.prototype.actionLook = function() {
       var action;
-      action = item.look;
+      action = this.look;
       if (typeof action === "string") {
         return $(document).trigger("updateStatus", action);
       } else if (action instanceof Array) {
-        item.lookNum || (item.lookNum = 0);
-        $(document).trigger("updateStatus", action[item.lookNum]);
-        if (action.length > (item.lookNum + 1)) return item.lookNum += 1;
+        this.lookNum || (this.lookNum = 0);
+        $(document).trigger("updateStatus", action[this.lookNum]);
+        if (action.length > (this.lookNum + 1)) return this.lookNum += 1;
       } else {
         $(document).trigger("updateStatus", action.message);
         if (action.after) return $(document).trigger("gameEvent", action);
       }
     };
 
-    Item.talk = function(item) {};
-
-    Item.attack = function(item) {
-      $(document).trigger("updateStatus", item.attack[item.attackNum]);
-      if (item.attack.length > (item.attackNum + 1)) return item.attackNum += 1;
+    Item.prototype.actionTalk = function(item) {
+      return $(document).trigger("beginTalk", this);
     };
 
-    Item.take = function(item) {
-      Inventory.add(item);
-      $(document).trigger("itemTaken", item);
+    Item.prototype.actionAttack = function() {
+      this.attackNum || (this.attackNum = 0);
+      $(document).trigger("updateStatus", this.attack[this.attackNum]);
+      if (this.attack.length > (this.attackNum + 1)) return this.attackNum += 1;
+    };
+
+    Item.prototype.immediateTake = function() {
+      Inventory.add(this);
+      $(document).trigger("itemTaken", this);
       $(document).trigger("closeMenu");
-      if (item.take.after) return $(document).trigger("gameEvent", item.take);
+      if (this.take.after) return $(document).trigger("gameEvent", this.take);
     };
 
-    Item.tryToTake = function(item) {
-      if (this.canTake(item)) {
-        return this.take(item);
+    Item.prototype.actionTake = function() {
+      if (this.canTake()) {
+        return this.immediateTake();
       } else {
-        return this.willNotTake(item);
+        return this.willNotTake();
       }
     };
 
-    Item.canTake = function(item) {
-      if (item.take === true) {
+    Item.prototype.canTake = function() {
+      if (this.take === true) {
         return true;
-      } else if (item.take && item.take.actionGuard) {
-        return ActionGuard.test(item.take);
+      } else if (this.take && this.take.actionGuard) {
+        return ActionGuard.test(this.take);
       } else {
         return false;
       }
     };
 
-    Item.willNotTake = function(item) {
+    Item.prototype.willNotTake = function() {
       var message;
-      message = "You can't take the " + item.name + ". ";
-      if (item.take && item.take.cannotTakeMessage) {
-        message += item.take.cannotTakeMessage;
+      message = "You can't take the " + this.name + ". ";
+      if (this.take && this.take.cannotTakeMessage) {
+        message += this.take.cannotTakeMessage;
       }
       return $(document).trigger("updateStatus", message);
     };
 
-    Item.immediateTake = function(gameEvent) {
-      var item;
-      item = Item.find(gameEvent.item);
-      return Item.take(item);
-    };
-
-    Item.use = function(itemId1, itemId2) {
-      var item1, item2, using, _ref;
-      _ref = [this.allById[itemId1], this.allById[itemId2]], item1 = _ref[0], item2 = _ref[1];
-      if (item1 && item2 && item2.use && item2.use[item1.id]) {
-        using = item2.use[item1.id];
+    Item.prototype.actionUse = function(otherItem) {
+      var using;
+      if (otherItem && otherItem.use && (using = otherItem.use[this.id])) {
         if (!using.actionGuard || ActionGuard.test(using)) {
           return $(document).trigger("gameEvent", using);
         }
@@ -133,23 +128,23 @@ define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscor
     return Item;
 
   })();
-  $(document).bind("actionTalk", function(e, id) {
-    return $(document).trigger("beginTalk", Item.find(id));
+  $(document).bind("actionTalk", function(e, item) {
+    return item.actionTalk();
   });
-  $(document).bind("actionAttack", function(e, o) {
-    return Item.attack(o);
+  $(document).bind("actionAttack", function(e, item) {
+    return item.actionAttack();
   });
-  $(document).bind("actionLook", function(e, o) {
-    return Item.look(o);
+  $(document).bind("actionLook", function(e, item) {
+    return item.actionLook();
   });
-  $(document).bind("actionUse", function(e, item1, item2) {
-    return Item.use(item1, item2);
+  $(document).bind("actionUse", function(e, item, otherItem) {
+    return item.actionUse(otherItem);
   });
-  $(document).bind("actionTake", function(e, o) {
-    return Item.tryToTake(o);
+  $(document).bind("actionTake", function(e, item) {
+    return item.actionTake();
   });
-  $(document).bind("immediateTake", function(e, o) {
-    return Item.immediateTake(o);
+  $(document).bind("immediateTake", function(e, item) {
+    return item.immediateTake();
   });
   return Item;
 });

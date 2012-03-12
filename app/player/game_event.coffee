@@ -18,7 +18,8 @@ define [ "jquery", "item", "inventory", "room", "util", "vendor/underscore"], ($
 
     # The player actually takes the item. Item listens to `immediateTake` and adds to the Inventory with not further checks.
     takeItem: (gameEvent) ->
-      $(document).trigger "immediateTake", gameEvent
+      item = Item.find Util.toIdString(gameEvent.item)
+      $(document).trigger "immediateTake", item
 
     # Removes the item from inventory and sets its location to the current room, effectively dropping it there.
     dropItem: (gameEvent) ->

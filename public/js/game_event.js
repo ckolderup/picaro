@@ -16,7 +16,9 @@ define(["jquery", "item", "inventory", "room", "util", "vendor/underscore"], fun
     allById: {},
     updateStatus: function(gameEvent) {},
     takeItem: function(gameEvent) {
-      return $(document).trigger("immediateTake", gameEvent);
+      var item;
+      item = Item.find(Util.toIdString(gameEvent.item));
+      return $(document).trigger("immediateTake", item);
     },
     dropItem: function(gameEvent) {
       Inventory.remove(gameEvent.item);

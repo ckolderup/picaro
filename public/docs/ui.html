@@ -119,7 +119,8 @@
       <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span> <span class="s2">&quot;active&quot;</span>
     <span class="k">else</span> <span class="k">if</span> <span class="nx">itemTriggers</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span>
       <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;closeMenu&quot;</span>
-      <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionUse&quot;</span><span class="p">,</span> <span class="nx">itemTriggers</span>
+      <span class="nv">items = </span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span> <span class="nx">itemTriggers</span><span class="p">,</span> <span class="nf">(id) -&gt;</span> <span class="nx">Item</span><span class="p">.</span><span class="nx">find</span> <span class="nx">id</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;actionUse&quot;</span><span class="p">,</span> <span class="nx">items</span>
       <span class="nv">itemTriggers = </span><span class="p">[]</span>
 
   <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#footer-use&quot;</span><span class="p">).</span><span class="nx">click</span> <span class="o">-&gt;</span>
