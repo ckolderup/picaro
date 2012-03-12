@@ -1,5 +1,5 @@
 
-define(["jquery", "util", "inventory", "action_guard", "talk", "vendor/underscore"], function($, Util, Inventory, ActionGuard, Talk) {
+define(["jquery", "util", "inventory", "talk", "action_guard", "vendor/underscore"], function($, Util, Inventory, Talk, ActionGuard) {
   var Item;
   Item = (function() {
 

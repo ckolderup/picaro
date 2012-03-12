@@ -234,7 +234,7 @@
             }
 
             .ui-action-sheet ul li a.active {
-              color: red;
+              opacity: .5;
             }
 
 /*----------

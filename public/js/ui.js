@@ -144,16 +144,16 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     return $(document).trigger("changeRoom", roomData);
   });
   $("#action-use li a").live("click", function() {
-    var items;
-    itemTriggers.push(util.splitActionId(this)[1]);
+    var menuHeader;
+    itemTriggers.push(Item.find(util.splitActionId(this)[1]));
+    menuHeader = $(this).closest("div.ui-modal-inner").find('h3');
     if (itemTriggers.length === 1) {
+      menuHeader.html("Use <strong>" + itemTriggers[0].name + "</strong> on &hellip;");
       return $(this).addClass("active");
     } else if (itemTriggers.length === 2) {
       $(this).trigger("closeMenu");
-      items = _.map(itemTriggers, function(id) {
-        return Item.find(id);
-      });
-      $(document).trigger("actionUse", items);
+      menuHeader.html("Use&hellip;");
+      $(document).trigger("actionUse", itemTriggers);
       return itemTriggers = [];
     }
   });

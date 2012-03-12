@@ -1,4 +1,4 @@
-define [ "jquery", "util", "inventory", "action_guard", "talk", "vendor/underscore" ], ($, Util, Inventory, ActionGuard, Talk) ->
+define [ "jquery", "util", "inventory", "talk", "action_guard", "vendor/underscore" ], ($, Util, Inventory, Talk, ActionGuard) ->
   class Item
     constructor: (itemObject, id) ->
       # Either an id for this Item is passed as a second argument, or it's the top-level key of the object passed at the first argument.

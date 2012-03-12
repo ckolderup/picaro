@@ -133,13 +133,17 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
   # ----------------
 
   $("#action-use li a").live "click", ->
-    itemTriggers.push util.splitActionId(this)[1]
+    itemTriggers.push Item.find(util.splitActionId(this)[1])
+
+    # TODO: this selector chain should be optimized, for some reason .closest() isn't finding the h3. perhaps add an ID to this for a faster find?
+    menuHeader = $(this).closest("div.ui-modal-inner").find('h3')
     if itemTriggers.length is 1
+      menuHeader.html("Use <strong>#{itemTriggers[0].name}</strong> on &hellip;")
       $(this).addClass "active"
     else if itemTriggers.length is 2
       $(this).trigger "closeMenu"
-      items = _.map itemTriggers, (id) -> Item.find id
-      $(document).trigger "actionUse", items
+      menuHeader.html("Use&hellip;")
+      $(document).trigger "actionUse", itemTriggers
       itemTriggers = []
 
   $("#footer-use").click ->
