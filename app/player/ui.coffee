@@ -39,12 +39,6 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       messageClass ||= "new"
       $("#game").append "<p class='#{messageClass}'>" + message + "</p>"
 
-    gameOverMessage: (message) ->
-      $("p.new:first ").removeClass("new").addClass "old"
-      n = $("p.old").length
-      $("p.old:first").remove()  if n > 5
-      $("#game").append "<p class='new'>" + message + "</p>"
-
     changeRoom: (e, roomData) ->
       room = roomData.room
       items = roomData.items

@@ -35,7 +35,10 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       return $(document).trigger("resetMenus");
     },
     endGame: function(gameEvent) {
-      return $(document).trigger("gameOver", "This has been " + Game.current.name + ", by " + Game.current.author);
+      var gameAuthor, gameName;
+      gameName = Game.current.name || "a mysteriously un-named Picaro Game";
+      gameAuthor = Game.current.author || "Anonymous";
+      return $(document).trigger("gameOver", "This has been " + gameName + ", by " + gameAuthor + ".");
     },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;

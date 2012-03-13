@@ -48,13 +48,6 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       messageClass || (messageClass = "new");
       return $("#game").append(("<p class='" + messageClass + "'>") + message + "</p>");
     },
-    gameOverMessage: function(message) {
-      var n;
-      $("p.new:first ").removeClass("new").addClass("old");
-      n = $("p.old").length;
-      if (n > 5) $("p.old:first").remove();
-      return $("#game").append("<p class='new'>" + message + "</p>");
-    },
     changeRoom: function(e, roomData) {
       var items, room;
       room = roomData.room;

@@ -32,7 +32,9 @@ describe "Playing Picaro/leaf_user: " do
       # the events fire too fast to catch all of them as the latest update... perhaps implement a brief wait in game code?
       older_updates.any? {|node| node.text == 'You take the Leaf.'}.should be_true
       older_updates.any? {|node| node.text == "You're able to catch the leaf on one of the rake's rusty tines and bring it on down."}.should be_true
-      latest_update.should have_content('Using the leaf, you cure scabies.')
+      older_updates.any? {|node| node.text == "Using the leaf, you cure scabies."}.should be_true
+
+      find('#game p.end').text.should match /This has been LEAFRAKER, by Rob Dubbin/
 
       page.should have_no_selector action_link_selector('take', 'leaf')
       page.should have_no_selector action_link_selector('take', 'rake')

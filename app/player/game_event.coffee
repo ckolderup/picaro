@@ -38,9 +38,12 @@ define [ "jquery", "game", "item", "inventory", "room", "util", "vendor/undersco
       Item.find(gameEvent.item)[gameEvent.attribute] = gameEvent.newValue
       $(document).trigger "resetMenus"
 
-    # A winner is you!  We need some sort of joy-enhancing user experience here, as there's nothing special going on here at the moment.
+    # Triggers the UI to disable itself and show the end-game message.
     endGame: (gameEvent) ->
-      $(document).trigger "gameOver", "This has been #{Game.current.name}, by #{Game.current.author}"
+      gameName = Game.current.name || "a mysteriously un-named Picaro Game"
+      gameAuthor = Game.current.author || "Anonymous"
+
+      $(document).trigger "gameOver", "This has been #{gameName}, by #{gameAuthor}."
 
     # Entirely blows away the `items` specified in the gameEvent which is passed in, and replaces them with the `newItem`.  Should work with items in the Inventory, in the room, or a mix between the two.  If any of the old items were in the user's Inventory, the new item will appear there as well.
     replaceItems: (gameEvent) ->
