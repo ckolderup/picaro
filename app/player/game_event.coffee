@@ -3,7 +3,7 @@
 # The primary way in which the gameworld responds to player action is via events.  Currently, an "after" event is all that's specified, but at some point we will likely add "before" events or events that occur after some period of time has elapsed. The idea is that an event ID can be attached to any action (a verb called on an item) as its "after" property.  When an action (generally, anything of the form "verb + noun") is performed, the event will be looked up and triggered here if it is one of the known types.
 
 # First we declare our dependencies on Item, Inventory and Room, as well as the usual suspects, $ and _.
-define [ "jquery", "item", "inventory", "room", "util", "vendor/underscore"], ($, Item, Inventory, Room, Util) ->
+define [ "jquery", "game", "item", "inventory", "room", "util", "vendor/underscore"], ($, Game, Item, Inventory, Room, Util) ->
   GameEvent =
     # We take the array of events from the game JSON and store them, hashed by ID.
     init: (events) ->
@@ -39,8 +39,8 @@ define [ "jquery", "item", "inventory", "room", "util", "vendor/underscore"], ($
       $(document).trigger "resetMenus"
 
     # A winner is you!  We need some sort of joy-enhancing user experience here, as there's nothing special going on here at the moment.
-    instantVictory: (gameEvent) ->
-      $(document).trigger "A winner is you!"
+    endGame: (gameEvent) ->
+      $(document).trigger "gameOver", "This has been #{Game.current.name}, by #{Game.current.author}"
 
     # Entirely blows away the `items` specified in the gameEvent which is passed in, and replaces them with the `newItem`.  Should work with items in the Inventory, in the room, or a mix between the two.  If any of the old items were in the user's Inventory, the new item will appear there as well.
     replaceItems: (gameEvent) ->
@@ -61,7 +61,7 @@ define [ "jquery", "item", "inventory", "room", "util", "vendor/underscore"], ($
   $(document).bind "gameEvent", (e, action) ->
     if afterEvent = GameEvent.allById[action["after"]]
       $(document).trigger "updateStatus", afterEvent.message if afterEvent.message
-      GameEvent[afterEvent.type] afterEvent
+      GameEvent[afterEvent.type](afterEvent)
 
   # Return the GameEvent module, so it can be required by others.
   GameEvent

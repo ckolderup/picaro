@@ -11,21 +11,21 @@
         "potion" : { "after" : "youCanSeeThroughTime" },
         "leaf" : { "after" : "youHavePoisonIvy" }
       }
-    } 
+    }
   },
 
   "events" : [
     { "id": "youCanSeeThroughTime",
-      "type": "instantVictory",
+      "type": "endGame",
       "message" : "You quaff the potion. You now have the ability to SEE THROUGH TIME."
     },
     { "id": "youHavePoisonIvy",
       "type": "updateStatus",
       "message": "You rub the leaf all over your face, take a second look at it, then mutter to yourself, \"Leaves of three... let them be...\""
     },
-    { "id": "dissolveLeaf", 
-      "type": "removeItem", 
-      "item": "leaf", 
+    { "id": "dissolveLeaf",
+      "type": "removeItem",
+      "item": "leaf",
       "message": "The leaf dissolves in the flask."
     },
     { "id": "updateCompassDescription0",
@@ -65,10 +65,10 @@
           "look": ["It's reddish, with glints of gold when turned in the light"],
           "take": true
         },
-        { "name": "Potion", 
-          "id": "potion", 
-          "look": ["It's a teal liquid in an erelenmeyer flask."], 
-          "take": true,             
+        { "name": "Potion",
+          "id": "potion",
+          "look": ["It's a teal liquid in an erelenmeyer flask."],
+          "take": true,
           "use": {
             "leaf": {
               "after": "dissolveLeaf"

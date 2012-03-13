@@ -12,7 +12,7 @@ unattachedItems:
         after: youHavePoisonIvy
 events:
 - id: youCanSeeThroughTime
-  type: instantVictory
+  type: endGame
   message: You quaff the potion. You now have the ability to SEE THROUGH TIME.
 - id: youHavePoisonIvy
   type: updateStatus

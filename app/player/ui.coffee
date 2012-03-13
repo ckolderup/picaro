@@ -31,7 +31,15 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         $("#action-talk ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "talk") + "'>" + item.name + "</a></li>"  if item.talk
         $("#action-attack ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "attack") + "'>" + item.name + "</a></li>"  if item.attack
 
-    newStatusMessage: (message) ->
+    # TODO: remove the first, old classes if the styles remain unused
+    newStatusMessage: (message, messageClass) ->
+      $("p.new:first ").removeClass("new").addClass "old"
+      n = $("p.old").length
+      $("p.old:first").remove()  if n > 5
+      messageClass ||= "new"
+      $("#game").append "<p class='#{messageClass}'>" + message + "</p>"
+
+    gameOverMessage: (message) ->
       $("p.new:first ").removeClass("new").addClass "old"
       n = $("p.old").length
       $("p.old:first").remove()  if n > 5
@@ -196,6 +204,9 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
 
   $(document).bind "updateStatus", (event, message) ->
     UI.newStatusMessage message
+
+  $(document).bind "gameOver", (event, message) ->
+    UI.newStatusMessage message, 'end'
 
   $(document).bind "beginTalk", UI.beginTalk
   $(document).bind "resetMenus", UI.resetMenus

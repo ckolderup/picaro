@@ -1,5 +1,5 @@
 
-define(["jquery", "item", "inventory", "room", "util", "vendor/underscore"], function($, Item, Inventory, Room, Util) {
+define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscore"], function($, Game, Item, Inventory, Room, Util) {
   var GameEvent;
   GameEvent = {
     init: function(events) {
@@ -34,8 +34,8 @@ define(["jquery", "item", "inventory", "room", "util", "vendor/underscore"], fun
       Item.find(gameEvent.item)[gameEvent.attribute] = gameEvent.newValue;
       return $(document).trigger("resetMenus");
     },
-    instantVictory: function(gameEvent) {
-      return $(document).trigger("A winner is you!");
+    endGame: function(gameEvent) {
+      return $(document).trigger("gameOver", "This has been " + Game.current.name + ", by " + Game.current.author);
     },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;

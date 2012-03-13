@@ -2,17 +2,16 @@
 #==============
 
 # This file declares the top-level dependencies of the Player app, as well as the code which fetches game data and bootstraps the gameworld.
-require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore" ], ($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) ->
-  $(document).ready ->
-    startingRoom = undefined
-    gameItems = {}
+require [ "jquery", "game", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore" ], ($, Game, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) ->
 
+  $(document).ready ->
     # Fetch the JSON file as specified by the slug embedded in the page.
     $.ajax
       url: "/games/" + gameId
       dataType: "json"
       async: false
       success: (data) ->
+        startingRoom = undefined
         for id, room of data.rooms
           room.id = Util.toIdString id
           room.name ||= id
@@ -30,6 +29,7 @@ require [ "jquery", "util", "room", "inventory", "item", "ui", "game_event", "ac
         GameEvent.init data.events
         ActionGuard.init data.actionGuards
         Room.init startingRoom
+        Game.init data
 
         # Finally, initialize the user interface.
         UI.init(data.gameName)

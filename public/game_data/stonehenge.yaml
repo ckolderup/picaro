@@ -9,7 +9,7 @@ events:
   item: leaf
   message: You're able to catch the leaf on one of the rake's rusty tines and bring it on down.
 - id: winGameViaLeafBubbleage
-  type: instantVictory
+  type: endGame
   message: The cauldron bubbles violently. The resulting potion cures scabies.
 - id: dropRakeOnTree
   type: dropItem

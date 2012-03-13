@@ -1,15 +1,13 @@
 
-require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
+require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Game, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
   return $(document).ready(function() {
-    var gameItems, startingRoom;
-    startingRoom = void 0;
-    gameItems = {};
     return $.ajax({
       url: "/games/" + gameId,
       dataType: "json",
       async: false,
       success: function(data) {
-        var id, item, room, _ref, _ref2;
+        var id, item, room, startingRoom, _ref, _ref2;
+        startingRoom = void 0;
         _ref = data.rooms;
         for (id in _ref) {
           room = _ref[id];
@@ -34,6 +32,7 @@ require(["jquery", "util", "room", "inventory", "item", "ui", "game_event", "act
         GameEvent.init(data.events);
         ActionGuard.init(data.actionGuards);
         Room.init(startingRoom);
+        Game.init(data);
         return UI.init(data.gameName);
       },
       error: function(e) {

@@ -10,7 +10,7 @@
       "message" : "You're able to catch the leaf on one of the rake's rusty tines and bring it on down."
     },
     { "id": "winGameViaLeafTakeage",
-      "type": "instantVictory",
+      "type": "endGame",
       "message": "Using the leaf, you cure scabies."}
   ],
 

@@ -40,7 +40,15 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         }
       });
     },
-    newStatusMessage: function(message) {
+    newStatusMessage: function(message, messageClass) {
+      var n;
+      $("p.new:first ").removeClass("new").addClass("old");
+      n = $("p.old").length;
+      if (n > 5) $("p.old:first").remove();
+      messageClass || (messageClass = "new");
+      return $("#game").append(("<p class='" + messageClass + "'>") + message + "</p>");
+    },
+    gameOverMessage: function(message) {
       var n;
       $("p.new:first ").removeClass("new").addClass("old");
       n = $("p.old").length;
@@ -198,6 +206,9 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
   });
   $(document).bind("updateStatus", function(event, message) {
     return UI.newStatusMessage(message);
+  });
+  $(document).bind("gameOver", function(event, message) {
+    return UI.newStatusMessage(message, 'end');
   });
   $(document).bind("beginTalk", UI.beginTalk);
   $(document).bind("resetMenus", UI.resetMenus);
