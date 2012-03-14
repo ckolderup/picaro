@@ -38,6 +38,9 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       var gameAuthor, gameName;
       gameName = Game.current.name || "a mysteriously un-named Picaro Game";
       gameAuthor = Game.current.author || "Anonymous";
+      if (Game.current.authorURL) {
+        gameAuthor = "<a href='" + (encodeURI(Game.current.authorURL)) + "'>" + gameAuthor + "</a>";
+      }
       return $(document).trigger("gameOver", "This has been " + gameName + ", by " + gameAuthor + ".");
     },
     replaceItems: function(gameEvent) {
