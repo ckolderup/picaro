@@ -13,17 +13,22 @@ events:
     name: Cool Jackalope
     take: true
   message: You place the sunglasses on the jackalopes face.  Hey, cool Jackalope.
+- id: endTheGame
+  type: instantVictory
+  message: Nothing that cool ever happened again. You died a sad man.
 rooms:
   The Rumpus Room:
     starter: true
     items:
       Sunglasses:
         take: true
-      Jacques 'o Lope:
+      "Jacques 'o Lope":
         take: true
         use:
           Sunglasses:
-            after: replaceWithCoolJackelope
+            after:
+            - replaceWithCoolJackelope
+            - endTheGame
   Palo Alto:
     items:
       - name: Hank Azaria

@@ -1,4 +1,3 @@
-
 define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscore"], function($, Game, Item, Inventory, Room, Util) {
   var GameEvent;
   GameEvent = {
@@ -46,24 +45,29 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       _(gameEvent.items).each(function(itemId, index) {
         var id;
         id = Util.toIdString(itemId);
-        if (Inventory.remove(id)) oldItemsWereInInventory = true;
+        if (Inventory.remove(id)) {
+          oldItemsWereInInventory = true;
+        }
         return Item.remove(id);
       });
       newItem = Item.create(gameEvent.newItem, {
         location: Room.current.id
       });
-      if (oldItemsWereInInventory) Inventory.add(newItem);
+      if (oldItemsWereInInventory) {
+        Inventory.add(newItem);
+      }
       return $(document).trigger("resetMenus");
     }
   };
-  $(document).bind("gameEvent", function(e, action) {
-    var afterEvent;
-    if (afterEvent = GameEvent.allById[action["after"]]) {
-      if (afterEvent.message) {
-        $(document).trigger("updateStatus", afterEvent.message);
-      }
-      return GameEvent[afterEvent.type](afterEvent);
+  $(document).bind("gameEvent", function(e, actions) {
+    var action, afterEvent, _i, _len, _ref, _results;
+    _ref = actions["after"];
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      action = _ref[_i];
+      _results.push((afterEvent = GameEvent.allById[action]) ? (afterEvent.message ? $(document).trigger("updateStatus", afterEvent.message) : void 0, GameEvent[afterEvent.type](afterEvent)) : void 0);
     }
+    return _results;
   });
   return GameEvent;
 });

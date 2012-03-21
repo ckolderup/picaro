@@ -1,4 +1,3 @@
-
 define(['vendor/underscore'], {
   _items: {},
   add: function(item) {

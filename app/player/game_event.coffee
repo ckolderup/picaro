@@ -61,10 +61,11 @@ define [ "jquery", "game", "item", "inventory", "room", "util", "vendor/undersco
   #### DOM Event binding
 
   # This is the generic event listener for all Game Events. An 'action' (verb + noun) object is passed along, and if the `after` event therein exists in `@allById`, it's passed to the function specified by its type.
-  $(document).bind "gameEvent", (e, action) ->
-    if afterEvent = GameEvent.allById[action["after"]]
-      $(document).trigger "updateStatus", afterEvent.message if afterEvent.message
-      GameEvent[afterEvent.type](afterEvent)
+  $(document).bind "gameEvent", (e, actions) ->
+    for action in actions["after"]
+      if afterEvent = GameEvent.allById[action]
+        $(document).trigger "updateStatus", afterEvent.message if afterEvent.message
+        GameEvent[afterEvent.type](afterEvent)
 
   # Return the GameEvent module, so it can be required by others.
   GameEvent

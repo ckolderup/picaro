@@ -1,4 +1,3 @@
-
 require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Game, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
   return $(document).ready(function() {
     return $.ajax({
@@ -13,7 +12,9 @@ require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_even
           room = _ref[id];
           room.id = Util.toIdString(id);
           room.name || (room.name = id);
-          if (room.starter) startingRoom = room;
+          if (room.starter) {
+            startingRoom = room;
+          }
           Room.allById[room.id] = room;
           _(room.items).map(function(item, id) {
             return Item.create(item, {

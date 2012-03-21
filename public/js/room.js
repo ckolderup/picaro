@@ -1,4 +1,3 @@
-
 define(["jquery", "item", "inventory", "util", "vendor/underscore"], function($, Item, Inventory, Util) {
   var Room;
   Room = {
@@ -34,30 +33,26 @@ define(["jquery", "item", "inventory", "util", "vendor/underscore"], function($,
       for (direction in _ref) {
         roomId = _ref[direction];
         id = Util.toIdString(roomId);
-        switch (direction) {
-          case "North":
-          case "N":
-            $("#move-compass-north a").attr("href", id);
-            _results.push($("#move-compass-north, #move-compass-north a").removeClass("disabled"));
-            break;
-          case "South":
-          case "S":
-            $("#move-compass-south a").attr("href", id);
-            _results.push($("#move-compass-south, #move-compass-south a").removeClass("disabled"));
-            break;
-          case "East":
-          case "E":
-            $("#move-compass-east a").attr("href", id);
-            _results.push($("#move-compass-east, #move-compass-east a").removeClass("disabled"));
-            break;
-          case "West":
-          case "W":
-            $("#move-compass-west a").attr("href", id);
-            _results.push($("#move-compass-west, #move-compass-west a").removeClass("disabled"));
-            break;
-          default:
-            _results.push(void 0);
-        }
+        _results.push((function() {
+          switch (direction) {
+            case "North":
+            case "N":
+              $("#move-compass-north a").attr("href", id);
+              return $("#move-compass-north, #move-compass-north a").removeClass("disabled");
+            case "South":
+            case "S":
+              $("#move-compass-south a").attr("href", id);
+              return $("#move-compass-south, #move-compass-south a").removeClass("disabled");
+            case "East":
+            case "E":
+              $("#move-compass-east a").attr("href", id);
+              return $("#move-compass-east, #move-compass-east a").removeClass("disabled");
+            case "West":
+            case "W":
+              $("#move-compass-west a").attr("href", id);
+              return $("#move-compass-west, #move-compass-west a").removeClass("disabled");
+          }
+        })());
       }
       return _results;
     }
