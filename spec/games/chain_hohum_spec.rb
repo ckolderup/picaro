@@ -19,12 +19,12 @@ describe "Playing Picaro/chain_hohum: " do
 
       # jackalope is still waitin' for the takin'
       take.click
-      action_link('take', 'jackalope').should be_visible
+      action_link('take', 'jacques%27oLope').should be_visible
 
       use.click
       action_link('use', 'sunglasses').click
       use_menu.should be_visible
-      action_link('use', 'jackalope').click
+      action_link('use', 'jacques%27oLope').click
 
       use.click
 

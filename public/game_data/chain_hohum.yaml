@@ -9,9 +9,9 @@ events:
   - sunglasses
   - jackalope
   newItem:
-    id: coolJackalope
-    name: Cool Jackalope
-    take: true
+    coolJackalope:
+      name: Cool Jackalope
+      take: true
   message: You place the sunglasses on the jackalopes face.  Hey, cool Jackalope.
 - id: endTheGame
   type: instantVictory
