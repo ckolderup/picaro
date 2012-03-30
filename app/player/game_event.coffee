@@ -16,6 +16,12 @@ define [ "jquery", "game", "item", "inventory", "room", "util", "vendor/undersco
     # Simply add a new message to the game's main display.
     updateStatus: (gameEvent) ->
 
+    # Lookup the named action and, if it's of a known type, calls the function for that type.
+    execute: (event) ->
+      if afterEvent = @allById[event]
+        $(document).trigger "updateStatus", afterEvent.message if afterEvent.message
+        GameEvent[afterEvent.type](afterEvent)
+
     # The player actually takes the item. Item listens to `immediateTake` and adds to the Inventory with not further checks.
     takeItem: (gameEvent) ->
       item = Item.find Util.toIdString(gameEvent.item)
@@ -61,11 +67,13 @@ define [ "jquery", "game", "item", "inventory", "room", "util", "vendor/undersco
   #### DOM Event binding
 
   # This is the generic event listener for all Game Events. An 'action' (verb + noun) object is passed along, and if the `after` event therein exists in `@allById`, it's passed to the function specified by its type.
-  $(document).bind "gameEvent", (e, actions) ->
-    for action in actions["after"]
-      if afterEvent = GameEvent.allById[action]
-        $(document).trigger "updateStatus", afterEvent.message if afterEvent.message
-        GameEvent[afterEvent.type](afterEvent)
+  $(document).bind "gameEvent", (e, action) ->
+    doThisAfter = action['after']
+    # The after events for this action could be one, or many
+    if doThisAfter instanceof Array
+      GameEvent.execute event for event in doThisAfter
+    else
+      GameEvent.execute doThisAfter
 
   # Return the GameEvent module, so it can be required by others.
   GameEvent

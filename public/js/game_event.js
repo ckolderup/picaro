@@ -15,6 +15,15 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
     },
     allById: {},
     updateStatus: function(gameEvent) {},
+    execute: function(event) {
+      var afterEvent;
+      if (afterEvent = this.allById[event]) {
+        if (afterEvent.message) {
+          $(document).trigger("updateStatus", afterEvent.message);
+        }
+        return GameEvent[afterEvent.type](afterEvent);
+      }
+    },
     takeItem: function(gameEvent) {
       var item;
       item = Item.find(Util.toIdString(gameEvent.item));
@@ -59,22 +68,19 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       return $(document).trigger("resetMenus");
     }
   };
-  $(document).bind("gameEvent", function(e, actions) {
-    var action, afterEvent, _i, _len, _ref, _results;
-    _ref = actions["after"];
-    _results = [];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      action = _ref[_i];
-      if (afterEvent = GameEvent.allById[action]) {
-        if (afterEvent.message) {
-          $(document).trigger("updateStatus", afterEvent.message);
-        }
-        _results.push(GameEvent[afterEvent.type](afterEvent));
-      } else {
-        _results.push(void 0);
+  $(document).bind("gameEvent", function(e, action) {
+    var doThisAfter, event, _i, _len, _results;
+    doThisAfter = action['after'];
+    if (doThisAfter instanceof Array) {
+      _results = [];
+      for (_i = 0, _len = doThisAfter.length; _i < _len; _i++) {
+        event = doThisAfter[_i];
+        _results.push(GameEvent.execute(event));
       }
+      return _results;
+    } else {
+      return GameEvent.execute(doThisAfter);
     }
-    return _results;
   });
   return GameEvent;
 });
