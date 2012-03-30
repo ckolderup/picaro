@@ -7,6 +7,7 @@
 
   <script type="text/javascript" src="support/jasmine.js"></script>
   <script type="text/javascript" src="support/jasmine-html.js"></script>
+  <script type="text/javascript" src="support/jasmine-jquery.js"></script>
   <!-- ... -->
 
   <link rel="stylesheet" href="support/bootstrap.css" type="text/css">
@@ -27,7 +28,8 @@
     require([
       'util_spec.js',
       'inventory_spec.js',
-      'item_spec.js'
+      'item_spec.js',
+      'game_event_spec.js'
     ], function() {
       $(function() {
         jasmine.getEnv().addReporter(new jasmine.BootstrapReporter());

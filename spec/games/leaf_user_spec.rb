@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../acceptance_helper'
 
 describe "Playing Picaro/leaf_user: " do
@@ -34,7 +35,7 @@ describe "Playing Picaro/leaf_user: " do
       older_updates.any? {|node| node.text == "You're able to catch the leaf on one of the rake's rusty tines and bring it on down."}.should be_true
       older_updates.any? {|node| node.text == "Using the leaf, you cure scabies."}.should be_true
 
-      find('#game p.end').text.should match /This has been LEAFRAKER, by Rob Dubbin/
+      find('#game p.end').text.should match /This has been “LEAFRAKER”, by Rob Dubbin/
 
       page.should have_no_selector action_link_selector('take', 'leaf')
       page.should have_no_selector action_link_selector('take', 'rake')

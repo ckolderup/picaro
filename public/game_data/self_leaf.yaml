@@ -1,5 +1,6 @@
 ---
 gameName: Leaf Thyself
+author: Patrick Ewing
 gameDescription: A V1 Picaro Test-Game, in which the leaf can be used on oneself
 version: "1"
 unattachedItems:

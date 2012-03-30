@@ -1,3 +1,4 @@
+
 define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscore"], function($, Game, Item, Inventory, Room, Util) {
   var GameEvent;
   GameEvent = {
@@ -37,7 +38,10 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       var gameAuthor, gameName;
       gameName = Game.current.name || "a mysteriously un-named Picaro Game";
       gameAuthor = Game.current.author || "Anonymous";
-      return $(document).trigger("gameOver", "This has been " + gameName + ", by " + gameAuthor + ".");
+      if (Game.current.authorURL) {
+        gameAuthor = "<a href='" + (encodeURI(Game.current.authorURL)) + "'>" + gameAuthor + "</a>";
+      }
+      return $(document).trigger("gameOver", "This has been &ldquo;" + gameName + "&rdquo;, by " + gameAuthor + ".");
     },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;
@@ -45,17 +49,13 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       _(gameEvent.items).each(function(itemId, index) {
         var id;
         id = Util.toIdString(itemId);
-        if (Inventory.remove(id)) {
-          oldItemsWereInInventory = true;
-        }
+        if (Inventory.remove(id)) oldItemsWereInInventory = true;
         return Item.remove(id);
       });
       newItem = Item.create(gameEvent.newItem, {
         location: Room.current.id
       });
-      if (oldItemsWereInInventory) {
-        Inventory.add(newItem);
-      }
+      if (oldItemsWereInInventory) Inventory.add(newItem);
       return $(document).trigger("resetMenus");
     }
   };
@@ -65,7 +65,14 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       action = _ref[_i];
-      _results.push((afterEvent = GameEvent.allById[action]) ? (afterEvent.message ? $(document).trigger("updateStatus", afterEvent.message) : void 0, GameEvent[afterEvent.type](afterEvent)) : void 0);
+      if (afterEvent = GameEvent.allById[action]) {
+        if (afterEvent.message) {
+          $(document).trigger("updateStatus", afterEvent.message);
+        }
+        _results.push(GameEvent[afterEvent.type](afterEvent));
+      } else {
+        _results.push(void 0);
+      }
     }
     return _results;
   });

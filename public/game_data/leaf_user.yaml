@@ -1,6 +1,7 @@
 ---
 gameName: LEAFRAKER
 author: Rob Dubbin
+authorURL: https://twitter.com/robdubbin
 gameDescription: A V1 Picaro Test-Game, in which an item is used to get another item, which wins the game
 version: "1"
 events:
