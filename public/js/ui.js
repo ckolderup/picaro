@@ -1,3 +1,4 @@
+
 define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscore"], function($, util, Item, Room, Inventory, Talk) {
   var UI, itemTriggers;
   itemTriggers = [];
@@ -19,9 +20,7 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     resetMenus: function() {
       var roomItems, self;
       roomItems = Item.findByRoom(Room.current);
-      if (self = Item.find('self')) {
-        roomItems.push(self);
-      }
+      if (self = Item.find('self')) roomItems.push(self);
       $(".ui-action ul").empty();
       _.each(Inventory.list(), function(item) {
         $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>");
@@ -45,9 +44,7 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       var n;
       $("p.new:first ").removeClass("new").addClass("old");
       n = $("p.old").length;
-      if (n > 5) {
-        $("p.old:first").remove();
-      }
+      if (n > 5) $("p.old:first").remove();
       messageClass || (messageClass = "new");
       return $("#game").append(("<p class='" + messageClass + "'>") + message + "</p>");
     },
@@ -118,15 +115,9 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       });
       return itemAction = function(action, item, event) {
         item = Item.find(item);
-        if (action === "look") {
-          $(document).trigger("actionLook", item);
-        }
-        if (action === "take") {
-          $(document).trigger("actionTake", item);
-        }
-        if (action === "attack") {
-          $(document).trigger("actionAttack", item);
-        }
+        if (action === "look") $(document).trigger("actionLook", item);
+        if (action === "take") $(document).trigger("actionTake", item);
+        if (action === "attack") $(document).trigger("actionAttack", item);
         if (action === "use") {
           event.stopPropagation();
           return false;

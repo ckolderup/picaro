@@ -1,3 +1,4 @@
+
 define(["jquery", "inventory", "util", "vendor/underscore"], function($, Inventory, Util) {
   var Guard;
   Guard = {

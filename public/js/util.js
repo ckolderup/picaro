@@ -1,3 +1,4 @@
+
 define(["jquery"], function($) {
   return {
     arrayToSentence: function(array, separator, lastSeparator) {
@@ -22,9 +23,7 @@ define(["jquery"], function($) {
         if (i === (length - 2)) {
           string += lastSeparator;
         } else {
-          if (i < (length - 1)) {
-            string += separator;
-          }
+          if (i < (length - 1)) string += separator;
         }
         i++;
       }
@@ -36,13 +35,9 @@ define(["jquery"], function($) {
         i = 0;
         while (i < a.length) {
           if (typeof a[i] === "object") {
-            if (!Equals(a[i], b[i])) {
-              return false;
-            }
+            if (!Equals(a[i], b[i])) return false;
           } else {
-            if (a[i] !== b[i]) {
-              return false;
-            }
+            if (a[i] !== b[i]) return false;
           }
           i++;
         }

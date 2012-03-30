@@ -1,3 +1,4 @@
+
 define(["jquery", "vendor/underscore"], function($) {
   var Talk;
   Talk = {};
