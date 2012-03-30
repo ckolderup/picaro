@@ -25,7 +25,7 @@ describe "Playing Picaro/leaf" do
       action_link('use', 'potion').click
       action_link('use', 'self').click
       nth_latest_update(2).text.should match /You quaff the potion. You now have the ability to SEE THROUGH TIME./
-      ending_update.text.should match /This has been “Leaf Thyself”, by Patrick Ewing/
+      ending_update.text.should match /This has been “Leaf Thyself” by Patrick Ewing/
     end
   end
 
@@ -78,7 +78,7 @@ describe "Playing Picaro/leaf" do
       action_link('use', 'potion').click
       action_link('use', 'self').click
       nth_latest_update(2).text.should match /You quaff the potion. You now have the ability to SEE THROUGH TIME./
-      ending_update.text.should match /This has been “Leaf Thyself”, by Patrick Ewing/
+      ending_update.text.should match /This has been “Leaf Thyself” by Patrick Ewing/
   	end
   end
 end

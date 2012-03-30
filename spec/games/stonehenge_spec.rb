@@ -96,7 +96,7 @@ describe "Playing Picaro/stonehenge: " do
       action_link('use', 'cauldron').click
 
       nth_latest_update(2).text.should match /The cauldron bubbles violently. The resulting potion cures scabies./
-      ending_update.text.should == "This has been “Stonehenge Rising”, by Anonymous."
+      ending_update.text.should == "This has been “Stonehenge Rising” by Anonymous."
     end
 
 

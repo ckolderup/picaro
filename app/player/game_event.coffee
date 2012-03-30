@@ -49,7 +49,7 @@ define [ "jquery", "game", "item", "inventory", "room", "util", "vendor/undersco
       gameName = Game.current.name || "a mysteriously un-named Picaro Game"
       gameAuthor = Game.current.author || "Anonymous"
       gameAuthor = "<a href='#{encodeURI Game.current.authorURL}'>#{gameAuthor}</a>" if Game.current.authorURL
-      $(document).trigger "gameOver", "This has been &ldquo;#{gameName}&rdquo;, by #{gameAuthor}."
+      $(document).trigger "gameOver", "This has been &ldquo;#{gameName}&rdquo; by #{gameAuthor}."
 
     # Entirely blows away the `items` specified in the gameEvent which is passed in, and replaces them with the `newItem`.  Should work with items in the Inventory, in the room, or a mix between the two.  If any of the old items were in the user's Inventory, the new item will appear there as well.
     replaceItems: (gameEvent) ->

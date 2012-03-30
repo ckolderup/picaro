@@ -1,5 +1,7 @@
 ---
-gameName: Broken Windows
+gameName: Chain Hohum
+author: Casey Kolderup
+authorURL: http://casey.kolderup.org
 gameDescription: A V1 Picaro Test-Game, in which an item is combined with a second item, adding a new item
 version: "1"
 
@@ -15,7 +17,7 @@ events:
       take: true
   message: You place the sunglasses on the jackalopes face.  Hey, cool Jackalope.
 - id: endTheGame
-  type: instantVictory
+  type: endGame
   message: Nothing that cool ever happened again. You died a sad man.
 
 rooms:
