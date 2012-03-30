@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'bundler/setup'
 require 'sinatra'
 require File.dirname(__FILE__) + '/../picaro'

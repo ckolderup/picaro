@@ -41,7 +41,7 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       if (Game.current.authorURL) {
         gameAuthor = "<a href='" + (encodeURI(Game.current.authorURL)) + "'>" + gameAuthor + "</a>";
       }
-      return $(document).trigger("gameOver", "This has been " + gameName + ", by " + gameAuthor + ".");
+      return $(document).trigger("gameOver", "This has been &ldquo;" + gameName + "&rdquo;, by " + gameAuthor + ".");
     },
     replaceItems: function(gameEvent) {
       var newItem, oldItemsWereInInventory;

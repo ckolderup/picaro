@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/spec_helper'
 disable :run
 
@@ -49,8 +50,16 @@ def older_updates
   all('#game p.old')
 end
 
+def nth_latest_update(num)
+  find "#game p:nth-last-child(#{num})"
+end
+
 def latest_update
   find '#game p.new'
+end
+
+def ending_update
+  find '#game p.end'
 end
 
 def action_link_selector actionId, itemId

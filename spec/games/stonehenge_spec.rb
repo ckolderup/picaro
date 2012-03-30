@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../acceptance_helper'
 
 describe "Playing Picaro/stonehenge: " do
@@ -94,7 +95,8 @@ describe "Playing Picaro/stonehenge: " do
       action_link('use', 'leaf').click
       action_link('use', 'cauldron').click
 
-      latest_update.text.should match /The cauldron bubbles violently. The resulting potion cures scabies./
+      nth_latest_update(2).text.should match /The cauldron bubbles violently. The resulting potion cures scabies./
+      ending_update.text.should == "This has been “Stonehenge Rising”, by Anonymous."
     end
 
 
