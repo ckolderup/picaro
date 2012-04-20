@@ -16,8 +16,9 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
 
       roomDiv.css("left", x).css('top', y)
       $(".rooms").append roomDiv
-
+      console.log room
       for direction, destination of room.paths
+        console.log direction, destination
         switch direction
           when "North", "N"
             @drawRoom(destination, x, y - positionOffset)
@@ -29,17 +30,15 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
             @drawRoom(destination, x - positionOffset, y)
 
     resetGameData: (game) ->
-      gameObject = game
-      Room.all[room.name] = room for room in game.rooms
+      Room.construct(id, room) for id, room of game.rooms
       $('.hero-unit h2').html game.gameName
       $('.hero-unit p').html game.gameDescription
-
-      $("#roomNum").html game.rooms.length
+      $("#roomNum").html(game.rooms.length)
       $(".rooms").empty()
-      @drawRoom Room.starter().name, 300, 550
+      @drawRoom(Room.starter().name, 300, 550)
 
   $ ->
-    myCodeMirror = CodeMirror.fromTextArea document.getElementById("code"),
+    mirror = CodeMirror.fromTextArea document.getElementById("code"),
       mode: "yaml"
       theme: "monokai"
       onChange: (mirror, changes) ->

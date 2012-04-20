@@ -3,6 +3,11 @@ define(["jquery", "item", "inventory", "util", "vendor/underscore"], function($,
   var Room;
   Room = {
     allById: {},
+    construct: function(id, room) {
+      room.id = Util.toIdString(id);
+      room.name || (room.name = id);
+      return Room.allById[room.id] = room;
+    },
     init: function(startingRoom) {
       var roomItems;
       this.current = startingRoom;

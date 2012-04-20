@@ -2,7 +2,7 @@
 gameName: Chain Hohum
 author: Casey Kolderup
 authorURL: http://casey.kolderup.org
-gameDescription: A V1 Picaro Test-Game, in which an item is combined with a second item, adding a new item
+gameDescription: A V1 Picaro Test-Game, in which after events are chained and executed in order.
 version: "1"
 
 events:

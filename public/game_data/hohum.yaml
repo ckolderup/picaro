@@ -18,6 +18,8 @@ events:
 rooms:
   The Rumpus Room:
     starter: true
+    paths:
+      S: Palo Alto
     items:
       Sunglasses:
         take: true
@@ -27,5 +29,7 @@ rooms:
           Sunglasses:
             after: replaceWithCoolJackelope
   Palo Alto:
+    paths:
+      N: The Rumpus Room
     items:
       - name: Hank Azaria

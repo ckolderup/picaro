@@ -3,13 +3,17 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
   var Editor;
   Editor = {
     drawRoom: function(roomName, x, y) {
-      var destination, direction, item, itemDots, positionOffset, room, roomDiv, _i, _len, _ref, _ref2, _results;
+      var destination, direction, item, itemDots, positionOffset, room, roomDiv, _i, _len, _ref, _ref1, _results;
       room = Room.findByName(roomName);
-      if (room.drawn) return;
+      if (room.drawn) {
+        return;
+      }
       room.drawn = true;
       positionOffset = 125;
       roomDiv = $("<div data-room-id='" + room.name + "' data-content='" + (_.escape(room.description)) + "' class='room'><h4>" + room.name + " </h3></div>");
-      if (room.starter) roomDiv.append('&#9823;');
+      if (room.starter) {
+        roomDiv.append('&#9823;');
+      }
       roomDiv.popover({
         placement: 'left',
         title: roomName,
@@ -26,10 +30,12 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       }
       roomDiv.css("left", x).css('top', y);
       $(".rooms").append(roomDiv);
-      _ref2 = room.paths;
+      console.log(room);
+      _ref1 = room.paths;
       _results = [];
-      for (direction in _ref2) {
-        destination = _ref2[direction];
+      for (direction in _ref1) {
+        destination = _ref1[direction];
+        console.log(direction, destination);
         switch (direction) {
           case "North":
           case "N":
@@ -54,12 +60,11 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       return _results;
     },
     resetGameData: function(game) {
-      var gameObject, room, _i, _len, _ref;
-      gameObject = game;
+      var id, room, _ref;
       _ref = game.rooms;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        room = _ref[_i];
-        Room.all[room.name] = room;
+      for (id in _ref) {
+        room = _ref[id];
+        Room.construct(id, room);
       }
       $('.hero-unit h2').html(game.gameName);
       $('.hero-unit p').html(game.gameDescription);
@@ -69,8 +74,8 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
     }
   };
   $(function() {
-    var myCodeMirror;
-    myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+    var mirror;
+    mirror = CodeMirror.fromTextArea(document.getElementById("code"), {
       mode: "yaml",
       theme: "monokai",
       onChange: function(mirror, changes) {

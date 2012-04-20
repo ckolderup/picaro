@@ -2,6 +2,11 @@ define [ "jquery", "item", "inventory", "util", "vendor/underscore" ], ($, Item,
   Room =
     allById: {}
 
+    construct: (id, room) ->
+      room.id = Util.toIdString id
+      room.name ||= id
+      Room.allById[room.id] = room
+
     init: (startingRoom) ->
       @current = startingRoom
       roomItems = Item.findByRoom(startingRoom)
