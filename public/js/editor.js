@@ -61,6 +61,9 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
     },
     resetGameData: function(game) {
       var id, room, _ref;
+      if (!(game && game.rooms)) {
+        return;
+      }
       _ref = game.rooms;
       for (id in _ref) {
         room = _ref[id];
@@ -70,7 +73,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       $('.hero-unit p').html(game.gameDescription);
       $("#roomNum").html(game.rooms.length);
       $(".rooms").empty();
-      return this.drawRoom(Room.starter().name, 300, 550);
+      return this.drawRoom(Room.starter().name, 100, 250);
     }
   };
   $(function() {
@@ -82,7 +85,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         var jsGameObject;
         mirror.save();
         try {
-          jsGameObject = jsyaml.load(mirror.getTextArea().value);
+          jsGameObject = jsyaml.load(mirror.getTextArea().value || '');
           if (typeof jsGameObject === 'object') {
             return Editor.resetGameData(jsGameObject);
           }
