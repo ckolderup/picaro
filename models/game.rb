@@ -2,13 +2,12 @@ class Game
   include DataMapper::Resource
   property :id, Serial
   property :published, Boolean, :default => false
+  property :source, Text
   belongs_to :author, 'User'
   has n, :versions
   has n, :urls
 
-  def published?
-    return published
-  end
+  alias :published? :published
 
   def view_url
     "#{ENV['SITE_ROOT']}/game/#{urls.last.slug}/view"

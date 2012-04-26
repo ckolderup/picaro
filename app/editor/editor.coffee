@@ -30,12 +30,13 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
             @drawRoom(destination, x - positionOffset, y)
 
     resetGameData: (game) ->
+      return unless game and game.rooms
       Room.construct(id, room) for id, room of game.rooms
       $('.hero-unit h2').html game.gameName
       $('.hero-unit p').html game.gameDescription
       $("#roomNum").html(game.rooms.length)
       $(".rooms").empty()
-      @drawRoom(Room.starter().name, 300, 550)
+      @drawRoom(Room.starter().name, 100, 250)
 
   $ ->
     mirror = CodeMirror.fromTextArea document.getElementById("code"),
@@ -44,8 +45,8 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       onChange: (mirror, changes) ->
         mirror.save()
         try
-          jsGameObject = jsyaml.load(mirror.getTextArea().value)
-          Editor.resetGameData jsGameObject if typeof jsGameObject is 'object'
+          jsGameObject = jsyaml.load(mirror.getTextArea().value || '')
+          Editor.resetGameData(jsGameObject) if typeof jsGameObject is 'object'
         catch error
           console.log "Game not parsing so good at this point:", error
 

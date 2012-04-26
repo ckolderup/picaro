@@ -1,18 +1,17 @@
-.CodeMirror {}
-
-.CodeMirror-scroll {
-  height: auto; 
+.CodeMirror {
+  height: 100%;
+  border-radius: 5px;
 }
 
-.hero-unit img {
-  float:left;
+.codemirror-scroll {
+  height: 100%;
 }
 
-.rooms {
+/*.rooms {
   background: #28222d;
   height: 100%;
   position: relative;
-}
+}*/
 
 .room {
   -moz-box-shadow: inset 0 0 5px 3px #888;
@@ -40,3 +39,119 @@
   display: block;
   color: red;
 }
+
+.title {
+  padding: 6px 10px 6px 20px;
+  background-color: #7B8A9B; /* Old browsers */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  background-image: -moz-linear-gradient(top, #A9B6C3 0%, #7B8A9B 100%); /* FF3.6+ */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A9B6C3), color-stop(100%,#7B8A9B)); /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* Chrome 10+,Safari 5.1+ */
+  background-image: -ms-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* IE10+ */
+  background-image: -o-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* Opera 11.10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A9B6C3', endColorstr='#7B8A9B',GradientType=0 ); /* IE6-9 */
+  background-image: linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* W3C */
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+.title h3 {
+  padding: ;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+
+/* Vertical sections
+-------------------------------------------------- */
+
+.section {
+  position: absolute;
+  width: 50%;
+  top: 117px;
+  bottom: 0;
+}
+
+.section-editor {
+  min-height: 400px;
+  background-color: #fff;
+  left: 0;
+  -webkit-box-shadow: 1px 0 0 rgba(0,0,0,.15);
+     -moz-box-shadow: 1px 0 0 rgba(0,0,0,.15);
+          box-shadow: 1px 0 0 rgba(0,0,0,.15);
+}
+
+.section-visual {
+  right: 0;
+}
+
+.section-editor .btn {
+  right: 8px;
+  display: inline;
+  position: absolute;
+  top: 7px;
+}
+
+/* Feedback section (PHONE SCREEN)
+-------------------------------------------------- */
+.section-visual .title {
+  -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
+     -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
+          box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
+}
+
+/*Sad Sinatra Flash CSS Dupe-ing*/
+.flash {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.flash, .flash-heading {
+  color: #c09853;
+}
+.flash .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: 18px;
+}
+.flash.success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.flash.success, .flash.success .flash-heading {
+  color: #468847;
+}
+.flash.danger, .flash-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+.flash.danger,
+.flash.error,
+.flash.danger .flash-heading,
+.flash.error .flash-heading {
+  color: #b94a48;
+}
+.flash.info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.flash.info, .flash.info .flash-heading {
+  color: #3a87ad;
+}
+.flash-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.flash-block > p, .flash-block > ul {
+  margin-bottom: 0;
+}
+.flash-block p + p {
+  margin-top: 5px;
+}
+
+
+
