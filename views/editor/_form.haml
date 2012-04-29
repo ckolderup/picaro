@@ -1,0 +1,8 @@
+%div{:class => "title"}
+  %h3 Editor
+  %input{:type => "submit", :value => "Save", :class => "btn"}
+
+%div{:id => 'editor-content'}
+  %div{:id => 'code-container', :class => 'yo'}
+    %textarea{:id => "code", :name => "game[source]"}
+      = version.source

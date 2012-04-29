@@ -13,12 +13,21 @@ class Version
 
   #validates_with_method :script_present
 
+  def self.create_from_yaml_and_game(yaml, game)
+    game_data = YAML.load(yaml)
+    puts game_data
+    create! source: yaml,
+            game: game,
+            label: game_data['version'] || 1,
+            title: game_data['gameName'] || 'Untitled'
+  end
+
   def script_present
-    true unless source_url.nil? && source.nil?
+    source_url.present? || source.present?
   end
 
   before :create do |version|
-    throw unless script_present
+    throw :halt unless script_present
     if version[:source].nil? then
       source = JSON.parse(HTTParty.get(version[:source_url]))
       version[:title] = source[:title]

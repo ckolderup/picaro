@@ -1,0 +1,17 @@
+gameName: My First Picaro Game
+gameDescription: Just a dummy game to get you started.
+version: 1
+
+rooms:
+  The First Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      S: The Second Room
+  The Second Room:
+    description: You didn't think it was possible, but this room is even emptier than the first!
+    paths:
+      N: The First Room
