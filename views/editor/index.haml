@@ -1,0 +1,10 @@
+%h2
+  = title
+
+- for game in games
+  .game
+    #title
+      %a{:href => game.edit_url}
+        = game.versions.last.title
+    #description
+      = game.versions.last.description
