@@ -11,7 +11,8 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       if room.description
         message += room.description
         message += "\n"
-      @updateStatus message + "You see " + util.arrayToSentence(itemNames)
+      if itemNames.length
+        @updateStatus message + "You see " + util.arrayToSentence(itemNames)
 
     resetMenus: ->
       roomItems = Item.findByRoom Room.current

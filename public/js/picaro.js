@@ -2,7 +2,7 @@
 require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Game, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
   return $(document).ready(function() {
     return $.ajax({
-      url: "/games/" + gameId,
+      url: "/games/" + gameId + "?testing=1",
       dataType: "json",
       async: false,
       success: function(data) {
@@ -38,7 +38,7 @@ require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_even
         return UI.init(data.gameName);
       },
       error: function(e) {
-        return window.alert("Yikes! Picaro couldn't find or parse the game JSON.", e);
+        return window.alert("Yikes! Picaro couldn't find or parse the game data.", e);
       }
     });
   });

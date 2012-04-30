@@ -30,7 +30,7 @@ end
 
 # Helpers
 def play game_id
-  visit '/play/' + game_id.to_s
+  visit "/play/#{game_id}?testing=1"
 end
 
 def signin email, password

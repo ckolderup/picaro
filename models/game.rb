@@ -13,6 +13,10 @@ class Game
     "#{ENV['SITE_ROOT']}/game/#{urls.last.slug}/view"
   end
 
+  def edit_url
+    "#{ENV['SITE_ROOT']}/editor/#{id}"
+  end
+
   def view_version_url(version_id)
     "#{ENV['SITE_ROOT']}/game/#{urls.last.slug}/#{version_id}/view"
   end

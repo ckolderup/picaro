@@ -4,6 +4,7 @@ require 'rack'
 require 'sinatra/flash'
 require 'andand'
 require 'httparty'
+require File.dirname(__FILE__) + '/app/lib/ruby_ext'
 require File.dirname(__FILE__) + '/app/lib/game_file_helpers'
 
 use Rack::Session::Cookie

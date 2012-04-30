@@ -1,3 +1,9 @@
+# Index
+get '/editor/index' do
+  @games = Game.all conditions: {author: current_user}
+  haml :"editor/index", :locals => { :title => "Editorstyles", :games => @games }
+end
+
 # New
 get '/editor/new' do
   @game = Game.new
@@ -36,11 +42,15 @@ get '/editor/:game_id' do
 end
 
 # Update
-post '/editor/:game_id' do
-  @version = Game.first :conditions => { :author => current_user, :id => params[:game_id] }.versions.first
-  if @version.update_attributes(params[:game])
+put '/editor/:game_id' do
+  @game = Game.first :conditions => { :author => current_user, :id => params[:game_id] }
+  @version = @game.versions.first
+  if @version.update(:source => params[:game][:source])
     flash[:success] = "Your game was updated."
-    redirect "/editor/#{@version.game.id}"
+    redirect "/editor/#{@game.id}"
+  else
+    flash[:error] = "There was a problem updating your game."
+    haml :"editor/#{@game.id}", locals: {game: @game}, layout: :"editor/layout"
   end
 end
 

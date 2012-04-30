@@ -2,6 +2,11 @@ module Sinatra
   module GameFileHelpers
 
     def game_data(game_id)
+      versions = Game.first(conditions: {id: game_id}).andand.versions
+      versions.last.source if versions
+    end
+
+    def test_game_data(game_id)
       if File.exist? game_file_path(game_id, 'yaml')
         File.read game_file_path(game_id, 'yaml')
       elsif File.exist? game_file_path(game_id, 'json')

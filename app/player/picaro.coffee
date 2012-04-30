@@ -7,7 +7,7 @@ require [ "jquery", "game", "util", "room", "inventory", "item", "ui", "game_eve
   $(document).ready ->
     # Fetch the JSON file as specified by the slug embedded in the page.
     $.ajax
-      url: "/games/" + gameId
+      url: "/games/" + gameId + "?testing=1"
       dataType: "json"
       async: false
       success: (data) ->
@@ -35,4 +35,4 @@ require [ "jquery", "game", "util", "room", "inventory", "item", "ui", "game_eve
         UI.init(data.gameName)
 
       error: (e) ->
-        window.alert "Yikes! Picaro couldn't find or parse the game JSON.", e
+        window.alert "Yikes! Picaro couldn't find or parse the game data.", e

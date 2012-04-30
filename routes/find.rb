@@ -32,7 +32,7 @@ get '/games/recent' do
   versions = Version.all(:limit => 15, :order => [ :uploaded_at.desc ])
   error 404 if versions.nil? #but we might want to add a placeholder instead
 
-  haml :game_list, :locals => { :title => "Recent Games", 
+  haml :game_list, :locals => { :title => "Recent Games",
                                 :games => versions.map{|v| v.game }.uniq }
 end
 
@@ -40,7 +40,7 @@ get '/game/new' do
   force_login :next => request.fullpath
 
   haml :game_edit, :locals => { :game => nil, :version => nil,
-                                :upload_to => "#{ENV['SITE_ROOT']}/game/new", 
+                                :upload_to => "#{ENV['SITE_ROOT']}/game/new",
                                 :upload_method => "POST" }
 end
 
@@ -55,6 +55,6 @@ get '/game/:slug/edit' do
   latest_version = game.versions.last
 
   haml :game_edit, :locals => { :game => game, :version => latest_version,
-                                :upload_to => "#{ENV['SITE_ROOT']}/game/#{slug}", 
+                                :upload_to => "#{ENV['SITE_ROOT']}/game/#{slug}",
                                 :upload_method => "POST" }
 end
