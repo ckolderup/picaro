@@ -13,8 +13,7 @@ get '/play/:game_id' do
 end
 
 get '/games/:game_id' do
-  data = params[:testing] ? test_game_data(params[:game_id]) : game_data(params[:game_id])
-  if data
+  if data = game_data(params[:game_id])
     yaml = YAML.load data
     yaml.to_json
   end

@@ -10,13 +10,10 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       var itemNames, message;
       this.resetMenus();
       itemNames = _.pluck(roomItems, "name");
-      message = "";
-      if (room.description) {
-        message += room.description;
-        message += "\n";
-      }
+      message = room.description || ("You enter " + room.name + ".");
+      message += "\n";
       if (itemNames.length) {
-        return this.updateStatus(message + "You see " + util.arrayToSentence(itemNames));
+        return this.updateStatus(message + ("You see " + (util.arrayToSentence(itemNames))));
       }
     },
     resetMenus: function() {

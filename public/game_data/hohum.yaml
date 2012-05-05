@@ -32,4 +32,5 @@ rooms:
     paths:
       N: The Rumpus Room
     items:
-      - name: Hank Azaria
+      Guy that looks like Hank Azaria:
+        look: "He looks older than you thought he'd be."

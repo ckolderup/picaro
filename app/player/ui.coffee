@@ -7,12 +7,11 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     resetForNewRoom: (room, roomItems) ->
       @resetMenus()
       itemNames = _.pluck(roomItems, "name")
-      message = ""
-      if room.description
-        message += room.description
-        message += "\n"
+      message = room.description || "You enter #{room.name}."
+      message += "\n"
+
       if itemNames.length
-        @updateStatus message + "You see " + util.arrayToSentence(itemNames)
+        @updateStatus message + "You see #{ util.arrayToSentence(itemNames) }"
 
     resetMenus: ->
       roomItems = Item.findByRoom Room.current

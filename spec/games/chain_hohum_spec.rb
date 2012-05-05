@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../acceptance_helper'
 
 describe "Playing Picaro/chain_hohum: " do
@@ -36,8 +37,10 @@ describe "Playing Picaro/chain_hohum: " do
       page.should have_no_selector action_link_selector('use', 'sunglasses')
       page.should have_no_selector action_link_selector('use', 'jackalope')
 
-      # The second "after" event printed its message
-      latest_update.should have_content 'Nothing that cool ever happened again. You died a sad man.'
+      # A series of unfortunate events: combining items triggers a message and then triggers an end game event.
+      nth_latest_update(3).text.should match /You place the sunglasses on the jackalopes face. Hey, cool Jackalope./
+      nth_latest_update(2).text.should match /Nothing that cool ever happened again. You died a sad man./
+      ending_update.text.should match /This has been “Chain Hohum” by Casey Kolderup/u
     end
   end
 
