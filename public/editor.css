@@ -55,7 +55,7 @@
 }
 
 .title h3 {
-  padding: ;
+  margin: 0 0 0 10px;
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 }
@@ -66,7 +66,8 @@
 .section {
   position: absolute;
   width: 50%;
-  top: 117px;
+  /*top: 117px;*/
+  top: 68px;
   bottom: 0;
 }
 
@@ -90,8 +91,6 @@
   top: 7px;
 }
 
-/* Feedback section (PHONE SCREEN)
--------------------------------------------------- */
 .section-visual .title {
   -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
      -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
@@ -99,7 +98,7 @@
 }
 
 /*Sad Sinatra Flash CSS Dupe-ing*/
-.flash {
+/*.flash {
   padding: 8px 35px 8px 14px;
   margin-bottom: 18px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -152,6 +151,6 @@
 .flash-block p + p {
   margin-top: 5px;
 }
-
+*/
 
 

@@ -1,6 +1,6 @@
 %div{:class => "section section-editor"}
   %form{:name => "game", :id => "game", :action => "/editor", :method => "post"}
-    = haml :"editor/_form", :locals => {:version => @version}
+    = haml :"editor/_form", :locals => {:version => version}
 
 %div{:id => 'game-visuals-container', :class => 'section section-visual'}
   %div{:class => "title"}

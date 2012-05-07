@@ -32,8 +32,8 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
     resetGameData: (game) ->
       return unless game and game.rooms
       Room.construct(id, room) for id, room of game.rooms
-      $('.hero-unit h2').html game.gameName
-      $('.hero-unit p').html game.gameDescription
+      $('h3.editor span').html game.gameName
+      # $('.hero-unit p').html game.gameDescription
       $("#roomNum").html(game.rooms.length)
       $(".rooms").empty()
       @drawRoom(Room.starter().name, 100, 250)

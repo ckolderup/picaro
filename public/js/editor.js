@@ -69,8 +69,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         room = _ref[id];
         Room.construct(id, room);
       }
-      $('.hero-unit h2').html(game.gameName);
-      $('.hero-unit p').html(game.gameDescription);
+      $('h3.editor span').html(game.gameName);
       $("#roomNum").html(game.rooms.length);
       $(".rooms").empty();
       return this.drawRoom(Room.starter().name, 100, 250);

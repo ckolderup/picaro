@@ -1,8 +1,8 @@
 %div{:class => "title"}
-  %h3 Editor
+  %h3{:class => "editor"} Editing: <span></span>
   %input{:type => "submit", :value => "Save", :class => "btn"}
 
 %div{:id => 'editor-content'}
   %div{:id => 'code-container', :class => 'yo'}
     %textarea{:id => "code", :name => "game[source]"}
-      = version.source
+      = version.source if version

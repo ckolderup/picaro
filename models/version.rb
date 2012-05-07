@@ -11,23 +11,40 @@ class Version
   property :uploaded_at, DateTime, :default => lambda { |r, p| DateTime.now }
   belongs_to :game
 
-  #validates_with_method :script_present
+  validates_with_method :source, :method => :script_present?
+  validates_with_method :source, :method => :valid_yaml?
 
-  def self.create_from_yaml_and_game(yaml, game)
-    game_data = YAML.load(yaml)
-    puts game_data
-    create! source: yaml,
-            game: game,
-            label: game_data['version'] || 1,
-            title: game_data['gameName'] || 'Untitled'
+  attr_accessor :parsed_data
+
+  def self.new_from_yaml_and_game(yaml, game)
+    version = new source: yaml, game: game
+
+    # Properties derived from parsed game source
+    if version.valid_yaml? == true
+      version.label = version.parsed_data['version'] || 1
+      version.title = version.parsed_data['gameName'] || 'Untitled'
+    end
+    version
   end
 
-  def script_present
-    source_url.present? || source.present?
+  def script_present?
+    if source_url.present? || source.present?
+      true
+    else
+      [false, "There's nothin to this game of yours"]
+    end
+  end
+
+  def valid_yaml?
+    begin
+      self.parsed_data = YAML.load(source)
+      true
+    rescue
+      [false, "That game code ain't valid YAML"]
+    end
   end
 
   before :create do |version|
-    throw :halt unless script_present
     if version[:source].nil? then
       source = JSON.parse(HTTParty.get(version[:source_url]))
       version[:title] = source[:title]

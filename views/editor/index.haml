@@ -6,5 +6,8 @@
     #title
       %a{:href => game.edit_url}
         = game.versions.last.title
+      &nbsp;
+      %a{:href => game.play_url}
+        Play
     #description
       = game.versions.last.description

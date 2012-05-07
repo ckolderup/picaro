@@ -1,29 +1,29 @@
 # Index
 get '/editor/index' do
   @games = Game.all conditions: {author: current_user}
-  haml :"editor/index", :locals => { :title => "Editorstyles", :games => @games }
+  haml :"editor/index", :locals => { :title => "Games by #{current_user.name}", :games => @games }
 end
 
 # New
 get '/editor/new' do
-  @game = Game.new
-  @version = Version.new(game: @game)
-  @version.title = 'A New Picaro Game'
-  @version.source = File.read(path_to_example_game(:my_first_picaro))
-  haml :"editor/new", locals: {game: @game, version: @version}, layout: :"editor/layout"
+  game = Game.new
+  version = Version.new game: @game
+  version.title = 'A New Picaro Game'
+  version.source = File.read(path_to_example_game(:my_first_picaro))
+  haml :"editor/new", locals: {game: game, version: version}, layout: :"editor/layout"
 end
 
 # Create
 post '/editor' do
-  @game = Game.create author: current_user
-  @version = Version.create_from_yaml_and_game(params[:game][:source], @game)
+  game = Game.create author: current_user
+  version = Version.new_from_yaml_and_game(params[:game][:source], game)
 
-  if @game.save && @version.save
+  if game.save && version.save
     flash[:success] = "Your game is saved."
-    redirect "/editor/#{@game.id}"
+    redirect "/editor/#{game.id}"
   else
     flash[:error] = "There was a problem saving your game."
-    haml :"editor/new", locals: {game: @game}, layout: :"editor/layout"
+    haml :"editor/new", locals: {game: game, version: nil}, layout: :"editor/layout"
   end
 end
 
@@ -37,7 +37,6 @@ get '/editor/:game_id' do
     @version = @game.versions.first
   end
   error 404 unless @version
-
   haml :"editor/edit", layout: :"editor/layout", locals: {game: @game, version: @version}
 end
 
