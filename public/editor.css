@@ -41,7 +41,7 @@
 }
 
 .title {
-  padding: 6px 10px 6px 20px;
+  padding: 13px 10px 6px 20px;
   background-color: #7B8A9B; /* Old browsers */
   background-repeat: repeat-x; /* Repeat the gradient */
   background-image: -moz-linear-gradient(top, #A9B6C3 0%, #7B8A9B 100%); /* FF3.6+ */
@@ -52,6 +52,8 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A9B6C3', endColorstr='#7B8A9B',GradientType=0 ); /* IE6-9 */
   background-image: linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* W3C */
   border-bottom: 1px solid rgba(0,0,0,.15);
+  width: 100%;
+  z-index: 999;
 }
 
 .title h3 {
@@ -69,6 +71,7 @@
   /*top: 117px;*/
   top: 68px;
   bottom: 0;
+  overflow: auto;
 }
 
 .section-editor {
@@ -91,11 +94,6 @@
   top: 7px;
 }
 
-.section-visual .title {
-  -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
-     -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
-          box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 2px 0 0 rgba(255,255,255,.2);
-}
 
 /*Sad Sinatra Flash CSS Dupe-ing*/
 /*.flash {
