@@ -1,7 +1,7 @@
 
 require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_event", "action_guard", "vendor/underscore"], function($, Game, Util, Room, Inventory, Item, UI, GameEvent, ActionGuard) {
   return $(document).ready(function() {
-    var data, id, item, room, startingRoom, _ref, _ref1;
+    var data, id, item, room, startingRoom, _ref, _ref2;
     if (typeof window.game_source !== 'object') {
       window.alert("Yikes! Picaro couldn't find or parse the game data.");
     }
@@ -12,9 +12,7 @@ require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_even
       room = _ref[id];
       room.id = Util.toIdString(id);
       room.name || (room.name = id);
-      if (room.starter) {
-        startingRoom = room;
-      }
+      if (room.starter) startingRoom = room;
       Room.allById[room.id] = room;
       _(room.items).map(function(item, id) {
         return Item.create(item, {
@@ -23,9 +21,9 @@ require(["jquery", "game", "util", "room", "inventory", "item", "ui", "game_even
         });
       });
     }
-    _ref1 = data.unattachedItems;
-    for (id in _ref1) {
-      item = _ref1[id];
+    _ref2 = data.unattachedItems;
+    for (id in _ref2) {
+      item = _ref2[id];
       Item.create(item, {
         id: id
       });

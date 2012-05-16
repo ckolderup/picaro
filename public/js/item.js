@@ -3,10 +3,8 @@ define(["jquery", "util", "inventory", "talk", "action_guard", "vendor/underscor
   var Item;
   Item = (function() {
 
-    Item.name = 'Item';
-
     function Item(itemObject, id) {
-      var action, actionType, key, value, _i, _j, _len, _len1, _ref, _ref1, _ref2;
+      var action, actionType, key, value, _i, _j, _len, _len2, _ref, _ref2, _ref3;
       id || (id = _(itemObject).keys()[0]);
       _ref = itemObject[id] || itemObject;
       for (key in _ref) {
@@ -15,14 +13,14 @@ define(["jquery", "util", "inventory", "talk", "action_guard", "vendor/underscor
       }
       this.name || (this.name = id);
       this.id = Util.toIdString(id);
-      _ref1 = ["use"];
-      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-        actionType = _ref1[_i];
+      _ref2 = ["use"];
+      for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+        actionType = _ref2[_i];
         if (typeof this[actionType] === "object") {
           action = this[actionType];
-          _ref2 = _(action).keys();
-          for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-            key = _ref2[_j];
+          _ref3 = _(action).keys();
+          for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+            key = _ref3[_j];
             action[Util.toIdString(key)] = action[key];
           }
         }
@@ -53,9 +51,7 @@ define(["jquery", "util", "inventory", "talk", "action_guard", "vendor/underscor
       }
       item = new Item(itemData, id);
       item.location || (item.location = location);
-      if (this.allById[item.id] != null) {
-        throw "Duplicate item!";
-      }
+      if (this.allById[item.id] != null) throw "Duplicate item!";
       return this.allById[item.id] = item;
     };
 
@@ -67,14 +63,10 @@ define(["jquery", "util", "inventory", "talk", "action_guard", "vendor/underscor
       } else if (action instanceof Array) {
         this.lookNum || (this.lookNum = 0);
         $(document).trigger("updateStatus", action[this.lookNum]);
-        if (action.length > (this.lookNum + 1)) {
-          return this.lookNum += 1;
-        }
+        if (action.length > (this.lookNum + 1)) return this.lookNum += 1;
       } else {
         $(document).trigger("updateStatus", action.message);
-        if (action.after) {
-          return $(document).trigger("gameEvent", action);
-        }
+        if (action.after) return $(document).trigger("gameEvent", action);
       }
     };
 
@@ -85,18 +77,14 @@ define(["jquery", "util", "inventory", "talk", "action_guard", "vendor/underscor
     Item.prototype.actionAttack = function() {
       this.attackNum || (this.attackNum = 0);
       $(document).trigger("updateStatus", this.attack[this.attackNum]);
-      if (this.attack.length > (this.attackNum + 1)) {
-        return this.attackNum += 1;
-      }
+      if (this.attack.length > (this.attackNum + 1)) return this.attackNum += 1;
     };
 
     Item.prototype.immediateTake = function() {
       Inventory.add(this);
       $(document).trigger("itemTaken", this);
       $(document).trigger("closeMenu");
-      if (this.take.after) {
-        return $(document).trigger("gameEvent", this.take);
-      }
+      if (this.take.after) return $(document).trigger("gameEvent", this.take);
     };
 
     Item.prototype.actionTake = function() {

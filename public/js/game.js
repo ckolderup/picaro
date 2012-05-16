@@ -3,8 +3,6 @@ define(function() {
   var Game;
   return Game = (function() {
 
-    Game.name = 'Game';
-
     function Game(name, author, version, authorURL) {
       this.name = name;
       this.author = author;

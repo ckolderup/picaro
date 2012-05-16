@@ -58,17 +58,13 @@ define(["jquery", "game", "item", "inventory", "room", "util", "vendor/underscor
       _(gameEvent.items).each(function(itemId, index) {
         var id;
         id = Util.toIdString(itemId);
-        if (Inventory.remove(id)) {
-          oldItemsWereInInventory = true;
-        }
+        if (Inventory.remove(id)) oldItemsWereInInventory = true;
         return Item.remove(id);
       });
       newItem = Item.create(gameEvent.newItem, {
         location: Room.current.id
       });
-      if (oldItemsWereInInventory) {
-        Inventory.add(newItem);
-      }
+      if (oldItemsWereInInventory) Inventory.add(newItem);
       return $(document).trigger("resetMenus");
     }
   };

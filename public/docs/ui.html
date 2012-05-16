@@ -7,11 +7,11 @@
     <span class="nv">resetForNewRoom: </span><span class="nf">(room, roomItems) -&gt;</span>
       <span class="nx">@resetMenus</span><span class="p">()</span>
       <span class="nv">itemNames = </span><span class="nx">_</span><span class="p">.</span><span class="nx">pluck</span><span class="p">(</span><span class="nx">roomItems</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
-      <span class="nv">message = </span><span class="s2">&quot;&quot;</span>
-      <span class="k">if</span> <span class="nx">room</span><span class="p">.</span><span class="nx">description</span>
-        <span class="nx">message</span> <span class="o">+=</span> <span class="nx">room</span><span class="p">.</span><span class="nx">description</span>
-        <span class="nx">message</span> <span class="o">+=</span> <span class="s2">&quot;\n&quot;</span>
-      <span class="nx">@updateStatus</span> <span class="nx">message</span> <span class="o">+</span> <span class="s2">&quot;You see &quot;</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">arrayToSentence</span><span class="p">(</span><span class="nx">itemNames</span><span class="p">)</span>
+      <span class="nv">message = </span><span class="nx">room</span><span class="p">.</span><span class="nx">description</span> <span class="o">||</span> <span class="s2">&quot;You enter #{room.name}.&quot;</span>
+      <span class="nx">message</span> <span class="o">+=</span> <span class="s2">&quot;\n&quot;</span>
+
+      <span class="k">if</span> <span class="nx">itemNames</span><span class="p">.</span><span class="nx">length</span>
+        <span class="nx">@updateStatus</span> <span class="nx">message</span> <span class="o">+</span> <span class="s2">&quot;You see #{ util.arrayToSentence(itemNames) }&quot;</span>
 
     <span class="nv">resetMenus: </span><span class="o">-&gt;</span>
       <span class="nv">roomItems = </span><span class="nx">Item</span><span class="p">.</span><span class="nx">findByRoom</span> <span class="nx">Room</span><span class="p">.</span><span class="nx">current</span>
