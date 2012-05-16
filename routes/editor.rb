@@ -1,11 +1,15 @@
 # Index
 get '/editor/index' do
+  force_login
+
   @games = Game.all conditions: {author: current_user}
   haml :"editor/index", :locals => { :title => "Games by #{current_user.name}", :games => @games }
 end
 
 # New
 get '/editor/new' do
+  force_login
+
   game = Game.new
   version = Version.new game: @game
   version.title = 'A New Picaro Game'
@@ -15,6 +19,8 @@ end
 
 # Create
 post '/editor' do
+  force_login
+
   game = Game.create author: current_user
   version = Version.new_from_yaml_and_game(params[:game][:source], game)
 
@@ -29,6 +35,8 @@ end
 
 # Edit
 get '/editor/:game_id' do
+  force_login
+
   if params[:testing]
     @game = Game.new
     @version = Version.new :source => File.read(path_to_example_game(params[:game_id]))
@@ -42,6 +50,8 @@ end
 
 # Update
 put '/editor/:game_id' do
+  force_login
+
   @game = Game.first :conditions => { :author => current_user, :id => params[:game_id] }
   @version = @game.versions.first
   if @version.update(:source => params[:game][:source])
