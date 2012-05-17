@@ -25,4 +25,12 @@ class Game
     "#{ENV['SITE_ROOT']}/game/#{urls.last.slug}/#{version_id}/view"
   end
 
+  def last_available_version
+    if author == current_user
+      versions.last
+    else
+      versions.select{|v| v.published?}.last
+    end
+  end
+
 end

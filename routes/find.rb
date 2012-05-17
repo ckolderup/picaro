@@ -1,19 +1,19 @@
 get '/game/:slug/view' do
   game = Url.first(:slug => params[:slug]).andand.game
   error 404 if game.nil?
-  version = game.versions.last
-  show_game(game, version)
+
+  version = game.last_available_version
+  error 404 if version.nil?
+
+  haml :game_detail, :locals => { :game => game, :version => version }
 end
 
 get '/game/:slug/:version_id/view' do
   game = Url.first(:slug => params[:slug]).andand.game
   version = Version.get(params[:version_id])
   error 404 if game.nil? or version.nil? or !game.versions.include?(version)
+  error 404 unless version.published? || game.author == current_user
 
-  show_game(game, version)
-end
-
-def show_game(game, version)
   haml :game_detail, :locals => { :game => game, :version => version }
 end
 
