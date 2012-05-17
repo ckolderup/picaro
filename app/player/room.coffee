@@ -3,8 +3,9 @@ define [ "jquery", "item", "inventory", "util", "vendor/underscore" ], ($, Item,
     allById: {}
 
     construct: (id, room) ->
-      room.id = Util.toIdString id
       room.name ||= id
+      debugger
+      room.id = Util.toIdString id
       Room.allById[room.id] = room
 
     init: (startingRoom) ->
