@@ -5,9 +5,9 @@
   .game
     #title
       %a{:href => game.edit_url}
-        = game.versions.last.title
+        = game.versions && game.versions.last && game.versions.last.title || "Untitled"
       &nbsp;
       %a{:href => game.play_url}
         Play
     #description
-      = game.versions.last.description
+      = game.versions && game.versions.last && game.versions.last.description

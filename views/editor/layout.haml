@@ -20,45 +20,8 @@
     %script{ :src => '/js/vendor/js-yaml.min.js' }
 
   %body
-    / #user{:class => 'navbar'}
-    /   %div{:class => "navbar-inner"}
-    /     %div{:class => 'container'}
-    /       %ul{:class => 'nav'}
-    /         %li
-    /           %a{:href => '#', :class=> "brand" }
-    /             Editor
-    /         %li
-    /           %a{:href => "#{ENV['SECURE_SITE_ROOT']}/signup"} Signup
-    /         %li
-    /           %a{:href => "#{ENV['SECURE_SITE_ROOT']}/login"} Login
-
     #header
-      #header-logo
-        %h1
-          %a{:href => "/"} Picaro
-      #header-left
-        - if logged_in?
-          %ul
-            %li
-              %a{:href => "#"} Games
-            %li
-              %a{:href => "/account"} Account
-        - else
-          %ul
-            %li
-              Miniature adventures.
-      #header-right
-        - if logged_in?
-          %ul
-            %li= "#{current_user.display_name}"
-            %li
-              %a{:href => "/logout"} Logout
-        - else
-          %ul
-            %li
-              %a{:href => "#{ENV['SECURE_SITE_ROOT']}/signup"} Signup
-            %li
-              %a{:href => "#{ENV['SECURE_SITE_ROOT']}/login"} Login
+      = haml :top_nav
 
     #notices
       = styled_flash

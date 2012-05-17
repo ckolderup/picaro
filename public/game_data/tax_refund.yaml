@@ -1,0 +1,20 @@
+---
+gameName: Casey's Tax Refund
+gameDescription: Casey's tax refund didn't show up this year. You (Casey) suspect foul play.
+version: 1
+
+rooms:
+ Office:
+   description: All you can see is a first-generationm iPad on the desk, mocking you with its obsolescence.
+   starter: true
+   items:
+     desk:
+       look: You try to look at other parts of the desk as a way of proving to the iPad that you care about other things, but fail.
+     iPad:
+       take: Are you kidding? The last thing you want to do is touch that decrepit neo-abacus.
+   paths:
+     S: Other
+ Other:
+   description: You didn't think it was possible, but this room is even emptier than the first!
+   paths:
+     N: Office

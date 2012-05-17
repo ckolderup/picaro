@@ -9,9 +9,8 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       itemNames = _.pluck(roomItems, "name")
       message = room.description || "You enter #{room.name}."
       message += "\n"
-
-      if itemNames.length
-        @updateStatus message + "You see #{ util.arrayToSentence(itemNames) }"
+      if itemNames.length then message += "You see #{ util.arrayToSentence(itemNames) }"
+      @updateStatus message
 
     resetMenus: ->
       roomItems = Item.findByRoom Room.current

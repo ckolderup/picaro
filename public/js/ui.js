@@ -13,8 +13,9 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       message = room.description || ("You enter " + room.name + ".");
       message += "\n";
       if (itemNames.length) {
-        return this.updateStatus(message + ("You see " + (util.arrayToSentence(itemNames))));
+        message += "You see " + (util.arrayToSentence(itemNames));
       }
+      return this.updateStatus(message);
     },
     resetMenus: function() {
       var roomItems, self;

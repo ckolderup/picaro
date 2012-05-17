@@ -98,6 +98,8 @@ define(["jquery", "util", "inventory", "talk", "action_guard", "vendor/underscor
     Item.prototype.canTake = function() {
       if (this.take === true) {
         return true;
+      } else if (typeof this.take === 'string') {
+        return $(document).trigger("updateStatus", this.take);
       } else if (this.take && this.take.actionGuard) {
         return ActionGuard.test(this.take);
       } else {

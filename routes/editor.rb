@@ -1,9 +1,10 @@
 # Index
 get '/editor/index' do
   force_login
-
   @games = Game.all conditions: {author: current_user}
-  haml :"editor/index", :locals => { :title => "Games by #{current_user.name}", :games => @games }
+  @games.reject! {|g| g.versions.nil? || g.versions.empty?}
+  error 404 unless @games
+  haml :"editor/index", :locals => { :title => "Games by #{current_user.display_name}", :games => @games.compact }
 end
 
 # New
@@ -44,6 +45,7 @@ get '/editor/:game_id' do
     @version = Version.new :source => File.read(path_to_example_game(params[:game_id]))
   else
     @game = Game.first(:conditions => { :author => current_user, :id => params[:game_id] })
+    error 404 and return unless @game
     @version = @game.versions.first
   end
   error 404 unless @version
