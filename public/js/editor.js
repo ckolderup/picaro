@@ -24,7 +24,12 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         _ref = room.items;
         for(var i in _ref) {
           var itemname = i;
-          itemDots += "<div class='item' title='" + itemname + "'>&#9817;</div>";
+          if(_ref[i].take) {
+          itemDots += "<div class='item' title='" + (_.escape(itemname)) + "'>&#9817;<div>" + (_.escape(itemname)) + "<br/><br/>(takeable)</div></div>";
+          }
+          else {
+          itemDots += "<div class='item' title='" + (_.escape(itemname)) + "'>&#9817;<div>" + (_.escape(itemname)) + "</div></div>";
+        }
         }
         roomDiv.append(itemDots);
       }
@@ -76,6 +81,14 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
     }
   };
   $(function() {
+    
+    $('.item').live("mouseover", function(){
+      $(this).children("div").show();
+    })
+    $('.item').live("mouseout", function(){
+      $(this).children("div").hide();
+    })
+
     var mirror;
     mirror = CodeMirror.fromTextArea(document.getElementById("code"), {
       mode: "yaml",

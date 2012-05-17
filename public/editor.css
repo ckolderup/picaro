@@ -100,7 +100,22 @@
 
 .item {
   float: left;
-  cursor: default;
+  cursor: pointer;
+  position: relative;
+}
+
+.item div {
+  display: none;
+  padding: 10px;
+  height: 60px;
+  width: 60px;
+  font-size: 12px;
+  border: 1px solid;
+  position: absolute;
+  right: 10px;
+  text-align: center;
+  top: -55px;
+  background: #F3EFE7;
 }
 
 /*Sad Sinatra Flash CSS Dupe-ing*/
