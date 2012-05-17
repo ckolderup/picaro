@@ -17,6 +17,19 @@ get '/game/:slug/:version_id/view' do
   haml :game_detail, :locals => { :game => game, :version => version }
 end
 
+get '/game/:slug/src' do
+  game = Url.first(:slug => params[:slug]).andand.game
+  error 404 if game.nil?
+
+  version = game.last_available_version
+  error 404 if version.nil?
+
+  if data = game_data(game.id)
+    yaml = YAML.load data
+    yaml.to_json
+  end
+end
+
 get '/games/by/:username' do
   user = User.first(:username => params[:username])
   error 404 if user.nil?
