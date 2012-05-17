@@ -23,8 +23,10 @@ post '/editor' do
 
   game = Game.create author: current_user
   version = Version.new_from_yaml_and_game(params[:game][:source], game)
+  url = Url.new(:title => version.title, :game => game) 
+  game.urls << url
 
-  if game.save && version.save
+  if game.save && version.save && url.save
     flash[:success] = "Your game is saved."
     redirect "/editor/#{game.id}"
   else
