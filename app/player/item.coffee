@@ -76,6 +76,8 @@ define [ "jquery", "util", "inventory", "talk", "action_guard", "vendor/undersco
     canTake: ->
       if @take is true
         true
+      else if typeof @take is 'string'
+        $(document).trigger "updateStatus", @take
       else if @take and @take.actionGuard
         ActionGuard.test @take
       else
