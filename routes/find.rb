@@ -28,7 +28,7 @@ get '/games/by/:username' do
                                 :games => games }
 end
 
-get '/games/recent' do
+get '/games' do
   versions = Version.all(:limit => 15, :order => [ :uploaded_at.desc ])
   error 404 if versions.nil? #but we might want to add a placeholder instead
 
