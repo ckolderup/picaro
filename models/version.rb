@@ -23,6 +23,7 @@ class Version
     if version.valid_yaml? == true
       version.label = version.parsed_data['version'] || 1
       version.title = version.parsed_data['gameName'] || 'Untitled'
+      version.description = version.parsed_data['gameDescription'] || ''
     end
     version
   end
