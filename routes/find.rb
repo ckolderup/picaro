@@ -35,26 +35,3 @@ get '/games' do
   haml :game_list, :locals => { :title => "Recent Games",
                                 :games => versions.map{|v| v.game }.uniq }
 end
-
-get '/game/new' do
-  force_login :next => request.fullpath
-
-  haml :game_edit, :locals => { :game => nil, :version => nil,
-                                :upload_to => "#{ENV['SITE_ROOT']}/game/new",
-                                :upload_method => "POST" }
-end
-
-get '/game/:slug/edit' do
-  force_login :next => request.fullpath
-
-  slug = params[:slug]
-  game = Url.first(:slug => slug).andand.game
-  error 404 if game.nil?
-  error 403 if game.author != current_user
-
-  latest_version = game.versions.last
-
-  haml :game_edit, :locals => { :game => game, :version => latest_version,
-                                :upload_to => "#{ENV['SITE_ROOT']}/game/#{slug}",
-                                :upload_method => "POST" }
-end
