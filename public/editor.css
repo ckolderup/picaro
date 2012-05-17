@@ -52,8 +52,6 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A9B6C3', endColorstr='#7B8A9B',GradientType=0 ); /* IE6-9 */
   background-image: linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* W3C */
   border-bottom: 1px solid rgba(0,0,0,.15);
-  width: 100%;
-  z-index: 999;
 }
 
 .title h3 {
@@ -71,12 +69,13 @@
   /*top: 117px;*/
   top: 68px;
   bottom: 0;
-  overflow: auto;
+
+    overflow: auto;
 }
 
 .section-editor {
   min-height: 400px;
-  background-color: #fff;
+  background-color: #272822;
   left: 0;
   -webkit-box-shadow: 1px 0 0 rgba(0,0,0,.15);
      -moz-box-shadow: 1px 0 0 rgba(0,0,0,.15);
@@ -87,11 +86,16 @@
   right: 0;
 }
 
+
 .section-editor .btn {
   right: 8px;
   display: inline;
   position: absolute;
   top: 7px;
+}
+
+.Codemirror-scroll div {
+  padding-right: 20px;
 }
 
 
