@@ -1,0 +1,67 @@
+---
+gameName: A New Picaro Game of Truly Epic Proportions
+gameDescription: Just a dummy game to get you started... OR ELSE!
+version: 1
+
+events:
+- id: winGameDramatically
+  type: endGame
+  message: Oh man you put the lint in the bin and it glows and the walls collapse and the statue comes to life and you get married and it's the happiest possible life. MORAL? Recycling is worth it!
+
+rooms:
+  The First Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      S: The Second Room
+  The Second Room:
+    description: The rugrats room?
+    paths:
+      N: The First Room
+      E: The Third Room
+  The Third Room:
+    description: Hmmmm! The disturbing theme of emptiness continues.
+    paths:
+      W: The Second Room
+      S: The Fourth Room
+  The Fourth Room:
+    description: Either you're hallucinating, or the emptiness has given way to a slight vibration from the northeast.
+    paths:
+      N: The Third Room
+      E: The Fifth Room
+  The Fifth Room:
+    description: Yeah, maybe you were hallucinating. It's just regular empty here.
+    paths:
+      W: The Fourth Room
+      N: The Sixth Room
+  The Sixth Room:
+    description: Empty, except...
+    items:
+      gorgeous statue:
+        look: The kind of work of sculpture that really livens up a place. That's about it though.
+        take:
+          cannotTakeMessage: It would ruin the Sixth Room!
+    paths:
+      S: The Fifth Room
+      E: The Seventh Room
+  The Seventh Room:
+    description: Now there's definitely something going on to the north. You can feel it in your bones.
+    paths:
+      N: The Eighth Room
+      W: The Sixth Room
+  The Eighth Room:
+    description: Well if that doesn't just chuck it all.
+    items:
+      lint recycling bin:
+        look: It's vibrating slightly. So that explains that.
+        take:
+          cannotTakeMessage: You don't have the organizational wherewithal to oversee a recycling program.
+        use:
+          Ball of lint:
+            after: winGameDramatically
+
+    paths:
+      S: The Seventh Room
