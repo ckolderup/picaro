@@ -98,6 +98,10 @@
   padding-right: 20px;
 }
 
+.item {
+  float: left;
+  cursor: default;
+}
 
 /*Sad Sinatra Flash CSS Dupe-ing*/
 /*.flash {
