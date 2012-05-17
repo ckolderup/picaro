@@ -57,6 +57,7 @@ post '/game/new' do
   game = Game.new(:author => current_user)
   version = add_version(game, params)
   url = Url.new(:title => version.title, :game => game)
+  game.urls << url
 
   error 422 unless game.save && version.save && url.save
 

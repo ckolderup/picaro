@@ -22,9 +22,9 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       if (room.items) {
         itemDots = '';
         _ref = room.items;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          item = _ref[_i];
-          itemDots += "&#9817;";
+        for(var i in _ref) {
+          var itemname = i;
+          itemDots += "<div class='item' title='" + itemname + "'>&#9817;</div>";
         }
         roomDiv.append(itemDots);
       }
@@ -39,22 +39,22 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         switch (direction) {
           case "North":
           case "N":
-            _results.push(this.drawRoom(destination, x, y - positionOffset));
-            break;
+          _results.push(this.drawRoom(destination, x, y - positionOffset));
+          break;
           case "South":
           case "S":
-            _results.push(this.drawRoom(destination, x, y + positionOffset));
-            break;
+          _results.push(this.drawRoom(destination, x, y + positionOffset));
+          break;
           case "East":
           case "E":
-            _results.push(this.drawRoom(destination, x + positionOffset, y));
-            break;
+          _results.push(this.drawRoom(destination, x + positionOffset, y));
+          break;
           case "West":
           case "W":
-            _results.push(this.drawRoom(destination, x - positionOffset, y));
-            break;
+          _results.push(this.drawRoom(destination, x - positionOffset, y));
+          break;
           default:
-            _results.push(void 0);
+          _results.push(void 0);
         }
       }
       return _results;
