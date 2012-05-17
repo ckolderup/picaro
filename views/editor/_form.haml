@@ -4,5 +4,6 @@
 
 %div{:id => 'editor-content'}
   %div{:id => 'code-container', :class => 'yo'}
-    %textarea{:id => "code", :name => "game[source]"}
-      = version.source if version
+    = find_and_preserve do
+      %textarea{:id => "code", :name => "game[source]"}
+        ~ version.source if version
