@@ -33,10 +33,9 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       return unless game and game.rooms
       Room.construct(id, room) for id, room of game.rooms
       $('h3.editor span').html game.gameName
-      # $('.hero-unit p').html game.gameDescription
       $("#roomNum").html(game.rooms.length)
       $(".rooms").empty()
-      @drawRoom(Room.starter().name, 100, 250)
+      @drawRoom(Room.starter().name, 75, 100)
 
   $ ->
     mirror = CodeMirror.fromTextArea document.getElementById("code"),

@@ -3,7 +3,7 @@
   %input{:type => "submit", :value => "Save", :class => "btn"}
 
 %div{:id => 'editor-content'}
-  %div{:id => 'code-container', :class => 'yo'}
+  %div{:id => 'code-container'}
     = find_and_preserve do
       %textarea{:id => "code", :name => "game[source]"}
         ~ version.source if version

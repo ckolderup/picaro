@@ -5,7 +5,6 @@ define(["jquery", "item", "inventory", "util", "vendor/underscore"], function($,
     allById: {},
     construct: function(id, room) {
       room.name || (room.name = id);
-      debugger;
       room.id = Util.toIdString(id);
       return Room.allById[room.id] = room;
     },

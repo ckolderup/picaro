@@ -7,11 +7,10 @@
   height: 100%;
 }
 
-/*.rooms {
+.rooms {
   background: #28222d;
-  height: 100%;
-  position: relative;
-}*/
+  overflow: scroll;
+}
 
 .room {
   -moz-box-shadow: inset 0 0 5px 3px #888;
@@ -69,8 +68,7 @@
   /*top: 117px;*/
   top: 68px;
   bottom: 0;
-
-    overflow: auto;
+  overflow: auto;
 }
 
 .section-editor {
@@ -85,7 +83,6 @@
 .section-visual {
   right: 0;
 }
-
 
 .section-editor .btn {
   right: 8px;

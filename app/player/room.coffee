@@ -4,7 +4,6 @@ define [ "jquery", "item", "inventory", "util", "vendor/underscore" ], ($, Item,
 
     construct: (id, room) ->
       room.name ||= id
-      debugger
       room.id = Util.toIdString id
       Room.allById[room.id] = room
 

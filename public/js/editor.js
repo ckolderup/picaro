@@ -22,14 +22,9 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       if (room.items) {
         itemDots = '';
         _ref = room.items;
-        for(var i in _ref) {
-          var itemname = i;
-          if(_ref[i].take) {
-          itemDots += "<div class='item' title='" + (_.escape(itemname)) + "'>&#9817;<div>" + (_.escape(itemname)) + "<br/><br/>(takeable)</div></div>";
-          }
-          else {
-          itemDots += "<div class='item' title='" + (_.escape(itemname)) + "'>&#9817;<div>" + (_.escape(itemname)) + "</div></div>";
-        }
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          item = _ref[_i];
+          itemDots += "&#9817;";
         }
         roomDiv.append(itemDots);
       }
@@ -44,22 +39,22 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         switch (direction) {
           case "North":
           case "N":
-          _results.push(this.drawRoom(destination, x, y - positionOffset));
-          break;
+            _results.push(this.drawRoom(destination, x, y - positionOffset));
+            break;
           case "South":
           case "S":
-          _results.push(this.drawRoom(destination, x, y + positionOffset));
-          break;
+            _results.push(this.drawRoom(destination, x, y + positionOffset));
+            break;
           case "East":
           case "E":
-          _results.push(this.drawRoom(destination, x + positionOffset, y));
-          break;
+            _results.push(this.drawRoom(destination, x + positionOffset, y));
+            break;
           case "West":
           case "W":
-          _results.push(this.drawRoom(destination, x - positionOffset, y));
-          break;
+            _results.push(this.drawRoom(destination, x - positionOffset, y));
+            break;
           default:
-          _results.push(void 0);
+            _results.push(void 0);
         }
       }
       return _results;
@@ -77,18 +72,10 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       $('h3.editor span').html(game.gameName);
       $("#roomNum").html(game.rooms.length);
       $(".rooms").empty();
-      return this.drawRoom(Room.starter().name, 100, 250);
+      return this.drawRoom(Room.starter().name, 75, 100);
     }
   };
   $(function() {
-    
-    $('.item').live("mouseover", function(){
-      $(this).children("div").show();
-    })
-    $('.item').live("mouseout", function(){
-      $(this).children("div").hide();
-    })
-
     var mirror;
     mirror = CodeMirror.fromTextArea(document.getElementById("code"), {
       mode: "yaml",
