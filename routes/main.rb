@@ -11,10 +11,3 @@ get '/play/:game_id' do
   end
   erb :play
 end
-
-get '/games/:game_id' do
-  if data = game_data(params[:game_id])
-    yaml = YAML.load data
-    yaml.to_json
-  end
-end

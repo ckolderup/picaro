@@ -2,11 +2,9 @@
   = title
 
 - for game in games
-  .game
-    #title
-      %a{:href => game.view_url}
-        = game.versions.last.title
-    #author
-      = game.author.display_name
-    #description
-      = game.versions.last.description
+  - if game.published?
+    .game
+      = haml :_game_summary, locals: {game: game}
+  - elsif game.author == current_user
+    .game.hidden
+      = haml :_game_summary, locals: {game: game}
