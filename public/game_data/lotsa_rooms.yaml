@@ -1,0 +1,61 @@
+---
+gameName: A New Picaro Game
+gameDescription: Just a dummy game to get you started.
+version: 1
+
+rooms:
+  The First Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      E: The Second Room
+  The Second Room:
+    description: You didn't think it was possible, but this room is even emptier than the first!
+    paths:
+      N: The First Room
+      E: The Third Room
+  The Third Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      N: The Second Room
+      E: The 4th Room
+      S: The 7th Room
+  The 4th Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      E: The 5th Room
+  The 5th Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      E: The 6th Room
+  The 6th Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      N: The Second Room
+  The 7th Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      N: The Second Room

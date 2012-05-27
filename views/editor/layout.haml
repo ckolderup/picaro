@@ -1,12 +1,11 @@
 %html
   %head
     %title Prototype Picaro Editor
+    %link{"rel" => "stylesheet", "href" => "/bootstrap.min.css", "type" => "text/css"}
     %link{:rel => "stylesheet", :href => "/home.css", :type => "text/css"}
-    %link{"rel" => "stylesheet", "href" => "/codemirror.css", "type" => "text/css"}
-    / %link{"rel" => "stylesheet", "href" => "/bootstrap.css", "type" => "text/css"}
-    / %link{"rel" => "stylesheet", "href" => "/bootstrap-responsive.css", "type" => "text/css"}
 
     %link{"rel" => "stylesheet", "href" => "/editor.css", "type" => "text/css"}
+    %link{"rel" => "stylesheet", "href" => "/codemirror.css", "type" => "text/css"}
     %link{"rel" => "stylesheet", "href" => "/monokai.css", "type" => "text/css"}
 
     %script{ :src => "/js/vendor/require-jquery.js", 'data-main' => "/js/editor"}
@@ -25,10 +24,6 @@
 
     #notices
       = styled_flash
-
-
-      / #notices
-      /   =styled_flash
 
     %div{:id => 'content', :class => 'container'}
       %div{:class => 'main-content'}

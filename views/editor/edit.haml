@@ -1,12 +1,13 @@
 %div{:class => "section section-editor"}
   %form{:name => "game", :id => "game", :action => "/editor/#{@version.game.id}", :method => "post"}
-    = haml :"editor/_form", locals: {version: @version}
+    = haml :"editor/_form", locals: {version: version, game: game}
     %input{:type=>"hidden", :name=>"_method", :value=>"put"}
 
 %div{:id => 'game-visuals-container', :class => 'section section-visual'}
   %div{:class => "title"}
+    %span{:id => 'yaml-indicator', :class => 'badge badge-success'}
+      Valid
     %h3
-      %a{:href => game.play_url, :class => 'btn'}
-        PLAY
-  %div{:class => 'rooms'}
+      %span{:class => 'game-name'}
 
+  %div{:class => 'rooms'}

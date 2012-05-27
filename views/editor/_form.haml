@@ -1,6 +1,11 @@
 %div{:class => "title"}
-  %h3{:class => "editor"} Editing: <span></span>
-  %input{:type => "submit", :value => "Save", :class => "btn"}
+  %span{:class => "btn-group"}
+    %input{:type => "submit", :value => "Save", :class => "btn btn-mini btn-inverse save-game"}
+    %a{:href => game.play_url, :class => 'btn btn-mini btn-inverse play-game'}
+      Play
+
+  %h3{:class => "editor"}
+    Editor
 
 %div{:id => 'editor-content'}
   %div{:id => 'code-container'}

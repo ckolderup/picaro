@@ -1,5 +1,30 @@
 define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
   Editor =
+    saveGameButton:
+      $('.btn.save-game')
+
+    form:
+      $('#form')
+
+    codeTextArea:
+      $('#code')
+
+    yamlIsValid: (valid, errorObject) ->
+      @yamlIndicator ?= $('#yaml-indicator')
+
+      if valid
+        @yamlIndicator.removeClass('badge-warning')
+        @yamlIndicator.addClass('badge-success')
+        @preventSave false
+      else
+        @yamlIndicator.addClass('badge-warning')
+        @yamlIndicator.removeClass('badge-success')
+        @preventSave true
+        console.log "Game not parsing so good at this point:", errorObject
+
+    preventSave: (gameInSaveableState) ->
+      @saveGameButton.attr('disabled', gameInSaveableState)
+
     drawRoom: (roomName, x, y) ->
       room = Room.findByName roomName
       return if room.drawn
@@ -16,9 +41,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
 
       roomDiv.css("left", x).css('top', y)
       $(".rooms").append roomDiv
-      console.log room
       for direction, destination of room.paths
-        console.log direction, destination
         switch direction
           when "North", "N"
             @drawRoom(destination, x, y - positionOffset)
@@ -30,14 +53,21 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
             @drawRoom(destination, x - positionOffset, y)
 
     resetGameData: (game) ->
-      return unless game and game.rooms
-      Room.construct(id, room) for id, room of game.rooms
-      $('h3.editor span').html game.gameName
-      $("#roomNum").html(game.rooms.length)
-      $(".rooms").empty()
-      @drawRoom(Room.starter().name, 75, 100)
+      if game and game.rooms
+        Editor.yamlIsValid true
+        Room.construct(id, room) for id, room of game.rooms
+        $('.game-name').html game.gameName
+        $("#roomNum").html(game.rooms.length)
+        $(".rooms").empty()
+        @drawRoom(Room.starter().name, 75, 100)
+      else
+        Editor.yamlIsValid false
 
   $ ->
+    Editor.saveGameButton.click ->
+      console.log 'yayuh'
+      Editor.submitForm.trigger('submit')
+
     mirror = CodeMirror.fromTextArea document.getElementById("code"),
       mode: "yaml"
       theme: "monokai"
@@ -45,11 +75,11 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
         mirror.save()
         try
           jsGameObject = jsyaml.load(mirror.getTextArea().value || '')
-          Editor.resetGameData(jsGameObject) if typeof jsGameObject is 'object'
+          Editor.resetGameData(jsGameObject)
         catch error
-          console.log "Game not parsing so good at this point:", error
+          Editor.resetGameData(false)
 
     # on first load, reset the gameworld representation
-    Editor.resetGameData jsyaml.load($('#code').html())
+    Editor.resetGameData jsyaml.load(Editor.codeTextArea.html())
 
   Editor

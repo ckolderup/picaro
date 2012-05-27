@@ -25,7 +25,7 @@ end
 get '/login' do
   if logged_in?
     flash[:error] = "Already logged in!"
-    redirect '/account'
+    redirect '/games'
   end
 
   haml :login

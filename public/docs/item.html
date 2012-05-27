@@ -47,6 +47,8 @@
     <span class="nv">canTake: </span><span class="o">-&gt;</span>
       <span class="k">if</span> <span class="nx">@take</span> <span class="o">is</span> <span class="kc">true</span>
         <span class="kc">true</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">@take</span> <span class="o">is</span> <span class="s1">&#39;string&#39;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span> <span class="s2">&quot;updateStatus&quot;</span><span class="p">,</span> <span class="nx">@take</span>
       <span class="k">else</span> <span class="k">if</span> <span class="nx">@take</span> <span class="o">and</span> <span class="nx">@take</span><span class="p">.</span><span class="nx">actionGuard</span>
         <span class="nx">ActionGuard</span><span class="p">.</span><span class="nx">test</span> <span class="nx">@take</span>
       <span class="k">else</span>

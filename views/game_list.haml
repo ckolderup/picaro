@@ -1,5 +1,8 @@
 %h2
   = title
+  %a{:href => '/editor/new'}
+    %small
+      New
 
 - for game in games
   - if game.published?

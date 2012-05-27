@@ -3,8 +3,8 @@
     <span class="nv">allById: </span><span class="p">{}</span>
 
     <span class="nv">construct: </span><span class="nf">(id, room) -&gt;</span>
-      <span class="nv">room.id = </span><span class="nx">Util</span><span class="p">.</span><span class="nx">toIdString</span> <span class="nx">id</span>
       <span class="nx">room</span><span class="p">.</span><span class="nx">name</span> <span class="o">||=</span> <span class="nx">id</span>
+      <span class="nv">room.id = </span><span class="nx">Util</span><span class="p">.</span><span class="nx">toIdString</span> <span class="nx">id</span>
       <span class="nx">Room</span><span class="p">.</span><span class="nx">allById</span><span class="p">[</span><span class="nx">room</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">room</span>
 
     <span class="nv">init: </span><span class="nf">(startingRoom) -&gt;</span>
