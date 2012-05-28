@@ -124,6 +124,17 @@ h2 {
     font-size: 150%;
 }
 
+h2.games-list a {
+    color: #888;
+    text-decoration: underline;
+}
+
+h2.games-list a.active {
+    color: #333;
+    text-decoration: none;
+}
+
+
 #games-list {
     margin: 12px 0;
 }

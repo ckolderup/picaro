@@ -40,9 +40,13 @@ get '/games/by/:username' do
   haml :game_list, :locals => { title: "Games by #{user.display_name}", games: games }
 end
 
-get '/games' do
-  versions = Version.all(:limit => 15, :order => [ :uploaded_at.desc ])
-  error 404 if versions.nil? #but we might want to add a placeholder instead
+get '/games/mine' do
+  force_login
+  games = Game.all conditions: { author: current_user }
+  haml :game_list, locals: { title: "My Games", games: games, my_games: true}
+end
 
-  haml :game_list, locals: { title: "Recent Games", games: versions.map{|v| v.game }.uniq }
+get '/games' do
+  games = Game.all conditions: { published: true}
+  haml :game_list, locals: { title: "Recent Games", games: games,  my_games: false}
 end

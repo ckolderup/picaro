@@ -33,7 +33,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       positionOffset = 125
       roomDiv = $("<div data-room-id='#{room.name}' data-content='#{_.escape(room.description)}' class='room'><h4>#{room.name} </h3></div>")
       roomDiv.append '&#9823;' if room.starter
-      roomDiv.popover placement: 'left', title: roomName, animation: false
+      roomDiv.popover placement: 'right', title: roomName, animation: false
       if room.items
         itemDots = ''
         itemDots += "&#9817;" for item in room.items
@@ -67,6 +67,8 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
     Editor.saveGameButton.click ->
       console.log 'yayuh'
       Editor.submitForm.trigger('submit')
+
+    $('#yaml-indicator').tooltip placement: 'left'
 
     mirror = CodeMirror.fromTextArea document.getElementById("code"),
       mode: "yaml"

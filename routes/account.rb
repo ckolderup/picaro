@@ -34,7 +34,7 @@ end
 post '/login' do
   if user = User.authenticate(params[:email], params[:password])
     session[:u_id] = user.id
-    next_page = '/account'
+    next_page = '/games'
     next_page = CGI.unescape(params[:next]) unless params[:next].nil?
     redirect next_page, 303
   else
@@ -45,7 +45,6 @@ end
 
 get '/account' do
   force_login
-
   haml :account, :locals => { :user => current_user }
 end
 

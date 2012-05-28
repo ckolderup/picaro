@@ -4,10 +4,4 @@
     %input{:type=>"hidden", :name=>"_method", :value=>"put"}
 
 %div{:id => 'game-visuals-container', :class => 'section section-visual'}
-  %div{:class => "title"}
-    %span{:id => 'yaml-indicator', :class => 'badge badge-success'}
-      Valid
-    %h3
-      %span{:class => 'game-name'}
-
-  %div{:class => 'rooms'}
+  = haml :"editor/_visual"

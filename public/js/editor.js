@@ -36,7 +36,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         roomDiv.append('&#9823;');
       }
       roomDiv.popover({
-        placement: 'left',
+        placement: 'right',
         title: roomName,
         animation: false
       });
@@ -101,6 +101,9 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
     Editor.saveGameButton.click(function() {
       console.log('yayuh');
       return Editor.submitForm.trigger('submit');
+    });
+    $('#yaml-indicator').tooltip({
+      placement: 'left'
     });
     mirror = CodeMirror.fromTextArea(document.getElementById("code"), {
       mode: "yaml",

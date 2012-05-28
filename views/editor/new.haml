@@ -3,10 +3,4 @@
     = haml :"editor/_form", locals: {version: version, game: game}
 
 %div{:id => 'game-visuals-container', :class => 'section section-visual'}
-  %div{:class => "title"}
-    %span{:id => 'yaml-indicator', :class => 'badge badge-success'}
-      ok YAML
-    %h3
-      %span{:class => 'game-name'}
-
-  %div{:class => 'rooms'}
+  = haml :"editor/_visual"

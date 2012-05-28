@@ -1,14 +1,11 @@
-%h2
-  = title
-  %a{:href => '/editor/new'}
-    %small
-      New
+%h2{:class => 'games-list'}
+  %a{:href => '/games', class: "#{'active' if !my_games}"}
+    All Games
+  \/
+  %a{:href => '/games/mine', class: "#{'active' if my_games}"}
+    My Games
 
 %ul{:id => 'games-list'}
   - for game in games
-    - if game.published?
-      %li{:class=>'game'}
-        = haml :_game_summary, locals: {game: game, owned: false}
-    - elsif game.author == current_user
-      %li{:class=>'game hidden'}
-        = haml :_game_summary, locals: {game: game, owned: true}
+    %li{:class=>'game'}
+      = haml :_game_summary, locals: { game: game, published: game.published?, owned: game.author == current_user }

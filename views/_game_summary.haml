@@ -11,6 +11,9 @@
   - if owned
     %a{:href => game.edit_url}
       &nbsp;Edit
-    - if not game.published?
       %a{:href => game.publish_url}
-        &middot;&nbsp; Publish
+        &middot;&nbsp;
+        - if not game.published?
+          Publish
+        - else
+          Unpublish
