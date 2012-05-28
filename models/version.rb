@@ -28,6 +28,16 @@ class Version
     version
   end
 
+  def update_from_yaml(yaml)
+    self.source = yaml
+    if valid_yaml?
+      self.label = parsed_data['version'] || 1
+      self.title = parsed_data['gameName'] || 'Untitled'
+      self.description = parsed_data['gameDescription'] || ''
+      save!
+    end
+  end
+
   def script_present?
     if source_url.present? || source.present?
       true

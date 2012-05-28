@@ -4,10 +4,11 @@
     %small
       New
 
-- for game in games
-  - if game.published?
-    .game
-      = haml :_game_summary, locals: {game: game}
-  - elsif game.author == current_user
-    .game.hidden
-      = haml :_game_summary, locals: {game: game}
+%ul{:id => 'games-list'}
+  - for game in games
+    - if game.published?
+      %li{:class=>'game'}
+        = haml :_game_summary, locals: {game: game, owned: false}
+    - elsif game.author == current_user
+      %li{:class=>'game hidden'}
+        = haml :_game_summary, locals: {game: game, owned: true}

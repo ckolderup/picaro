@@ -9,7 +9,7 @@
       %li
         %a{:href => "/games"} Games
       %li
-        %a{:href => "/account"} Account
+        %a{:href => "/docs"} Docs
   - else
     %ul
       %li
@@ -17,7 +17,9 @@
 #header-right
   - if logged_in?
     %ul
-      %li= "#{current_user.display_name}"
+      %li
+        %a{:href => "/account"}
+          = "#{current_user.display_name}"
       %li
         %a{:href => "/logout"} Logout
   - else

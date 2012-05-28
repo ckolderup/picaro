@@ -11,3 +11,7 @@ get '/play/:game_id' do
   end
   erb :play
 end
+
+get '/docs' do
+  haml :docs
+end

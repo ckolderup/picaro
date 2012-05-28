@@ -113,9 +113,39 @@ a {
     padding: 30px;
 }
 
-h2 small {
-    text-decoration: underline;
-    font-size: 75%;
+h2 small, .title small {
+    font-size: 12px;
+    font-style: normal;
     color: #333333;
     padding: 3px;
+}
+
+h2 {
+    font-size: 150%;
+}
+
+#games-list {
+    margin: 12px 0;
+}
+
+#games-list li {
+    margin-bottom: 8px;
+}
+
+#games-list .description {
+    margin-left: 20px;
+}
+
+#games-list .title {
+    font-style: italic;
+}
+
+.documentation-page p {
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.documentation-page ul {
+    list-style-type:square;
+    margin-left: 20px;
 }

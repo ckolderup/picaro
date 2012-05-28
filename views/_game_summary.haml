@@ -1,7 +1,16 @@
-#title
-  %a{:href => game.view_url}
-    = game.versions.last.title
-#author
-  = game.author.display_name
-#description
+.title
+  %a{:href => game.play_url}
+    %span
+      = game.versions.last.title
+    %small
+      by
+      = game.author.display_name
+
+.description
   = game.versions.last.description
+  - if owned
+    %a{:href => game.edit_url}
+      &nbsp;Edit
+    - if not game.published?
+      %a{:href => game.publish_url}
+        &middot;&nbsp; Publish

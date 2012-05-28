@@ -13,7 +13,7 @@ pre, code {
 }
 
 #yaml-indicator {
-  margin: 1px 6px 9px 0px;
+  margin: 1px px 9px 0px;
   float: right;
 }
 
@@ -41,15 +41,6 @@ pre, code {
   height: 80px;
   width: 80px;
   background: #fff;
-}
-
-.room.path-east {
-}
-.room.path-west {
-}
-.room.path-north {
-}
-.room.path-south {
 }
 
 .room small {
@@ -108,13 +99,6 @@ pre, code {
   target-new: tab;;
 }
 
-/*.section-editor .btn {
-  right: 8px;
-  display: inline;
-  position: absolute;
-  top: 7px;
-}
-*/
 .Codemirror-scroll div {
   padding-right: 20px;
 }
@@ -138,61 +122,3 @@ pre, code {
   top: -55px;
   background: #F3EFE7;
 }
-
-/*Sad Sinatra Flash CSS Dupe-ing*/
-/*.flash {
-  padding: 8px 35px 8px 14px;
-  margin-bottom: 18px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  background-color: #fcf8e3;
-  border: 1px solid #fbeed5;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-.flash, .flash-heading {
-  color: #c09853;
-}
-.flash .close {
-  position: relative;
-  top: -2px;
-  right: -21px;
-  line-height: 18px;
-}
-.flash.success {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-}
-.flash.success, .flash.success .flash-heading {
-  color: #468847;
-}
-.flash.danger, .flash-error {
-  background-color: #f2dede;
-  border-color: #eed3d7;
-}
-.flash.danger,
-.flash.error,
-.flash.danger .flash-heading,
-.flash.error .flash-heading {
-  color: #b94a48;
-}
-.flash.info {
-  background-color: #d9edf7;
-  border-color: #bce8f1;
-}
-.flash.info, .flash.info .flash-heading {
-  color: #3a87ad;
-}
-.flash-block {
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
-.flash-block > p, .flash-block > ul {
-  margin-bottom: 0;
-}
-.flash-block p + p {
-  margin-top: 5px;
-}
-*/
-
-

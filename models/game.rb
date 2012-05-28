@@ -17,6 +17,10 @@ class Game
     "#{ENV['SITE_ROOT']}/editor/#{id}"
   end
 
+  def publish_url
+    "#{ENV['SITE_ROOT']}/editor/#{id}/publish"
+  end
+
   def play_url
     "#{ENV['SITE_ROOT']}/play/#{id}"
   end

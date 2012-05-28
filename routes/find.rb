@@ -37,14 +37,12 @@ get '/games/by/:username' do
   games = Game.all(:author => user)
   error 404 if games.nil? #but might want to instead push a specific message
 
-  haml :game_list, :locals => { :title => "Games by #{user.display_name}",
-                                :games => games }
+  haml :game_list, :locals => { title: "Games by #{user.display_name}", games: games }
 end
 
 get '/games' do
   versions = Version.all(:limit => 15, :order => [ :uploaded_at.desc ])
   error 404 if versions.nil? #but we might want to add a placeholder instead
 
-  haml :game_list, :locals => { :title => "Recent Games",
-                                :games => versions.map{|v| v.game }.uniq }
+  haml :game_list, locals: { title: "Recent Games", games: versions.map{|v| v.game }.uniq }
 end

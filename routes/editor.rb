@@ -24,7 +24,7 @@ post '/editor' do
 
   game = Game.create author: current_user
   version = Version.new_from_yaml_and_game(params[:game][:source], game)
-  url = Url.new(:title => version.title, :game => game) 
+  url = Url.new(:title => version.title, :game => game)
   game.urls << url
 
   if game.save && version.save && url.save
@@ -55,16 +55,31 @@ end
 # Update
 put '/editor/:game_id' do
   force_login
-
-  @game = Game.first :conditions => { :author => current_user, :id => params[:game_id] }
+  find_game
   @version = @game.versions.first
-  if @version.update(:source => params[:game][:source])
+
+  if @version.update_from_yaml(params[:game][:source])
     flash[:success] = "Your game was updated."
     redirect "/editor/#{@game.id}"
   else
     flash[:error] = "There was a problem updating your game."
     haml :"editor/#{@game.id}", locals: {game: @game}, layout: :"editor/layout"
   end
+end
+
+get '/editor/:game_id/publish' do
+  force_login
+  find_game
+  if @game.update published: !@game.published
+    flash[:success] = "Your game has been published."
+  else
+    flash[:error] = "There was a problem publishing your game."
+  end
+  redirect '/games'
+end
+
+def find_game
+  @game = Game.first :conditions => { :author => current_user, :id => params[:game_id] }
 end
 
 def path_to_example_game(game_id)

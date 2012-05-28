@@ -1,5 +1,10 @@
 #login
   %form{:action => "/login", :method => "POST"}
+    %label{:for => "email"} Email Address
+    %br
     %input{:id => "email", :name => "email", :type => "text"}
+    %br
+    %label{:for => "password"} Password
+    %br
     %input{:id => "password", :name => "password", :type => "password"}
     %input{:value => "Log in", :type => "submit", :class => "button"}
