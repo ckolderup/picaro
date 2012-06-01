@@ -1,6 +1,6 @@
 ---
-gameName: A New Picaro Game
-gameDescription: Just a dummy game to get you started.
+gameName: Endless Rooms
+gameDescription: A game with a lot of map (and heart!)
 version: 1
 
 rooms:
@@ -43,6 +43,7 @@ rooms:
         take: true
     paths:
       E: The 6th Room
+      N: The 7th Room
   The 6th Room:
     description: This room is completely empty!
     starter: true
@@ -52,6 +53,30 @@ rooms:
     paths:
       N: The Second Room
   The 7th Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      N: The 8th Room
+  The 8th Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      E: The 9th Room
+  The 9th Room:
+    description: This room is completely empty!
+    starter: true
+    items:
+      Ball of lint:
+        take: true
+    paths:
+      N: The 10th Room
+  The 10th Room:
     description: This room is completely empty!
     starter: true
     items:

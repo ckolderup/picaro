@@ -31,6 +31,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       }
       room.drawn = true;
       positionOffset = 125;
+      $(".section-visual").scrollTop(650).scrollLeft(650);
       roomDiv = $("<div data-room-id='" + room.name + "' data-content='" + (_.escape(room.description)) + "' class='room'><h4>" + room.name + " </h3></div>");
       if (room.starter) {
         roomDiv.append('&#9823;');
@@ -90,7 +91,7 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
         $('.game-name').html(game.gameName);
         $("#roomNum").html(game.rooms.length);
         $(".rooms").empty();
-        return this.drawRoom(Room.starter().name, 75, 100);
+        return this.drawRoom(Room.starter().name, 900, 900);
       } else {
         return Editor.yamlIsValid(false);
       }

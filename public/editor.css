@@ -27,8 +27,9 @@ pre, code {
 }
 
 .rooms {
-  background: #28222d;
-  overflow: scroll;
+  /*overflow: scroll;*/
+  height: 2000px;
+  width: 2000px;
 }
 
 .room {
@@ -41,6 +42,7 @@ pre, code {
   height: 80px;
   width: 80px;
   background: #fff;
+  z-index: -1;
 }
 
 .room small {

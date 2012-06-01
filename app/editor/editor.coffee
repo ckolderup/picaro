@@ -31,6 +31,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       room.drawn = true
 
       positionOffset = 125
+      $(".section-visual").scrollTop(650).scrollLeft(650)
       roomDiv = $("<div data-room-id='#{room.name}' data-content='#{_.escape(room.description)}' class='room'><h4>#{room.name} </h3></div>")
       roomDiv.append '&#9823;' if room.starter
       roomDiv.popover placement: 'right', title: roomName, animation: false
@@ -59,7 +60,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
         $('.game-name').html game.gameName
         $("#roomNum").html(game.rooms.length)
         $(".rooms").empty()
-        @drawRoom(Room.starter().name, 75, 100)
+        @drawRoom(Room.starter().name, 900, 900)
       else
         Editor.yamlIsValid false
 
