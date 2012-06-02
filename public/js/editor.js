@@ -2,8 +2,8 @@
 define(["jquery", "room", "vendor/underscore"], function($, Room) {
   var Editor;
   Editor = {
-    saveGameButton: $('.btn.save-game'),
-    form: $('#form'),
+    saveGameButton: $('#save-game'),
+    form: $('form#game'),
     codeTextArea: $('#code'),
     yamlIsValid: function(valid, errorObject) {
       if (this.yamlIndicator == null) {
@@ -99,10 +99,6 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
   };
   $(function() {
     var mirror;
-    Editor.saveGameButton.click(function() {
-      console.log('yayuh');
-      return Editor.submitForm.trigger('submit');
-    });
     $('#yaml-indicator').tooltip({
       placement: 'left'
     });

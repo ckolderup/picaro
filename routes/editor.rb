@@ -12,7 +12,7 @@ get '/editor/new' do
   force_login
 
   game = Game.new
-  version = Version.new game: @game
+  version = Version.new game: game
   version.title = 'A New Picaro Game'
   version.source = File.read(path_to_example_game(:my_first_picaro))
   haml :"editor/new", locals: {game: game, version: version}, layout: :"editor/layout"
@@ -41,15 +41,15 @@ get '/editor/:game_id' do
   force_login
 
   if params[:testing]
-    @game = Game.new
-    @version = Version.new :source => File.read(path_to_example_game(params[:game_id]))
+    game = Game.new
+    version = Version.new :source => File.read(path_to_example_game(params[:game_id]))
   else
-    @game = Game.first(:conditions => { :author => current_user, :id => params[:game_id] })
-    error 404 and return unless @game
-    @version = @game.versions.first
+    game = Game.first(:conditions => { :author => current_user, :id => params[:game_id] })
+    error 404 and return unless game
+    version = game.versions.first
   end
-  error 404 unless @version
-  haml :"editor/edit", layout: :"editor/layout", locals: {game: @game, version: @version}
+  error 404 unless version
+  haml :"editor/edit", layout: :"editor/layout", locals: {game: game, version: version}
 end
 
 # Update

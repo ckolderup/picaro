@@ -18,12 +18,23 @@
     #header
       = haml :top_nav
 
-    #notices
-      = styled_flash
+    %form{:name => "game", :id => "game", :action => "/editor/#{game.id}", :method => "post"}
+      %div{:class => "title"}
+        %h3{:class => "editor"}
+          %span
+            Editor&nbsp;/
+          %span{:class => 'game-name'}
 
-    %div{:id => 'content', :class => 'container'}
-      %div{:class => 'main-content'}
-        = yield
+          %span{:class => "btn-group"}
+            %input{:id => 'save-game', :type => "submit", :value => "Save", :class => "btn btn-mini btn-inverse save-game"}
+            %a{:href => game.play_url, :class => 'btn btn-mini btn-inverse play-game'}
+              Play
+          %span{:id => 'yaml-indicator', :class => 'badge badge-success', :title => 'Green means valid YAML! Orange means something <a href="http://yaml.org">might be wrong"</a>'}
+            YAML
+
+      %div{:id => 'content', :class => 'container'}
+        %div{:class => 'main-content'}
+          = yield
 
     %script{ :src => '/js/vendor/bootstrap-min.js' }
     %script{ :src => '/js/vendor/bootstrap-tooltip.js' }

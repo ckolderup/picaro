@@ -2,18 +2,53 @@ pre, code {
   color: white; # reset bootstrap's default #333 code colors, which mess up monokai
 }
 
-.section-editor .btn-group {
-  float: right;
+#content {
+  padding: 0;
 }
 
-.section-editor .btn-group .btn {
+.title {
+  padding: 6px 5px 4px 0;
+  width: 100%;
+  clear:both;
+  background-color: #7B8A9B; /* Old browsers */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  background-image: -moz-linear-gradient(top, #A9B6C3 0%, #7B8A9B 100%); /* FF3.6+ */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A9B6C3), color-stop(100%,#7B8A9B)); /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* Chrome 10+,Safari 5.1+ */
+  background-image: -ms-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* IE10+ */
+  background-image: -o-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* Opera 11.10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A9B6C3', endColorstr='#7B8A9B',GradientType=0 ); /* IE6-9 */
+  background-image: linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* W3C */
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+.title h3 {
+  width: 50%;
+  color: #fff;
+  display: inline;
+  font-size: 18px;
+  margin-left: 30px;
+  line-height: 1.3em;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+
+.title h3.visual {
+  right: 0px;
+}
+
+.title .btn-group {
+  position: absolute;
+  left: 44%;
+}
+
+.title .btn-group .btn {
   font-weight: normal;
   font-size: 14px;
   font-family: Palatino, Georgia, Times, sans-serif;
 }
 
 #yaml-indicator {
-  margin: 1px px 9px 0px;
+  margin: 1px 18px 9px 6px;
   float: right;
 }
 
@@ -27,7 +62,6 @@ pre, code {
 }
 
 .rooms {
-  /*overflow: scroll;*/
   height: 2000px;
   width: 2000px;
 }
@@ -51,35 +85,13 @@ pre, code {
   color: red;
 }
 
-.title {
-  padding: 6px 5px 4px 20px;
-  background-color: #7B8A9B; /* Old browsers */
-  background-repeat: repeat-x; /* Repeat the gradient */
-  background-image: -moz-linear-gradient(top, #A9B6C3 0%, #7B8A9B 100%); /* FF3.6+ */
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A9B6C3), color-stop(100%,#7B8A9B)); /* Chrome,Safari4+ */
-  background-image: -webkit-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* Chrome 10+,Safari 5.1+ */
-  background-image: -ms-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* IE10+ */
-  background-image: -o-linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* Opera 11.10+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A9B6C3', endColorstr='#7B8A9B',GradientType=0 ); /* IE6-9 */
-  background-image: linear-gradient(top, #A9B6C3 0%,#7B8A9B 100%); /* W3C */
-  border-bottom: 1px solid rgba(0,0,0,.15);
-}
-
-.title h3 {
-  color: #fff;
-  font-size: 18px;
-  margin-left: 10px;
-  line-height: 1.3em;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-}
-
 /* Vertical sections
 -------------------------------------------------- */
 
 .section {
   position: absolute;
   width: 50%;
-  top: 68px;
+  top: 104px;
   bottom: 0;
   overflow: auto;
 }

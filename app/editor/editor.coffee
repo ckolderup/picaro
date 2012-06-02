@@ -1,10 +1,10 @@
 define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
   Editor =
     saveGameButton:
-      $('.btn.save-game')
+      $('#save-game')
 
     form:
-      $('#form')
+      $('form#game')
 
     codeTextArea:
       $('#code')
@@ -65,10 +65,6 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
         Editor.yamlIsValid false
 
   $ ->
-    Editor.saveGameButton.click ->
-      console.log 'yayuh'
-      Editor.submitForm.trigger('submit')
-
     $('#yaml-indicator').tooltip placement: 'left'
 
     mirror = CodeMirror.fromTextArea document.getElementById("code"),
