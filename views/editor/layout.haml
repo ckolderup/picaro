@@ -18,7 +18,7 @@
     #header
       = haml :top_nav
 
-    %form{:name => "game", :id => "game", :action => "/editor/#{game.id}", :method => "post"}
+    %form{:name => "game", :id => "game", :action => "/editor#{'/' + game.id.to_s if !game.new?}", :method => "#{game.new? ? 'post' : 'get'}"}
       %div{:class => "title"}
         %h3{:class => "editor"}
           %span

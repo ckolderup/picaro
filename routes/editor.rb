@@ -10,7 +10,6 @@ end
 # New
 get '/editor/new' do
   force_login
-
   game = Game.new
   version = Version.new game: game
   version.title = 'A New Picaro Game'
@@ -21,12 +20,10 @@ end
 # Create
 post '/editor' do
   force_login
-
   game = Game.create author: current_user
   version = Version.new_from_yaml_and_game(params[:game][:source], game)
   url = Url.new(:title => version.title, :game => game)
   game.urls << url
-
   if game.save && version.save && url.save
     flash[:success] = "Your game is saved."
     redirect "/editor/#{game.id}"
@@ -56,10 +53,10 @@ end
 put '/editor/:game_id' do
   force_login
   find_game
-  @version = @game.versions.first
+  version = @game.versions.first
 
-  if @version.update_from_yaml(params[:game][:source])
-    flash[:success] = "Your game was updated."
+  if version.update_from_yaml(params[:game][:source])
+    flash[:success] = "Your game has been updated."
     redirect "/editor/#{@game.id}"
   else
     flash[:error] = "There was a problem updating your game."
@@ -80,6 +77,8 @@ end
 
 def find_game
   @game = Game.first :conditions => { :author => current_user, :id => params[:game_id] }
+  error 404 and return unless @game
+  @game
 end
 
 def path_to_example_game(game_id)

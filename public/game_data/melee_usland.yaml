@@ -1,0 +1,83 @@
+---
+gameName: Meleé Island
+gameDescription: An example stolen from the Monkey Island by Ron Gilbert et al
+version: 1
+rooms:
+  Lookout Point:
+    starter: true
+    description: A small alcove cut from the cliffside, illuminated by a single campfire
+    items:
+      Lookout:
+        look: His skin is weathered by wind and seasalt
+        talk: Eh, what's that you say Sonny?
+    paths:
+      S: Scumm Bar Trail
+  Scumm Bar Trail:
+    description: The cliff trail ends abruptly in a stony beach. A boardwalk leads across the moonlit waters towards a run-down, but very welcoming, Tavern
+    items:
+      Poster:
+        look: Re-elect Governor Marley. "When there's only one candidate, there's only one choice."
+    paths:
+      N: Lookout Point
+      S: Clocktower Square
+      W: Scumm Bar
+  Scumm Bar:
+    description: A saloon filled with filthy, red-faced wannabe pirates carousing with women of ill-repute, swinging from chandeliers, and periodically throwing beer steins through windows.
+    paths:
+      E: Scumm Bar Trail
+      W: Scumm Bar Kitchen
+    items:
+      Mancomb Seepgood:
+        look: {}
+      Estevan:
+        look: {}
+      Dog:
+        look: {}
+      Important Looking Pirates:
+        look:
+          "What ye be wantin', boy?"
+        talk:
+          Gonna have to insert a dialog tree here.
+  Scumm Bar Kitchen:
+    description: Everything is covered with a thick layer of grease... except for the stove.  The back door is open onto a tiny dock
+    paths:
+      E: Scumm Bar
+    items:
+      Empty Pot:
+        take: true
+        look: Someone cooked a headcheese in this.
+      Pot o' Stew:
+        look: It's boiling hot.
+        take:
+          allowed: false
+      Hunk of Meat:
+        take: true
+        look: It's some sort of meat or meat-like substance.
+        use:
+          self: You wouldn't eat raw meat, would you?
+          Empty Pot: You put the meat in the empty pot.  Nothing happens. What did you expect to happen?
+          Pot o' Stew:
+            replaceWith:
+              name: stewedMeat
+      Seagull:
+        look: A seagull sits on the edge of the loose plank, ravenously devouring a partially-decomposed fish.
+        attack: You try to frighten the seagull.  You are frightend by the seagull.
+        take: You don't want to put your hands anywhere near that beak.
+        use:
+          Hunk of Meat: He's not interested.  I guess seagulls are pescatarians.
+      Loose Plank:
+        look: It's only nailed down at one end.
+        attack: You step on one end of the loose board, frightening the seagull away
+      Fish:
+        look: It still looks good... too bad the seagull seems to have claimed it.
+    Forest:
+      description: There ought to be a map- the forest is dense and impenetrable, with only one trail leading back to the cliffside.
+      paths:
+        S: Lookout Point
+    Clocktower Square:
+      description: The square is almost empty at this time of night.
+      items:
+        Men of Low Moral Fiber:
+          look: They look like a group of down-on-their-luck pirates.
+      paths:
+        N: Scumm Bar Trail
