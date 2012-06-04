@@ -8,19 +8,22 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     },
     resetForNewRoom: function(room, roomItems) {
       var itemNames, message;
-      this.resetMenus();
       itemNames = _.pluck(roomItems, "name");
       message = room.description || ("You enter " + room.name + ".");
       message += "\n";
       if (itemNames.length) {
         message += "You see " + (util.arrayToSentence(itemNames));
       }
-      return this.updateStatus(message);
+      this.updateStatus(message);
+      this.resetMenus();
+      return this.resetCompass(room);
     },
     resetMenus: function() {
       var roomItems, self;
       roomItems = Item.findByRoom(Room.current);
-      if (self = Item.find('self')) roomItems.push(self);
+      if (self = Item.find('self')) {
+        roomItems.push(self);
+      }
       $(".ui-action ul").empty();
       _.each(Inventory.list(), function(item) {
         $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>");
@@ -40,11 +43,48 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         }
       });
     },
+    resetCompass: function(room) {
+      var adjacentRoom, direction, id, normalized_direction, roomId, _ref, _results;
+      $("#move li").addClass("disabled");
+      _ref = room.paths;
+      _results = [];
+      for (direction in _ref) {
+        roomId = _ref[direction];
+        id = util.toIdString(roomId);
+        adjacentRoom = Room.find(id);
+        normalized_direction = (function() {
+          switch (direction) {
+            case "North":
+            case "N":
+              return 'north';
+            case "East":
+            case "E":
+              return 'east';
+            case "South":
+            case "S":
+              return 'south';
+            case "West":
+            case "W":
+              return 'west';
+            default:
+              return direction;
+          }
+        })();
+        $('#move-preview').data('room-name', adjacentRoom.name);
+        $("#move-preview .ul-modal-inner").html(adjacentRoom.name);
+        $("#move-compass-" + normalized_direction + " a").attr("href", id);
+        $("#move-compass-" + normalized_direction + " a").data("room-name", adjacentRoom.name);
+        _results.push($("#move-compass-" + normalized_direction + ", #move-compass-" + normalized_direction + " a").removeClass("disabled"));
+      }
+      return _results;
+    },
     newStatusMessage: function(message, messageClass) {
       var n;
       $("p.new:first ").removeClass("new").addClass("old");
       n = $("p.old").length;
-      if (n > 5) $("p.old:first").remove();
+      if (n > 5) {
+        $("p.old:first").remove();
+      }
       messageClass || (messageClass = "new");
       return $("#game").append(("<p class='" + messageClass + "'>") + message + "</p>");
     },
@@ -55,7 +95,6 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       Room.current = room;
       UI.resetForNewRoom(room, items);
       $("#header h2").html(room.name);
-      $("#move-preview .ul-modal-inner").html(room.name);
       return $(document).trigger("roomReady", room);
     },
     beginTalk: function(event, item) {
@@ -101,10 +140,10 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         return false;
       });
       $("#move-compass li").mouseover(function() {
-        var preview;
+        var roomName;
         if (!$(this).hasClass("disabled")) {
-          preview = $(this).children("a").attr("href");
-          $("#move-preview .ui-modal-inner").html(preview);
+          roomName = $(this).children("a").data("room-name");
+          $("#move-preview .ui-modal-inner").html(roomName);
           $("#move-preview").fadeIn("fast");
         }
         return false;
@@ -115,9 +154,15 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       });
       return itemAction = function(action, item, event) {
         item = Item.find(item);
-        if (action === "look") $(document).trigger("actionLook", item);
-        if (action === "take") $(document).trigger("actionTake", item);
-        if (action === "attack") $(document).trigger("actionAttack", item);
+        if (action === "look") {
+          $(document).trigger("actionLook", item);
+        }
+        if (action === "take") {
+          $(document).trigger("actionTake", item);
+        }
+        if (action === "attack") {
+          $(document).trigger("actionAttack", item);
+        }
         if (action === "use") {
           event.stopPropagation();
           return false;

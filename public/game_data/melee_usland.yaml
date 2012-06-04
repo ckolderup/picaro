@@ -1,19 +1,21 @@
 ---
-gameName: Meleé Island
+gameName: Melee Island
 gameDescription: An example stolen from the Monkey Island by Ron Gilbert et al
 version: 1
 rooms:
   Lookout Point:
     starter: true
-    description: A small alcove cut from the cliffside, illuminated by a single campfire
+    description: A small alcove cut from the cliffside, illuminated by a single campfire.
     items:
       Lookout:
         look: His skin is weathered by wind and seasalt
         talk: Eh, what's that you say Sonny?
+        attack: Yikes! Don't sneak up on me like that.
     paths:
       S: Scumm Bar Trail
+      N: The Woods
   Scumm Bar Trail:
-    description: The cliff trail ends abruptly in a stony beach. A boardwalk leads across the moonlit waters towards a run-down, but very welcoming, Tavern
+    description: The cliff trail ends abruptly in a stony beach. A boardwalk leads across the moonlit waters towards a run-down, but brightly lit tavern.
     items:
       Poster:
         look: Re-elect Governor Marley. "When there's only one candidate, there's only one choice."
@@ -39,7 +41,7 @@ rooms:
         talk:
           Gonna have to insert a dialog tree here.
   Scumm Bar Kitchen:
-    description: Everything is covered with a thick layer of grease... except for the stove.  The back door is open onto a tiny dock
+    description: Everything is covered with a thick layer of grease... except for the stove.  The back door is open onto a tiny dock.
     paths:
       E: Scumm Bar
     items:
@@ -70,7 +72,7 @@ rooms:
         attack: You step on one end of the loose board, frightening the seagull away
       Fish:
         look: It still looks good... too bad the seagull seems to have claimed it.
-    Forest:
+    The Woods:
       description: There ought to be a map- the forest is dense and impenetrable, with only one trail leading back to the cliffside.
       paths:
         S: Lookout Point

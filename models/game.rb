@@ -30,10 +30,10 @@ class Game
   end
 
   def last_available_version
-    if author == current_user
+    @last_version ||= if author == current_user
       versions.last
     else
-      versions.select{|v| v.published?}.last
+      versions.select{|v| v.published }.last
     end
   end
 

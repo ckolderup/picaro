@@ -5,12 +5,13 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       $(document).trigger "updateStatus", message
 
     resetForNewRoom: (room, roomItems) ->
-      @resetMenus()
       itemNames = _.pluck(roomItems, "name")
       message = room.description || "You enter #{room.name}."
       message += "\n"
       if itemNames.length then message += "You see #{ util.arrayToSentence(itemNames) }"
-      @updateStatus message
+      @updateStatus(message)
+      @resetMenus()
+      @resetCompass(room)
 
     resetMenus: ->
       roomItems = Item.findByRoom Room.current
@@ -30,6 +31,25 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         $("#action-talk ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "talk") + "'>" + item.name + "</a></li>"  if item.talk
         $("#action-attack ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "attack") + "'>" + item.name + "</a></li>"  if item.attack
 
+    resetCompass: (room) ->
+      $("#move li").addClass "disabled"
+      for direction, roomId of room.paths
+        id = util.toIdString roomId
+        adjacentRoom = Room.find(id)
+        normalized_direction = switch direction
+          when "North", "N" then 'north'
+          when "East",  "E" then 'east'
+          when "South", "S" then 'south'
+          when "West",  "W" then 'west'
+          else direction
+
+        $('#move-preview').data('room-name', adjacentRoom.name)
+        $("#move-preview .ul-modal-inner").html(adjacentRoom.name)
+
+        $("#move-compass-#{normalized_direction} a").attr("href", id)
+        $("#move-compass-#{normalized_direction} a").data("room-name", adjacentRoom.name)
+        $("#move-compass-#{normalized_direction}, #move-compass-#{normalized_direction} a").removeClass "disabled"
+
     # TODO: remove the first, old classes if the styles remain unused
     newStatusMessage: (message, messageClass) ->
       $("p.new:first ").removeClass("new").addClass "old"
@@ -42,10 +62,9 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       room = roomData.room
       items = roomData.items
       Room.current = room
-      UI.resetForNewRoom room, items
-      $("#header h2").html room.name
-      $("#move-preview .ul-modal-inner").html room.name
-      $(document).trigger "roomReady", room
+      UI.resetForNewRoom(room, items)
+      $("#header h2").html(room.name)
+      $(document).trigger("roomReady", room)
 
     # After triggering the actionTalk event, clear the list the Talk list and trigger `actionTalk`
     beginTalk: (event, item) ->
@@ -91,8 +110,8 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
 
       $("#move-compass li").mouseover ->
         unless $(this).hasClass("disabled")
-          preview = $(this).children("a").attr("href")
-          $("#move-preview .ui-modal-inner").html preview
+          roomName = $(this).children("a").data("room-name")
+          $("#move-preview .ui-modal-inner").html(roomName)
           $("#move-preview").fadeIn "fast"
         false
 

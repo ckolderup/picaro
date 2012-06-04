@@ -8,7 +8,7 @@
 
 .description
   = game.versions.last.description
-  - if owned
+  - if game.author == current_user
     %a{:href => game.edit_url}
       &nbsp;Edit
       %a{:href => game.publish_url}

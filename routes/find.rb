@@ -42,7 +42,7 @@ end
 
 get '/games/mine' do
   force_login
-  games = Game.all conditions: { author: current_user }
+  games = Game.all conditions: { author_id: current_user.id }
   haml :game_list, locals: { title: "My Games", games: games, my_games: true}
 end
 
