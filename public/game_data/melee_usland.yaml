@@ -10,12 +10,11 @@ rooms:
       Lookout:
         look: His skin is weathered by wind and seasalt
         talk: Eh, what's that you say Sonny?
-        attack: Yikes! Don't sneak up on me like that.
     paths:
       S: Scumm Bar Trail
       N: The Woods
   Scumm Bar Trail:
-    description: The cliff trail ends abruptly in a stony beach. A boardwalk leads across the moonlit waters towards a run-down, but brightly lit tavern.
+    description: The cliff trail ends abruptly in a stony beach. A boardwalk leads across the moonlit waters towards a run-down but but brightly lit tavern.
     items:
       Poster:
         look: Re-elect Governor Marley. "When there's only one candidate, there's only one choice."
@@ -41,7 +40,7 @@ rooms:
         talk:
           Gonna have to insert a dialog tree here.
   Scumm Bar Kitchen:
-    description: Everything is covered with a thick layer of grease... except for the stove.  The back door is open onto a tiny dock.
+    description: Everything is covered with a thick layer of grease... except for the stove.  The back door opens onto a tiny dock
     paths:
       E: Scumm Bar
     items:
@@ -72,14 +71,14 @@ rooms:
         attack: You step on one end of the loose board, frightening the seagull away
       Fish:
         look: It still looks good... too bad the seagull seems to have claimed it.
-    The Woods:
-      description: There ought to be a map- the forest is dense and impenetrable, with only one trail leading back to the cliffside.
-      paths:
-        S: Lookout Point
-    Clocktower Square:
-      description: The square is almost empty at this time of night.
-      items:
-        Men of Low Moral Fiber:
-          look: They look like a group of down-on-their-luck pirates.
-      paths:
-        N: Scumm Bar Trail
+  The Woods:
+    description: There ought to be a map- the forest is dense and impenetrable, with only one trail leading back to the cliffside.
+    paths:
+      S: Lookout Point
+  Clocktower Square:
+    description: The square is almost empty at this time of night.
+    items:
+      Men of Low Moral Fiber:
+        look: They look like a group of down-on-their-luck pirates.
+    paths:
+      N: Scumm Bar Trail

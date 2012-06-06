@@ -27,7 +27,7 @@ define [ "jquery", "room", "util", "vendor/underscore" ], ($, Room, util) ->
 
     drawRoom: (roomName, x, y) ->
       room = Room.findByName roomName
-      return if room.drawn
+      return if not room or room.drawn?
       room.drawn = true
 
       positionOffset = 125

@@ -26,7 +26,7 @@ define(["jquery", "room", "util", "vendor/underscore"], function($, Room, util) 
     drawRoom: function(roomName, x, y) {
       var destination, direction, item, itemDots, positionOffset, room, roomDiv, _i, _len, _ref, _ref1, _results;
       room = Room.findByName(roomName);
-      if (room.drawn) {
+      if (!room || (room.drawn != null)) {
         return;
       }
       room.drawn = true;
