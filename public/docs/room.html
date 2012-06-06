@@ -23,29 +23,6 @@
     <span class="nv">findByName: </span><span class="nf">(name) -&gt;</span>
       <span class="nx">_</span><span class="p">(</span><span class="nx">@allById</span><span class="p">).</span><span class="nx">find</span> <span class="nf">(room) -&gt;</span> <span class="nx">room</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="nx">name</span>
 
-    <span class="nv">get: </span><span class="nf">(room, roomItems) -&gt;</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move a&quot;</span><span class="p">).</span><span class="nx">attr</span> <span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move li&quot;</span><span class="p">).</span><span class="nx">addClass</span> <span class="s2">&quot;disabled&quot;</span>
-      <span class="k">for</span> <span class="nx">direction</span><span class="p">,</span> <span class="nx">roomId</span> <span class="k">of</span> <span class="nx">room</span><span class="p">.</span><span class="nx">paths</span>
-        <span class="nv">id = </span><span class="nx">Util</span><span class="p">.</span><span class="nx">toIdString</span> <span class="nx">roomId</span>
-        <span class="k">switch</span> <span class="nx">direction</span>
-          <span class="k">when</span> <span class="s2">&quot;North&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-north a&quot;</span><span class="p">).</span><span class="nx">attr</span> <span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">id</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-north, #move-compass-north a&quot;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s2">&quot;disabled&quot;</span>
-          <span class="k">when</span> <span class="s2">&quot;South&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-south a&quot;</span><span class="p">).</span><span class="nx">attr</span> <span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">id</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-south, #move-compass-south a&quot;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s2">&quot;disabled&quot;</span>
-          <span class="k">when</span> <span class="s2">&quot;East&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-east a&quot;</span><span class="p">).</span><span class="nx">attr</span> <span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">id</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-east, #move-compass-east a&quot;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s2">&quot;disabled&quot;</span>
-          <span class="k">when</span> <span class="s2">&quot;West&quot;</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-west a&quot;</span><span class="p">).</span><span class="nx">attr</span> <span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">id</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#move-compass-west, #move-compass-west a&quot;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s2">&quot;disabled&quot;</span>
-
-  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">bind</span> <span class="s2">&quot;roomReady&quot;</span><span class="p">,</span> <span class="nf">(e, room) -&gt;</span>
-    <span class="nv">roomItems = </span><span class="nx">_</span><span class="p">(</span><span class="nx">Item</span><span class="p">.</span><span class="nx">find</span><span class="p">).</span><span class="nx">filter</span> <span class="nf">(item, id) -&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">location</span> <span class="o">is</span> <span class="nx">room</span><span class="p">.</span><span class="nx">id</span>
-    <span class="nx">Room</span><span class="p">.</span><span class="nx">get</span> <span class="nx">room</span><span class="p">,</span> <span class="nx">roomItems</span>
-
   <span class="nx">Room</span>
 
 </pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

@@ -42,7 +42,7 @@ task :uglify do
 end
 
 desc "Compile CS and build JS bundle. Could someday do CSS (and possible spriting?) too"
-task :bundle_static_assets => [:compile_coffee, :uglify]
+task :bundle_static_assets => [:compile_coffee, :docs, :uglify]
 
 task :deploy do
   system 'git checkout release'
