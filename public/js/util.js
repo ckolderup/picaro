@@ -76,6 +76,18 @@ define(["jquery"], function($) {
     },
     splitActionId: function(domNode) {
       return $(domNode).data("action-id").split("-");
+    },
+    getQueryParams: function() {
+      var name, piece, queryObj, queryString, value, _i, _len;
+      queryString = location.search.replace('?', '').split('&');
+      queryObj = {};
+      for (_i = 0, _len = queryString.length; _i < _len; _i++) {
+        piece = queryString[_i];
+        name = piece.split('=')[0];
+        value = piece.split('=')[1];
+        queryObj[name] = value;
+      }
+      return queryObj;
     }
   };
 });

@@ -1,10 +1,10 @@
 
-define(["jquery", "room", "vendor/underscore"], function($, Room) {
+define(["jquery", "room", "util", "vendor/underscore"], function($, Room, util) {
   var Editor;
   Editor = {
     saveGameButton: $('#save-game'),
     form: $('form#game'),
-    codeTextArea: $('#code'),
+    codeTextArea: document.getElementById("code"),
     yamlIsValid: function(valid, errorObject) {
       if (this.yamlIndicator == null) {
         this.yamlIndicator = $('#yaml-indicator');
@@ -95,28 +95,55 @@ define(["jquery", "room", "vendor/underscore"], function($, Room) {
       } else {
         return Editor.yamlIsValid(false);
       }
-    }
-  };
-  $(function() {
-    var mirror;
-    $('#yaml-indicator').tooltip({
-      placement: 'left'
-    });
-    mirror = CodeMirror.fromTextArea(document.getElementById("code"), {
-      mode: "yaml",
-      theme: "monokai",
-      onChange: function(mirror, changes) {
+    },
+    initCodeMirror: function(mode) {
+      var mirror;
+      return mirror = CodeMirror.fromTextArea(Editor.codeTextArea, {
+        mode: mode,
+        theme: "monokai",
+        onChange: function(mirror, changes) {
+          var jsGameObject;
+          mirror.save();
+          try {
+            jsGameObject = jsyaml.load(Editor.codeTextArea.value);
+            return Editor.resetGameData(jsGameObject);
+          } catch (error) {
+            return Editor.resetGameData(false);
+          }
+        }
+      });
+    },
+    initPlaintextUpdate: function() {
+      var updateGame;
+      updateGame = function(v, e) {
         var jsGameObject;
-        mirror.save();
         try {
-          jsGameObject = jsyaml.load(mirror.getTextArea().value || '');
+          jsGameObject = jsyaml.load(Editor.codeTextArea.value);
           return Editor.resetGameData(jsGameObject);
         } catch (error) {
           return Editor.resetGameData(false);
         }
+      };
+      Editor.codeTextArea.onkeyup = updateGame;
+      return Editor.codeTextArea.blur = updateGame;
+    }
+  };
+  $(function() {
+    var mode;
+    Editor.resetGameData(jsyaml.load(Editor.codeTextArea.value));
+    $('#yaml-indicator').tooltip({
+      placement: 'left',
+      delay: {
+        show: 200,
+        hide: 1000
       }
     });
-    return Editor.resetGameData(jsyaml.load(Editor.codeTextArea.html()));
+    mode = util.getQueryParams()["mode"] || 'text';
+    if (mode === 'plain') {
+      return Editor.initPlaintextUpdate();
+    } else {
+      return Editor.initCodeMirror(mode);
+    }
   });
   return Editor;
 });

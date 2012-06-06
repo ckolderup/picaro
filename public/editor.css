@@ -36,6 +36,10 @@ pre, code {
   right: 0px;
 }
 
+.title .nav-pills {
+  position: absolute: left: 35%;
+}
+
 .title .btn-group {
   position: absolute;
   left: 44%;
@@ -135,4 +139,9 @@ pre, code {
   text-align: center;
   top: -55px;
   background: #F3EFE7;
+}
+
+#code-container textarea {
+  width: 100%;
+  height: 100%;
 }

@@ -1,4 +1,4 @@
-define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
+define [ "jquery", "room", "util", "vendor/underscore" ], ($, Room, util) ->
   Editor =
     saveGameButton:
       $('#save-game')
@@ -7,7 +7,7 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       $('form#game')
 
     codeTextArea:
-      $('#code')
+      document.getElementById "code"
 
     yamlIsValid: (valid, errorObject) ->
       @yamlIndicator ?= $('#yaml-indicator')
@@ -64,21 +64,33 @@ define [ "jquery", "room", "vendor/underscore" ], ($, Room) ->
       else
         Editor.yamlIsValid false
 
-  $ ->
-    $('#yaml-indicator').tooltip placement: 'left'
+    initCodeMirror: (mode) ->
+      mirror = CodeMirror.fromTextArea Editor.codeTextArea,
+        mode: mode
+        theme: "monokai"
+        onChange: (mirror, changes) ->
+          mirror.save()
+          try
+            jsGameObject = jsyaml.load(Editor.codeTextArea.value)
+            Editor.resetGameData(jsGameObject)
+          catch error
+            Editor.resetGameData(false)
 
-    mirror = CodeMirror.fromTextArea document.getElementById("code"),
-      mode: "yaml"
-      theme: "monokai"
-      onChange: (mirror, changes) ->
-        mirror.save()
+    initPlaintextUpdate: ->
+      updateGame = (v,e) ->
         try
-          jsGameObject = jsyaml.load(mirror.getTextArea().value || '')
+          jsGameObject = jsyaml.load(Editor.codeTextArea.value)
           Editor.resetGameData(jsGameObject)
         catch error
           Editor.resetGameData(false)
 
-    # on first load, reset the gameworld representation
-    Editor.resetGameData jsyaml.load(Editor.codeTextArea.html())
+      Editor.codeTextArea.onkeyup = updateGame
+      Editor.codeTextArea.blur = updateGame
+
+  $ ->
+    Editor.resetGameData jsyaml.load(Editor.codeTextArea.value)
+    $('#yaml-indicator').tooltip(placement: 'left', delay: {show: 200, hide: 1000})
+    mode = util.getQueryParams()["mode"] || 'text'
+    if mode is 'plain' then Editor.initPlaintextUpdate() else Editor.initCodeMirror(mode)
 
   Editor

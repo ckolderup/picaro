@@ -46,3 +46,13 @@ define [ "jquery" ], ($) ->
 
   splitActionId: (domNode) ->
     $(domNode).data("action-id").split "-"
+
+  getQueryParams: ->
+    queryString = location.search.replace('?', '').split('&')
+    queryObj = {}
+
+    for piece in queryString
+      name = piece.split('=')[0];
+      value = piece.split('=')[1];
+      queryObj[name] = value;
+    queryObj

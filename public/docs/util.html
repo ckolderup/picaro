@@ -47,4 +47,14 @@
   <span class="nv">splitActionId: </span><span class="nf">(domNode) -&gt;</span>
     <span class="nx">$</span><span class="p">(</span><span class="nx">domNode</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;action-id&quot;</span><span class="p">).</span><span class="nx">split</span> <span class="s2">&quot;-&quot;</span>
 
+  <span class="nv">getQueryParams: </span><span class="o">-&gt;</span>
+    <span class="nv">queryString = </span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)</span>
+    <span class="nv">queryObj = </span><span class="p">{}</span>
+
+    <span class="k">for</span> <span class="nx">piece</span> <span class="k">in</span> <span class="nx">queryString</span>
+      <span class="nv">name = </span><span class="nx">piece</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="nv">value = </span><span class="nx">piece</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="nx">queryObj</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="nx">queryObj</span>
+
 </pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
