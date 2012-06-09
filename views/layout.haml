@@ -1,6 +1,7 @@
 %html
   %head
     %title Picaro
+    / %link{:rel => "stylesheet", :href => "/bootstrap.min.css", :type => "text/css"}
     %link{:rel => "stylesheet", :href => "/home.css", :type => "text/css"}
   %body
     #header
@@ -10,3 +11,5 @@
 
     #content
       = yield
+
+    %script{ :src => "/js/vendor/require-jquery.js", 'data-main' => "/js/games"}

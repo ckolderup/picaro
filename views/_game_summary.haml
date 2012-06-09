@@ -17,3 +17,9 @@
           Publish
         - else
           Unpublish
+
+    %form{:action => game.edit_url, :method => 'POST', :class => 'delete-game'}
+      &middot;&nbsp;
+      %input{:type => "hidden", :name  => "_method", :value => "delete"}
+      %a{:href => "#", :class => 'delete-game'}
+        Delete

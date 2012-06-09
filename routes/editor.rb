@@ -72,7 +72,22 @@ get '/editor/:game_id/publish' do
   else
     flash[:error] = "There was a problem publishing your game."
   end
-  redirect '/games'
+  redirect '/games/mine'
+end
+
+# Delete
+delete '/editor/:game_id' do
+  force_login
+  find_game
+  @game.urls.each(&:destroy)
+  @game.versions.each(&:destroy)
+  if @game.reload.destroy
+    flash[:success] = "Your game has been deleted."
+  else
+    require 'ruby-debug'; debugger
+    flash[:error] = "There was a problem deleting your game."
+  end
+  redirect '/games/mine'
 end
 
 def find_game

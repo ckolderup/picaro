@@ -9,6 +9,11 @@ class Game
 
   alias :published? :published
 
+  before :destroy do |game|
+    game.versions.each {|v| v.destroy!}
+    game.urls.each {|u| u.destroy!}
+  end
+
   def view_url
     "#{ENV['SITE_ROOT']}/game/#{urls.last.slug}/view"
   end
