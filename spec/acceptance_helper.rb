@@ -71,7 +71,7 @@ def action_link actionId, itemId
 end
 
 def click_compass_direction direction
-  direction_element = find('#move-compass-' + direction.to_s + ' a')
+  direction_element = find("#move-compass-#{direction} a")
   direction_element.should be_visible
   direction_element[:class].should_not match /disabled/
   direction_element.click

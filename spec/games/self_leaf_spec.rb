@@ -5,7 +5,20 @@ describe "Playing Picaro/leaf" do
   before { play 'self_leaf'}
 
   let(:use)       { find('#footer-use a') }
+  let(:look)       { find('#footer-look a') }
   let(:take)      { find('#footer-take a') }
+
+  describe "room description" do
+    it "shows items with descriptions after the room description, lists others, and omits those with desctiption:false" do
+      # The oak leaf has a custom description. The potion and the compass are listed by name.
+      latest_update.text.should == "You stand facing a scientist's workspace, strewn with strange apparatus. An oak leaf lies on the oak table. You see a Potion and a Compass."
+
+      # The darkness exists in the room, although you wouldn't know it from the room description.
+      look.click
+      action_link('look', 'theDarkness').click
+      latest_update.text.should == 'The darkness stares back into you.'
+    end
+  end
 
   describe "using the leaf and potion on yourself" do
     it "fires events as expected" do

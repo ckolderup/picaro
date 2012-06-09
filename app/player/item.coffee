@@ -1,4 +1,4 @@
-define [ "jquery", "util", "inventory", "talk", "action_guard", "vendor/underscore" ], ($, Util, Inventory, Talk, ActionGuard) ->
+define [ "jquery", "util", "inventory", "talk", "action_guard", "util", "vendor/underscore" ], ($, Util, Inventory, Talk, ActionGuard, util) ->
   class Item
     constructor: (itemObject, id) ->
       # Either an id for this Item is passed as a second argument, or it's the top-level key of the object passed at the first argument.
@@ -19,6 +19,24 @@ define [ "jquery", "util", "inventory", "talk", "action_guard", "vendor/undersco
             # delete action[key]
 
     @allById: {}
+
+    # Takes a list of items and returns a string representing the in-game description of them that will be shown when the player first enters a room.
+    # Items that have capitalized names will have the indefinite article prepended to them- so "Apple, Pear" become "an Apple and a Pair".
+    # Items without a description will be stuck together to form a sentence listing them, like: "You see a ball of lint, an apple and a tree".
+    # Items which have description: false will be omitted from this list.
+    @descriptionsFor: (items) ->
+      descriptionString = ''
+      groupedItems = _.groupBy items, (item) ->
+        util.typeOf item.description
+
+      # If we have set descriptions on these items, show them first.
+      if groupedItems['string']
+        descriptionString += item.description + '\n' for item in groupedItems['string']
+
+      # Items which have no specified description get listed as a sentence by default.
+      defaultDescriptionItemNames = _.pluck(groupedItems['undefined'], "name")
+      descriptionString += "You see #{ util.arrayToSentence defaultDescriptionItemNames }" if defaultDescriptionItemNames.length
+      descriptionString
 
     # Takes a room object and returns all items whose `location` is the same as its name.
     @findByRoom: (room) ->
@@ -101,8 +119,8 @@ define [ "jquery", "util", "inventory", "talk", "action_guard", "vendor/undersco
   $(document).bind "actionTalk", (e, item) -> item.actionTalk()
   $(document).bind "actionAttack", (e, item) -> item.actionAttack()
   $(document).bind "actionLook", (e, item) -> item.actionLook()
-  $(document).bind "actionUse", (e, item, otherItem) -> item.actionUse(otherItem)
   $(document).bind "actionTake", (e, item) -> item.actionTake()
+  $(document).bind "actionUse", (e, item, otherItem) -> item.actionUse(otherItem)
 
   # Other item actions not directly resulting from user action.
   $(document).bind "immediateTake", (e, item) -> item.immediateTake()
