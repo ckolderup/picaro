@@ -7,10 +7,19 @@ define(["util"], function(Util) {
       return expect(Util.arrayToSentence(testArray)).toEqual("cheese, toast, bread and a little wine.");
     });
     it("takes an alternate separator argument", function() {
-      return expect(Util.arrayToSentence(testArray, "; ")).toEqual("cheese; toast; bread and a little wine.");
+      return expect(Util.arrayToSentence(testArray, {
+        separator: "; "
+      })).toEqual("cheese; toast; bread and a little wine.");
     });
-    return it("takes an alternate final separator argument", function() {
-      return expect(Util.arrayToSentence(testArray, "; ", " as well as ")).toEqual("cheese; toast; bread as well as a little wine.");
+    it("takes an alternate lastSeparator argument", function() {
+      return expect(Util.arrayToSentence(testArray, {
+        separator: "; ",
+        lastSeparator: " as well as "
+      })).toEqual("cheese; toast; bread as well as a little wine.");
+    });
+    return it("tries to prefix with the proper indefinite article when when items are capitalized", function() {
+      testArray = ['Apple', 'Tostada', 'Head Cheese'];
+      return expect(Util.arrayToSentence(testArray)).toEqual("an Apple, a Tostada and a Head Cheese.");
     });
   });
   return describe("Util.toIdString", function() {

@@ -8,13 +8,10 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       return $(document).trigger("updateStatus", message);
     },
     resetForNewRoom: function(room, roomItems) {
-      var itemNames, message;
-      itemNames = _.pluck(roomItems, "name");
+      var message;
       message = room.description || ("You enter " + room.name + ".");
       message += "\n";
-      if (itemNames.length) {
-        message += "You see " + (util.arrayToSentence(itemNames));
-      }
+      message += Item.descriptionsFor(roomItems);
       this.updateStatus(message);
       this.resetMenus();
       return this.resetCompass(room);

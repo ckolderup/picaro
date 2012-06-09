@@ -1,23 +1,23 @@
 define [ "jquery" ], ($) ->
 
-  arrayToSentence: (array, separator, lastSeparator) ->
-    separator or (separator = ", ")
-    lastSeparator or (lastSeparator = " and ")
-    length = array.length
+  arrayToSentence: (array, options = {}) ->
+    separator = options.separator or ", "
+    lastSeparator = options.lastSeparator || " and "
     string = ""
-    i = 0
 
-    while i < length
-      firstLetter = array[i][0]
+    for word, i in array
+      firstLetter = word[0]
       if firstLetter.toUpperCase() is firstLetter
-        vowels = [ "A", "E", "I", "O", "U" ]
-        (if $.inArray(firstLetter, vowels) > 0 then string += "an " else string += "a ")
-      string += array[i]
-      firstLetter = array[i][0]
-      if i is (length - 2)
+        vowels = "AEIOU".split('')
+        if _.include vowels, firstLetter
+          string += "an "
+        else
+          string += "a "
+      string += word
+      firstLetter = word[0]
+      if i is array.length - 2
         string += lastSeparator
-      else string += separator  if i < (length - 1)
-      i++
+      else string += separator  if i < array.length - 1
     string + "."
 
   arrayEquality: (a, b) ->
@@ -56,3 +56,15 @@ define [ "jquery" ], ($) ->
       value = piece.split('=')[1];
       queryObj[name] = value;
     queryObj
+
+  # from http://coffeescriptcookbook.com/chapters/classes_and_objects/type-function
+  typeOf: (obj) ->
+    if obj == undefined or obj == null
+      return String obj
+    classToType = new Object
+    for name in "Boolean Number String Function Array Date RegExp".split(" ")
+      classToType["[object " + name + "]"] = name.toLowerCase()
+    myClass = Object.prototype.toString.call obj
+    if myClass of classToType
+      return classToType[myClass]
+    return "object"

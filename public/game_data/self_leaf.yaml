@@ -41,12 +41,14 @@ events:
   item: compass
   attribute: name
   newValue: Reddish Powder
+
 rooms:
   The Lab:
     starter: true
     description: You stand facing a scientist's workspace, strewn with strange apparatus.
     items:
       Leaf:
+        description: An oak leaf lies on the oak table.
         look: It's reddish, with glints of gold when turned in the light
         take: true
       Potion:
@@ -60,3 +62,6 @@ rooms:
           message: It's cased in a tarnished silver with a faint seam running around the edge
           after: updateCompassDescription0
         take: true
+      The Darkness:
+        description: false
+        look: The darkness stares back into you.

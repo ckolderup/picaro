@@ -5,10 +5,9 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       $(document).trigger "updateStatus", message
 
     resetForNewRoom: (room, roomItems) ->
-      itemNames = _.pluck(roomItems, "name")
       message = room.description || "You enter #{room.name}."
       message += "\n"
-      if itemNames.length then message += "You see #{ util.arrayToSentence(itemNames) }"
+      message += Item.descriptionsFor roomItems
       @updateStatus(message)
       @resetMenus()
       @resetCompass(room)

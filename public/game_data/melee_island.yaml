@@ -1,0 +1,126 @@
+---
+gameName: Melee Island
+gameDescription: An example stolen from the Monkey Island by Ron Gilbert et al
+version: 1
+
+# *** Unattached Items ***
+unattachedItems:
+  self:
+    name: Yourself
+    use:
+      Hunk of Meat: Just looking at this hunk of mystery meat makes you want to gag.
+      Stewed Meat: Even if it's a nice brown color now, you're not putting it anywhere near your face.
+
+# *** Rooms ***
+rooms:
+  Lookout Point:
+    starter: true
+    description: A small alcove cut from the cliffside, illuminated by a campfire.
+    items:
+      lookout:
+        description: An old man with a wind-blown gazes out to sea, keeping solitary watch.
+        look: His skin is weathered by wind and seasalt. His glasses look thicker than the bottom of grog-bottles.
+        talk: Eh, what's that you say Sonny?
+        attack: Yikes! Don't sneak up on me like that.
+    paths:
+      S: Scumm Bar Trail
+      N: The Woods
+  Scumm Bar Trail:
+    description: The cliff trail ends abruptly in a stony beach. A boardwalk leads across the moonlit waters towards a run-down, but brightly lit tavern.
+    items:
+      poster:
+        look: Re-elect Governor Marley. "When there's only one candidate, there's only one choice."
+    paths:
+      N: Lookout Point
+      S: Clocktower Square
+      E: Scumm Bar
+  Scumm Bar:
+    description: You step into a saloon filled with filthy, red-faced wannabe pirates carousing with women of ill-repute, swinging from chandeliers, and periodically throwing beer steins through windows.
+    paths:
+      W: Scumm Bar Trail
+      E: Scumm Bar Kitchen
+    items:
+      Mancomb Seepgood:
+        description: A talkative pirate sitting on a beer-barrell holds court at a table by the door.
+        name: talkative pirate.
+        look: He looks mean.
+      Cobb:
+        name: solitary pirate
+        description: A grizzled sailor sits alone, nursing a grog-stein.
+        look: He looks clean.
+      dog:
+        description: false
+        look: It's a dog!
+        use:
+          hunk of meat: You're sure he wants it, but worried about the little guy's health if he eats it.
+          stewed meat:
+            after: feedThatDog
+      Important Looking Pirates:
+        description: Three important looking pirates sit at a heavy wooden table at the far back.
+        talk:
+          "What ye be wantin', boy?"
+        talk:
+          Gonna have to insert a dialog tree here.
+  Scumm Bar Kitchen:
+    description: Everything is covered with a thick layer of grease... except for the stove.  The back door opens onto a tiny dock.
+    paths:
+      W: Scumm Bar
+    items:
+      loose plank:
+        description: One of the planks sticks up at an odd angle.
+        look: It's only nailed down at one end.
+        attack: You step on one end of the loose board, frightening the seagull away
+      seagull:
+        description: A seagull sits atop it, ravenously devouring a partially-decomposed fish.
+        look: Looks mean
+        attack: You try to frighten the seagull.  You are frightend by the seagull.
+        take: You don't want to put your hands anywhere near that beak.
+        use:
+          hunk of meat: He's not interested.  I guess seagulls are pescatarians.
+      fish:
+        description: false
+        look: It still looks good... too bad the seagull seems to have claimed it.
+      empty pot:
+        take: true
+        look: Someone cooked a headcheese in this.
+        use:
+          hunk of meat:  You put the meat in the empty pot.  Nothing happens. What did you expect to happen?
+      pot o' stew:
+        look: It's boiling hot.
+        use:
+          hunk of meat:
+            after: stewThatMeat
+      hunk of meat:
+        take: true
+        look: It's some sort of meat or meat-like substance.
+  The Woods:
+    description: There ought to be a map- the forest is dense and impenetrable, with only one trail leading back to the cliffside.
+    paths:
+      S: Lookout Point
+  Clocktower Square:
+    description: The square is almost empty at this time of night.
+    items:
+      menOLowMoFi:
+        name: Men of Low Moral Fiber
+        description: Across the way, a group of scruffy-looking sea-hippies throw bread crumbs to their pet rat.
+        look: They look like a group of down-on-their-luck pirates.
+    paths:
+      N: Scumm Bar Trail
+
+# *** Events ***
+events:
+  - id: stewThatMeat
+    type: replaceItems
+    items: # The items to replace with the new item.
+    - hunk of meat
+    message: You watch it bob up and down in the bubbling stew for about a minute, until it takes on a nice brown color. You almost burn your fingers fishing it out again.
+    takeNewItem: true
+    newItem:
+      stewed meat:
+        look: It's not raw, but it's still not particularly appetizing.
+
+  - id: feedThatDog
+    type: removeItem
+    item: stewed meat
+    message: The dog grabs the stewed meat from your hand. It drops to the floor, where he enthusiastically tears into it.
+

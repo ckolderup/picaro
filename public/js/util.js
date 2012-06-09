@@ -2,33 +2,34 @@
 
 define(["jquery"], function($) {
   return {
-    arrayToSentence: function(array, separator, lastSeparator) {
-      var firstLetter, i, length, string, vowels;
-      separator || (separator = ", ");
-      lastSeparator || (lastSeparator = " and ");
-      length = array.length;
+    arrayToSentence: function(array, options) {
+      var firstLetter, i, lastSeparator, separator, string, vowels, word, _i, _len;
+      if (options == null) {
+        options = {};
+      }
+      separator = options.separator || ", ";
+      lastSeparator = options.lastSeparator || " and ";
       string = "";
-      i = 0;
-      while (i < length) {
-        firstLetter = array[i][0];
+      for (i = _i = 0, _len = array.length; _i < _len; i = ++_i) {
+        word = array[i];
+        firstLetter = word[0];
         if (firstLetter.toUpperCase() === firstLetter) {
-          vowels = ["A", "E", "I", "O", "U"];
-          if ($.inArray(firstLetter, vowels) > 0) {
+          vowels = "AEIOU".split('');
+          if (_.include(vowels, firstLetter)) {
             string += "an ";
           } else {
             string += "a ";
           }
         }
-        string += array[i];
-        firstLetter = array[i][0];
-        if (i === (length - 2)) {
+        string += word;
+        firstLetter = word[0];
+        if (i === array.length - 2) {
           string += lastSeparator;
         } else {
-          if (i < (length - 1)) {
+          if (i < array.length - 1) {
             string += separator;
           }
         }
-        i++;
       }
       return string + ".";
     },
@@ -88,6 +89,23 @@ define(["jquery"], function($) {
         queryObj[name] = value;
       }
       return queryObj;
+    },
+    typeOf: function(obj) {
+      var classToType, myClass, name, _i, _len, _ref;
+      if (obj === void 0 || obj === null) {
+        return String(obj);
+      }
+      classToType = new Object;
+      _ref = "Boolean Number String Function Array Date RegExp".split(" ");
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        name = _ref[_i];
+        classToType["[object " + name + "]"] = name.toLowerCase();
+      }
+      myClass = Object.prototype.toString.call(obj);
+      if (myClass in classToType) {
+        return classToType[myClass];
+      }
+      return "object";
     }
   };
 });
