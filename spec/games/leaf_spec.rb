@@ -57,14 +57,11 @@ describe "Playing Picaro/leaf" do
         latest_update.should have_content("You can't take the Leaf. You're not tall enough.")
 
         take.click
-        action_link('take', 'leaf').should be_visible
-        action_link('take', 'theAutumn').should be_visible
-
         take_menu.should be_visible
-        action_link('take', 'theAutumn').click
 
-        # FIXME: clearly the message below is hilariously broken. The test case exists to show how our naive message names work (or don't)
-        latest_update.should have_content("You can't take the the Autumn")
+        action_link('take', 'leaf').should be_visible
+        # The Autumn is not shown in the take menu, as it cannot be taken.
+        page.should have_no_selector action_link_selector('take', 'theAutumn')
       end
 
       it "is possible after taking the rake" do

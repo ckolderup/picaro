@@ -16,30 +16,40 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       this.resetMenus();
       return this.resetCompass(room);
     },
+    renderMenuItem: function(item, verb, showHeld) {
+      var heldIndicator;
+      heldIndicator = "<small>(held)</small>";
+      return $("#action-" + verb + " ul").append("<li>          <a href='#' class='item' data-action-id='" + (util.actionId(item, verb)) + "'>            " + item.name + " " + (showHeld ? heldIndicator : '') + "          </a>        </li>");
+    },
     resetMenus: function() {
-      var roomItems, self;
-      roomItems = Item.findByRoom(Room.current);
+      var binaryVerbs, item, itemsForMenus, self, unaryVerbs, verb, _i, _j, _len, _len1, _results;
+      unaryVerbs = ['look', 'take', 'talk', 'attack'];
+      binaryVerbs = ['use'];
+      itemsForMenus = Item.findByRoom(Room.current).concat(Inventory.list());
       if (self = Item.find('self')) {
-        roomItems.push(self);
+        itemsForMenus.push(self);
       }
       $(".ui-action ul").empty();
-      _.each(Inventory.list(), function(item) {
-        $("#action-use ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>");
-        return $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + " <small> (held) </small></a></li>");
-      });
-      _.each(_.difference(roomItems, Inventory.list()), function(item) {
-        $("#action-take ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + "</a></li>");
-        $("#action-use ul").append("<li><a href='#' class='item' data-item-id='" + item.id + "' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + "</a></li>");
-        return $("#action-look ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "look") + "'>" + item.name + "</a></li>");
-      });
-      return _.each(roomItems, function(item) {
-        if (item.talk) {
-          $("#action-talk ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "talk") + "'>" + item.name + "</a></li>");
+      _results = [];
+      for (_i = 0, _len = itemsForMenus.length; _i < _len; _i++) {
+        item = itemsForMenus[_i];
+        for (_j = 0, _len1 = unaryVerbs.length; _j < _len1; _j++) {
+          verb = unaryVerbs[_j];
+          if (item[verb]) {
+            UI.renderMenuItem(item, verb, Inventory.include(item.id));
+          }
         }
-        if (item.attack) {
-          return $("#action-attack ul").append("<li><a href='#' class='item' data-action-id='" + util.actionId(item, "attack") + "'>" + item.name + "</a></li>");
-        }
-      });
+        _results.push((function() {
+          var _k, _len2, _results1;
+          _results1 = [];
+          for (_k = 0, _len2 = binaryVerbs.length; _k < _len2; _k++) {
+            verb = binaryVerbs[_k];
+            _results1.push(UI.renderMenuItem(item, verb, Inventory.include(item.id)));
+          }
+          return _results1;
+        })());
+      }
+      return _results;
     },
     resetCompass: function(room) {
       var adjacentRoom, direction, id, normalized_direction, roomId, _ref, _results;

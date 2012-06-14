@@ -15,12 +15,13 @@ unattachedItems:
 rooms:
   Lookout Point:
     starter: true
-    description: A small alcove cut from the cliffside, illuminated by a campfire.
+    description: You're standy in an alcove cut from the cliffside. A campfire illuminates a low brick wall.
     items:
       lookout:
-        description: An old man with a wind-blown gazes out to sea, keeping solitary watch.
-        look: His skin is weathered by wind and seasalt. His glasses look thicker than the bottom of grog-bottles.
-        talk: Eh, what's that you say Sonny?
+        name: Old Lookout
+        description: A man with a white, wind-blown beard stands beside it, keeping solitary watch.
+        look: His skin is weathered by sand and seasalt. His gazes out to see through glasses with grog-bottle lenses.
+        talk: Eh, what's that you say Sonny? Speak up!
         attack: Yikes! Don't sneak up on me like that.
     paths:
       S: Scumm Bar Trail

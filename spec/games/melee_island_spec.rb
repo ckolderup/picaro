@@ -17,6 +17,12 @@ describe "Playing Picaro/melee_island: " do
     it "should work" do
       room_header.text.should == "LOOKOUT POINT"
 
+      # The "Yourself" item has no look property, so there's no action menu item for it
+      page.should have_no_selector action_link_selector('look', 'self')
+      # But you need to be able to use things on yourself
+      page.should have_selector action_link_selector('use', 'self')
+
+
       move_action.click
       click_compass_direction 'south'
 

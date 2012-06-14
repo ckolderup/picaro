@@ -12,23 +12,32 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       @resetMenus()
       @resetCompass(room)
 
+    renderMenuItem: (item, verb, showHeld) ->
+      heldIndicator = "<small>(held)</small>"
+      $("#action-#{verb} ul").append "<li>
+          <a href='#' class='item' data-action-id='#{util.actionId(item, verb)}'>
+            #{item.name} #{if showHeld then heldIndicator else ''}
+          </a>
+        </li>"
+
     resetMenus: ->
-      roomItems = Item.findByRoom Room.current
-      roomItems.push self if self = Item.find('self')
+      unaryVerbs = ['look', 'take', 'talk', 'attack']
+      binaryVerbs = ['use']
+
+      # What goes in the action menus? Everything in the Room, plus everything in your Inventory.
+      itemsForMenus = Item.findByRoom(Room.current).concat(Inventory.list())
+      # Special case for the "Self" item.
+      itemsForMenus.push self if self = Item.find('self')
 
       $(".ui-action ul").empty()
-      _.each Inventory.list(), (item) ->
-        $("#action-use ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + " <small> (held) </small></a></li>"
-        $("#action-look ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + " <small> (held) </small></a></li>"
+      for item in itemsForMenus
+        for verb in unaryVerbs
+          # If the item responds to the verb, the action will be drawn as a menu item.
+          UI.renderMenuItem(item, verb, Inventory.include(item.id)) if item[verb]
 
-      _.each _.difference(roomItems, Inventory.list()), (item) ->
-        $("#action-take ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "take") + "'>" + item.name + "</a></li>"
-        $("#action-use ul").append "<li><a href='#' class='item' data-item-id='" + item.id + "' data-action-id='" + util.actionId(item, "use") + "'>" + item.name + "</a></li>"
-        $("#action-look ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "look") + "'>" + item.name + "</a></li>"
-
-      _.each roomItems, (item) ->
-        $("#action-talk ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "talk") + "'>" + item.name + "</a></li>"  if item.talk
-        $("#action-attack ul").append "<li><a href='#' class='item' data-action-id='" + util.actionId(item, "attack") + "'>" + item.name + "</a></li>"  if item.attack
+        for verb in binaryVerbs
+          # TODO: When should Use be shown? Show it always, for now.
+          UI.renderMenuItem(item, verb, Inventory.include(item.id))
 
     resetCompass: (room) ->
       $("#move li").addClass "disabled"
