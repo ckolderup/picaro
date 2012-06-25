@@ -64,10 +64,14 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
 
     # TODO: remove the first, old classes if the styles remain unused
     newStatusMessage: (message, messageClass) ->
-      $("p.new:first ").removeClass("new").addClass "old"
-
+      lastMessage = $("p.new:first ")
+      lastMessage.removeClass("new").addClass("old")
+      lastMessage.delay(3000).animate(
+        opacity: .5
+        background: '#e0d9ca'
+      )
       n = $("p.old").length
-      $("p.old:first").remove()  if n > 5
+      $("p.old:first").remove() if n > 15
       messageClass ||= "new"
       UI.messageDiv.append "<p class='#{messageClass}'>" + message + "</p>"
 

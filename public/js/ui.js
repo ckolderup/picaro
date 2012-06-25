@@ -88,10 +88,15 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       return _results;
     },
     newStatusMessage: function(message, messageClass) {
-      var n;
-      $("p.new:first ").removeClass("new").addClass("old");
+      var lastMessage, n;
+      lastMessage = $("p.new:first ");
+      lastMessage.removeClass("new").addClass("old");
+      lastMessage.delay(3000).animate({
+        opacity: .5,
+        background: '#e0d9ca'
+      });
       n = $("p.old").length;
-      if (n > 5) {
+      if (n > 15) {
         $("p.old:first").remove();
       }
       messageClass || (messageClass = "new");
