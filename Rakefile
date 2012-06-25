@@ -45,12 +45,19 @@ desc "Compile CS and build JS bundle. Could someday do CSS (and possible spritin
 task :bundle_static_assets => [:compile_coffee, :docs, :uglify]
 
 task :deploy do
+  puts "Checkout release branch"
   system 'git checkout release'
+  puts "Merging master"
   system 'git merge master'
+  puts "Bundling static assets"
   Rake::Task["bundle_static_assets"].execute
+  puts "Adding compiled JS"
   system 'git add public/js'
+  puts "Git commit..."
   system 'git commit -m "automated deploy"'
+  puts "Pushing to heroku release:master"
   system 'git push -f heroku release:master'
+  puts "Checking out master again"
   system 'git checkout master'
 end
 
