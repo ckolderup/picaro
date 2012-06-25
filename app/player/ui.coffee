@@ -1,8 +1,12 @@
 define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscore"], ($, util, Item, Room, Inventory, Talk) ->
   itemTriggers = []
   UI =
+    messageDiv:
+      $("#game")
+
     updateStatus: (message) ->
       $(document).trigger "updateStatus", message
+      UI.messageDiv.scrollTop(UI.messageDiv.height())
 
     resetForNewRoom: (room, roomItems) ->
       message = room.description || "You enter #{room.name}."
@@ -61,10 +65,11 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     # TODO: remove the first, old classes if the styles remain unused
     newStatusMessage: (message, messageClass) ->
       $("p.new:first ").removeClass("new").addClass "old"
+
       n = $("p.old").length
       $("p.old:first").remove()  if n > 5
       messageClass ||= "new"
-      $("#game").append "<p class='#{messageClass}'>" + message + "</p>"
+      UI.messageDiv.append "<p class='#{messageClass}'>" + message + "</p>"
 
     changeRoom: (e, roomData) ->
       room = roomData.room
