@@ -27,6 +27,7 @@ describe "Playing Picaro/melee_island: " do
       click_compass_direction 'south'
 
       room_header.text.should == "SCUMM BAR TRAIL"
+      latest_update.should have_content "You see a poster."
       move_action.click
 
       # this room has paths to the north, east and south.

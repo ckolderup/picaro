@@ -1,9 +1,10 @@
 %h2{:class => 'games-list'}
   %a{:href => '/games', class: "#{'active' if !my_games}"}
     All Games
-  \/
-  %a{:href => '/games/mine', class: "#{'active' if my_games}"}
-    My Games
+  - if current_user
+    \/
+    %a{:href => '/games/mine', class: "#{'active' if my_games}"}
+      My Games
 
 %ul{:id => 'games-list'}
   - for game in games

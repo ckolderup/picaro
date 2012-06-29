@@ -30,6 +30,7 @@ rooms:
     description: The cliff trail ends abruptly in a stony beach. A boardwalk leads across the moonlit waters towards a run-down, but brightly lit tavern.
     items:
       poster:
+        name: a poster
         look: Re-elect Governor Marley. "When there's only one candidate, there's only one choice."
     paths:
       N: Lookout Point
