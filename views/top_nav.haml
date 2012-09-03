@@ -25,6 +25,7 @@
   - else
     %ul
       %li
-        %a{:href => "#{ENV['SECURE_SITE_ROOT']}/signup"} Signup
+        / was #{ENV['SECURE_SITE_ROOT']}
+        %a{:href => "/signup"} Signup
       %li
-        %a{:href => "#{ENV['SECURE_SITE_ROOT']}/login"} Login
+        %a{:href => "/login"} Login
