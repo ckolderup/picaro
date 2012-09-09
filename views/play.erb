@@ -16,131 +16,125 @@
     <link rel="apple-touch-startup-image" href="/ios-startup-iphone.png" media="screen and (max-device-width: 320px)" />
     <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" href="/ios-startup-iphone@2x.png">
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
   </head>
 
-  <body id="player">
-    <div class='scrollable'>
-      <div id="navigation">
-        <span class="top-menu">
-          <a href="<%= ENV['SITE_ROOT'] %>">Exit Game</a>
-        </span>
-        <div id="header">
-          <h2></h2>
-          <a id="header-move" href="#">Move</a>
-        </div>
+  <body>
+
+    <div id="container">
+
+      <div id="header">
+        <h2></h2>
+        <a id="header-move" href="#">Move</a>
       </div>
 
-      <div id="container">
-        <div id="game"></div>
+      <div id="game">
+      </div>
 
-        <div id="footer">
+      <div id="footer">
+        <ul>
+          <li id="footer-look"><a href="#" class="action look">Look</a></li><li id="footer-take"><a href="#" class="action take">Take</a></li><li id="footer-use"><a href="#" class="action use">Use</a></li><li id="footer-talk"><a href="#" class="action talk">Talk</a></li><li id="footer-attack"><a href="#" class="action attack">Attack</a></li>
+        </ul>
+      </div>
+
+      <div id="move">
+        <div id="move-preview" class="ui-modal">
+          <div class="ui-modal-notch"></div>
+          <div class="ui-modal-inner">
+            ???
+          </div>
+        </div>
+        <div id="move-compass">
           <ul>
-            <li id="footer-look"><a href="#" class="action look">Look</a></li><li id="footer-take"><a href="#" class="action take">Take</a></li><li id="footer-use"><a href="#" class="action use">Use</a></li><li id="footer-talk"><a href="#" class="action talk">Talk</a></li><li id="footer-attack"><a href="#" class="action attack">Attack</a></li>
+            <li id="move-compass-north"><a href="#" class="path"><span>N</span></a></li>
+            <li id="move-compass-east"><a href="#" class="path"><span>E</span></a></li>
+            <li id="move-compass-south"><a href="#" class="path"><span>S</span></a></li>
+            <li id="move-compass-west"><a href="#" class="path"><span>W</span></a></li>
           </ul>
         </div>
-
-        <div id="move">
-          <div id="move-preview" class="ui-modal">
-            <div class="ui-modal-notch"></div>
-            <div class="ui-modal-inner">
-              ???
-            </div>
-          </div>
-          <div id="move-compass">
-            <ul>
-              <li id="move-compass-north"><a href="#" class="path"><span>N</span></a></li>
-              <li id="move-compass-east"><a href="#" class="path"><span>E</span></a></li>
-              <li id="move-compass-south"><a href="#" class="path"><span>S</span></a></li>
-              <li id="move-compass-west"><a href="#" class="path"><span>W</span></a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div id="action-look" class="ui-action">
-          <div class="ui-action-sheet ui-modal">
-            <div class="ui-modal-notch ui-action-sheet-notch-1"></div>
-            <div class="ui-modal-inner">
-              <a class="ui-action-sheet-back" href="#">&larr;</a>
-              <h3>Look at&hellip;</h3>
-              <div class="ui-scroller">
-                <ul id="Look">
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="action-take" class="ui-action">
-          <div class="ui-action-sheet ui-modal">
-            <div class="ui-modal-notch ui-action-sheet-notch-2"></div>
-            <div class="ui-modal-inner">
-              <a class="ui-action-sheet-back" href="#">&larr;</a>
-              <h3>Take&hellip;</h3>
-              <div class="ui-scroller">
-                <ul id="Take">
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="action-use" class="ui-action">
-          <div class="ui-action-sheet ui-modal">
-            <div class="ui-modal-notch ui-action-sheet-notch-3"></div>
-            <div class="ui-modal-inner">
-              <a class="ui-action-sheet-back" href="#">&larr;</a>
-              <h3>Use&hellip;</h3>
-              <div class="ui-scroller">
-                <ul id="Use">
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="action-talk" class="ui-action">
-          <div id="action-talk-character" class="ui-action-sheet ui-modal">
-            <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
-            <div class="ui-modal-inner">
-              <h3>Vampire:</h3>
-              <div id="action-talk-character-message">
-                <p></p>
-              </div>
-            </div>
-          </div>
-          <div id="action-talk-player" class="ui-action-sheet ui-modal">
-            <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
-            <div class="ui-modal-inner">
-              <h3>You say&hellip;</h3>
-              <div class="ui-scroller">
-                <ul id="Talk">
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="action-attack" class="ui-action">
-          <div class="ui-action-sheet ui-modal">
-            <div class="ui-modal-notch ui-action-sheet-notch-5"></div>
-            <div class="ui-modal-inner">
-              <a class="ui-action-sheet-back" href="#">&larr;</a>
-              <h3>Attack&hellip;</h3>
-              <div class="ui-scroller">
-                <ul id="Attack">
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <div class="ui-overlay"></div>
+      <div id="action-look" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-1"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Look at&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Look">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="action-take" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-2"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Take&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Take">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="action-use" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-3"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Use&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Use">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="action-talk" class="ui-action">
+        <div id="action-talk-character" class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
+          <div class="ui-modal-inner">
+            <h3>Vampire:</h3>
+            <div id="action-talk-character-message">
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div id="action-talk-player" class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-4"></div>
+          <div class="ui-modal-inner">
+            <h3>You say&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Talk">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="action-attack" class="ui-action">
+        <div class="ui-action-sheet ui-modal">
+          <div class="ui-modal-notch ui-action-sheet-notch-5"></div>
+          <div class="ui-modal-inner">
+            <a class="ui-action-sheet-back" href="#">&larr;</a>
+            <h3>Attack&hellip;</h3>
+            <div class="ui-scroller">
+              <ul id="Attack">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <script>
-      window.game_source = <%= @game_source %>;
-    </script>
+
+    <div class="ui-overlay"></div>
 
     <script>
       var require = {
@@ -168,6 +162,10 @@
         }
       </script>
     <% end %>
+
+    <script>
+      window.game_source = <%= @game_source %>;
+    </script>
   </body>
 
 </html>
