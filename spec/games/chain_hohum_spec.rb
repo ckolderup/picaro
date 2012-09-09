@@ -5,9 +5,13 @@ describe "Playing Picaro/chain_hohum: " do
   before { play 'chain_hohum' }
 
   let(:use)       { find('#footer-use a') }
+  let(:look)       { find('#footer-look a') }
   let(:take)      { find('#footer-take a') }
+  let(:attack)    { find('#footer-attack a') }
+
   let(:take_menu) { find('#action-take') }
   let(:use_menu)  { find('#action-use') }
+  let(:attack_menu)  { find('#action-attack') }
 
   context "using an item on another item" do
     it "replaces the two items with a new one" do
@@ -41,6 +45,33 @@ describe "Playing Picaro/chain_hohum: " do
       nth_latest_update(3).text.should match /You place the sunglasses on the jackalopes face. Hey, cool Jackalope./
       nth_latest_update(2).text.should match /Nothing that cool ever happened again. You died a sad man./
       ending_update.text.should match /This has been “Chain Hohum” by Casey Kolderup/u
+    end
+  end
+
+  context "attack the attackable" do
+    it "displays messages as hitpoints count down" do
+      attack.click
+      action_link('attack', 'jacques%27oLope').click
+      latest_update.text.should match /Jackalopes are endangered- what kind of person ARE you\?/
+
+      [ /The sunglasses fall to the floor./,
+        /You dent the sunglasses./,
+        /You crack the sunglasses/,
+        /You destroy the sunglasses!/,
+      ].each do |message|
+        attack.click
+        action_link('attack', 'sunglasses').click
+
+        latest_update.text.should match message
+      end
+
+      # The sunglasses have been destroyed
+      look.click
+      page.should have_no_selector action_link_selector('look', 'sunglasses')
+
+      # But the Jackalope? He's fine.
+      look.click
+      page.should have_selector action_link_selector('use', 'jacques%27oLope')
     end
   end
 

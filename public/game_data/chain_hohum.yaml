@@ -19,6 +19,26 @@ events:
 - id: endTheGame
   type: endGame
   message: Nothing that cool ever happened again. You died a sad man.
+- id: checkSunglassesHitPoints
+  type: checkAttribute
+  attribute: hitPoints
+  item: sunglasses
+  when:
+    0:
+      message: You destroy the sunglasses!
+      after: destroySunglasses
+    1: You crack the sunglasses
+    2: You dent the sunglasses.
+    3: The sunglasses fall to the floor.
+    4: You never see this message.
+- id: reduceSunglassesHitPoints
+  type: decreaseAttribute
+  by: 1
+  attribute: hitPoints
+  item: sunglasses
+- id: destroySunglasses
+  type: removeItem
+  item: sunglasses
 
 rooms:
   The Rumpus Room:
@@ -26,13 +46,20 @@ rooms:
     items:
       Sunglasses:
         take: true
+        attack:
+          after:
+            - checkSunglassesHitPoints
+            - reduceSunglassesHitPoints
+        hitPoints: 3
       "Jacques 'o Lope":
         take: true
+        attack: Jackalopes are endangered- what kind of person ARE you?
         use:
           Sunglasses:
             after:
             - replaceWithCoolJackelope
             - endTheGame
+
   Palo Alto:
     items:
       - name: Hank Azaria

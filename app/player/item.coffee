@@ -77,9 +77,12 @@ define [ "jquery", "util", "inventory", "talk", "action_guard", "util", "vendor/
       $(document).trigger "beginTalk", this
 
     actionAttack: ->
-      @attackNum ||= 0
-      $(document).trigger "updateStatus", @attack[@attackNum]
-      @attackNum += 1 if @attack.length > (@attackNum + 1)
+      if typeof @attack is 'string'
+        $(document).trigger("updateStatus", @attack)
+      else if @attack.actionGuard
+        ActionGuard.test @attack
+      else
+        $(document).trigger "gameEvent", @attack if @attack.after
 
     # Add the item to the Inventory- skips any guards that might be in place.
     immediateTake: ->

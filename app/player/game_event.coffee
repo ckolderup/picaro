@@ -60,6 +60,25 @@ define [ "jquery", "game", "item", "inventory", "room", "util", "vendor/undersco
       Item.find(gameEvent.item)[gameEvent.attribute] = gameEvent.newValue
       $(document).trigger "resetMenus"
 
+    decreaseAttribute: (gameEvent) ->
+      item = Item.find(gameEvent.item)
+      item[gameEvent.attribute] -= gameEvent.by
+
+    increaseAttribute: (gameEvent) ->
+      item = Item.find(gameEvent.item)
+      item[gameEvent.attribute] += gameEvent.by
+
+    # The gameEvent specifies an item, an attribute to check, and a dictionary ("when"). If the value is found in the "when" dictionary, the event with that ID will be triggered. Lastly, a catch-all event, 'else', can be fire if no other value matches.
+    checkAttribute: (gameEvent) ->
+      attributeValue = Item.find(gameEvent.item)[gameEvent.attribute]
+      if event = gameEvent.when[attributeValue] || gameEvent.when.else
+        if typeof event is 'string'
+          $(document).trigger "updateStatus", event
+        else if event.after
+          $(document).trigger "updateStatus", event.message if event.message
+          @verifyAndExecute event.after
+
+
     # Triggers the UI to disable itself and show the end-game message.
     endGame: (gameEvent) ->
       gameName = Game.current.name || "a mysteriously un-named Picaro Game"
