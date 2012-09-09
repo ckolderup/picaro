@@ -19,6 +19,7 @@ events:
 - id: endTheGame
   type: endGame
   message: Nothing that cool ever happened again. You died a sad man.
+
 - id: checkSunglassesHitPoints
   type: checkAttribute
   attribute: hitPoints
@@ -31,6 +32,7 @@ events:
     2: You dent the sunglasses.
     3: The sunglasses fall to the floor.
     4: You never see this message.
+
 - id: reduceSunglassesHitPoints
   type: decreaseAttribute
   by: 1
@@ -42,9 +44,12 @@ events:
 
 rooms:
   The Rumpus Room:
+    paths:
+      S: Palo Alto
     starter: true
     items:
       Sunglasses:
+        name: sunglasses
         take: true
         attack:
           after:
@@ -61,5 +66,9 @@ rooms:
             - endTheGame
 
   Palo Alto:
+    paths:
+      N: The Rumpus Room
     items:
-      - name: Hank Azaria
+      Hank Azaria:
+        name: Hank Azaria
+        look: He's looking a little older than that time you saw him on Inside the Actor's Studio.
