@@ -1,23 +1,24 @@
-define [ "jquery" ], ($) ->
+define [ "jquery", "game" ], ($, Game) ->
 
+  # Takes an array, either of Strings or Items. If Items, takes their names.
   arrayToSentence: (array, options = {}) ->
     separator = options.separator or ", "
-    lastSeparator = options.lastSeparator || " and "
+    lastSeparator = options.lastSeparator or " and "
     string = ""
+    for obj, i in array
+      word = if @typeOf(obj) is "string" then obj else obj.name
 
-    for word, i in array
       firstLetter = word[0]
       if firstLetter.toUpperCase() is firstLetter
         vowels = "AEIOU".split('')
-        if _.include vowels, firstLetter
-          string += "an "
-        else
-          string += "a "
-      string += word
+        string += if _.include vowels, firstLetter then "an " else "a "
+
+      string += if Game.current.inlineActions and obj.linkifiedName then obj.linkifiedName() else word
+
       firstLetter = word[0]
       if i is array.length - 2
         string += lastSeparator
-      else string += separator  if i < array.length - 1
+      else string += separator if i < array.length - 1
     string + "."
 
   arrayEquality: (a, b) ->
@@ -42,10 +43,13 @@ define [ "jquery" ], ($) ->
     object.id || object.name
 
   actionId: (item, action) ->
-    action + "-" + item.id
+    action + '-' + item.id
 
   splitActionId: (domNode) ->
     $(domNode).data("action-id").split "-"
+
+  stringChomp: (string) ->
+    string.replace /(\n|\r)+$/, ''
 
   getQueryParams: ->
     queryString = location.search.replace('?', '').split('&')

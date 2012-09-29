@@ -9,10 +9,9 @@ define [ "jquery", "item", "inventory", "util", "vendor/underscore" ], ($, Item,
 
     init: (startingRoom) ->
       @current = startingRoom
-      roomItems = Item.findByRoom(startingRoom)
       $(document).trigger "changeRoom",
         room: startingRoom
-        items: roomItems
+        items: Item.findByRoom(@current)
 
     starter: ->
       _(@allById).find (room) -> room.starter is true

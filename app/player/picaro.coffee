@@ -9,24 +9,24 @@ require [ "jquery", "game", "util", "room", "inventory", "item", "ui", "game_eve
     data = window.game_source
     startingRoom = undefined
 
+    # These are items not attached to a specific room- most notably the "self" item which represents the player.
+    for id, item of data.unattachedItems
+      Item.create item, id: id
+
+    # Initialize the starting room and all items within each room.
     for id, room of data.rooms
       room.id = Util.toIdString id
       room.name ||= id
       startingRoom = room if room.starter
       Room.allById[room.id] = room
 
-      _(room.items).map (item, id) ->
-        Item.create(item, id: id, location: room.id)
-
-    # These are items not attached to a specific room- most notably the "self" item which represents the player.
-    for id, item of data.unattachedItems
-      Item.create item, id: id
+      _(room.items).map (item, id) -> Item.create(item, id: id, location: room.id)
 
     # Initialize the main datatypes.
+    Game.init data
     GameEvent.init data.events
     ActionGuard.init data.actionGuards
     Room.init startingRoom
-    Game.init data
 
     # Finally, initialize the user interface.
     UI.init(data.gameName)
