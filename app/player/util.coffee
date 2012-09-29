@@ -7,7 +7,6 @@ define [ "jquery", "game" ], ($, Game) ->
     string = ""
     for obj, i in array
       word = if @typeOf(obj) is "string" then obj else obj.name
-
       firstLetter = word[0]
       if firstLetter.toUpperCase() is firstLetter
         vowels = "AEIOU".split('')

@@ -1,8 +1,9 @@
-define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscore"], ($, util, Item, Room, Inventory, Talk) ->
+define ["jquery", "game", "util", "item", "room", "inventory", "talk", "vendor/underscore"], ($, Game, util, Item, Room, Inventory, Talk) ->
   itemTriggers = []
   UI =
-    messageDiv:
-      $("#game")
+    messageDiv: $("#game")
+
+
 
     updateStatus: (message) ->
       $(document).trigger "updateStatus", message
@@ -16,18 +17,36 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       @resetMenus()
       @resetCompass(room)
 
-    renderMenuItem: (item, verb, showHeld) ->
+    renderNounMenuItem: (item, verb, showHeld) ->
       heldIndicator = "<small>(held)</small>"
-      $("#action-#{verb} ul").append "<li>
+      $("#action-#{verb} ul").append(
+        "<li>
           <a href='#' class='item' data-action-id='#{util.actionId(item, verb)}'>
             #{item.name} #{if showHeld then heldIndicator else ''}
           </a>
-        </li>"
+        </li>")
+
+    renderVerbMenuItem: (item, verb) ->
+      "<li>
+        <a href='#' class='verb action' data-action-id='#{util.actionId(item, verb)}'>
+          #{verb}
+        </a>
+      </li>"
+
+    renderInlineMenuItem: ->
+      item = Item.find($(this).data('item-id'))
+      listItems = ''
+
+      for verb in Game.current.unaryVerbs
+        # If the item responds to the verb, the action will be drawn as a menu item.
+        listItems += UI.renderVerbMenuItem(item, verb) if item[verb]
+
+      for verb in Game.current.binaryVerbs
+        listItems += UI.renderVerbMenuItem(item, verb) if item[verb]
+
+      "<ul>#{listItems}</ul>"
 
     resetMenus: ->
-      unaryVerbs = ['look', 'take', 'talk', 'attack']
-      binaryVerbs = ['use']
-
       # What goes in the action menus? Everything in the Room, plus everything in your Inventory.
       itemsForMenus = Item.findByRoom(Room.current).concat(Inventory.list())
       # Special case for the "Self" item.
@@ -35,13 +54,13 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
 
       $(".ui-action ul").empty()
       for item in itemsForMenus
-        for verb in unaryVerbs
+        for verb in Game.current.unaryVerbs
           # If the item responds to the verb, the action will be drawn as a menu item.
-          UI.renderMenuItem(item, verb, Inventory.include(item.id)) if item[verb]
+          UI.renderNounMenuItem(item, verb, Inventory.include(item.id)) if item[verb]
 
-        for verb in binaryVerbs
+        for verb in Game.current.binaryVerbs
           # TODO: When should Use be shown? Show it always, for now.
-          UI.renderMenuItem(item, verb, Inventory.include(item.id))
+          UI.renderNounMenuItem(item, verb, Inventory.include(item.id))
 
     resetCompass: (room) ->
       $("#move li").addClass "disabled"
@@ -99,6 +118,15 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     hideCompass: ->
       $("#move").fadeOut 'fast'
 
+    itemAction: (action, item, event) ->
+      item = Item.find item
+      $(document).trigger "actionLook", item if action is "look"
+      $(document).trigger "actionTake", item if action is "take"
+      $(document).trigger "actionAttack", item if action is "attack"
+      if action is "use"
+        event.stopPropagation()
+        false
+
     init: (gameName) ->
       $("title").html gameName
 
@@ -118,7 +146,7 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         $(menuSelector + " ul li a").live "click", (event) ->
           actionAndId = util.splitActionId(this)
           $(this).trigger "closeMenu"
-          itemAction actionAndId[0], actionAndId[1], event
+          UI.itemAction(actionAndId[0], actionAndId[1], event)
 
       $("#header-move, #move").click ->
         $("#move").fadeToggle "fast"
@@ -135,15 +163,6 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       $("#move-compass li:not(.disabled) a").mouseout ->
         $("#move-preview").fadeOut "fast"
         false
-
-      itemAction = (action, item, event) ->
-        item = Item.find item
-        $(document).trigger "actionLook", item if action is "look"
-        $(document).trigger "actionTake", item if action is "take"
-        $(document).trigger "actionAttack", item if action is "attack"
-        if action is "use"
-          event.stopPropagation()
-          false
 
   # Event Binding
   # ================
@@ -220,7 +239,6 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     $("#action-talk-player").hide()
     $(document).trigger "resetMenus"
 
-
   # Menus
   # ----------------
   $(".ui-action").bind "openMenu", (e, i) ->
@@ -241,5 +259,17 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
   $(document).bind "resetMenus", UI.resetMenus
   $(document).bind "itemTaken", UI.itemTaken
   $(document).bind "changeRoom", UI.changeRoom
+
+  $('.verb.action').live 'click', (event) ->
+    actionAndId = util.splitActionId(this)
+    $(this).trigger "closeMenu"
+    UI.itemAction(actionAndId[0], actionAndId[1], event)
+
+  $(document).popover({
+    content: UI.renderInlineMenuItem,
+    trigger: 'hover',
+    selector: '.inline-item',
+    delay: { show: 50, hide: 1000 }
+  })
 
   UI

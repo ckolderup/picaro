@@ -121,7 +121,7 @@ define [ "jquery", "game", "util", "inventory", "talk", "action_guard", "util", 
       new RegExp("#{@name}\\b", 'ig')
 
     linkifiedName: ->
-      "<a class='inline-item' href='#' data-item-id='#{@id}'>#{@name}</a>"
+      "<a rel='popover' class='inline-item' href='#' data-trigger='hover' data-item-id='#{@id}' data-title='#{@name}'>#{@name}</a>"
 
     # If your game has "inlineActions" set to true, this will wrap each mention of the item's name in an action link.
     linkifiedDescription: ->
