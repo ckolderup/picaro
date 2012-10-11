@@ -1,6 +1,7 @@
 ---
 gameName: Melee Island
 gameDescription: An example stolen from the Monkey Island by Ron Gilbert et al
+inlineActions: true
 version: 1
 
 # *** Unattached Items ***
@@ -17,9 +18,8 @@ rooms:
     starter: true
     description: You're standy in an alcove cut from the cliffside. A campfire illuminates a low brick wall.
     items:
-      lookout:
-        name: Old Lookout
-        description: A man with a white, wind-blown beard stands beside it, keeping solitary watch.
+      old lookout:
+        description: An old lookout with a white, wind-blown beard stands beside it, keeping solitary watch.
         look: His skin is weathered by sand and seasalt. His gazes out to see through glasses with grog-bottle lenses.
         talk: Eh, what's that you say Sonny? Speak up!
         attack: Yikes! Don't sneak up on me like that.
