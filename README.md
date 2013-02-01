@@ -2,6 +2,7 @@
 
 Powered by Sinatra, DataMapper, raw human creativity
 
+[![build status](https://secure.travis-ci.org/hoverbird/picaro.png?branch=master)](https://secure.travis-ci.org/hoverbird/picaro)
 
 Setup
 -----
