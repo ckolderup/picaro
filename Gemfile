@@ -20,7 +20,6 @@ group :development do
   gem "tux"
   gem "heroku"
   gem "shotgun"
-  gem "travis-lint"
 end
 
 group :test do
