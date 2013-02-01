@@ -61,6 +61,16 @@ task :deploy do
   system 'git checkout master'
 end
 
+task :travis do
+  puts "Grabbing chromedriver..."
+  mkdir_p "/tmp/bin"
+  system "cd /tmp/bin && wget http://chromium.googlecode.com/files/chromedriver_linux32_16.0.902.0.zip && unzip chromedriver_linux32_16.0.902.0.zip"
+
+  puts "Starting to run tests..."
+  system("export PATH=/tmp/bin:$PATH && export DISPLAY=:99.0 && bundle exec rake test")
+  raise "`rake test` failed!" unless $?.exitstatus == 0
+end
+
 desc "Start up local Sinatra app with environment variables on localhost:9292"
 task :rackup do
   system("source ./env.sh && bundle exec rackup -D --pid #{pid_file}")
