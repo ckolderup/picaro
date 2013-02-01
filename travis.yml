@@ -1,6 +1,14 @@
-before_script: "sh -e /etc/init.d/xvfb start && sudo aptitude -y -q install unzip chromium-browser"
-script: "bundle exec rake travis"
+language: ruby
+before_install: 
+  - wget https://chromedriver.googlecode.com/files/chromedriver_linux32_21.0.1180.4.zip -O chromedriver.zip
+  - unzip chromedriver.zip
+  - sudo cp chromedriver /usr/local/bin
+  - sudo chmod 777 /usr/local/bin/chromedriver
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+script: bundle exec rake
 rvm:
   - 1.9.3
-language: ruby
+
 
