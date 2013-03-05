@@ -134,7 +134,12 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         var menuSelector;
         menuSelector = "#action-" + action;
         $("#footer-" + action + " a").click(function() {
-          $(menuSelector).fadeIn("fast");
+          if($("#action-" + action).is(":visible")) {
+            return $("#action-" + action).trigger("closeMenu");
+          }
+          else {
+          return $("#action-" + action).trigger("openMenu");
+          }
           return false;
         });
         $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click(function() {
@@ -193,6 +198,7 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     return $(this).parent().addClass("active");
   });
   $(".ui-overlay").click(function() {
+    $("#footer ul li.active").removeClass("active")
     return $(".ui-action, .ui-overlay, #move").fadeOut("fast");
   });
   $("a.path:not(.disabled)").click(function() {
@@ -219,10 +225,20 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     }
   });
   $("#footer-use").click(function() {
+    if($("#action-use").is(":visible")) {
+      return $("#action-use").trigger("closeMenu");
+    }
+    else {
     return $("#action-use").trigger("openMenu");
+    }
   });
   $("#footer-talk").click(function() {
+    if($("#action-talk").is(":visible")) {
+      return $("#action-talk").trigger("closeMenu");
+    }
+    else {
     return $("#action-talk").trigger("openMenu");
+    }
   });
   $("#action-talk li a.item").live("click", function() {
     var itemId;
@@ -254,6 +270,7 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     return $(this).fadeIn("fast").addClass("active");
   });
   $(".ui-action").bind("closeMenu", function() {
+    $("#footer ul li.active").removeClass("active")
     $(this).fadeOut("fast").removeClass("active");
     return $(".ui-overlay").fadeOut("fast");
   });
