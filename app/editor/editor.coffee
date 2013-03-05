@@ -56,7 +56,12 @@ define [ "jquery", "room", "util", "vendor/underscore" ], ($, Room, util) ->
     resetGameData: (game) ->
       if game and game.rooms
         Editor.yamlIsValid true
-        Room.construct(id, room) for id, room of game.rooms
+        for id, room of game.rooms
+          if room.name.length > 20
+            # TODO: move this to a Game.isValid() function
+            Editor.yamlIsValid(false, "Room names must be 20 characters or less.")
+          else
+            Room.construct(id, room)
         $('.game-name').html game.gameName
         $("#roomNum").html(game.rooms.length)
         $(".rooms").empty()

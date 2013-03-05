@@ -106,8 +106,12 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       oldMenus = _([ "look", "take", "attack" ])
       oldMenus.each (action) ->
         menuSelector = "#action-" + action
+
         $("#footer-" + action + " a").click ->
-          $(menuSelector).fadeIn "fast"
+          if $("#action-" + action).is(":visible")
+            $(menuSelector).trigger("closeMenu")
+          else
+            $(menuSelector).trigger("openMenu");
           false
 
         $(menuSelector + ".ui-overlay," + menuSelector + " .ui-action-sheet-back").click ->
@@ -156,6 +160,7 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     $(this).parent().addClass "active"
 
   $(".ui-overlay").click ->
+    $("#footer ul li.active").removeClass "active"
     $(".ui-action, .ui-overlay, #move").fadeOut "fast"
 
   $("a.path:not(.disabled)").click ->
@@ -184,14 +189,22 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       itemTriggers = []
 
   $("#footer-use").click ->
-    $("#action-use").trigger "openMenu"
+    useMenu = $("#action-use")
+    if useMenu.is ":visible"
+      useMenu.trigger "closeMenu"
+    else
+      useMenu.trigger "openMenu"
 
   # Talk
   # ----------------
 
   # Open the talk menu, in order to select someone in the Room to talk to.
   $("#footer-talk").click ->
-    $("#action-talk").trigger "openMenu"
+    talkMenu = $("#action-talk")
+    if talkMenu.is ":visible"
+      talkMenu.trigger "closeMenu"
+    else
+      talkMenu.trigger "openMenu"
 
   # Talk menu click handlers - these are for starting converations
   $("#action-talk li a.item").live "click", ->
@@ -228,6 +241,7 @@ define ["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
     $(this).fadeIn("fast").addClass "active"
 
   $(".ui-action").bind "closeMenu", ->
+    $("#footer ul li.active").removeClass("active")
     $(this).fadeOut("fast").removeClass "active"
     $(".ui-overlay").fadeOut "fast"
 
