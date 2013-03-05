@@ -154,19 +154,19 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
         $(".ui-overlay").fadeToggle("fast");
         return false;
       });
-      $("#move-compass li").mouseover(function() {
-        var roomName;
-        if (!$(this).hasClass("disabled")) {
-          roomName = $(this).children("a").data("room-name");
-          $("#move-preview .ui-modal-inner").html(roomName);
-          $("#move-preview").fadeIn("fast");
-        }
-        return false;
-      });
-      $("#move-compass li:not(.disabled) a").mouseout(function() {
-        $("#move-preview").fadeOut("fast");
-        return false;
-      });
+      $("#move-compass li").hover(
+        function() {
+          var roomName;
+          if (!$(this).hasClass("disabled")) {
+            roomName = $(this).children("a").data("room-name");
+            $("#move-preview .ui-modal-inner").html(roomName);
+            $("#move-preview").fadeIn("fast");
+          }
+        },
+         function() {
+            $("#move-preview").fadeOut("fast");
+         }
+      );
       return itemAction = function(action, item, event) {
         item = Item.find(item);
         if (action === "look") {
@@ -236,7 +236,7 @@ define(["jquery", "util", "item", "room", "inventory", "talk", "vendor/underscor
       return $("#action-talk-player ul").append($("<li><a class='talkResponse' data-response-id='" + index + "' href='#'>" + response.message + "</a></li>"));
     });
   });
-  $('#action-talk-player a.talkResponse').live('click', event, function() {
+  $('#action-talk-player a.talkResponse').live('click', function(event) {
     Talk.answerQuestion($(this).data("response-id"));
     return event.stopPropagation();
   });
